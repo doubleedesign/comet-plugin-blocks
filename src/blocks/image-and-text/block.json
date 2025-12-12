@@ -1,0 +1,28 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "comet/image-and-text",
+	"title": "Featured text + image",
+	"description": "Pair a featured text block with an image",
+	"textdomain": "comet",
+	"icon": "cover-image",
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./editor.css",
+	"parent": [
+		"comet/container"
+	],
+	"category": "design",
+	"keywords": [
+		"image",
+		"call-to-action",
+		"pullquote",
+		"featured"
+	],
+	"supports": {
+		"jsx": true,
+		"innerBlocks": true,
+		"anchor": true,
+		"ariaLabel": true,
+		"layout": false
+	}
+}
