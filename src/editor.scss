@@ -1,0 +1,206 @@
+@use "../vendor/doubleedesign/comet-components-core/src/components/variables" as *;
+@use "../vendor/doubleedesign/comet-components-core/src/components/PageHeader/page-header" as *;
+@use "../vendor/doubleedesign/comet-components-core/src/components/Columns/columns" as *;
+@use "../vendor/doubleedesign/comet-components-core/src/components/Columns/Column/column" as *;
+@use "../vendor/doubleedesign/comet-components-core/src/components/Separator/separator" as *;
+@use "../vendor/doubleedesign/comet-components-core/src/components/ButtonGroup/button-group" as *;
+@use "../vendor/doubleedesign/comet-components-core/src/components/Button/button" as *;
+@use "../vendor/doubleedesign/comet-components-core/src/components/Pullquote/pullquote" as *;
+@use "../vendor/doubleedesign/comet-components-core/src/components/Table/table" as *;
+
+// In the editor, make the page title section resemble the PageHeader component
+// It won't always be the same because it won't have the breadcrumbs,
+// and site-specific overrides may be needed, but this is a start
+.editor-visual-editor__post-title-wrapper {
+	@extend .page-header;
+}
+
+body :where(.editor-styles-wrapper) {
+	font-family: var(--font-family-body) !important;
+
+	p, li, .link-group__link {
+		font-size: 1rem; // override WP default of 18px or 13px to standard 16px
+	}
+}
+
+/**
+ * Common classes used in the block editor for attributes in both core and custom blocks,
+ * but do not match Comet Components' handling of these attributes so need to be styled to match in the editor
+ */
+.is-content-justification-left {
+	justify-content: flex-start;
+}
+
+.is-content-justification-right {
+	justify-content: flex-end;
+}
+
+.is-content-justification-center {
+	justify-content: center;
+}
+
+// Comet Components uses start, center, end for alignment
+// But WordPress doesn't, and I don't want to pollute the Comet global CSS with WordPress-specific values
+[data-valign="top"] {
+	align-items: flex-start;
+}
+
+[data-valign="bottom"] {
+	align-items: flex-end;
+}
+
+[data-halign="left"] {
+	justify-content: flex-start;
+}
+
+[data-halign="right"] {
+	justify-content: flex-end;
+}
+
+/**
+ * Core and third-party plugin block CSS adjusted for the block editor, to be loaded only in the back-end.
+ * Comet custom block CSS should generally be in is own stylesheet which is referenced in its block.json.
+ * ACF blocks should load the same HTML as the front-end, so should be covered by bundled Comet CSS + theme CSS.
+ */
+@each $colorName, $value in $colors {
+	.color-#{$colorName} {
+		color: var(--color-#{$colorName});
+	}
+
+	.has-#{$colorName}-background-color {
+		background-color: var(--color-#{$colorName});
+		color: var(--readable-color-#{$colorName});
+	}
+
+	@each $colorName2, $value in $colors {
+		.has-#{$colorName}-#{$colorName2}-gradient-background {
+			background: linear-gradient(180deg, var(--color-#{$colorName}) 0%, var(--color-#{$colorName}) 50%, var(--color-#{$colorName2}) 50%, var(--color-#{$colorName2}) 100%);
+		}
+	}
+}
+
+.wp-block-heading {
+	margin-block: var(--spacing-md);
+
+	&.is-style-default {
+		font-family: var(--font-family-body);
+	}
+
+
+	@each $colorName, $value in $colors {
+		.color-#{$colorName} & {
+			color: var(--color-#{$colorName});
+		}
+	}
+}
+
+.wp-block-group {
+	&.has-background-color {
+		padding-block: var(--spacing-md);
+	}
+
+	@each $colorName, $value in $colors {
+		&.has-#{$colorName}-background-color {
+			& + & {
+				padding-block-start: 0;
+			}
+		}
+	}
+}
+
+.wp-block-paragraph {
+	margin-block: var(--spacing-sm) !important;
+	line-height: 1.4;
+}
+
+.wp-block-separator {
+	@extend .separator;
+
+	@each $name, $color in $colors {
+		&.has-#{$name}-background-color {
+			background-color: var(--color-#{$name});
+
+			&:before {
+				color: var(--color-#{$name});
+			}
+		}
+	}
+
+	&.is-style-dots {
+		@extend .separator--dots;
+	}
+}
+
+.wp-block-buttons {
+	@extend .button-group;
+}
+
+.wp-block-button {
+	line-height: 1;
+	@extend .button;
+
+	.wp-element-button[role="textbox"] {
+		font-size: 1rem;
+	}
+}
+
+// Hack to fix .wp-core-ui .button overriding our .button in the block editor (though strangely it doesn't happen in the pattern editor)
+.block-editor-inner-blocks .button {
+	color: inherit;
+	border-color: inherit;
+	border-radius: var(--button-border-radius);
+	font-size: inherit;
+	line-height: 1;
+	padding: var(--spacing-sm) var(--spacing-xl) var(--spacing-xs);
+	min-height: unset;
+	font-family: var(--font-family-body);
+	font-size: 1rem;
+
+	&[class$="--outline"] {
+		background: none;
+	}
+
+	@each $colorName, $value in $colors {
+		&.button--#{$colorName}--outline {
+			color: var(--color-#{$colorName});
+			border-color: var(--color-#{$colorName});
+		}
+	}
+}
+
+.wp-block-columns {
+	@extend .columns;
+
+	.wp-block-column {
+		@extend .column;
+
+		&.has-background {
+			padding: var(--spacing-md);
+		}
+	}
+}
+
+.wp-block-comet-table {
+	> table {
+		@extend .table;
+	}
+}
+
+.wp-block-pullquote {
+	@extend .pullquote;
+}
+
+.wp-block-gallery {
+	display: grid !important;
+	grid-gap: var(--spacing-md);
+
+	@for $i from 1 through 8 {
+		&.columns-#{$i} {
+			grid-template-columns: repeat(#{$i}, 1fr);
+		}
+	}
+
+	.wp-block-image {
+		width: 100% !important;
+	}
+}
