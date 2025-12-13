@@ -23,8 +23,6 @@ class BlockEditorConfig extends JavaScriptImplementation {
         remove_action('enqueue_block_editor_assets', 'wp_enqueue_editor_block_directory_assets');
         remove_action('enqueue_block_editor_assets', 'gutenberg_enqueue_block_editor_assets_block_directory');
 
-        add_action('enqueue_block_assets', [$this, 'enqueue_global_css'], 50); // for pattern editor
-
         add_action('init', [$this, 'load_merged_theme_json'], 5, 1);
         add_action('init', [$this, 'register_page_template'], 15, 2);
         add_filter('allowed_block_types_all', [$this, 'post_type_allowed_block_types'], 11, 2);
