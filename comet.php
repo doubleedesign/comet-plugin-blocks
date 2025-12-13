@@ -30,13 +30,15 @@ add_action('plugins_loaded', function() {
     Doubleedesign\Comet\Core\Config::getInstance();
 });
 
-use Doubleedesign\Comet\WordPress\{BlockEditorConfig,
+use Doubleedesign\Comet\WordPress\{AdminUI,
+    BlockEditorConfig,
     BlockPatternHandler,
     BlockRegistry,
     BlockRenderer,
     ComponentAssets,
     TinyMceConfig};
 
+new AdminUI();
 new BlockRegistry();
 new BlockRenderer();
 new BlockEditorConfig();
@@ -59,3 +61,13 @@ add_action('admin_head', function() { ?>
 	</style>
 	<?php
 });
+
+/**
+ * Disable the WP dashboard welcome panel because it may promote unsupported features
+ *
+ * @return void
+ */
+function doublee_dashboard_home(): void {
+    remove_action('welcome_panel', 'wp_welcome_panel');
+}
+add_action('admin_init', 'doublee_dashboard_home');
