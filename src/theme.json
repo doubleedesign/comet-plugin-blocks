@@ -4,21 +4,6 @@
 	"title": "Comet Components",
 	"settings": {
 		"appearanceTools": false,
-		"lightbox": {
-			"enabled": false
-		},
-		"typography": {
-			"lineHeight": false,
-			"dropCap": false,
-			"fontStyle": false,
-			"fontWeight": false,
-			"letterSpacing": false,
-			"textDecoration": false,
-			"textTransform": false,
-			"fontSizes": [],
-			"customFontSize": false,
-			"fontFamilies": []
-		},
 		"color": {
 			"text": false,
 			"background": true,
@@ -150,77 +135,6 @@
 					"gradient": "linear-gradient(180deg, #FFF 50%, #F0F0F2 50%)"
 				}
 			]
-		},
-		"border": {
-			"radius": false,
-			"style": false,
-			"width": false,
-			"color": false
-		},
-		"__experimentalBorder": {
-			"radius": false,
-			"style": false,
-			"width": false,
-			"color": false,
-			"__experimentalDefaultControls": {
-				"color": false,
-				"radius": false,
-				"style": false,
-				"width": false
-			}
-		},
-		"blocks": {
-			"core/image": {
-				"lightbox": {
-					"allowEditing": false,
-					"enabled": false
-				}
-			},
-			"core/paragraph": {
-				"color": {
-					"background": false
-				}
-			},
-			"core/heading": {
-				"color": {
-					"background": false
-				}
-			},
-			"core/list": {
-				"color": {
-					"background": false
-				}
-			},
-			"core/list-item": {
-				"color": {
-					"background": false
-				}
-			},
-			"core/buttons": {
-				"color": {
-					"background": false
-				}
-			},
-			"core/button": {
-				"color": {
-					"background": false
-				}
-			},
-			"core/details": {
-				"color": {
-					"background": false
-				}
-			},
-			"core/gallery": {
-				"color": {
-					"background": false
-				}
-			},
-			"core/pullquote": {
-				"color": {
-					"background": false
-				}
-			}
 		}
 	}
 }

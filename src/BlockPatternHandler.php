@@ -5,8 +5,8 @@ class BlockPatternHandler {
 
     public function __construct() {
         add_filter('should_load_remote_block_patterns', '__return_false');
-        add_filter('allowed_block_types_all', [$this, 'disable_block_patterns'], 100, 2);
-        add_filter('block_editor_settings_all', [$this, 'remove_patterns_from_inserter']);
+        add_filter('allowed_block_types_all', [$this, 'disable_block_patterns'], 10, 2);
+        add_filter('block_editor_settings_all', [$this, 'remove_patterns_from_inserter'], 10, 2);
         add_action('init', [$this, 'allowed_block_patterns'], 10, 2);
     }
 
@@ -15,10 +15,15 @@ class BlockPatternHandler {
      * NOTE: This must run AFTER the filtering in BlockRegistry.php or that will accidentally override this
      *
      * @param  $allowed_block_types
+     * @param  $editor_context
      *
-     * @return array
+     * @return array|bool
      */
-    public function disable_block_patterns($allowed_block_types): array {
+    public function disable_block_patterns($allowed_block_types, $editor_context): array|bool {
+        if (!is_array($allowed_block_types)) {
+            return $allowed_block_types;
+        }
+
         unset($allowed_block_types['core/block']);
 
         return $allowed_block_types;
@@ -31,16 +36,17 @@ class BlockPatternHandler {
      * the inserter UI is a bit shit IMO (because of how much it differs from blocks)
      * and I'd rather keep everything in the one Blocks area
      *
-     * @param  $editor_settings
+     * @param  $settings
+     * @param  $context
      *
      * @return array
      */
-    public function remove_patterns_from_inserter($editor_settings): array {
+    public function remove_patterns_from_inserter($settings, $context): array {
         if (isset($editor_settings['__experimentalFeatures'])) {
-            $editor_settings['__experimentalFeatures']['showPatternsList'] = false;
+            $settings['__experimentalFeatures']['showPatternsList'] = false;
         }
 
-        return $editor_settings;
+        return $settings;
     }
 
     /**
