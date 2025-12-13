@@ -241,6 +241,7 @@ return array(
     'Doubleedesign\\Comet\\Core\\WrappedPanelGroup' => $vendorDir . '/doubleedesign/comet-components-core/src/components/WrappedPanelGroup/WrappedPanelGroup.php',
     'Doubleedesign\\Comet\\WordPress\\AdminUI' => $baseDir . '/src/AdminUI.php',
     'Doubleedesign\\Comet\\WordPress\\BlockEditorConfig' => $baseDir . '/src/BlockEditorConfig.php',
+    'Doubleedesign\\Comet\\WordPress\\BlockFieldHandler' => $baseDir . '/src/BlockFieldHandler.php',
     'Doubleedesign\\Comet\\WordPress\\BlockPatternHandler' => $baseDir . '/src/BlockPatternHandler.php',
     'Doubleedesign\\Comet\\WordPress\\BlockRegistry' => $baseDir . '/src/BlockRegistry.php',
     'Doubleedesign\\Comet\\WordPress\\BlockRenderer' => $baseDir . '/src/BlockRenderer.php',

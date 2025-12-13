@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin name: Comet Components (Blocks))
+ * Plugin name: Comet Components (Blocks)
  * Description: Double-E Design's foundational components and customisations for the WordPress block editor.
  *
  * Dev note: The dependency on Gutenberg is because at the time of development, justification controls incorrectly show up for the Panels block.
@@ -18,7 +18,7 @@
  * @package Comet
  */
 if (!defined('COMET_COMPOSER_VENDOR_URL')) {
-    define('COMET_COMPOSER_VENDOR_URL', get_site_url() . '/wp-content/plugins/comet-plugin/vendor');
+    define('COMET_COMPOSER_VENDOR_URL', get_site_url() . '/wp-content/plugins/comet-plugin-blocks/vendor');
 }
 require_once __DIR__ . '/vendor/autoload.php';
 
@@ -32,6 +32,7 @@ add_action('plugins_loaded', function() {
 
 use Doubleedesign\Comet\WordPress\{AdminUI,
     BlockEditorConfig,
+    BlockFieldHandler,
     BlockPatternHandler,
     BlockRegistry,
     BlockRenderer,
@@ -44,23 +45,8 @@ new BlockRenderer();
 new BlockEditorConfig();
 new ComponentAssets();
 new BlockPatternHandler();
+new BlockFieldHandler();
 new TinyMceConfig();
-
-// Hackily disable (well, hide) the Style Book (Appearance > Design > Styles)
-// because it's not accurate and really possible to customise
-add_action('admin_head', function() { ?>
-	<style>
-		#stylebook-navigation-item {
-			display: none !important;
-			pointer-events: none !important;
-		}
-
-		.edit-site-style-book__iframe {
-			display: none !important;
-		}
-	</style>
-	<?php
-});
 
 /**
  * Disable the WP dashboard welcome panel because it may promote unsupported features
