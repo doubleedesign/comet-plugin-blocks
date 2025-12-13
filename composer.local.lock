@@ -171,12 +171,11 @@
             "dist": {
                 "type": "path",
                 "url": "../core",
-                "reference": "69bc2332a974e9a6e3ff07e2e2e8816ecd79d81d"
+                "reference": "2ca03a4eb211b4ea1225ac9763de410ea6fb7464"
             },
             "require": {
                 "ext-intl": "*",
                 "ezyang/htmlpurifier": "^4.18",
-                "feimosi/baguettebox.js": "^1.12.1",
                 "illuminate/container": "^10.0",
                 "illuminate/events": "^10.0",
                 "illuminate/filesystem": "^10.0",
@@ -293,48 +292,6 @@
                 "source": "https://github.com/ezyang/htmlpurifier/tree/v4.19.0"
             },
             "time": "2025-10-17T16:34:55+00:00"
-        },
-        {
-            "name": "feimosi/baguettebox.js",
-            "version": "v1.12.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/doubleedesign/baguetteBox.js.git",
-                "reference": "98488128ee10a26af391b263c4431448fba35935"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/doubleedesign/baguetteBox.js/zipball/98488128ee10a26af391b263c4431448fba35935",
-                "reference": "98488128ee10a26af391b263c4431448fba35935",
-                "shasum": ""
-            },
-            "type": "library",
-            "autoload": {
-                "classmap": [
-                    "dist/"
-                ]
-            },
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "feimosi",
-                    "homepage": "https://github.com/feimosi"
-                }
-            ],
-            "description": "Simple and easy to use lightbox script",
-            "homepage": "https://github.com/feimosi/baguetteBox.js",
-            "keywords": [
-                "gallery",
-                "image",
-                "javascript",
-                "lightbox"
-            ],
-            "support": {
-                "source": "https://github.com/doubleedesign/baguetteBox.js/tree/v1.12.1"
-            },
-            "time": "2025-03-08T05:27:52+00:00"
         },
         {
             "name": "illuminate/bus",

@@ -1,0 +1,46 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"textdomain": "comet",
+	"name": "comet/copy-image",
+	"title": "Copy + image",
+	"icon": "image-flip-horizontal",
+	"description": "Add a short section of text content with an image alongside it",
+	"category": "text",
+	"acf": {
+		"mode": "edit",
+		"renderTemplate": "render.php"
+	},
+	"keywords": [
+		"text",
+		"paragraph",
+		"content",
+		"image",
+		"photo",
+		"columns",
+		"layout"
+	],
+	"attributes": {
+		"verticalAlignment": {
+			"type": "string",
+			"default": "center"
+		},
+		"containerSize": {
+			"type": "string",
+			"default": "default"
+		},
+		"colorTheme": {
+			"type": "string",
+			"default": "primary"
+		}
+	},
+	"supports": {
+		"mode": true,
+		"jsx": true,
+		"innerBlocks": false,
+		"anchor": true,
+		"colorTheme": true,
+		"containerSize": true,
+		"align": false
+	}
+}

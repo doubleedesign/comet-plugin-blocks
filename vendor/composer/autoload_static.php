@@ -420,6 +420,7 @@ class ComposerStaticInit12ca57715cc7eef89094395652d6bfc9
         'Doubleedesign\\Comet\\Core\\WrappedPanelGroup' => __DIR__ . '/..' . '/doubleedesign/comet-components-core/src/components/WrappedPanelGroup/WrappedPanelGroup.php',
         'Doubleedesign\\Comet\\WordPress\\AdminUI' => __DIR__ . '/../..' . '/src/AdminUI.php',
         'Doubleedesign\\Comet\\WordPress\\BlockEditorConfig' => __DIR__ . '/../..' . '/src/BlockEditorConfig.php',
+        'Doubleedesign\\Comet\\WordPress\\BlockFieldHandler' => __DIR__ . '/../..' . '/src/BlockFieldHandler.php',
         'Doubleedesign\\Comet\\WordPress\\BlockPatternHandler' => __DIR__ . '/../..' . '/src/BlockPatternHandler.php',
         'Doubleedesign\\Comet\\WordPress\\BlockRegistry' => __DIR__ . '/../..' . '/src/BlockRegistry.php',
         'Doubleedesign\\Comet\\WordPress\\BlockRenderer' => __DIR__ . '/../..' . '/src/BlockRenderer.php',

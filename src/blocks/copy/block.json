@@ -1,0 +1,38 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"textdomain": "comet",
+	"name": "comet/copy",
+	"title": "Copy",
+	"icon": "editor-paragraph",
+	"description": "Add a section of text content",
+	"category": "text",
+	"acf": {
+		"mode": "edit",
+		"renderTemplate": "render.php"
+	},
+	"keywords": [
+		"text",
+		"paragraph",
+		"content"
+	],
+	"attributes": {
+		"containerSize": {
+			"type": "string",
+			"default": "contained"
+		},
+		"colorTheme": {
+			"type": "string",
+			"default": "primary"
+		}
+	},
+	"supports": {
+		"mode": true,
+		"jsx": true,
+		"innerBlocks": false,
+		"anchor": true,
+		"colorTheme": true,
+		"containerSize": true,
+		"align": false
+	}
+}

@@ -7,123 +7,49 @@ class BlockRegistry extends JavaScriptImplementation {
 
     public function __construct() {
         parent::__construct();
-
         $this->wpInstance = WP_Block_Type_Registry::get_instance();
-        add_filter('allowed_block_types_all', [$this, 'filter_allowed_blocks_server_side'], 10, 2);
-        add_filter('block_editor_settings_all', [$this, 'filter_allowed_blocks_client_side'], 20, 2);
 
-        // Comet block registration
-        // add_action('init', [$this, 'register_blocks'], 10, 2);
-        // add_action('acf/include_fields', [$this, 'register_block_fields'], 10, 2);
+        add_action('init', [$this, 'register_blocks'], 10, 2);
+        add_action('acf/include_fields', [$this, 'register_block_fields'], 10, 2);
 
-        // Register common custom attributes
-        // add_action('init', [$this, 'register_custom_attributes'], 5);
-
+        // add_filter('allowed_block_types_all', [$this, 'filter_allowed_blocks_server_side'], 10, 2);
+        // add_filter('block_editor_settings_all', [$this, 'filter_allowed_blocks_client_side'], 20, 2);
     }
 
-    //    /**
-    //     * Register custom blocks
-    //     *
-    //     * @return void
-    //     */
-    //    public function register_blocks(): void {
-    //        $block_folders = scandir(dirname(__DIR__, 1) . '/src/blocks');
-    //
-    //        foreach ($block_folders as $block_name) {
-    //            if ($block_name === '.' || $block_name === '..') continue;
-    //
-    //            $folder = dirname(__DIR__, 1) . '/src/blocks/' . $block_name;
-    //            $className = BlockRenderer::get_comet_component_class($block_name);
-    //            if (!file_exists("$folder/block.json")) continue;
-    //
-    //            $block_json = json_decode(file_get_contents("$folder/block.json"));
-    //
-    //            // This is an ACF block and we want to use a render template
-    //            if (isset($block_json->acf->renderTemplate)) {
-    //                register_block_type($folder);
-    //            }
-    //            // Block name -> direct translation to component name
-    //            else if (isset($className) && BlockRenderer::can_render_comet_component($className)) {
-    //                register_block_type($folder, [
-    //                    'render_callback' => BlockRenderer::render_block_callback("comet/$block_name")
-    //                ]);
-    //            }
-    //            // Block has variations that align to a component name, without the overarching block name being used for a rendering class
-    //            else if (isset($block_json->variations)) {
-    //                // TODO: Actually check for matching component classes
-    //                register_block_type($folder, [
-    //                    'render_callback' => BlockRenderer::render_block_callback("comet/$block_name")
-    //                ]);
-    //            }
-    //            // Block is an inner component of a variation, and we want to use a Comet Component according to the variation
-    //            else if (isset($block_json->parent)) {
-    //                // TODO: Actually check for matching component classes
-    //                register_block_type($folder, [
-    //                    'render_callback' => BlockRenderer::render_block_callback("comet/$block_name")
-    //                ]);
-    //            }
-    //            // Fallback = WP block rendering
-    //            else {
-    //                register_block_type($folder);
-    //            }
-    //        }
-    //    }
-    //
-    //    /**
-    //     * Register ACF fields for custom blocks if there is a fields.php file containing them in the block folder
-    //     *
-    //     * @return void
-    //     */
-    //    public function register_block_fields(): void {
-    //        $block_folders = scandir(dirname(__DIR__, 1) . '/src/blocks');
-    //
-    //        foreach ($block_folders as $block_name) {
-    //            $file = dirname(__DIR__, 1) . '/src/blocks/' . $block_name . '/fields.php';
-    //
-    //            if (file_exists($file) && function_exists('acf_add_local_field_group')) {
-    //                require_once $file;
-    //            }
-    //        }
-    //    }
-
     /**
-     * Register some additional attribute options
-     * Notes: Requires the block-supports-extended plugin, which is installed as a dependency via Composer
-     *        To see the styles in the editor, you must account for it in the block's JavaScript edit function
-     *        or for core blocks, override the JavaScript edit function for the block (see block-registry.js)
+     * Register custom blocks
      *
      * @return void
      */
-    //    public function register_custom_attributes(): void {
-    //        if (!function_exists('Block_Supports_Extended\register')) {
-    //            error_log("Can't register custom attributes because Block Supports Extended is not available", true);
-    //
-    //            return;
-    //        }
-    //
-    //        Block_Supports_Extended\register('color', 'theme', [
-    //            'label'    => __('Colour theme'),
-    //            'property' => 'background',
-    //            'selector' => '.%1$s wp-block-button__link wp-block-callout wp-block-file-group wp-block-steps wp-block-pullquote wp-block-comet-panels wp-block-details',
-    //            'blocks'   => ['core/button', 'comet/callout', 'comet/file-group', 'comet/steps', 'core/pullquote', 'comet/panels', 'core/details'],
-    //        ]);
-    //
-    //        Block_Supports_Extended\register('color', 'overlay', [
-    //            'label'    => __('Overlay'),
-    //            'property' => 'background',
-    //            'selector' => '.%1$s wp-block-banner',
-    //            'blocks'   => ['comet/banner'],
-    //        ]);
-    //
-    //        Block_Supports_Extended\register('color', 'inline', [
-    //            'label'    => __('Text (override default)'),
-    //            'property' => 'text',
-    //            'selector' => '.%1$s wp-block-heading wp-block-paragraph wp-block-pullquote wp-block-list-item',
-    //            'blocks'   => ['core/heading', 'core/paragraph', 'core/pullquote', 'core/list-item'],
-    //        ]);
-    //
-    //        // Note: Remove the thing the custom attribute is replacing, if applicable, using block_type_metadata filter
-    //    }
+    public function register_blocks(): void {
+        $block_folders = scandir(dirname(__DIR__, 1) . '/src/blocks');
+
+        foreach ($block_folders as $block_name) {
+            if ($block_name === '.' || $block_name === '..') continue;
+
+            $folder = dirname(__DIR__, 1) . '/src/blocks/' . $block_name;
+            if (!file_exists("$folder/block.json")) continue;
+
+            register_block_type($folder);
+        }
+    }
+
+    /**
+     * Register ACF fields for custom blocks if there is a fields.php file containing them in the block folder
+     *
+     * @return void
+     */
+    public function register_block_fields(): void {
+        $block_folders = scandir(dirname(__DIR__, 1) . '/src/blocks');
+
+        foreach ($block_folders as $block_name) {
+            $file = dirname(__DIR__, 1) . '/src/blocks/' . $block_name . '/fields.php';
+
+            if (file_exists($file) && function_exists('acf_add_local_field_group')) {
+                require_once $file;
+            }
+        }
+    }
 
     /**
      * By default, disable all core blocks and some known unwanted plugin blocks,

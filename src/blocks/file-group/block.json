@@ -6,14 +6,8 @@
 	"icon": "media-document",
 	"description": "List a collection of downloadable files with descriptions",
 	"category": "media",
-	"parent": [
-		"comet/container",
-		"core/column",
-		"core/group",
-		"comet/panel"
-	],
 	"acf": {
-		"mode": "preview",
+		"mode": "edit",
 		"renderTemplate": "render.php"
 	},
 	"editorStyle": "file:./editor.css",
@@ -23,23 +17,15 @@
 	],
 	"textdomain": "comet",
 	"attributes": {
-		"tagName": {
+		"colorTheme": {
 			"type": "string",
-			"default": "div"
+			"default": "primary"
 		}
 	},
 	"supports": {
 		"mode": true,
 		"jsx": true,
 		"innerBlocks": false,
-		"color": {
-			"gradients": true,
-			"theme": true,
-			"text": false,
-			"background": false,
-			"__experimentalDefaultControls": {
-				"theme": true
-			}
-		}
+		"colorTheme": true
 	}
 }

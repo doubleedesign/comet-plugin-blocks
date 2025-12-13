@@ -86,4 +86,31 @@ html :where(.wp-block) {
   max-width: 100% !important;
 }
 
+.comet-toggle-group button {
+  min-height: 2rem;
+}
+.comet-toggle-group button svg {
+  width: 1.5rem;
+  height: auto;
+}
+
+.comet-color-controls__item {
+  width: 100%;
+  display: flex;
+}
+.comet-color-controls__item .components-dropdown {
+  flex-grow: 1;
+}
+.comet-color-controls__item .components-dropdown button {
+  width: 100%;
+  border: 1px solid #e0e0e0;
+  display: flex;
+  gap: 0.5rem;
+  justify-content: flex-start;
+  align-items: center;
+}
+.comet-color-controls__item .components-dropdown button[aria-expanded=true] {
+  border-color: var(--wp-components-color-primary, #007cba);
+}
+
 /*# sourceMappingURL=block-editor-config.css.map */

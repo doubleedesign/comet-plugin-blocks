@@ -2,16 +2,17 @@
 import { babel } from '@rollup/plugin-babel';
 import resolve from '@rollup/plugin-node-resolve';
 import { createFilter } from '@rollup/pluginutils';
+import { glob } from 'glob';
 
 export default {
-	input: ['src/blocks/panels/index.jsx'],
+	input: glob.sync('src/editor/**/*.jsx'),
 	output: {
-		dir: '.',
+		dir: 'src/editor',
 		format: 'es',
-		entryFileNames: chunk => {
-			const dir = chunk.facadeModuleId.split('\\').slice(-2, -1).join('/');
+		entryFileNames: (chunkInfo) => {
+			const name = chunkInfo.name.replace(/^src\/editor\//, '');
 
-			return `src/blocks/${dir}/${chunk.name}.dist.js`;
+			return `${name}.dist.js`;
 		},
 		sourcemap: true,
 		preserveModules: true,
@@ -41,6 +42,7 @@ export default {
 };
 
 // Custom plugin to transform WordPress imports to globals
+// Note: This does not work with @wordpress/icons as they do not have a global variable equivalent
 function wordpressGlobals(options = {}) {
 	const filter = createFilter(options.include || ['**/*.js', '**/*.jsx'], options.exclude || 'node_modules/**');
 	const wpPackages = {

@@ -107,3 +107,39 @@ html :where(.wp-block) {
 		max-width: 100% !important;
 	}
 }
+
+.comet-toggle-group {
+	button {
+		min-height: 2rem;
+
+		svg {
+			width: 1.5rem;
+			height: auto;
+		}
+	}
+}
+
+.comet-color-controls {
+
+	&__item {
+		width: 100%;
+		display: flex;
+
+		.components-dropdown {
+			flex-grow: 1;
+			
+			button {
+				width: 100%;
+				border: 1px solid #e0e0e0;
+				display: flex;
+				gap: 0.5rem;
+				justify-content: flex-start;
+				align-items: center;
+
+				&[aria-expanded="true"] {
+					border-color: var(--wp-components-color-primary, #007cba);
+				}
+			}
+		}
+	}
+}
