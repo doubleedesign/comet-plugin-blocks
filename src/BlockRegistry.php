@@ -1,305 +1,169 @@
 <?php
 namespace Doubleedesign\Comet\WordPress;
-use Doubleedesign\Comet\Core\{Utils};
 use WP_Block_Type_Registry;
-use Block_Supports_Extended;
 
 class BlockRegistry extends JavaScriptImplementation {
-	private array $block_support_json;
-	private WP_Block_Type_Registry $wpInstance;
+    private WP_Block_Type_Registry $wpInstance;
 
-	function __construct() {
-		parent::__construct();
+    public function __construct() {
+        parent::__construct();
 
-		$this->block_support_json = json_decode(file_get_contents(__DIR__ . '/block-support.json'), true);
-		$this->wpInstance = WP_Block_Type_Registry::get_instance();
+        $this->wpInstance = WP_Block_Type_Registry::get_instance();
+        add_filter('allowed_block_types_all', [$this, 'filter_allowed_blocks_server_side'], 10, 2);
+        add_filter('block_editor_settings_all', [$this, 'filter_allowed_blocks_client_side'], 20, 2);
 
-		// Comet block registration
-		add_action('init', [$this, 'register_blocks'], 10, 2);
-		add_action('acf/include_fields', [$this, 'register_block_fields'], 10, 2);
+        // Comet block registration
+        // add_action('init', [$this, 'register_blocks'], 10, 2);
+        // add_action('acf/include_fields', [$this, 'register_block_fields'], 10, 2);
 
-		// Limit editor to supported blocks
-		add_action('init', [$this, 'unregister_unsupported_blocks'], 50);
-		add_filter('allowed_block_types_all', [$this, 'set_allowed_blocks'], 15, 2);
+        // Register common custom attributes
+        // add_action('init', [$this, 'register_custom_attributes'], 5);
 
-		// Register common custom attributes
-		//add_action('init', [$this, 'register_custom_attributes'], 5);
+    }
 
-		// Styles for core blocks
-		add_action('init', [$this, 'register_core_block_styles'], 10);
+    //    /**
+    //     * Register custom blocks
+    //     *
+    //     * @return void
+    //     */
+    //    public function register_blocks(): void {
+    //        $block_folders = scandir(dirname(__DIR__, 1) . '/src/blocks');
+    //
+    //        foreach ($block_folders as $block_name) {
+    //            if ($block_name === '.' || $block_name === '..') continue;
+    //
+    //            $folder = dirname(__DIR__, 1) . '/src/blocks/' . $block_name;
+    //            $className = BlockRenderer::get_comet_component_class($block_name);
+    //            if (!file_exists("$folder/block.json")) continue;
+    //
+    //            $block_json = json_decode(file_get_contents("$folder/block.json"));
+    //
+    //            // This is an ACF block and we want to use a render template
+    //            if (isset($block_json->acf->renderTemplate)) {
+    //                register_block_type($folder);
+    //            }
+    //            // Block name -> direct translation to component name
+    //            else if (isset($className) && BlockRenderer::can_render_comet_component($className)) {
+    //                register_block_type($folder, [
+    //                    'render_callback' => BlockRenderer::render_block_callback("comet/$block_name")
+    //                ]);
+    //            }
+    //            // Block has variations that align to a component name, without the overarching block name being used for a rendering class
+    //            else if (isset($block_json->variations)) {
+    //                // TODO: Actually check for matching component classes
+    //                register_block_type($folder, [
+    //                    'render_callback' => BlockRenderer::render_block_callback("comet/$block_name")
+    //                ]);
+    //            }
+    //            // Block is an inner component of a variation, and we want to use a Comet Component according to the variation
+    //            else if (isset($block_json->parent)) {
+    //                // TODO: Actually check for matching component classes
+    //                register_block_type($folder, [
+    //                    'render_callback' => BlockRenderer::render_block_callback("comet/$block_name")
+    //                ]);
+    //            }
+    //            // Fallback = WP block rendering
+    //            else {
+    //                register_block_type($folder);
+    //            }
+    //        }
+    //    }
+    //
+    //    /**
+    //     * Register ACF fields for custom blocks if there is a fields.php file containing them in the block folder
+    //     *
+    //     * @return void
+    //     */
+    //    public function register_block_fields(): void {
+    //        $block_folders = scandir(dirname(__DIR__, 1) . '/src/blocks');
+    //
+    //        foreach ($block_folders as $block_name) {
+    //            $file = dirname(__DIR__, 1) . '/src/blocks/' . $block_name . '/fields.php';
+    //
+    //            if (file_exists($file) && function_exists('acf_add_local_field_group')) {
+    //                require_once $file;
+    //            }
+    //        }
+    //    }
 
-		// Override some block.json configuration for core and plugin blocks
-		add_filter('block_type_metadata', [$this, 'update_some_core_block_descriptions'], 10);
-		add_filter('block_type_metadata', [$this, 'customise_core_block_options'], 15, 1);
+    /**
+     * Register some additional attribute options
+     * Notes: Requires the block-supports-extended plugin, which is installed as a dependency via Composer
+     *        To see the styles in the editor, you must account for it in the block's JavaScript edit function
+     *        or for core blocks, override the JavaScript edit function for the block (see block-registry.js)
+     *
+     * @return void
+     */
+    //    public function register_custom_attributes(): void {
+    //        if (!function_exists('Block_Supports_Extended\register')) {
+    //            error_log("Can't register custom attributes because Block Supports Extended is not available", true);
+    //
+    //            return;
+    //        }
+    //
+    //        Block_Supports_Extended\register('color', 'theme', [
+    //            'label'    => __('Colour theme'),
+    //            'property' => 'background',
+    //            'selector' => '.%1$s wp-block-button__link wp-block-callout wp-block-file-group wp-block-steps wp-block-pullquote wp-block-comet-panels wp-block-details',
+    //            'blocks'   => ['core/button', 'comet/callout', 'comet/file-group', 'comet/steps', 'core/pullquote', 'comet/panels', 'core/details'],
+    //        ]);
+    //
+    //        Block_Supports_Extended\register('color', 'overlay', [
+    //            'label'    => __('Overlay'),
+    //            'property' => 'background',
+    //            'selector' => '.%1$s wp-block-banner',
+    //            'blocks'   => ['comet/banner'],
+    //        ]);
+    //
+    //        Block_Supports_Extended\register('color', 'inline', [
+    //            'label'    => __('Text (override default)'),
+    //            'property' => 'text',
+    //            'selector' => '.%1$s wp-block-heading wp-block-paragraph wp-block-pullquote wp-block-list-item',
+    //            'blocks'   => ['core/heading', 'core/paragraph', 'core/pullquote', 'core/list-item'],
+    //        ]);
+    //
+    //        // Note: Remove the thing the custom attribute is replacing, if applicable, using block_type_metadata filter
+    //    }
 
-		// Block relationship limitations
-		add_filter('block_type_metadata', [$this, 'control_block_parents'], 20, 1);
-	}
+    /**
+     * By default, disable all core blocks and some known unwanted plugin blocks,
+     * while allowing other plugins and themes to selectively override this.
+     *
+     * @param  $blocks
+     * @param  $editor_context
+     *
+     * @return array|bool
+     */
+    public function filter_allowed_blocks_server_side($blocks, $editor_context): array|bool {
+        // The allowed_block_types_all filter is really weird. It returns true/false for enabling ALL blocks, or returns an array of allowed blocks.
+        // This results in inconsistent results if this filter is used in multiple places, or at a hook priority that doesn't do what you expect.
+        // The only foolproof way to handle this and always return an array is to...load up the registered blocks and then filter them out so this never returns a boolean.
+        if (!is_array($blocks)) {
+            $blocks = array_keys($this->wpInstance->get_all_registered());
+        }
 
-	/**
-	 * Register custom blocks
-	 * @return void
-	 */
-	function register_blocks(): void {
-		$block_folders = scandir(dirname(__DIR__, 1) . '/src/blocks');
+        $default = array_filter($blocks, function($block) {
+            return !str_starts_with($block, 'core/') && !in_array($block, ['ninja-forms/submissions-table']);
+        });
 
-		foreach($block_folders as $block_name) {
-			if($block_name === '.' || $block_name === '..') continue;
+        return apply_filters('comet_allowed_blocks', $default);
+    }
 
-			$folder = dirname(__DIR__, 1) . '/src/blocks/' . $block_name;
-			$className = BlockRenderer::get_comet_component_class($block_name);
-			if(!file_exists("$folder/block.json")) continue;
+    /**
+     * Make sure the allowed blocks are filtered in the block editor settings for the client side.
+     * Note: This also requires some JavaScript to prevent blocks from appearing in the inserter.
+     * See block-registry.js for that implementation.
+     *
+     * @param  $settings
+     * @param  $context
+     *
+     * @return array
+     */
+    public function filter_allowed_blocks_client_side($settings, $context): array {
+        $allowed_blocks = $this->filter_allowed_blocks_server_side(true, null);
 
-			$block_json = json_decode(file_get_contents("$folder/block.json"));
+        $settings['allowedBlockTypes'] = $allowed_blocks;
 
-			// This is an ACF block and we want to use a render template
-			if(isset($block_json->acf->renderTemplate)) {
-				register_block_type($folder);
-			}
-			// Block name -> direct translation to component name
-			else if(isset($className) && BlockRenderer::can_render_comet_component($className)) {
-				register_block_type($folder, [
-					'render_callback' => BlockRenderer::render_block_callback("comet/$block_name")
-				]);
-			}
-			// Block has variations that align to a component name, without the overarching block name being used for a rendering class
-			else if(isset($block_json->variations)) {
-				// TODO: Actually check for matching component classes
-				register_block_type($folder, [
-					'render_callback' => BlockRenderer::render_block_callback("comet/$block_name")
-				]);
-			}
-			// Block is an inner component of a variation, and we want to use a Comet Component according to the variation
-			else if(isset($block_json->parent)) {
-				// TODO: Actually check for matching component classes
-				register_block_type($folder, [
-					'render_callback' => BlockRenderer::render_block_callback("comet/$block_name")
-				]);
-			}
-			// Fallback = WP block rendering
-			else {
-				register_block_type($folder);
-			}
-		}
-	}
-
-	/**
-	 * Register ACF fields for custom blocks if there is a fields.php file containing them in the block folder
-	 * @return void
-	 */
-	function register_block_fields(): void {
-		$block_folders = scandir(dirname(__DIR__, 1) . '/src/blocks');
-
-		foreach($block_folders as $block_name) {
-			$file = dirname(__DIR__, 1) . '/src/blocks/' . $block_name . '/fields.php';
-
-			if(file_exists($file) && function_exists('acf_add_local_field_group')) {
-				require_once $file;
-			}
-		}
-	}
-
-	/**
-	 * Limit available blocks for simplicity by completely unregistering unsupported core blocks
-	 * This works around issues with filtering with allowed_block_types all in multiple places
-	 * NOTE: May need to add more here because previously some blocks used in specific contexts still showed in those contexts
-	 * @return void
-	 */
-	function unregister_unsupported_blocks(): void {
-		$core = array_keys($this->block_support_json['core']['supported']);
-		$all_block_types = array_keys($this->wpInstance->get_all_registered());
-
-		// Unregister core blocks not in the list of supported blocks
-		foreach($all_block_types as $name) {
-			if(str_starts_with($name, 'core/') && !in_array($name, $core)) {
-				$this->wpInstance->unregister($name);
-			}
-		}
-
-		// Disallow specific blocks
-		if(in_array($name, ['ninja-forms/submissions-table'])) {
-			$this->wpInstance->unregister($name);
-		}
-	}
-
-
-	/**
-	 * Ensure the first time that allowed_block_types_all is run, it gets the filtered list
-	 * IMPORTANT: Run this earlier than any theme or plugin's use of the filter
-	 * @param $allowed_blocks
-	 * @return array
-	 */
-	function set_allowed_blocks($allowed_blocks): array {
-		if($allowed_blocks === true) {
-			$registered = array_keys($this->wpInstance->get_all_registered());
-
-			// Where unregistering doesn't work
-			return array_filter($registered, function($block) {
-				return !in_array($block, ['ninja-forms/submissions-table']);
-			});
-		}
-
-		return $allowed_blocks;
-	}
-
-
-	/**
-	 * Update some core block descriptions with those set in the block-support.json file
-	 * @param $metadata
-	 * @return array
-	 */
-	function update_some_core_block_descriptions($metadata): array {
-		$blocks = $this->block_support_json['core']['supported'];
-		$blocks_to_update = array_filter($blocks, fn($block) => isset($block['description']));
-
-		foreach($blocks_to_update as $block_name => $data) {
-			if($metadata['name'] === $block_name) {
-				$metadata['description'] = $data['description'];
-			}
-		}
-
-		return $metadata;
-	}
-
-
-	/**
-	 * Register some additional attribute options
-	 * Notes: Requires the block-supports-extended plugin, which is installed as a dependency via Composer
-	 *        To see the styles in the editor, you must account for it in the block's JavaScript edit function
-	 *        or for core blocks, override the JavaScript edit function for the block (see block-registry.js)
-	 * @return void
-	 */
-	function register_custom_attributes(): void {
-		if(!function_exists('Block_Supports_Extended\register')) {
-			error_log("Can't register custom attributes because Block Supports Extended is not available", true);
-			return;
-		}
-
-		Block_Supports_Extended\register('color', 'theme', [
-			'label'    => __('Colour theme'),
-			'property' => 'background',
-			'selector' => '.%1$s wp-block-button__link wp-block-callout wp-block-file-group wp-block-steps wp-block-pullquote wp-block-comet-panels wp-block-details',
-			'blocks'   => ['core/button', 'comet/callout', 'comet/file-group', 'comet/steps', 'core/pullquote', 'comet/panels', 'core/details'],
-		]);
-
-		Block_Supports_Extended\register('color', 'overlay', [
-			'label'    => __('Overlay'),
-			'property' => 'background',
-			'selector' => '.%1$s wp-block-banner',
-			'blocks'   => ['comet/banner'],
-		]);
-
-		Block_Supports_Extended\register('color', 'inline', [
-			'label'    => __('Text (override default)'),
-			'property' => 'text',
-			'selector' => '.%1$s wp-block-heading wp-block-paragraph wp-block-pullquote wp-block-list-item',
-			'blocks'   => ['core/heading', 'core/paragraph', 'core/pullquote', 'core/list-item'],
-		]);
-
-		// Note: Remove the thing the custom attribute is replacing, if applicable, using block_type_metadata filter
-	}
-
-
-	/**
-	 * Register additional styles for core blocks
-	 * @return void
-	 */
-	function register_core_block_styles(): void {
-		register_block_style('core/paragraph', [
-			'name'  => 'lead',
-			'label' => 'Lead',
-		]);
-		register_block_style('core/heading', [
-			'name'  => 'accent',
-			'label' => 'Accent font',
-		]);
-		register_block_style('core/heading', [
-			'name'  => 'small',
-			'label' => 'Small text',
-		]);
-	}
-
-
-	/**
-	 * Override core block.json configuration
-	 * for attributes and supports that can't be modified in theme.json
-	 * @param $metadata
-	 * @return array
-	 */
-	function customise_core_block_options($metadata): array {
-		delete_transient('wp_blocks_data'); // clear cache
-		$name = $metadata['name'];
-		// Comet blocks should use block.json, and other plugin blocks should be modified in separate functions to keep things tidy
-		if(!str_starts_with($name, 'core/')) return $metadata;
-
-		if(isset($metadata['supports']['layout']) && is_array($metadata['supports']['layout']) && isset($metadata['supports']['layout']['allowSizingOnChildren'])) {
-			$metadata['supports']['layout']['allowSizingOnChildren'] = false;
-		}
-
-		switch($name) {
-			case 'core/button':
-				unset($metadata['attributes']['width']);
-				$metadata['supports']['__experimentalBorder'] = false;
-				return $metadata;
-			case 'core/pullquote':
-				$metadata['supports']['__experimentalBorder'] = false;
-				return $metadata;
-			case 'core/group':
-				$metadata['supports']['layout'] = false;
-				$metadata['supports']['align'] = false;
-				return $metadata;
-			case 'core/column':
-				// At the time of writing, vertical alignment (which we want) is in the toolbar, which is not affected by this
-				// We don't want "Inner blocks use content width" which can only be disabled like this, it seems
-				$metadata['supports']['layout'] = false;
-				return $metadata;
-			default:
-				return $metadata;
-		}
-	}
-
-	/**
-	 * Control where blocks can be placed by requiring them to be inside certain other blocks
-	 * This is for core and third-party plugin blocks because - custom blocks should have the parent set in block.json.
-	 * @param $metadata
-	 * @return array
-	 */
-	function control_block_parents($metadata): array {
-		delete_transient('wp_blocks_data'); // clear cache
-		// Note: Ninja Forms has to be handled in JS because it doesn't hit this function
-
-		// Skip Comet blocks because their parents should be handled in their block.json
-		if(str_starts_with($metadata['name'], 'comet/')) return $metadata;
-
-		$commonLayout = ['comet/container', 'comet/panel', 'core/group', 'core/column', 'comet/image-and-text'];
-
-		$name = $metadata['name'];
-		switch($name) {
-			case 'core/columns':
-				$metadata['parent'] = ['comet/container', 'comet/panel', 'core/group'];
-				return $metadata;
-			case 'core/buttons':
-				$metadata['parent'] = [...$commonLayout, 'comet/call-to-action', 'comet/step'];
-				return $metadata;
-			case 'core/button':
-				$metadata['parent'] = ['core/buttons', ...$commonLayout, 'comet/step'];
-				return $metadata;
-			case 'core/gallery':
-			case 'core/details':
-			case 'core/separator':
-			case 'core/pullquote':
-			case 'core/freeform':
-				$metadata['parent'] = $commonLayout;
-				return $metadata;
-			case 'core/heading':
-			case 'core/paragraph':
-			case 'core/list':
-			case 'core/image':
-			case 'core/quote':
-				$metadata['parent'] = [...$commonLayout, 'comet/step', 'comet/banner'];
-				return $metadata;
-			default:
-				return $metadata;
-		}
-	}
+        return $settings;
+    }
 }
