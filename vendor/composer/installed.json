@@ -167,16 +167,17 @@
         },
         {
             "name": "doubleedesign/comet-components-core",
-            "version": "0.2.0",
-            "version_normalized": "0.2.0.0",
+            "version": "0.3.0",
+            "version_normalized": "0.3.0.0",
             "dist": {
                 "type": "path",
                 "url": "../core",
-                "reference": "2ca03a4eb211b4ea1225ac9763de410ea6fb7464"
+                "reference": "cdc983e20f0237fe34545d611cf965a2e015a03e"
             },
             "require": {
                 "ext-intl": "*",
                 "ezyang/htmlpurifier": "^4.18",
+                "feimosi/baguettebox.js": "^1.12.1",
                 "illuminate/container": "^10.0",
                 "illuminate/events": "^10.0",
                 "illuminate/filesystem": "^10.0",
@@ -298,6 +299,51 @@
                 "source": "https://github.com/ezyang/htmlpurifier/tree/v4.19.0"
             },
             "install-path": "../ezyang/htmlpurifier"
+        },
+        {
+            "name": "feimosi/baguettebox.js",
+            "version": "v1.12.1",
+            "version_normalized": "1.12.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/doubleedesign/baguetteBox.js.git",
+                "reference": "98488128ee10a26af391b263c4431448fba35935"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/doubleedesign/baguetteBox.js/zipball/98488128ee10a26af391b263c4431448fba35935",
+                "reference": "98488128ee10a26af391b263c4431448fba35935",
+                "shasum": ""
+            },
+            "time": "2025-03-08T05:27:52+00:00",
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "classmap": [
+                    "dist/"
+                ]
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "feimosi",
+                    "homepage": "https://github.com/feimosi"
+                }
+            ],
+            "description": "Simple and easy to use lightbox script",
+            "homepage": "https://github.com/feimosi/baguetteBox.js",
+            "keywords": [
+                "gallery",
+                "image",
+                "javascript",
+                "lightbox"
+            ],
+            "support": {
+                "source": "https://github.com/doubleedesign/baguetteBox.js/tree/v1.12.1"
+            },
+            "install-path": "../feimosi/baguettebox.js"
         },
         {
             "name": "illuminate/bus",
