@@ -3,11 +3,11 @@ const {
 	__experimentalToggleGroupControl,
 	__experimentalToggleGroupControlOption
 } = wp.components;
-const VerticalAlignment = ({
+const HorizontalAlignment = ({
 	attributes,
 	setAttributes
 }) => {
-	if (!attributes?.verticalAlignment) {
+	if (!attributes?.horizontalAlignment) {
 		return null;
 	}
 	const ToggleGroupControl = __experimentalToggleGroupControl;
@@ -17,17 +17,17 @@ const VerticalAlignment = ({
 		className: 'comet-toggle-group',
 		__next40pxDefaultSize: true,
 		isBlock: true,
-		label: 'Vertical alignment',
+		label: 'Horizontal alignment',
 		onChange: value => setAttributes({
-			verticalAlignment: value
+			horizontalAlignment: value
 		}),
-		value: attributes.verticalAlignment
+		value: attributes.horizontalAlignment
 	}, /*#__PURE__*/React.createElement(ToggleGroupControlOption, {
 		label: /*#__PURE__*/React.createElement('svg', {
 			xmlns: 'http://www.w3.org/2000/svg',
 			viewBox: '0 0 24 24'
 		}, /*#__PURE__*/React.createElement('path', {
-			d: 'M9 20h6V9H9v11zM4 4v1.5h16V4H4z'
+			d: 'M9 9v6h11V9H9zM4 20h1.5V4H4v16z'
 		})),
 		'aria-label': 'Start',
 		showTooltip: true,
@@ -37,7 +37,7 @@ const VerticalAlignment = ({
 			xmlns: 'http://www.w3.org/2000/svg',
 			viewBox: '0 0 24 24'
 		}, /*#__PURE__*/React.createElement('path', {
-			d: 'M20 11h-5V4H9v7H4v1.5h5V20h6v-7.5h5z'
+			d: 'M12.5 15v5H11v-5H4V9h7V4h1.5v5h7v6h-7Z'
 		})),
 		'aria-label': 'Middle',
 		showTooltip: true,
@@ -47,7 +47,7 @@ const VerticalAlignment = ({
 			xmlns: 'http://www.w3.org/2000/svg',
 			viewBox: '0 0 24 24'
 		}, /*#__PURE__*/React.createElement('path', {
-			d: 'M15 4H9v11h6V4zM4 18.5V20h16v-1.5H4z'
+			d: 'M4 15h11V9H4v6zM18.5 4v16H20V4h-1.5z'
 		})),
 		'aria-label': 'End',
 		showTooltip: true,
@@ -55,5 +55,5 @@ const VerticalAlignment = ({
 	}));
 };
 
-export { VerticalAlignment };
-//# sourceMappingURL=VerticalAlignment.dist.js.map
+export { HorizontalAlignment };
+//# sourceMappingURL=HorizontalAlignment.dist.js.map
