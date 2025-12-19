@@ -5,7 +5,8 @@ import { createFilter } from '@rollup/pluginutils';
 import { glob } from 'glob';
 
 export default {
-	input: glob.sync('src/editor/**/*.jsx'),
+	//input: glob.sync('src/editor/**/*.jsx'), // would do all files
+	input: glob.sync('src/editor/CustomControlsWrapper/CustomControlsWrapper.jsx'), // is the only one that needs to be compiled for the editor
 	output: {
 		dir: 'src/editor',
 		format: 'es',
@@ -42,7 +43,7 @@ export default {
 };
 
 // Custom plugin to transform WordPress imports to globals
-// Note: This does not work with @wordpress/icons as they do not have a global variable equivalent
+// Note: This does not work with @wordpress/icons
 function wordpressGlobals(options = {}) {
 	const filter = createFilter(options.include || ['**/*.js', '**/*.jsx'], options.exclude || 'node_modules/**');
 	const wpPackages = {

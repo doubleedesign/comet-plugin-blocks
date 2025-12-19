@@ -52,7 +52,8 @@ const ColorPaletteDropdown = ({ label, palette, onChange }) => {
 export const ColorControls = ({ attributes, setAttributes }) => {
 	// Use refs to keep track of the presence of attribute support without the fields disappearing when the colour field is cleared
 	const hasColorTheme = useRef(!!attributes?.colorTheme);
-	if (!hasColorTheme.current) {
+	const hasBackgroundColor = useRef(!!attributes?.backgroundColor);
+	if (!hasColorTheme.current && !hasBackgroundColor.current) {
 		return null;
 	}
 
@@ -69,6 +70,7 @@ export const ColorControls = ({ attributes, setAttributes }) => {
 		return color ? color.color : colorName;
 	};
 
+	// TODO: Limit valid combinations of background + theme where appropriate
 	return (
 		<PanelBody title="Colours" initialOpen={true} className="comet-color-controls">
 			{hasColorTheme.current && (
@@ -79,6 +81,18 @@ export const ColorControls = ({ attributes, setAttributes }) => {
 						palette={palette}
 						onChange={(name) => {
 							setAttributes({ colorTheme: name ?? '' });
+						}}
+					/>
+				</div>
+			)}
+			{hasBackgroundColor.current && (
+				<div className="comet-color-controls__item">
+					<ColorPaletteDropdown
+						label="Background"
+						value={getValueByColorName(attributes?.backgroundColor) ?? ''}
+						palette={palette}
+						onChange={(name) => {
+							setAttributes({ backgroundColor: name ?? '' });
 						}}
 					/>
 				</div>

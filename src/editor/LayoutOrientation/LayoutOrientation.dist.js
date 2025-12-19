@@ -3,11 +3,11 @@ const {
 	__experimentalToggleGroupControl,
 	__experimentalToggleGroupControlOption
 } = wp.components;
-const VerticalAlignment = ({
+const LayoutOrientation = ({
 	attributes,
 	setAttributes
 }) => {
-	if (!attributes?.verticalAlignment) {
+	if (!attributes?.orientation) {
 		return null;
 	}
 	const ToggleGroupControl = __experimentalToggleGroupControl;
@@ -17,43 +17,33 @@ const VerticalAlignment = ({
 		className: 'comet-toggle-group',
 		__next40pxDefaultSize: true,
 		isBlock: true,
-		label: 'Vertical alignment',
+		label: 'Orientation',
 		onChange: value => setAttributes({
-			verticalAlignment: value
+			orientation: value
 		}),
-		value: attributes.verticalAlignment
+		value: attributes.orientation
 	}, /*#__PURE__*/React.createElement(ToggleGroupControlOption, {
 		label: /*#__PURE__*/React.createElement('svg', {
 			xmlns: 'http://www.w3.org/2000/svg',
 			viewBox: '0 0 24 24'
 		}, /*#__PURE__*/React.createElement('path', {
-			d: 'M9 20h6V9H9v11zM4 4v1.5h16V4H4z'
+			d: 'm14.5 6.5-1 1 3.7 3.7H4v1.6h13.2l-3.7 3.7 1 1 5.6-5.5z'
 		})),
-		'aria-label': 'Start',
+		'aria-label': 'Horizontal',
 		showTooltip: true,
-		value: 'start'
+		value: 'horizontal'
 	}), /*#__PURE__*/React.createElement(ToggleGroupControlOption, {
 		label: /*#__PURE__*/React.createElement('svg', {
 			xmlns: 'http://www.w3.org/2000/svg',
 			viewBox: '0 0 24 24'
 		}, /*#__PURE__*/React.createElement('path', {
-			d: 'M20 11h-5V4H9v7H4v1.5h5V20h6v-7.5h5z'
+			d: 'm16.5 13.5-3.7 3.7V4h-1.5v13.2l-3.8-3.7-1 1 5.5 5.6 5.5-5.6z'
 		})),
-		'aria-label': 'Middle',
+		'aria-label': 'Vertical',
 		showTooltip: true,
-		value: 'center'
-	}), /*#__PURE__*/React.createElement(ToggleGroupControlOption, {
-		label: /*#__PURE__*/React.createElement('svg', {
-			xmlns: 'http://www.w3.org/2000/svg',
-			viewBox: '0 0 24 24'
-		}, /*#__PURE__*/React.createElement('path', {
-			d: 'M15 4H9v11h6V4zM4 18.5V20h16v-1.5H4z'
-		})),
-		'aria-label': 'End',
-		showTooltip: true,
-		value: 'end'
+		value: 'vertical'
 	}));
 };
 
-export { VerticalAlignment };
-//# sourceMappingURL=VerticalAlignment.dist.js.map
+export { LayoutOrientation };
+//# sourceMappingURL=LayoutOrientation.dist.js.map

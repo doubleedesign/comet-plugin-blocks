@@ -1,4 +1,6 @@
 <?php
+// TODO: Probably don't need this after moving to pretty much entirely ACF blocks.
+// If I choose to keep some core blocks (such as the embed block), this can probably be simplified quite a bit.
 /** @noinspection PhpMultipleClassDeclarationsInspection */
 namespace Doubleedesign\Comet\WordPress;
 use Closure;

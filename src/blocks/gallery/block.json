@@ -1,0 +1,40 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"textdomain": "comet",
+	"name": "comet/gallery",
+	"title": "Gallery",
+	"icon": "images-alt2",
+	"description": "Showcase a collection of images in a grid layout",
+	"category": "design",
+	"acf": {
+		"mode": "edit",
+		"renderTemplate": "render.php"
+	},
+	"keywords": [
+		"layout",
+		"images",
+		"photos",
+		"media",
+		"gallery"
+	],
+	"attributes": {
+		"containerSize": {
+			"type": "string",
+			"default": "contained"
+		},
+		"backgroundColor": {
+			"type": "string",
+			"default": "white"
+		}
+	},
+	"supports": {
+		"mode": true,
+		"jsx": true,
+		"innerBlocks": false,
+		"anchor": true,
+		"backgroundColor": true,
+		"containerSize": true,
+		"align": false
+	}
+}

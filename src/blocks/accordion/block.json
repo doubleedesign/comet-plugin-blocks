@@ -1,0 +1,51 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"textdomain": "comet",
+	"name": "comet/call-accordion",
+	"title": "Accordion",
+	"icon": "arrow-down-alt2",
+	"description": "Create expandable/collapsible sections to organise a content grouping such as FAQs",
+	"category": "design",
+	"acf": {
+		"mode": "edit",
+		"renderTemplate": "render.php"
+	},
+	"keywords": [
+		"content",
+		"layout",
+		"panels",
+		"details",
+		"expandable",
+		"collapsible",
+		"accordion"
+	],
+	"attributes": {
+		"containerSize": {
+			"type": "string",
+			"default": "contained"
+		},
+		"backgroundSize": {
+			"type": "string",
+			"default": "fullwidth"
+		},
+		"colorTheme": {
+			"type": "string",
+			"default": "primary"
+		},
+		"backgroundColor": {
+			"type": "string",
+			"default": "white"
+		}
+	},
+	"supports": {
+		"mode": true,
+		"jsx": true,
+		"innerBlocks": false,
+		"anchor": true,
+		"colorTheme": true,
+		"backgroundColor": true,
+		"containerSize": true,
+		"align": false
+	}
+}

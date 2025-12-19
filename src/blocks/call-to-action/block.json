@@ -1,0 +1,58 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"textdomain": "comet",
+	"name": "comet/call-to-action",
+	"title": "Call to Action",
+	"icon": "megaphone",
+	"description": "Highlight important messages and encourage user interaction with a featured block of brief text and action buttons",
+	"category": "design",
+	"acf": {
+		"mode": "edit",
+		"renderTemplate": "render.php"
+	},
+	"keywords": [
+		"text",
+		"paragraph",
+		"content",
+		"layout",
+		"call to action",
+		"cta"
+	],
+	"attributes": {
+		"horizontalAlignment": {
+			"type": "string",
+			"default": "center"
+		},
+		"orientation": {
+			"type": "string",
+			"default": "vertical"
+		},
+		"containerSize": {
+			"type": "string",
+			"default": "contained"
+		},
+		"backgroundSize": {
+			"type": "string",
+			"default": "fullwidth"
+		},
+		"colorTheme": {
+			"type": "string",
+			"default": "primary"
+		},
+		"backgroundColor": {
+			"type": "string",
+			"default": "white"
+		}
+	},
+	"supports": {
+		"mode": true,
+		"jsx": true,
+		"innerBlocks": false,
+		"anchor": true,
+		"colorTheme": true,
+		"backgroundColor": true,
+		"containerSize": true,
+		"align": false
+	}
+}
