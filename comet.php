@@ -37,6 +37,7 @@ use Doubleedesign\Comet\WordPress\{AdminUI,
     BlockRegistry,
     BlockRenderer,
     ComponentAssets,
+    SharedBlocks,
     TinyMceConfig};
 
 new AdminUI();
@@ -47,13 +48,15 @@ new ComponentAssets();
 new BlockPatternHandler();
 new BlockFieldHandler();
 new TinyMceConfig();
+new SharedBlocks();
 
 /**
- * Disable the WP dashboard welcome panel because it may promote unsupported features
+ * Disable the default WP dashboard welcome panel because it may promote unsupported features
+ * Note: Double-E Base Plugin replaces it with a custom welcome panel, but I've kept this here for sites not using that
  *
  * @return void
  */
-function doublee_dashboard_home(): void {
+function comet_dashboard_home(): void {
     remove_action('welcome_panel', 'wp_welcome_panel');
 }
-add_action('admin_init', 'doublee_dashboard_home');
+add_action('admin_init', 'comet_dashboard_home');
