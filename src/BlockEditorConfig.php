@@ -91,7 +91,7 @@ class BlockEditorConfig extends JavaScriptImplementation {
      * @return bool
      */
     public function selective_gutenberg($current_status, $post_type): bool {
-        if (in_array($post_type, ['page', 'post'])) {
+        if (in_array($post_type, ['page', 'post', 'shared_content'])) {
             return true;
         }
 
