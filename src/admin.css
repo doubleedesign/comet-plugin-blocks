@@ -1,5 +1,281 @@
+.body > header, .editor-styles-wrapper > header, .is-root-container > header, body > header,
+.body > footer,
+.editor-styles-wrapper > footer,
+.is-root-container > footer,
+body > footer,
+.body > section,
+.editor-styles-wrapper > section,
+.is-root-container > section,
+body > section,
+.body > article,
+.editor-styles-wrapper > article,
+.is-root-container > article,
+body > article,
+.body > div,
+.editor-styles-wrapper > div,
+.is-root-container > div,
+body > div {
+  padding-block: var(--spacing-lg);
+  padding-inline: 0;
+}
+@media (min-width: 768px) {
+  .body > header, .editor-styles-wrapper > header, .is-root-container > header, body > header,
+  .body > footer,
+  .editor-styles-wrapper > footer,
+  .is-root-container > footer,
+  body > footer,
+  .body > section,
+  .editor-styles-wrapper > section,
+  .is-root-container > section,
+  body > section,
+  .body > article,
+  .editor-styles-wrapper > article,
+  .is-root-container > article,
+  body > article,
+  .body > div,
+  .editor-styles-wrapper > div,
+  .is-root-container > div,
+  body > div {
+    padding-block: var(--spacing-xl);
+  }
+}
+@media (min-width: 1440px) {
+  .body > header, .editor-styles-wrapper > header, .is-root-container > header, body > header,
+  .body > footer,
+  .editor-styles-wrapper > footer,
+  .is-root-container > footer,
+  body > footer,
+  .body > section,
+  .editor-styles-wrapper > section,
+  .is-root-container > section,
+  body > section,
+  .body > article,
+  .editor-styles-wrapper > article,
+  .is-root-container > article,
+  body > article,
+  .body > div,
+  .editor-styles-wrapper > div,
+  .is-root-container > div,
+  body > div {
+    padding-block: var(--spacing-xxl);
+  }
+}
+.body > main > section, .editor-styles-wrapper > main > section, .is-root-container > main > section, body > main > section,
+.body > main > header,
+.editor-styles-wrapper > main > header,
+.is-root-container > main > header,
+body > main > header,
+.body > main > footer,
+.editor-styles-wrapper > main > footer,
+.is-root-container > main > footer,
+body > main > footer,
+.body > main > article,
+.editor-styles-wrapper > main > article,
+.is-root-container > main > article,
+body > main > article,
+.body > main > div,
+.editor-styles-wrapper > main > div,
+.is-root-container > main > div,
+body > main > div {
+  padding-block: var(--spacing-lg);
+  padding-inline: 0;
+}
+@media (min-width: 768px) {
+  .body > main > section, .editor-styles-wrapper > main > section, .is-root-container > main > section, body > main > section,
+  .body > main > header,
+  .editor-styles-wrapper > main > header,
+  .is-root-container > main > header,
+  body > main > header,
+  .body > main > footer,
+  .editor-styles-wrapper > main > footer,
+  .is-root-container > main > footer,
+  body > main > footer,
+  .body > main > article,
+  .editor-styles-wrapper > main > article,
+  .is-root-container > main > article,
+  body > main > article,
+  .body > main > div,
+  .editor-styles-wrapper > main > div,
+  .is-root-container > main > div,
+  body > main > div {
+    padding-block: var(--spacing-xl);
+  }
+}
+@media (min-width: 1440px) {
+  .body > main > section, .editor-styles-wrapper > main > section, .is-root-container > main > section, body > main > section,
+  .body > main > header,
+  .editor-styles-wrapper > main > header,
+  .is-root-container > main > header,
+  body > main > header,
+  .body > main > footer,
+  .editor-styles-wrapper > main > footer,
+  .is-root-container > main > footer,
+  body > main > footer,
+  .body > main > article,
+  .editor-styles-wrapper > main > article,
+  .is-root-container > main > article,
+  body > main > article,
+  .body > main > div,
+  .editor-styles-wrapper > main > div,
+  .is-root-container > main > div,
+  body > main > div {
+    padding-block: var(--spacing-xxl);
+  }
+}
+
+.body > [data-background=primary]:not(hr) + [data-background=primary], .editor-styles-wrapper > [data-background=primary]:not(hr) + [data-background=primary], .is-root-container > [data-background=primary]:not(hr) + [data-background=primary], body > [data-background=primary]:not(hr) + [data-background=primary],
+.body > main > [data-background=primary]:not(hr) + [data-background=primary],
+.editor-styles-wrapper > main > [data-background=primary]:not(hr) + [data-background=primary],
+.is-root-container > main > [data-background=primary]:not(hr) + [data-background=primary],
+body > main > [data-background=primary]:not(hr) + [data-background=primary] {
+  padding-block-start: 0;
+}
+
+.body > [data-background=secondary]:not(hr) + [data-background=secondary], .editor-styles-wrapper > [data-background=secondary]:not(hr) + [data-background=secondary], .is-root-container > [data-background=secondary]:not(hr) + [data-background=secondary], body > [data-background=secondary]:not(hr) + [data-background=secondary],
+.body > main > [data-background=secondary]:not(hr) + [data-background=secondary],
+.editor-styles-wrapper > main > [data-background=secondary]:not(hr) + [data-background=secondary],
+.is-root-container > main > [data-background=secondary]:not(hr) + [data-background=secondary],
+body > main > [data-background=secondary]:not(hr) + [data-background=secondary] {
+  padding-block-start: 0;
+}
+
+.body > [data-background=accent]:not(hr) + [data-background=accent], .editor-styles-wrapper > [data-background=accent]:not(hr) + [data-background=accent], .is-root-container > [data-background=accent]:not(hr) + [data-background=accent], body > [data-background=accent]:not(hr) + [data-background=accent],
+.body > main > [data-background=accent]:not(hr) + [data-background=accent],
+.editor-styles-wrapper > main > [data-background=accent]:not(hr) + [data-background=accent],
+.is-root-container > main > [data-background=accent]:not(hr) + [data-background=accent],
+body > main > [data-background=accent]:not(hr) + [data-background=accent] {
+  padding-block-start: 0;
+}
+
+.body > [data-background=info]:not(hr) + [data-background=info], .editor-styles-wrapper > [data-background=info]:not(hr) + [data-background=info], .is-root-container > [data-background=info]:not(hr) + [data-background=info], body > [data-background=info]:not(hr) + [data-background=info],
+.body > main > [data-background=info]:not(hr) + [data-background=info],
+.editor-styles-wrapper > main > [data-background=info]:not(hr) + [data-background=info],
+.is-root-container > main > [data-background=info]:not(hr) + [data-background=info],
+body > main > [data-background=info]:not(hr) + [data-background=info] {
+  padding-block-start: 0;
+}
+
+.body > [data-background=warning]:not(hr) + [data-background=warning], .editor-styles-wrapper > [data-background=warning]:not(hr) + [data-background=warning], .is-root-container > [data-background=warning]:not(hr) + [data-background=warning], body > [data-background=warning]:not(hr) + [data-background=warning],
+.body > main > [data-background=warning]:not(hr) + [data-background=warning],
+.editor-styles-wrapper > main > [data-background=warning]:not(hr) + [data-background=warning],
+.is-root-container > main > [data-background=warning]:not(hr) + [data-background=warning],
+body > main > [data-background=warning]:not(hr) + [data-background=warning] {
+  padding-block-start: 0;
+}
+
+.body > [data-background=success]:not(hr) + [data-background=success], .editor-styles-wrapper > [data-background=success]:not(hr) + [data-background=success], .is-root-container > [data-background=success]:not(hr) + [data-background=success], body > [data-background=success]:not(hr) + [data-background=success],
+.body > main > [data-background=success]:not(hr) + [data-background=success],
+.editor-styles-wrapper > main > [data-background=success]:not(hr) + [data-background=success],
+.is-root-container > main > [data-background=success]:not(hr) + [data-background=success],
+body > main > [data-background=success]:not(hr) + [data-background=success] {
+  padding-block-start: 0;
+}
+
+.body > [data-background=error]:not(hr) + [data-background=error], .editor-styles-wrapper > [data-background=error]:not(hr) + [data-background=error], .is-root-container > [data-background=error]:not(hr) + [data-background=error], body > [data-background=error]:not(hr) + [data-background=error],
+.body > main > [data-background=error]:not(hr) + [data-background=error],
+.editor-styles-wrapper > main > [data-background=error]:not(hr) + [data-background=error],
+.is-root-container > main > [data-background=error]:not(hr) + [data-background=error],
+body > main > [data-background=error]:not(hr) + [data-background=error] {
+  padding-block-start: 0;
+}
+
+.body > [data-background=light]:not(hr) + [data-background=light], .editor-styles-wrapper > [data-background=light]:not(hr) + [data-background=light], .is-root-container > [data-background=light]:not(hr) + [data-background=light], body > [data-background=light]:not(hr) + [data-background=light],
+.body > main > [data-background=light]:not(hr) + [data-background=light],
+.editor-styles-wrapper > main > [data-background=light]:not(hr) + [data-background=light],
+.is-root-container > main > [data-background=light]:not(hr) + [data-background=light],
+body > main > [data-background=light]:not(hr) + [data-background=light] {
+  padding-block-start: 0;
+}
+
+.body > [data-background=dark]:not(hr) + [data-background=dark], .editor-styles-wrapper > [data-background=dark]:not(hr) + [data-background=dark], .is-root-container > [data-background=dark]:not(hr) + [data-background=dark], body > [data-background=dark]:not(hr) + [data-background=dark],
+.body > main > [data-background=dark]:not(hr) + [data-background=dark],
+.editor-styles-wrapper > main > [data-background=dark]:not(hr) + [data-background=dark],
+.is-root-container > main > [data-background=dark]:not(hr) + [data-background=dark],
+body > main > [data-background=dark]:not(hr) + [data-background=dark] {
+  padding-block-start: 0;
+}
+
+.body > [data-background=white]:not(hr) + [data-background=white], .editor-styles-wrapper > [data-background=white]:not(hr) + [data-background=white], .is-root-container > [data-background=white]:not(hr) + [data-background=white], body > [data-background=white]:not(hr) + [data-background=white],
+.body > main > [data-background=white]:not(hr) + [data-background=white],
+.editor-styles-wrapper > main > [data-background=white]:not(hr) + [data-background=white],
+.is-root-container > main > [data-background=white]:not(hr) + [data-background=white],
+body > main > [data-background=white]:not(hr) + [data-background=white] {
+  padding-block-start: 0;
+}
+
+.body > :not([data-background]):not(hr) + :not([data-background]), .editor-styles-wrapper > :not([data-background]):not(hr) + :not([data-background]), .is-root-container > :not([data-background]):not(hr) + :not([data-background]), body > :not([data-background]):not(hr) + :not([data-background]),
+.body > main > :not([data-background]):not(hr) + :not([data-background]),
+.editor-styles-wrapper > main > :not([data-background]):not(hr) + :not([data-background]),
+.is-root-container > main > :not([data-background]):not(hr) + :not([data-background]),
+body > main > :not([data-background]):not(hr) + :not([data-background]) {
+  padding-block-start: 0;
+}
+
+:root {
+  --wp-editor-canvas-background: white;
+}
+
 #adminmenu .wp-submenu {
   margin-left: 0;
+}
+
+body :where(.editor-styles-wrapper) {
+  font-family: unset !important;
+  font-size: 1rem !important;
+  line-height: inherit !important;
+  --wp--style--block-gap: 0 !important;
+}
+body :where(.editor-styles-wrapper) p {
+  line-height: inherit !important;
+}
+
+.editor-styles-wrapper:has(.page-header[data-background=primary]) .is-root-container :first-child[data-background=primary] {
+  padding-block-start: 0;
+}
+.editor-styles-wrapper:has(.page-header[data-background=secondary]) .is-root-container :first-child[data-background=secondary] {
+  padding-block-start: 0;
+}
+.editor-styles-wrapper:has(.page-header[data-background=accent]) .is-root-container :first-child[data-background=accent] {
+  padding-block-start: 0;
+}
+.editor-styles-wrapper:has(.page-header[data-background=info]) .is-root-container :first-child[data-background=info] {
+  padding-block-start: 0;
+}
+.editor-styles-wrapper:has(.page-header[data-background=warning]) .is-root-container :first-child[data-background=warning] {
+  padding-block-start: 0;
+}
+.editor-styles-wrapper:has(.page-header[data-background=success]) .is-root-container :first-child[data-background=success] {
+  padding-block-start: 0;
+}
+.editor-styles-wrapper:has(.page-header[data-background=error]) .is-root-container :first-child[data-background=error] {
+  padding-block-start: 0;
+}
+.editor-styles-wrapper:has(.page-header[data-background=light]) .is-root-container :first-child[data-background=light] {
+  padding-block-start: 0;
+}
+.editor-styles-wrapper:has(.page-header[data-background=dark]) .is-root-container :first-child[data-background=dark] {
+  padding-block-start: 0;
+}
+.editor-styles-wrapper:has(.page-header[data-background=white]) .is-root-container :first-child[data-background=white] {
+  padding-block-start: 0;
+}
+
+.is-root-container {
+  padding-block: 0 !important;
+}
+
+.block-editor-block-list__layout .wp-block {
+  width: 100%;
+  max-width: 100%;
+}
+
+.acf-block-component.acf-block-panel {
+  display: none;
+}
+
+.mce-window.mce-container:not([aria-label="Keyboard Shortcuts"]) {
+  width: 600px;
+  left: calc(50dvw - 300px) !important;
 }
 
 /*# sourceMappingURL=admin.css.map */

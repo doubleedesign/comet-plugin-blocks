@@ -20,6 +20,10 @@
 if (!defined('COMET_COMPOSER_VENDOR_URL')) {
     define('COMET_COMPOSER_VENDOR_URL', get_site_url() . '/wp-content/plugins/comet-plugin-blocks/vendor');
 }
+if (!defined('COMET_COMPOSER_VENDOR_PATH')) {
+    define('COMET_COMPOSER_VENDOR_PATH', __DIR__ . '/vendor');
+}
+
 require_once __DIR__ . '/vendor/autoload.php';
 
 add_action('plugins_loaded', function() {

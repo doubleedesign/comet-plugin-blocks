@@ -56,7 +56,24 @@ When making changes to the components, recompile the `CustomControlsWrapper` usi
 
 I have found that this combination provides the best editor experience for clients - ACF fields for almost all content ensures a consistent and easy-to-understand content editing experience, while the customised but native attribute controls provide straightforward access to styling and layout options that specific blocks support.
 
-### File structure
+### Component defaults
+
+Comet Components blocks that use the custom attribute controls should have a default set in `block.json` for the controls to work. However, component defaults can also be set in the Comet global config in PHP, allowing different defaults to be set by client themes and plugins. My intention is that the global config will take precedence over `block.json` when both are set, because this provides the most flexibility. **TODO: At the time of writing, this has not been fully implemented yet.**
+
+### Creating new blocks
+
+To create a new block that corresponds to a Comet component, you need three files:
+1. A `block.json` file that defines the block's metadata, attributes, CSS files, etc.
+2. A `fields.php` file that defines the ACF fields for the block's content using `acf_add_local_field_group()`
+3. A `render.php` file that contains the PHP rendering logic for the block editor preview and for the front-end.
+
+Refer to the existing blocks in the plugin for examples.
+
+The editor CSS field should reference the Comet Components Core package CSS files. Note that some blocks will also need the CSS of their inner components to be imported as well. Some very common components' CSS such as `Container` and `PageSection` are already loaded into the editor by default.
+
+Ideally, additional CSS should not be necessary in the plugin (client themes and plugins can of course add their own custom CSS in the relevant files) because they should be a basic implementation of the core component and nothing more.
+
+### Plugin structure
 
 Due to the way that some things for the block editor can be done in PHP and others must be done in JavaScript, some of
 the code organisation feels a bit unintuitive because there can be code in either language that deals with the same
@@ -68,4 +85,3 @@ domain. The following table outlines the purpose these pairs of files in this pl
 | `BlockRegistry.php`            | `block-registry.js`      | Manages availability, supported features, styles, and variations for non-Comet blocks. This includes expressly disabling most Core blocks, while ensuring some supported plugin blocks (such as Ninja Forms' form block) remain available.                                                                                    |
 |
 | `BlockEditorConfig.php`        | `block-editor-config.js` | Customisations to the organisation of blocks in the editor such as categorisation, labels and descriptions, and restrictions on parent/child block relationships; customisations to the editor itself such as disabling unwanted/unsupported editor features and customising editor behaviour e.g., sidebar/panel appearance. |
-
