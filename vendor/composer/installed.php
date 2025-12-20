@@ -289,6 +289,15 @@
                 0 => '2.3|3.0',
             ),
         ),
+        'tomloprod/colority' => array(
+            'pretty_version' => 'v1.4.0',
+            'version' => '1.4.0.0',
+            'reference' => '873f0acead3efbd0632467406b8185742c13ec0f',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../tomloprod/colority',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
         'voku/portable-ascii' => array(
             'pretty_version' => '2.0.3',
             'version' => '2.0.3.0',
