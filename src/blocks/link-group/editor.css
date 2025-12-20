@@ -6,6 +6,7 @@
   text-decoration: none;
   padding: var(--spacing-sm);
   transition: background 0.2s linear;
+  font-size: 1rem;
 }
 
 [data-color-theme=primary] .link-group__link, .link-group__link[data-color-theme=primary] {
