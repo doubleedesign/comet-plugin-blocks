@@ -16,12 +16,17 @@ class ComposerStaticInit12ca57715cc7eef89094395652d6bfc9
         'ef65a1626449d89d0811cf9befce46f0' => __DIR__ . '/..' . '/illuminate/events/functions.php',
         '06a34129a50df3d9257ee706cf3c875b' => __DIR__ . '/..' . '/illuminate/filesystem/functions.php',
         '2cffec82183ee1cea088009cef9a6fc3' => __DIR__ . '/..' . '/ezyang/htmlpurifier/library/HTMLPurifier.composer.php',
+        '3f4ff8b1c092918690127352f322e21d' => __DIR__ . '/..' . '/tomloprod/colority/src/Support/ColorityAlias.php',
     );
 
     public static $prefixLengthsPsr4 = array (
         'v' => 
         array (
             'voku\\' => 5,
+        ),
+        'T' => 
+        array (
+            'Tomloprod\\Colority\\' => 19,
         ),
         'S' => 
         array (
@@ -70,6 +75,10 @@ class ComposerStaticInit12ca57715cc7eef89094395652d6bfc9
         'voku\\' => 
         array (
             0 => __DIR__ . '/..' . '/voku/portable-ascii/src/voku',
+        ),
+        'Tomloprod\\Colority\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/tomloprod/colority/src',
         ),
         'Symfony\\Polyfill\\Php80\\' => 
         array (
