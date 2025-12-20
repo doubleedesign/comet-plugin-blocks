@@ -1,4 +1,5 @@
 /* global wp */
+/* global comet */
 import {
 	PanelBody,
 	Dropdown,
@@ -50,6 +51,7 @@ const ColorPaletteDropdown = ({ label, palette, onChange }) => {
 };
 
 export const ColorControls = ({ attributes, setAttributes }) => {
+	// TODO: Use component defaults from comet JS object (which are set using the PHP global Config object). They should take precedence over block.json
 	// Use refs to keep track of the presence of attribute support without the fields disappearing when the colour field is cleared
 	const hasColorTheme = useRef(!!attributes?.colorTheme);
 	const hasBackgroundColor = useRef(!!attributes?.backgroundColor);

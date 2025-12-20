@@ -1,7 +1,7 @@
 <?php
 namespace Doubleedesign\Comet\WordPress;
 
-use Doubleedesign\Comet\Core\Utils;
+use Doubleedesign\Comet\Core\{Config, Utils};
 use WP_Theme_JSON_Data;
 
 class BlockEditorConfig extends JavaScriptImplementation {
@@ -10,6 +10,9 @@ class BlockEditorConfig extends JavaScriptImplementation {
 
         remove_action('enqueue_block_editor_assets', 'wp_enqueue_editor_block_directory_assets');
         remove_action('enqueue_block_editor_assets', 'gutenberg_enqueue_block_editor_assets_block_directory');
+        add_filter('should_load_separate_core_block_assets', '__return_true', 5);
+        add_action('enqueue_block_editor_assets', [$this, 'enqueue_common_css_into_block_editor'], 10);
+        add_action('enqueue_block_editor_assets', [$this, 'make_component_defaults_available_to_block_editor_js'], 250);
 
         add_action('init', [$this, 'load_merged_theme_json'], 5, 1);
         add_action('init', [$this, 'register_page_template'], 15, 2);
@@ -24,11 +27,48 @@ class BlockEditorConfig extends JavaScriptImplementation {
             add_action('admin_enqueue_scripts', [$this, 'admin_css']);
             add_filter('admin_body_class', [$this, 'block_editor_body_class'], 10, 1);
         }
+
     }
 
-    public function enqueue_global_css(): void {
-        $libraryDir = COMET_COMPOSER_VENDOR_URL . '/doubleedesign/comet-components-core';
-        wp_enqueue_style('comet-global-styles', "$libraryDir/src/components/global.css", array(), COMET_VERSION);
+    public function enqueue_common_css_into_block_editor(): void {
+        $css = array(
+            [
+                'path' => COMET_COMPOSER_VENDOR_PATH . '/doubleedesign/comet-components-core/src/components/global.css',
+                'url'  => COMET_COMPOSER_VENDOR_URL . '/doubleedesign/comet-components-core/src/components/global.css',
+            ],
+            [
+                'path' => COMET_COMPOSER_VENDOR_PATH . '/doubleedesign/comet-components-core/src/components/common.css',
+                'url'  => COMET_COMPOSER_VENDOR_URL . '/doubleedesign/comet-components-core/src/components/common.css',
+            ],
+            [
+                'path' => COMET_COMPOSER_VENDOR_PATH . '/doubleedesign/comet-components-core/src/components/Container/container.css',
+                'url'  => COMET_COMPOSER_VENDOR_URL . '/doubleedesign/comet-components-core/src/components/Container/container.css',
+            ],
+            [
+                'path' => COMET_COMPOSER_VENDOR_PATH . '/doubleedesign/comet-components-core/src/components/PageSection/page-section.css',
+                'url'  => COMET_COMPOSER_VENDOR_URL . '/doubleedesign/comet-components-core/src/components/PageSection/page-section.css',
+            ],
+            [
+                'path' => get_template_directory() . '/common.css',
+                'url'  => get_template_directory_uri() . '/common.css',
+            ],
+            [
+                'path' => get_stylesheet_directory() . '/common.css',
+                'url'  => get_stylesheet_directory_uri() . '/common.css',
+            ]
+        );
+
+        foreach ($css as $file_info) {
+            if (file_exists($file_info['path'])) {
+                wp_enqueue_style(
+                    'comet-block-editor-common-' . md5($file_info['path']),
+                    $file_info['url'],
+                    array(),
+                    filemtime($file_info['path']),
+                    'all'
+                );
+            }
+        }
     }
 
     /**
@@ -51,6 +91,39 @@ class BlockEditorConfig extends JavaScriptImplementation {
         });
     }
 
+    public function make_component_defaults_available_to_block_editor_js(): void {
+        if (!class_exists('Doubleedesign\Comet\Core\Config')) {
+            return;
+        }
+        
+        $defaults = Config::getInstance()->get('component_defaults');
+        $background = Config::getInstance()->get_global_background();
+
+        // Get theme.json colour palette
+        $theme_json = \WP_Theme_JSON_Resolver::get_theme_data();
+        $colours = $theme_json->get_data()['settings']['color']['palette'];
+        if ($colours) {
+            $colours = array_map(function($color_obj) {
+                return [$color_obj['slug'] => $color_obj['color']];
+            }, $colours);
+            // Flatten the array
+            $colours = array_merge(...$colours);
+        }
+
+        // Make the defaults available to the plugin's block-editor-config.js file
+        wp_localize_script('comet-block-editor-config', 'comet', array(
+            'defaults'         => $defaults,
+            'globalBackground' => $background,
+            'palette'          => $colours ?? [],
+        ));
+        // And to the custom attribute controls
+        wp_localize_script('comet-blocks-custom-controls', 'comet', array(
+            'defaults'         => $defaults,
+            'globalBackground' => $background,
+            'palette'          => $colours ?? [],
+        ));
+    }
+
     /**
      * Default blocks for a new page
      *
@@ -59,7 +132,7 @@ class BlockEditorConfig extends JavaScriptImplementation {
     public function register_page_template(): void {
         $template = [
             [
-                'comet/container',
+                'comet/copy',
                 []
             ],
         ];
@@ -91,7 +164,7 @@ class BlockEditorConfig extends JavaScriptImplementation {
      * @return bool
      */
     public function selective_gutenberg($current_status, $post_type): bool {
-        if (in_array($post_type, ['page', 'post', 'shared_content'])) {
+        if (in_array($post_type, ['page', 'shared_content'])) {
             return true;
         }
 

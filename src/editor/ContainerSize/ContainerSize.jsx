@@ -1,6 +1,7 @@
 import { useMemo, useEffect, useState } from '@wordpress/element';
 import { PanelBody, SelectControl } from '@wordpress/components';
 
+// TODO: Handle supporting backgroundSize where appropriate (it's not really built into the Core components unless we nest a container)
 export const ContainerSize = ({ attributes, setAttributes }) => {
 	if (!attributes?.containerSize && !attributes?.backgroundSize) {
 		return null;

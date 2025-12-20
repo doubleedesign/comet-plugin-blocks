@@ -1,4 +1,5 @@
 /* global wp */
+/* global comet */
 import { addFilter } from '@wordpress/hooks';
 import { InspectorControls } from '@wordpress/block-editor';
 import { LayoutControls } from '../LayoutControls/LayoutControls.jsx';
@@ -14,7 +15,11 @@ wp.domReady(() => {
 		'comet-plugin-blocks/custom-controls',
 		(BlockEdit) => (props) => {
 			return (
-				<>
+				<div className="comet-block-edit-wrapper"
+					data-block={props.name}
+					data-background={props?.attributes?.backgroundColor ?? comet?.globalBackground ?? 'white'}
+					data-size={props?.attributes?.backgroundSize ?? 'fullwidth'}
+				>
 					<div className="comet-plugin-blocks-custom-controls">
 						<InspectorControls>
 							<LayoutControls {...props} />
@@ -22,7 +27,7 @@ wp.domReady(() => {
 						</InspectorControls>
 					</div>
 					<BlockEdit {...props} />
-				</>
+				</div>
 			);
 		});
 });

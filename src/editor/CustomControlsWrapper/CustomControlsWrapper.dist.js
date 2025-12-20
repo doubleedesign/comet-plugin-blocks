@@ -2,6 +2,7 @@ import { LayoutControls } from '../LayoutControls/LayoutControls.dist.js';
 import { ColorControls } from '../ColorControls/ColorControls.dist.js';
 
 /* global wp */
+/* global comet */
 const {
 	addFilter
 } = wp.hooks;
@@ -15,7 +16,12 @@ const {
  */
 wp.domReady(() => {
 	addFilter('editor.BlockEdit', 'comet-plugin-blocks/custom-controls', BlockEdit => props => {
-		return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement('div', {
+		return /*#__PURE__*/React.createElement('div', {
+			className: 'comet-block-edit-wrapper',
+			'data-block': props.name,
+			'data-background': props?.attributes?.backgroundColor ?? comet?.defaults?.globalBackground ?? 'white',
+			'data-size': props?.attributes?.backgroundSize ?? 'fullwidth'
+		}, /*#__PURE__*/React.createElement('div', {
 			className: 'comet-plugin-blocks-custom-controls'
 		}, /*#__PURE__*/React.createElement(InspectorControls, null, /*#__PURE__*/React.createElement(LayoutControls, props), /*#__PURE__*/React.createElement(ColorControls, props))), /*#__PURE__*/React.createElement(BlockEdit, props));
 	});
