@@ -88,10 +88,10 @@ class ComponentAssets {
         $pluginDir = dirname($currentDir, 1);
 
         $global_css_path = COMET_COMPOSER_VENDOR_URL . '/doubleedesign/comet-components-core/src/components/global.css';
-        $block_css_path = $pluginDir . '/src/editor.css';
+        $common_css_path = COMET_COMPOSER_VENDOR_URL . '/doubleedesign/comet-components-core/src/components/common.css';
 
         wp_enqueue_style('comet-global-styles', $global_css_path, array('wp-edit-blocks'), COMET_VERSION);
-        wp_enqueue_style('comet-block-styles', $block_css_path, array('wp-edit-blocks'), COMET_VERSION);
+        wp_enqueue_style('comet-common-styles', $common_css_path, array('wp-edit-blocks'), COMET_VERSION);
     }
 
     /**
