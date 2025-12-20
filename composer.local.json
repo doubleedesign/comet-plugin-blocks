@@ -18,7 +18,8 @@
 		}
 	},
 	"require": {
-		"doubleedesign/comet-components-core": "*"
+		"doubleedesign/comet-components-core": "*",
+		"tomloprod/colority": "^1.4"
 	},
 	"repositories": [
 		{

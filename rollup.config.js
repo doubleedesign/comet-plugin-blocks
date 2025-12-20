@@ -4,43 +4,58 @@ import resolve from '@rollup/plugin-node-resolve';
 import { createFilter } from '@rollup/pluginutils';
 import { glob } from 'glob';
 
-export default {
-	//input: glob.sync('src/editor/**/*.jsx'), // would do all files
-	input: glob.sync('src/editor/CustomControlsWrapper/CustomControlsWrapper.jsx'), // is the only one that needs to be compiled for the editor
-	output: {
-		dir: 'src/editor',
-		format: 'es',
-		entryFileNames: (chunkInfo) => {
-			const name = chunkInfo.name.replace(/^src\/editor\//, '');
-
-			return `${name}.dist.js`;
+export default [
+	// Custom TinyMCE plugins
+	{
+		input: 'src/tinymce/miniblock-plugin.js',
+		output: {
+			file: 'src/tinymce/miniblock-plugin.dist.js',
+			format: 'iife',
+			sourcemap: true
 		},
-		sourcemap: true,
-		preserveModules: true,
+		plugins: [
+			resolve()
+		]
 	},
-	external: [
-		/^@wordpress\/.+$/,
-		'react',
-		'react-dom'
-	],
-	plugins: [
-		wordpressGlobals(),
-		resolve({
-			extensions: ['.js', '.jsx'],
-			browser: true
-		}),
-		babel({
-			babelHelpers: 'bundled',
-			presets: [
-				'@babel/preset-react'
-			],
-			plugins: [
-				'@babel/plugin-syntax-dynamic-import'
-			],
-			extensions: ['.js', '.jsx']
-		})
-	]
-};
+	// Block editor components
+	{
+		//input: glob.sync('src/editor/**/*.jsx'), // would do all files
+		input: glob.sync('src/editor/CustomControlsWrapper/CustomControlsWrapper.jsx'), // is the only one that needs to be compiled for the editor
+		output: {
+			dir: 'src/editor',
+			format: 'es',
+			entryFileNames: (chunkInfo) => {
+				const name = chunkInfo.name.replace(/^src\/editor\//, '');
+
+				return `${name}.dist.js`;
+			},
+			sourcemap: true,
+			preserveModules: true,
+		},
+		external: [
+			/^@wordpress\/.+$/,
+			'react',
+			'react-dom'
+		],
+		plugins: [
+			wordpressGlobals(),
+			resolve({
+				extensions: ['.js', '.jsx'],
+				browser: true
+			}),
+			babel({
+				babelHelpers: 'bundled',
+				presets: [
+					'@babel/preset-react'
+				],
+				plugins: [
+					'@babel/plugin-syntax-dynamic-import'
+				],
+				extensions: ['.js', '.jsx']
+			})
+		]
+	}
+];
 
 // Custom plugin to transform WordPress imports to globals
 // Note: This does not work with @wordpress/icons
