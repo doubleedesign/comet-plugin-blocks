@@ -12,8 +12,8 @@ class BlockRegistry extends JavaScriptImplementation {
         add_action('init', [$this, 'register_blocks'], 10, 2);
         add_action('acf/include_fields', [$this, 'register_block_fields'], 10, 2);
 
-        // add_filter('allowed_block_types_all', [$this, 'filter_allowed_blocks_server_side'], 10, 2);
-        // add_filter('block_editor_settings_all', [$this, 'filter_allowed_blocks_client_side'], 20, 2);
+        add_filter('allowed_block_types_all', [$this, 'filter_allowed_blocks_server_side'], 10, 2);
+        add_filter('block_editor_settings_all', [$this, 'filter_allowed_blocks_client_side'], 20, 2);
     }
 
     /**
