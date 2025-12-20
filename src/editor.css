@@ -1,22 +1,4 @@
 @charset "UTF-8";
-.page-header, .editor-visual-editor__post-title-wrapper {
-  padding-block: var(--spacing-md);
-}
-@media (min-width: 940px) {
-  .page-header, .editor-visual-editor__post-title-wrapper {
-    padding-block: var(--spacing-xl);
-  }
-}
-@media (min-width: 1440px) {
-  .page-header, .editor-visual-editor__post-title-wrapper {
-    padding-block: var(--spacing-xxl);
-  }
-}
-@container (min-width: 940px) {
-  .page-header, .editor-visual-editor__post-title-wrapper {
-    padding-block: var(--spacing-xl);
-  }
-}
 .page-header .breadcrumbs, .editor-visual-editor__post-title-wrapper .breadcrumbs {
   width: 100%;
   flex-basis: 100%;
@@ -28,365 +10,712 @@
   flex-basis: 100%;
 }
 
-.columns, .wp-block-columns {
+.columns__container, [class$=__columns__container] {
   display: grid;
-  grid-gap: var(--spacing-md);
+  display: grid;
+  grid-gap: var(--spacing-lg);
 }
 @container (min-width: 940px) {
-  .columns, .wp-block-columns {
-    grid-gap: var(--spacing-lg);
+  .columns__container, [class$=__columns__container] {
+    grid-gap: var(--spacing-xl);
   }
 }
-.columns[data-count="2"][data-allow-layout-stacking=true], [data-count="2"][data-allow-layout-stacking=true].wp-block-columns, .columns[data-count="4"][data-allow-layout-stacking=true], [data-count="4"][data-allow-layout-stacking=true].wp-block-columns, .columns[data-count="6"][data-allow-layout-stacking=true], [data-count="6"][data-allow-layout-stacking=true].wp-block-columns {
+.columns__container[data-count="2"]:not([data-allow-layout-stacking=false]), [data-count="2"][class$=__columns__container]:not([data-allow-layout-stacking=false]), .columns__container[data-count="4"]:not([data-allow-layout-stacking=false]), [data-count="4"][class$=__columns__container]:not([data-allow-layout-stacking=false]), .columns__container[data-count="6"]:not([data-allow-layout-stacking=false]), [data-count="6"][class$=__columns__container]:not([data-allow-layout-stacking=false]) {
   grid-template-columns: repeat(1, 1fr);
 }
-@container (max-width: 600px) {
-  .columns[data-count="2"][data-allow-layout-stacking=true], [data-count="2"][data-allow-layout-stacking=true].wp-block-columns, .columns[data-count="4"][data-allow-layout-stacking=true], [data-count="4"][data-allow-layout-stacking=true].wp-block-columns, .columns[data-count="6"][data-allow-layout-stacking=true], [data-count="6"][data-allow-layout-stacking=true].wp-block-columns {
+@container (max-width: 768px - 1px) {
+  .columns__container[data-count="2"]:not([data-allow-layout-stacking=false]), [data-count="2"][class$=__columns__container]:not([data-allow-layout-stacking=false]), .columns__container[data-count="4"]:not([data-allow-layout-stacking=false]), [data-count="4"][class$=__columns__container]:not([data-allow-layout-stacking=false]), .columns__container[data-count="6"]:not([data-allow-layout-stacking=false]), [data-count="6"][class$=__columns__container]:not([data-allow-layout-stacking=false]) {
     flex-wrap: wrap;
   }
-  .columns[data-count="2"][data-allow-layout-stacking=true] .column, [data-count="2"][data-allow-layout-stacking=true].wp-block-columns .column, .columns[data-count="2"][data-allow-layout-stacking=true] .wp-block-columns .wp-block-column, .wp-block-columns .columns[data-count="2"][data-allow-layout-stacking=true] .wp-block-column, [data-count="2"][data-allow-layout-stacking=true].wp-block-columns .wp-block-column, .columns[data-count="4"][data-allow-layout-stacking=true] .column, [data-count="4"][data-allow-layout-stacking=true].wp-block-columns .column, .columns[data-count="4"][data-allow-layout-stacking=true] .wp-block-columns .wp-block-column, .wp-block-columns .columns[data-count="4"][data-allow-layout-stacking=true] .wp-block-column, [data-count="4"][data-allow-layout-stacking=true].wp-block-columns .wp-block-column, .columns[data-count="6"][data-allow-layout-stacking=true] .column, [data-count="6"][data-allow-layout-stacking=true].wp-block-columns .column, .columns[data-count="6"][data-allow-layout-stacking=true] .wp-block-columns .wp-block-column, .wp-block-columns .columns[data-count="6"][data-allow-layout-stacking=true] .wp-block-column, [data-count="6"][data-allow-layout-stacking=true].wp-block-columns .wp-block-column {
+  .columns__container[data-count="2"]:not([data-allow-layout-stacking=false]) .column, .columns__container[data-count="2"]:not([data-allow-layout-stacking=false]) .wp-block-columns .wp-block-column, .wp-block-columns .columns__container[data-count="2"]:not([data-allow-layout-stacking=false]) .wp-block-column, [data-count="2"][class$=__columns__container]:not([data-allow-layout-stacking=false]) .column, [data-count="2"][class$=__columns__container]:not([data-allow-layout-stacking=false]) .wp-block-columns .wp-block-column, .wp-block-columns [data-count="2"][class$=__columns__container]:not([data-allow-layout-stacking=false]) .wp-block-column,
+  .columns__container[data-count="2"]:not([data-allow-layout-stacking=false]) [class$=__column],
+  [data-count="2"][class$=__columns__container]:not([data-allow-layout-stacking=false]) [class$=__column], .columns__container[data-count="4"]:not([data-allow-layout-stacking=false]) .column, .columns__container[data-count="4"]:not([data-allow-layout-stacking=false]) .wp-block-columns .wp-block-column, .wp-block-columns .columns__container[data-count="4"]:not([data-allow-layout-stacking=false]) .wp-block-column, [data-count="4"][class$=__columns__container]:not([data-allow-layout-stacking=false]) .column, [data-count="4"][class$=__columns__container]:not([data-allow-layout-stacking=false]) .wp-block-columns .wp-block-column, .wp-block-columns [data-count="4"][class$=__columns__container]:not([data-allow-layout-stacking=false]) .wp-block-column,
+  .columns__container[data-count="4"]:not([data-allow-layout-stacking=false]) [class$=__column],
+  [data-count="4"][class$=__columns__container]:not([data-allow-layout-stacking=false]) [class$=__column], .columns__container[data-count="6"]:not([data-allow-layout-stacking=false]) .column, .columns__container[data-count="6"]:not([data-allow-layout-stacking=false]) .wp-block-columns .wp-block-column, .wp-block-columns .columns__container[data-count="6"]:not([data-allow-layout-stacking=false]) .wp-block-column, [data-count="6"][class$=__columns__container]:not([data-allow-layout-stacking=false]) .column, [data-count="6"][class$=__columns__container]:not([data-allow-layout-stacking=false]) .wp-block-columns .wp-block-column, .wp-block-columns [data-count="6"][class$=__columns__container]:not([data-allow-layout-stacking=false]) .wp-block-column,
+  .columns__container[data-count="6"]:not([data-allow-layout-stacking=false]) [class$=__column],
+  [data-count="6"][class$=__columns__container]:not([data-allow-layout-stacking=false]) [class$=__column] {
     grid-column: 1/-1;
     width: 100% !important;
     flex-basis: 100% !important;
     min-width: 100%;
   }
 }
-@container (min-width: 600px) {
-  .columns[data-count="2"][data-allow-layout-stacking=true], [data-count="2"][data-allow-layout-stacking=true].wp-block-columns, .columns[data-count="4"][data-allow-layout-stacking=true], [data-count="4"][data-allow-layout-stacking=true].wp-block-columns, .columns[data-count="6"][data-allow-layout-stacking=true], [data-count="6"][data-allow-layout-stacking=true].wp-block-columns {
+@container (min-width: 768px) {
+  .columns__container[data-count="2"]:not([data-allow-layout-stacking=false]), [data-count="2"][class$=__columns__container]:not([data-allow-layout-stacking=false]), .columns__container[data-count="4"]:not([data-allow-layout-stacking=false]), [data-count="4"][class$=__columns__container]:not([data-allow-layout-stacking=false]), .columns__container[data-count="6"]:not([data-allow-layout-stacking=false]), [data-count="6"][class$=__columns__container]:not([data-allow-layout-stacking=false]) {
     grid-template-columns: repeat(2, 1fr);
   }
 }
-@container (min-width: 940px) {
-  .columns[data-count="4"][data-allow-layout-stacking=true], [data-count="4"][data-allow-layout-stacking=true].wp-block-columns {
+@container (min-width: 768px) {
+  .columns__container[data-count="4"]:not([data-allow-layout-stacking=false]), [data-count="4"][class$=__columns__container]:not([data-allow-layout-stacking=false]) {
     grid-template-columns: repeat(4, 1fr);
   }
 }
-@container (min-width: 768px) {
-  .columns[data-count="3"][data-allow-layout-stacking=true], [data-count="3"][data-allow-layout-stacking=true].wp-block-columns, .columns[data-count="6"][data-allow-layout-stacking=true], [data-count="6"][data-allow-layout-stacking=true].wp-block-columns {
+@container (min-width: 940px) {
+  .columns__container[data-count="3"]:not([data-allow-layout-stacking=false]), [data-count="3"][class$=__columns__container]:not([data-allow-layout-stacking=false]), .columns__container[data-count="6"]:not([data-allow-layout-stacking=false]), [data-count="6"][class$=__columns__container]:not([data-allow-layout-stacking=false]) {
     grid-template-columns: repeat(3, 1fr);
   }
 }
 @container (min-width: 940px) {
-  .columns[data-count="5"][data-allow-layout-stacking=true], [data-count="5"][data-allow-layout-stacking=true].wp-block-columns {
+  .columns__container[data-count="5"]:not([data-allow-layout-stacking=false]), [data-count="5"][class$=__columns__container]:not([data-allow-layout-stacking=false]) {
     grid-template-columns: repeat(5, 1fr);
   }
 }
 @container (min-width: 940px) {
-  .columns[data-count="6"][data-allow-layout-stacking=true], [data-count="6"][data-allow-layout-stacking=true].wp-block-columns {
+  .columns__container[data-count="6"]:not([data-allow-layout-stacking=false]), [data-count="6"][class$=__columns__container]:not([data-allow-layout-stacking=false]) {
     grid-template-columns: repeat(5, 1fr);
   }
 }
-.columns:has(> .columns__column--has-own-width), .wp-block-columns:has(> .columns__column--has-own-width) {
+.columns__container:has(> [class*="--has-own-width"]), [class$=__columns__container]:has(> [class*="--has-own-width"]) {
   display: flex;
   flex-wrap: nowrap;
   gap: var(--spacing-md);
 }
 @container (min-width: 940px) {
-  .columns:has(> .columns__column--has-own-width), .wp-block-columns:has(> .columns__column--has-own-width) {
+  .columns__container:has(> [class*="--has-own-width"]), [class$=__columns__container]:has(> [class*="--has-own-width"]) {
     gap: var(--spacing-lg);
   }
 }
-.columns[data-background=primary]:has(> [data-background=secondary]) .columns__column, [data-background=primary].wp-block-columns:has(> [data-background=secondary]) .columns__column {
+.columns:not(:has([class*=__container])), .wp-block-columns:not(:has([class*=__container])), [class$=__columns]:not(:has([class*=__container])) {
+  display: grid;
+  grid-gap: var(--spacing-lg);
+}
+@container (min-width: 940px) {
+  .columns:not(:has([class*=__container])), .wp-block-columns:not(:has([class*=__container])), [class$=__columns]:not(:has([class*=__container])) {
+    grid-gap: var(--spacing-xl);
+  }
+}
+.columns:not(:has([class*=__container]))[data-count="2"]:not([data-allow-layout-stacking=false]), .wp-block-columns:not(:has([class*=__container]))[data-count="2"]:not([data-allow-layout-stacking=false]), [class$=__columns]:not(:has([class*=__container]))[data-count="2"]:not([data-allow-layout-stacking=false]), .columns:not(:has([class*=__container]))[data-count="4"]:not([data-allow-layout-stacking=false]), .wp-block-columns:not(:has([class*=__container]))[data-count="4"]:not([data-allow-layout-stacking=false]), [class$=__columns]:not(:has([class*=__container]))[data-count="4"]:not([data-allow-layout-stacking=false]), .columns:not(:has([class*=__container]))[data-count="6"]:not([data-allow-layout-stacking=false]), .wp-block-columns:not(:has([class*=__container]))[data-count="6"]:not([data-allow-layout-stacking=false]), [class$=__columns]:not(:has([class*=__container]))[data-count="6"]:not([data-allow-layout-stacking=false]) {
+  grid-template-columns: repeat(1, 1fr);
+}
+@container (max-width: 768px - 1px) {
+  .columns:not(:has([class*=__container]))[data-count="2"]:not([data-allow-layout-stacking=false]), .wp-block-columns:not(:has([class*=__container]))[data-count="2"]:not([data-allow-layout-stacking=false]), [class$=__columns]:not(:has([class*=__container]))[data-count="2"]:not([data-allow-layout-stacking=false]), .columns:not(:has([class*=__container]))[data-count="4"]:not([data-allow-layout-stacking=false]), .wp-block-columns:not(:has([class*=__container]))[data-count="4"]:not([data-allow-layout-stacking=false]), [class$=__columns]:not(:has([class*=__container]))[data-count="4"]:not([data-allow-layout-stacking=false]), .columns:not(:has([class*=__container]))[data-count="6"]:not([data-allow-layout-stacking=false]), .wp-block-columns:not(:has([class*=__container]))[data-count="6"]:not([data-allow-layout-stacking=false]), [class$=__columns]:not(:has([class*=__container]))[data-count="6"]:not([data-allow-layout-stacking=false]) {
+    flex-wrap: wrap;
+  }
+  .columns:not(:has([class*=__container]))[data-count="2"]:not([data-allow-layout-stacking=false]) .column, .wp-block-columns:not(:has([class*=__container]))[data-count="2"]:not([data-allow-layout-stacking=false]) .column, .columns:not(:has([class*=__container]))[data-count="2"]:not([data-allow-layout-stacking=false]) .wp-block-columns .wp-block-column, .wp-block-columns .columns:not(:has([class*=__container]))[data-count="2"]:not([data-allow-layout-stacking=false]) .wp-block-column, .wp-block-columns:not(:has([class*=__container]))[data-count="2"]:not([data-allow-layout-stacking=false]) .wp-block-column, [class$=__columns]:not(:has([class*=__container]))[data-count="2"]:not([data-allow-layout-stacking=false]) .column, [class$=__columns]:not(:has([class*=__container]))[data-count="2"]:not([data-allow-layout-stacking=false]) .wp-block-columns .wp-block-column, .wp-block-columns [class$=__columns]:not(:has([class*=__container]))[data-count="2"]:not([data-allow-layout-stacking=false]) .wp-block-column,
+  .columns:not(:has([class*=__container]))[data-count="2"]:not([data-allow-layout-stacking=false]) [class$=__column],
+  .wp-block-columns:not(:has([class*=__container]))[data-count="2"]:not([data-allow-layout-stacking=false]) [class$=__column],
+  [class$=__columns]:not(:has([class*=__container]))[data-count="2"]:not([data-allow-layout-stacking=false]) [class$=__column], .columns:not(:has([class*=__container]))[data-count="4"]:not([data-allow-layout-stacking=false]) .column, .wp-block-columns:not(:has([class*=__container]))[data-count="4"]:not([data-allow-layout-stacking=false]) .column, .columns:not(:has([class*=__container]))[data-count="4"]:not([data-allow-layout-stacking=false]) .wp-block-columns .wp-block-column, .wp-block-columns .columns:not(:has([class*=__container]))[data-count="4"]:not([data-allow-layout-stacking=false]) .wp-block-column, .wp-block-columns:not(:has([class*=__container]))[data-count="4"]:not([data-allow-layout-stacking=false]) .wp-block-column, [class$=__columns]:not(:has([class*=__container]))[data-count="4"]:not([data-allow-layout-stacking=false]) .column, [class$=__columns]:not(:has([class*=__container]))[data-count="4"]:not([data-allow-layout-stacking=false]) .wp-block-columns .wp-block-column, .wp-block-columns [class$=__columns]:not(:has([class*=__container]))[data-count="4"]:not([data-allow-layout-stacking=false]) .wp-block-column,
+  .columns:not(:has([class*=__container]))[data-count="4"]:not([data-allow-layout-stacking=false]) [class$=__column],
+  .wp-block-columns:not(:has([class*=__container]))[data-count="4"]:not([data-allow-layout-stacking=false]) [class$=__column],
+  [class$=__columns]:not(:has([class*=__container]))[data-count="4"]:not([data-allow-layout-stacking=false]) [class$=__column], .columns:not(:has([class*=__container]))[data-count="6"]:not([data-allow-layout-stacking=false]) .column, .wp-block-columns:not(:has([class*=__container]))[data-count="6"]:not([data-allow-layout-stacking=false]) .column, .columns:not(:has([class*=__container]))[data-count="6"]:not([data-allow-layout-stacking=false]) .wp-block-columns .wp-block-column, .wp-block-columns .columns:not(:has([class*=__container]))[data-count="6"]:not([data-allow-layout-stacking=false]) .wp-block-column, .wp-block-columns:not(:has([class*=__container]))[data-count="6"]:not([data-allow-layout-stacking=false]) .wp-block-column, [class$=__columns]:not(:has([class*=__container]))[data-count="6"]:not([data-allow-layout-stacking=false]) .column, [class$=__columns]:not(:has([class*=__container]))[data-count="6"]:not([data-allow-layout-stacking=false]) .wp-block-columns .wp-block-column, .wp-block-columns [class$=__columns]:not(:has([class*=__container]))[data-count="6"]:not([data-allow-layout-stacking=false]) .wp-block-column,
+  .columns:not(:has([class*=__container]))[data-count="6"]:not([data-allow-layout-stacking=false]) [class$=__column],
+  .wp-block-columns:not(:has([class*=__container]))[data-count="6"]:not([data-allow-layout-stacking=false]) [class$=__column],
+  [class$=__columns]:not(:has([class*=__container]))[data-count="6"]:not([data-allow-layout-stacking=false]) [class$=__column] {
+    grid-column: 1/-1;
+    width: 100% !important;
+    flex-basis: 100% !important;
+    min-width: 100%;
+  }
+}
+@container (min-width: 768px) {
+  .columns:not(:has([class*=__container]))[data-count="2"]:not([data-allow-layout-stacking=false]), .wp-block-columns:not(:has([class*=__container]))[data-count="2"]:not([data-allow-layout-stacking=false]), [class$=__columns]:not(:has([class*=__container]))[data-count="2"]:not([data-allow-layout-stacking=false]), .columns:not(:has([class*=__container]))[data-count="4"]:not([data-allow-layout-stacking=false]), .wp-block-columns:not(:has([class*=__container]))[data-count="4"]:not([data-allow-layout-stacking=false]), [class$=__columns]:not(:has([class*=__container]))[data-count="4"]:not([data-allow-layout-stacking=false]), .columns:not(:has([class*=__container]))[data-count="6"]:not([data-allow-layout-stacking=false]), .wp-block-columns:not(:has([class*=__container]))[data-count="6"]:not([data-allow-layout-stacking=false]), [class$=__columns]:not(:has([class*=__container]))[data-count="6"]:not([data-allow-layout-stacking=false]) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@container (min-width: 768px) {
+  .columns:not(:has([class*=__container]))[data-count="4"]:not([data-allow-layout-stacking=false]), .wp-block-columns:not(:has([class*=__container]))[data-count="4"]:not([data-allow-layout-stacking=false]), [class$=__columns]:not(:has([class*=__container]))[data-count="4"]:not([data-allow-layout-stacking=false]) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+@container (min-width: 940px) {
+  .columns:not(:has([class*=__container]))[data-count="3"]:not([data-allow-layout-stacking=false]), .wp-block-columns:not(:has([class*=__container]))[data-count="3"]:not([data-allow-layout-stacking=false]), [class$=__columns]:not(:has([class*=__container]))[data-count="3"]:not([data-allow-layout-stacking=false]), .columns:not(:has([class*=__container]))[data-count="6"]:not([data-allow-layout-stacking=false]), .wp-block-columns:not(:has([class*=__container]))[data-count="6"]:not([data-allow-layout-stacking=false]), [class$=__columns]:not(:has([class*=__container]))[data-count="6"]:not([data-allow-layout-stacking=false]) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+@container (min-width: 940px) {
+  .columns:not(:has([class*=__container]))[data-count="5"]:not([data-allow-layout-stacking=false]), .wp-block-columns:not(:has([class*=__container]))[data-count="5"]:not([data-allow-layout-stacking=false]), [class$=__columns]:not(:has([class*=__container]))[data-count="5"]:not([data-allow-layout-stacking=false]) {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+@container (min-width: 940px) {
+  .columns:not(:has([class*=__container]))[data-count="6"]:not([data-allow-layout-stacking=false]), .wp-block-columns:not(:has([class*=__container]))[data-count="6"]:not([data-allow-layout-stacking=false]), [class$=__columns]:not(:has([class*=__container]))[data-count="6"]:not([data-allow-layout-stacking=false]) {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+.columns:not(:has([class*=__container])):has(> [class*="--has-own-width"]), .wp-block-columns:not(:has([class*=__container])):has(> [class*="--has-own-width"]), [class$=__columns]:not(:has([class*=__container])):has(> [class*="--has-own-width"]) {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: var(--spacing-md);
+}
+@container (min-width: 940px) {
+  .columns:not(:has([class*=__container])):has(> [class*="--has-own-width"]), .wp-block-columns:not(:has([class*=__container])):has(> [class*="--has-own-width"]), [class$=__columns]:not(:has([class*=__container])):has(> [class*="--has-own-width"]) {
+    gap: var(--spacing-lg);
+  }
+}
+.columns[data-background=primary]:has(> [data-background=secondary]) .columns__column, [data-background=primary].wp-block-columns:has(> [data-background=secondary]) .columns__column, .columns[data-background=primary]:has(> [data-background=secondary]) [class$=__columns__column], [data-background=primary].wp-block-columns:has(> [data-background=secondary]) [class$=__columns__column], [data-background=primary][class$=__columns]:has(> [data-background=secondary]) .columns__column, [data-background=primary][class$=__columns]:has(> [data-background=secondary]) [class$=__columns__column],
+.columns[data-background=primary]:has(> [data-background=secondary]) [class$=__column],
+[data-background=primary].wp-block-columns:has(> [data-background=secondary]) [class$=__column],
+[data-background=primary][class$=__columns]:has(> [data-background=secondary]) [class$=__column] {
   padding: var(--spacing-md);
 }
-.columns[data-background=primary]:has(> [data-background=accent]) .columns__column, [data-background=primary].wp-block-columns:has(> [data-background=accent]) .columns__column {
+.columns[data-background=primary]:has(> [data-background=accent]) .columns__column, [data-background=primary].wp-block-columns:has(> [data-background=accent]) .columns__column, .columns[data-background=primary]:has(> [data-background=accent]) [class$=__columns__column], [data-background=primary].wp-block-columns:has(> [data-background=accent]) [class$=__columns__column], [data-background=primary][class$=__columns]:has(> [data-background=accent]) .columns__column, [data-background=primary][class$=__columns]:has(> [data-background=accent]) [class$=__columns__column],
+.columns[data-background=primary]:has(> [data-background=accent]) [class$=__column],
+[data-background=primary].wp-block-columns:has(> [data-background=accent]) [class$=__column],
+[data-background=primary][class$=__columns]:has(> [data-background=accent]) [class$=__column] {
   padding: var(--spacing-md);
 }
-.columns[data-background=primary]:has(> [data-background=info]) .columns__column, [data-background=primary].wp-block-columns:has(> [data-background=info]) .columns__column {
+.columns[data-background=primary]:has(> [data-background=info]) .columns__column, [data-background=primary].wp-block-columns:has(> [data-background=info]) .columns__column, .columns[data-background=primary]:has(> [data-background=info]) [class$=__columns__column], [data-background=primary].wp-block-columns:has(> [data-background=info]) [class$=__columns__column], [data-background=primary][class$=__columns]:has(> [data-background=info]) .columns__column, [data-background=primary][class$=__columns]:has(> [data-background=info]) [class$=__columns__column],
+.columns[data-background=primary]:has(> [data-background=info]) [class$=__column],
+[data-background=primary].wp-block-columns:has(> [data-background=info]) [class$=__column],
+[data-background=primary][class$=__columns]:has(> [data-background=info]) [class$=__column] {
   padding: var(--spacing-md);
 }
-.columns[data-background=primary]:has(> [data-background=warning]) .columns__column, [data-background=primary].wp-block-columns:has(> [data-background=warning]) .columns__column {
+.columns[data-background=primary]:has(> [data-background=warning]) .columns__column, [data-background=primary].wp-block-columns:has(> [data-background=warning]) .columns__column, .columns[data-background=primary]:has(> [data-background=warning]) [class$=__columns__column], [data-background=primary].wp-block-columns:has(> [data-background=warning]) [class$=__columns__column], [data-background=primary][class$=__columns]:has(> [data-background=warning]) .columns__column, [data-background=primary][class$=__columns]:has(> [data-background=warning]) [class$=__columns__column],
+.columns[data-background=primary]:has(> [data-background=warning]) [class$=__column],
+[data-background=primary].wp-block-columns:has(> [data-background=warning]) [class$=__column],
+[data-background=primary][class$=__columns]:has(> [data-background=warning]) [class$=__column] {
   padding: var(--spacing-md);
 }
-.columns[data-background=primary]:has(> [data-background=success]) .columns__column, [data-background=primary].wp-block-columns:has(> [data-background=success]) .columns__column {
+.columns[data-background=primary]:has(> [data-background=success]) .columns__column, [data-background=primary].wp-block-columns:has(> [data-background=success]) .columns__column, .columns[data-background=primary]:has(> [data-background=success]) [class$=__columns__column], [data-background=primary].wp-block-columns:has(> [data-background=success]) [class$=__columns__column], [data-background=primary][class$=__columns]:has(> [data-background=success]) .columns__column, [data-background=primary][class$=__columns]:has(> [data-background=success]) [class$=__columns__column],
+.columns[data-background=primary]:has(> [data-background=success]) [class$=__column],
+[data-background=primary].wp-block-columns:has(> [data-background=success]) [class$=__column],
+[data-background=primary][class$=__columns]:has(> [data-background=success]) [class$=__column] {
   padding: var(--spacing-md);
 }
-.columns[data-background=primary]:has(> [data-background=error]) .columns__column, [data-background=primary].wp-block-columns:has(> [data-background=error]) .columns__column {
+.columns[data-background=primary]:has(> [data-background=error]) .columns__column, [data-background=primary].wp-block-columns:has(> [data-background=error]) .columns__column, .columns[data-background=primary]:has(> [data-background=error]) [class$=__columns__column], [data-background=primary].wp-block-columns:has(> [data-background=error]) [class$=__columns__column], [data-background=primary][class$=__columns]:has(> [data-background=error]) .columns__column, [data-background=primary][class$=__columns]:has(> [data-background=error]) [class$=__columns__column],
+.columns[data-background=primary]:has(> [data-background=error]) [class$=__column],
+[data-background=primary].wp-block-columns:has(> [data-background=error]) [class$=__column],
+[data-background=primary][class$=__columns]:has(> [data-background=error]) [class$=__column] {
   padding: var(--spacing-md);
 }
-.columns[data-background=primary]:has(> [data-background=light]) .columns__column, [data-background=primary].wp-block-columns:has(> [data-background=light]) .columns__column {
+.columns[data-background=primary]:has(> [data-background=light]) .columns__column, [data-background=primary].wp-block-columns:has(> [data-background=light]) .columns__column, .columns[data-background=primary]:has(> [data-background=light]) [class$=__columns__column], [data-background=primary].wp-block-columns:has(> [data-background=light]) [class$=__columns__column], [data-background=primary][class$=__columns]:has(> [data-background=light]) .columns__column, [data-background=primary][class$=__columns]:has(> [data-background=light]) [class$=__columns__column],
+.columns[data-background=primary]:has(> [data-background=light]) [class$=__column],
+[data-background=primary].wp-block-columns:has(> [data-background=light]) [class$=__column],
+[data-background=primary][class$=__columns]:has(> [data-background=light]) [class$=__column] {
   padding: var(--spacing-md);
 }
-.columns[data-background=primary]:has(> [data-background=dark]) .columns__column, [data-background=primary].wp-block-columns:has(> [data-background=dark]) .columns__column {
+.columns[data-background=primary]:has(> [data-background=dark]) .columns__column, [data-background=primary].wp-block-columns:has(> [data-background=dark]) .columns__column, .columns[data-background=primary]:has(> [data-background=dark]) [class$=__columns__column], [data-background=primary].wp-block-columns:has(> [data-background=dark]) [class$=__columns__column], [data-background=primary][class$=__columns]:has(> [data-background=dark]) .columns__column, [data-background=primary][class$=__columns]:has(> [data-background=dark]) [class$=__columns__column],
+.columns[data-background=primary]:has(> [data-background=dark]) [class$=__column],
+[data-background=primary].wp-block-columns:has(> [data-background=dark]) [class$=__column],
+[data-background=primary][class$=__columns]:has(> [data-background=dark]) [class$=__column] {
   padding: var(--spacing-md);
 }
-.columns[data-background=primary]:has(> [data-background=white]) .columns__column, [data-background=primary].wp-block-columns:has(> [data-background=white]) .columns__column {
+.columns[data-background=primary]:has(> [data-background=white]) .columns__column, [data-background=primary].wp-block-columns:has(> [data-background=white]) .columns__column, .columns[data-background=primary]:has(> [data-background=white]) [class$=__columns__column], [data-background=primary].wp-block-columns:has(> [data-background=white]) [class$=__columns__column], [data-background=primary][class$=__columns]:has(> [data-background=white]) .columns__column, [data-background=primary][class$=__columns]:has(> [data-background=white]) [class$=__columns__column],
+.columns[data-background=primary]:has(> [data-background=white]) [class$=__column],
+[data-background=primary].wp-block-columns:has(> [data-background=white]) [class$=__column],
+[data-background=primary][class$=__columns]:has(> [data-background=white]) [class$=__column] {
   padding: var(--spacing-md);
 }
-.columns[data-background=primary] + .columns[data-background=primary], [data-background=primary].wp-block-columns + .columns[data-background=primary], .columns[data-background=primary] + [data-background=primary].wp-block-columns, [data-background=primary].wp-block-columns + [data-background=primary].wp-block-columns {
+.columns[data-background=primary] + .columns[data-background=primary], [data-background=primary].wp-block-columns + .columns[data-background=primary], .columns[data-background=primary] + [data-background=primary].wp-block-columns, [data-background=primary].wp-block-columns + [data-background=primary].wp-block-columns, [data-background=primary][class$=__columns] + .columns[data-background=primary], [data-background=primary][class$=__columns] + [data-background=primary].wp-block-columns, .columns[data-background=primary] + [data-background=primary][class$=__columns], [data-background=primary].wp-block-columns + [data-background=primary][class$=__columns], [data-background=primary][class$=__columns] + [data-background=primary][class$=__columns] {
   margin-block-start: calc(var(--spacing-md) * -2);
 }
-.columns[data-background=secondary]:has(> [data-background=primary]) .columns__column, [data-background=secondary].wp-block-columns:has(> [data-background=primary]) .columns__column {
+.columns[data-background=secondary]:has(> [data-background=primary]) .columns__column, [data-background=secondary].wp-block-columns:has(> [data-background=primary]) .columns__column, .columns[data-background=secondary]:has(> [data-background=primary]) [class$=__columns__column], [data-background=secondary].wp-block-columns:has(> [data-background=primary]) [class$=__columns__column], [data-background=secondary][class$=__columns]:has(> [data-background=primary]) .columns__column, [data-background=secondary][class$=__columns]:has(> [data-background=primary]) [class$=__columns__column],
+.columns[data-background=secondary]:has(> [data-background=primary]) [class$=__column],
+[data-background=secondary].wp-block-columns:has(> [data-background=primary]) [class$=__column],
+[data-background=secondary][class$=__columns]:has(> [data-background=primary]) [class$=__column] {
   padding: var(--spacing-md);
 }
-.columns[data-background=secondary]:has(> [data-background=accent]) .columns__column, [data-background=secondary].wp-block-columns:has(> [data-background=accent]) .columns__column {
+.columns[data-background=secondary]:has(> [data-background=accent]) .columns__column, [data-background=secondary].wp-block-columns:has(> [data-background=accent]) .columns__column, .columns[data-background=secondary]:has(> [data-background=accent]) [class$=__columns__column], [data-background=secondary].wp-block-columns:has(> [data-background=accent]) [class$=__columns__column], [data-background=secondary][class$=__columns]:has(> [data-background=accent]) .columns__column, [data-background=secondary][class$=__columns]:has(> [data-background=accent]) [class$=__columns__column],
+.columns[data-background=secondary]:has(> [data-background=accent]) [class$=__column],
+[data-background=secondary].wp-block-columns:has(> [data-background=accent]) [class$=__column],
+[data-background=secondary][class$=__columns]:has(> [data-background=accent]) [class$=__column] {
   padding: var(--spacing-md);
 }
-.columns[data-background=secondary]:has(> [data-background=info]) .columns__column, [data-background=secondary].wp-block-columns:has(> [data-background=info]) .columns__column {
+.columns[data-background=secondary]:has(> [data-background=info]) .columns__column, [data-background=secondary].wp-block-columns:has(> [data-background=info]) .columns__column, .columns[data-background=secondary]:has(> [data-background=info]) [class$=__columns__column], [data-background=secondary].wp-block-columns:has(> [data-background=info]) [class$=__columns__column], [data-background=secondary][class$=__columns]:has(> [data-background=info]) .columns__column, [data-background=secondary][class$=__columns]:has(> [data-background=info]) [class$=__columns__column],
+.columns[data-background=secondary]:has(> [data-background=info]) [class$=__column],
+[data-background=secondary].wp-block-columns:has(> [data-background=info]) [class$=__column],
+[data-background=secondary][class$=__columns]:has(> [data-background=info]) [class$=__column] {
   padding: var(--spacing-md);
 }
-.columns[data-background=secondary]:has(> [data-background=warning]) .columns__column, [data-background=secondary].wp-block-columns:has(> [data-background=warning]) .columns__column {
+.columns[data-background=secondary]:has(> [data-background=warning]) .columns__column, [data-background=secondary].wp-block-columns:has(> [data-background=warning]) .columns__column, .columns[data-background=secondary]:has(> [data-background=warning]) [class$=__columns__column], [data-background=secondary].wp-block-columns:has(> [data-background=warning]) [class$=__columns__column], [data-background=secondary][class$=__columns]:has(> [data-background=warning]) .columns__column, [data-background=secondary][class$=__columns]:has(> [data-background=warning]) [class$=__columns__column],
+.columns[data-background=secondary]:has(> [data-background=warning]) [class$=__column],
+[data-background=secondary].wp-block-columns:has(> [data-background=warning]) [class$=__column],
+[data-background=secondary][class$=__columns]:has(> [data-background=warning]) [class$=__column] {
   padding: var(--spacing-md);
 }
-.columns[data-background=secondary]:has(> [data-background=success]) .columns__column, [data-background=secondary].wp-block-columns:has(> [data-background=success]) .columns__column {
+.columns[data-background=secondary]:has(> [data-background=success]) .columns__column, [data-background=secondary].wp-block-columns:has(> [data-background=success]) .columns__column, .columns[data-background=secondary]:has(> [data-background=success]) [class$=__columns__column], [data-background=secondary].wp-block-columns:has(> [data-background=success]) [class$=__columns__column], [data-background=secondary][class$=__columns]:has(> [data-background=success]) .columns__column, [data-background=secondary][class$=__columns]:has(> [data-background=success]) [class$=__columns__column],
+.columns[data-background=secondary]:has(> [data-background=success]) [class$=__column],
+[data-background=secondary].wp-block-columns:has(> [data-background=success]) [class$=__column],
+[data-background=secondary][class$=__columns]:has(> [data-background=success]) [class$=__column] {
   padding: var(--spacing-md);
 }
-.columns[data-background=secondary]:has(> [data-background=error]) .columns__column, [data-background=secondary].wp-block-columns:has(> [data-background=error]) .columns__column {
+.columns[data-background=secondary]:has(> [data-background=error]) .columns__column, [data-background=secondary].wp-block-columns:has(> [data-background=error]) .columns__column, .columns[data-background=secondary]:has(> [data-background=error]) [class$=__columns__column], [data-background=secondary].wp-block-columns:has(> [data-background=error]) [class$=__columns__column], [data-background=secondary][class$=__columns]:has(> [data-background=error]) .columns__column, [data-background=secondary][class$=__columns]:has(> [data-background=error]) [class$=__columns__column],
+.columns[data-background=secondary]:has(> [data-background=error]) [class$=__column],
+[data-background=secondary].wp-block-columns:has(> [data-background=error]) [class$=__column],
+[data-background=secondary][class$=__columns]:has(> [data-background=error]) [class$=__column] {
   padding: var(--spacing-md);
 }
-.columns[data-background=secondary]:has(> [data-background=light]) .columns__column, [data-background=secondary].wp-block-columns:has(> [data-background=light]) .columns__column {
+.columns[data-background=secondary]:has(> [data-background=light]) .columns__column, [data-background=secondary].wp-block-columns:has(> [data-background=light]) .columns__column, .columns[data-background=secondary]:has(> [data-background=light]) [class$=__columns__column], [data-background=secondary].wp-block-columns:has(> [data-background=light]) [class$=__columns__column], [data-background=secondary][class$=__columns]:has(> [data-background=light]) .columns__column, [data-background=secondary][class$=__columns]:has(> [data-background=light]) [class$=__columns__column],
+.columns[data-background=secondary]:has(> [data-background=light]) [class$=__column],
+[data-background=secondary].wp-block-columns:has(> [data-background=light]) [class$=__column],
+[data-background=secondary][class$=__columns]:has(> [data-background=light]) [class$=__column] {
   padding: var(--spacing-md);
 }
-.columns[data-background=secondary]:has(> [data-background=dark]) .columns__column, [data-background=secondary].wp-block-columns:has(> [data-background=dark]) .columns__column {
+.columns[data-background=secondary]:has(> [data-background=dark]) .columns__column, [data-background=secondary].wp-block-columns:has(> [data-background=dark]) .columns__column, .columns[data-background=secondary]:has(> [data-background=dark]) [class$=__columns__column], [data-background=secondary].wp-block-columns:has(> [data-background=dark]) [class$=__columns__column], [data-background=secondary][class$=__columns]:has(> [data-background=dark]) .columns__column, [data-background=secondary][class$=__columns]:has(> [data-background=dark]) [class$=__columns__column],
+.columns[data-background=secondary]:has(> [data-background=dark]) [class$=__column],
+[data-background=secondary].wp-block-columns:has(> [data-background=dark]) [class$=__column],
+[data-background=secondary][class$=__columns]:has(> [data-background=dark]) [class$=__column] {
   padding: var(--spacing-md);
 }
-.columns[data-background=secondary]:has(> [data-background=white]) .columns__column, [data-background=secondary].wp-block-columns:has(> [data-background=white]) .columns__column {
+.columns[data-background=secondary]:has(> [data-background=white]) .columns__column, [data-background=secondary].wp-block-columns:has(> [data-background=white]) .columns__column, .columns[data-background=secondary]:has(> [data-background=white]) [class$=__columns__column], [data-background=secondary].wp-block-columns:has(> [data-background=white]) [class$=__columns__column], [data-background=secondary][class$=__columns]:has(> [data-background=white]) .columns__column, [data-background=secondary][class$=__columns]:has(> [data-background=white]) [class$=__columns__column],
+.columns[data-background=secondary]:has(> [data-background=white]) [class$=__column],
+[data-background=secondary].wp-block-columns:has(> [data-background=white]) [class$=__column],
+[data-background=secondary][class$=__columns]:has(> [data-background=white]) [class$=__column] {
   padding: var(--spacing-md);
 }
-.columns[data-background=secondary] + .columns[data-background=secondary], [data-background=secondary].wp-block-columns + .columns[data-background=secondary], .columns[data-background=secondary] + [data-background=secondary].wp-block-columns, [data-background=secondary].wp-block-columns + [data-background=secondary].wp-block-columns {
+.columns[data-background=secondary] + .columns[data-background=secondary], [data-background=secondary].wp-block-columns + .columns[data-background=secondary], .columns[data-background=secondary] + [data-background=secondary].wp-block-columns, [data-background=secondary].wp-block-columns + [data-background=secondary].wp-block-columns, [data-background=secondary][class$=__columns] + .columns[data-background=secondary], [data-background=secondary][class$=__columns] + [data-background=secondary].wp-block-columns, .columns[data-background=secondary] + [data-background=secondary][class$=__columns], [data-background=secondary].wp-block-columns + [data-background=secondary][class$=__columns], [data-background=secondary][class$=__columns] + [data-background=secondary][class$=__columns] {
   margin-block-start: calc(var(--spacing-md) * -2);
 }
-.columns[data-background=accent]:has(> [data-background=primary]) .columns__column, [data-background=accent].wp-block-columns:has(> [data-background=primary]) .columns__column {
+.columns[data-background=accent]:has(> [data-background=primary]) .columns__column, [data-background=accent].wp-block-columns:has(> [data-background=primary]) .columns__column, .columns[data-background=accent]:has(> [data-background=primary]) [class$=__columns__column], [data-background=accent].wp-block-columns:has(> [data-background=primary]) [class$=__columns__column], [data-background=accent][class$=__columns]:has(> [data-background=primary]) .columns__column, [data-background=accent][class$=__columns]:has(> [data-background=primary]) [class$=__columns__column],
+.columns[data-background=accent]:has(> [data-background=primary]) [class$=__column],
+[data-background=accent].wp-block-columns:has(> [data-background=primary]) [class$=__column],
+[data-background=accent][class$=__columns]:has(> [data-background=primary]) [class$=__column] {
   padding: var(--spacing-md);
 }
-.columns[data-background=accent]:has(> [data-background=secondary]) .columns__column, [data-background=accent].wp-block-columns:has(> [data-background=secondary]) .columns__column {
+.columns[data-background=accent]:has(> [data-background=secondary]) .columns__column, [data-background=accent].wp-block-columns:has(> [data-background=secondary]) .columns__column, .columns[data-background=accent]:has(> [data-background=secondary]) [class$=__columns__column], [data-background=accent].wp-block-columns:has(> [data-background=secondary]) [class$=__columns__column], [data-background=accent][class$=__columns]:has(> [data-background=secondary]) .columns__column, [data-background=accent][class$=__columns]:has(> [data-background=secondary]) [class$=__columns__column],
+.columns[data-background=accent]:has(> [data-background=secondary]) [class$=__column],
+[data-background=accent].wp-block-columns:has(> [data-background=secondary]) [class$=__column],
+[data-background=accent][class$=__columns]:has(> [data-background=secondary]) [class$=__column] {
   padding: var(--spacing-md);
 }
-.columns[data-background=accent]:has(> [data-background=info]) .columns__column, [data-background=accent].wp-block-columns:has(> [data-background=info]) .columns__column {
+.columns[data-background=accent]:has(> [data-background=info]) .columns__column, [data-background=accent].wp-block-columns:has(> [data-background=info]) .columns__column, .columns[data-background=accent]:has(> [data-background=info]) [class$=__columns__column], [data-background=accent].wp-block-columns:has(> [data-background=info]) [class$=__columns__column], [data-background=accent][class$=__columns]:has(> [data-background=info]) .columns__column, [data-background=accent][class$=__columns]:has(> [data-background=info]) [class$=__columns__column],
+.columns[data-background=accent]:has(> [data-background=info]) [class$=__column],
+[data-background=accent].wp-block-columns:has(> [data-background=info]) [class$=__column],
+[data-background=accent][class$=__columns]:has(> [data-background=info]) [class$=__column] {
   padding: var(--spacing-md);
 }
-.columns[data-background=accent]:has(> [data-background=warning]) .columns__column, [data-background=accent].wp-block-columns:has(> [data-background=warning]) .columns__column {
+.columns[data-background=accent]:has(> [data-background=warning]) .columns__column, [data-background=accent].wp-block-columns:has(> [data-background=warning]) .columns__column, .columns[data-background=accent]:has(> [data-background=warning]) [class$=__columns__column], [data-background=accent].wp-block-columns:has(> [data-background=warning]) [class$=__columns__column], [data-background=accent][class$=__columns]:has(> [data-background=warning]) .columns__column, [data-background=accent][class$=__columns]:has(> [data-background=warning]) [class$=__columns__column],
+.columns[data-background=accent]:has(> [data-background=warning]) [class$=__column],
+[data-background=accent].wp-block-columns:has(> [data-background=warning]) [class$=__column],
+[data-background=accent][class$=__columns]:has(> [data-background=warning]) [class$=__column] {
   padding: var(--spacing-md);
 }
-.columns[data-background=accent]:has(> [data-background=success]) .columns__column, [data-background=accent].wp-block-columns:has(> [data-background=success]) .columns__column {
+.columns[data-background=accent]:has(> [data-background=success]) .columns__column, [data-background=accent].wp-block-columns:has(> [data-background=success]) .columns__column, .columns[data-background=accent]:has(> [data-background=success]) [class$=__columns__column], [data-background=accent].wp-block-columns:has(> [data-background=success]) [class$=__columns__column], [data-background=accent][class$=__columns]:has(> [data-background=success]) .columns__column, [data-background=accent][class$=__columns]:has(> [data-background=success]) [class$=__columns__column],
+.columns[data-background=accent]:has(> [data-background=success]) [class$=__column],
+[data-background=accent].wp-block-columns:has(> [data-background=success]) [class$=__column],
+[data-background=accent][class$=__columns]:has(> [data-background=success]) [class$=__column] {
   padding: var(--spacing-md);
 }
-.columns[data-background=accent]:has(> [data-background=error]) .columns__column, [data-background=accent].wp-block-columns:has(> [data-background=error]) .columns__column {
+.columns[data-background=accent]:has(> [data-background=error]) .columns__column, [data-background=accent].wp-block-columns:has(> [data-background=error]) .columns__column, .columns[data-background=accent]:has(> [data-background=error]) [class$=__columns__column], [data-background=accent].wp-block-columns:has(> [data-background=error]) [class$=__columns__column], [data-background=accent][class$=__columns]:has(> [data-background=error]) .columns__column, [data-background=accent][class$=__columns]:has(> [data-background=error]) [class$=__columns__column],
+.columns[data-background=accent]:has(> [data-background=error]) [class$=__column],
+[data-background=accent].wp-block-columns:has(> [data-background=error]) [class$=__column],
+[data-background=accent][class$=__columns]:has(> [data-background=error]) [class$=__column] {
   padding: var(--spacing-md);
 }
-.columns[data-background=accent]:has(> [data-background=light]) .columns__column, [data-background=accent].wp-block-columns:has(> [data-background=light]) .columns__column {
+.columns[data-background=accent]:has(> [data-background=light]) .columns__column, [data-background=accent].wp-block-columns:has(> [data-background=light]) .columns__column, .columns[data-background=accent]:has(> [data-background=light]) [class$=__columns__column], [data-background=accent].wp-block-columns:has(> [data-background=light]) [class$=__columns__column], [data-background=accent][class$=__columns]:has(> [data-background=light]) .columns__column, [data-background=accent][class$=__columns]:has(> [data-background=light]) [class$=__columns__column],
+.columns[data-background=accent]:has(> [data-background=light]) [class$=__column],
+[data-background=accent].wp-block-columns:has(> [data-background=light]) [class$=__column],
+[data-background=accent][class$=__columns]:has(> [data-background=light]) [class$=__column] {
   padding: var(--spacing-md);
 }
-.columns[data-background=accent]:has(> [data-background=dark]) .columns__column, [data-background=accent].wp-block-columns:has(> [data-background=dark]) .columns__column {
+.columns[data-background=accent]:has(> [data-background=dark]) .columns__column, [data-background=accent].wp-block-columns:has(> [data-background=dark]) .columns__column, .columns[data-background=accent]:has(> [data-background=dark]) [class$=__columns__column], [data-background=accent].wp-block-columns:has(> [data-background=dark]) [class$=__columns__column], [data-background=accent][class$=__columns]:has(> [data-background=dark]) .columns__column, [data-background=accent][class$=__columns]:has(> [data-background=dark]) [class$=__columns__column],
+.columns[data-background=accent]:has(> [data-background=dark]) [class$=__column],
+[data-background=accent].wp-block-columns:has(> [data-background=dark]) [class$=__column],
+[data-background=accent][class$=__columns]:has(> [data-background=dark]) [class$=__column] {
   padding: var(--spacing-md);
 }
-.columns[data-background=accent]:has(> [data-background=white]) .columns__column, [data-background=accent].wp-block-columns:has(> [data-background=white]) .columns__column {
+.columns[data-background=accent]:has(> [data-background=white]) .columns__column, [data-background=accent].wp-block-columns:has(> [data-background=white]) .columns__column, .columns[data-background=accent]:has(> [data-background=white]) [class$=__columns__column], [data-background=accent].wp-block-columns:has(> [data-background=white]) [class$=__columns__column], [data-background=accent][class$=__columns]:has(> [data-background=white]) .columns__column, [data-background=accent][class$=__columns]:has(> [data-background=white]) [class$=__columns__column],
+.columns[data-background=accent]:has(> [data-background=white]) [class$=__column],
+[data-background=accent].wp-block-columns:has(> [data-background=white]) [class$=__column],
+[data-background=accent][class$=__columns]:has(> [data-background=white]) [class$=__column] {
   padding: var(--spacing-md);
 }
-.columns[data-background=accent] + .columns[data-background=accent], [data-background=accent].wp-block-columns + .columns[data-background=accent], .columns[data-background=accent] + [data-background=accent].wp-block-columns, [data-background=accent].wp-block-columns + [data-background=accent].wp-block-columns {
+.columns[data-background=accent] + .columns[data-background=accent], [data-background=accent].wp-block-columns + .columns[data-background=accent], .columns[data-background=accent] + [data-background=accent].wp-block-columns, [data-background=accent].wp-block-columns + [data-background=accent].wp-block-columns, [data-background=accent][class$=__columns] + .columns[data-background=accent], [data-background=accent][class$=__columns] + [data-background=accent].wp-block-columns, .columns[data-background=accent] + [data-background=accent][class$=__columns], [data-background=accent].wp-block-columns + [data-background=accent][class$=__columns], [data-background=accent][class$=__columns] + [data-background=accent][class$=__columns] {
   margin-block-start: calc(var(--spacing-md) * -2);
 }
-.columns[data-background=info]:has(> [data-background=primary]) .columns__column, [data-background=info].wp-block-columns:has(> [data-background=primary]) .columns__column {
+.columns[data-background=info]:has(> [data-background=primary]) .columns__column, [data-background=info].wp-block-columns:has(> [data-background=primary]) .columns__column, .columns[data-background=info]:has(> [data-background=primary]) [class$=__columns__column], [data-background=info].wp-block-columns:has(> [data-background=primary]) [class$=__columns__column], [data-background=info][class$=__columns]:has(> [data-background=primary]) .columns__column, [data-background=info][class$=__columns]:has(> [data-background=primary]) [class$=__columns__column],
+.columns[data-background=info]:has(> [data-background=primary]) [class$=__column],
+[data-background=info].wp-block-columns:has(> [data-background=primary]) [class$=__column],
+[data-background=info][class$=__columns]:has(> [data-background=primary]) [class$=__column] {
   padding: var(--spacing-md);
 }
-.columns[data-background=info]:has(> [data-background=secondary]) .columns__column, [data-background=info].wp-block-columns:has(> [data-background=secondary]) .columns__column {
+.columns[data-background=info]:has(> [data-background=secondary]) .columns__column, [data-background=info].wp-block-columns:has(> [data-background=secondary]) .columns__column, .columns[data-background=info]:has(> [data-background=secondary]) [class$=__columns__column], [data-background=info].wp-block-columns:has(> [data-background=secondary]) [class$=__columns__column], [data-background=info][class$=__columns]:has(> [data-background=secondary]) .columns__column, [data-background=info][class$=__columns]:has(> [data-background=secondary]) [class$=__columns__column],
+.columns[data-background=info]:has(> [data-background=secondary]) [class$=__column],
+[data-background=info].wp-block-columns:has(> [data-background=secondary]) [class$=__column],
+[data-background=info][class$=__columns]:has(> [data-background=secondary]) [class$=__column] {
   padding: var(--spacing-md);
 }
-.columns[data-background=info]:has(> [data-background=accent]) .columns__column, [data-background=info].wp-block-columns:has(> [data-background=accent]) .columns__column {
+.columns[data-background=info]:has(> [data-background=accent]) .columns__column, [data-background=info].wp-block-columns:has(> [data-background=accent]) .columns__column, .columns[data-background=info]:has(> [data-background=accent]) [class$=__columns__column], [data-background=info].wp-block-columns:has(> [data-background=accent]) [class$=__columns__column], [data-background=info][class$=__columns]:has(> [data-background=accent]) .columns__column, [data-background=info][class$=__columns]:has(> [data-background=accent]) [class$=__columns__column],
+.columns[data-background=info]:has(> [data-background=accent]) [class$=__column],
+[data-background=info].wp-block-columns:has(> [data-background=accent]) [class$=__column],
+[data-background=info][class$=__columns]:has(> [data-background=accent]) [class$=__column] {
   padding: var(--spacing-md);
 }
-.columns[data-background=info]:has(> [data-background=warning]) .columns__column, [data-background=info].wp-block-columns:has(> [data-background=warning]) .columns__column {
+.columns[data-background=info]:has(> [data-background=warning]) .columns__column, [data-background=info].wp-block-columns:has(> [data-background=warning]) .columns__column, .columns[data-background=info]:has(> [data-background=warning]) [class$=__columns__column], [data-background=info].wp-block-columns:has(> [data-background=warning]) [class$=__columns__column], [data-background=info][class$=__columns]:has(> [data-background=warning]) .columns__column, [data-background=info][class$=__columns]:has(> [data-background=warning]) [class$=__columns__column],
+.columns[data-background=info]:has(> [data-background=warning]) [class$=__column],
+[data-background=info].wp-block-columns:has(> [data-background=warning]) [class$=__column],
+[data-background=info][class$=__columns]:has(> [data-background=warning]) [class$=__column] {
   padding: var(--spacing-md);
 }
-.columns[data-background=info]:has(> [data-background=success]) .columns__column, [data-background=info].wp-block-columns:has(> [data-background=success]) .columns__column {
+.columns[data-background=info]:has(> [data-background=success]) .columns__column, [data-background=info].wp-block-columns:has(> [data-background=success]) .columns__column, .columns[data-background=info]:has(> [data-background=success]) [class$=__columns__column], [data-background=info].wp-block-columns:has(> [data-background=success]) [class$=__columns__column], [data-background=info][class$=__columns]:has(> [data-background=success]) .columns__column, [data-background=info][class$=__columns]:has(> [data-background=success]) [class$=__columns__column],
+.columns[data-background=info]:has(> [data-background=success]) [class$=__column],
+[data-background=info].wp-block-columns:has(> [data-background=success]) [class$=__column],
+[data-background=info][class$=__columns]:has(> [data-background=success]) [class$=__column] {
   padding: var(--spacing-md);
 }
-.columns[data-background=info]:has(> [data-background=error]) .columns__column, [data-background=info].wp-block-columns:has(> [data-background=error]) .columns__column {
+.columns[data-background=info]:has(> [data-background=error]) .columns__column, [data-background=info].wp-block-columns:has(> [data-background=error]) .columns__column, .columns[data-background=info]:has(> [data-background=error]) [class$=__columns__column], [data-background=info].wp-block-columns:has(> [data-background=error]) [class$=__columns__column], [data-background=info][class$=__columns]:has(> [data-background=error]) .columns__column, [data-background=info][class$=__columns]:has(> [data-background=error]) [class$=__columns__column],
+.columns[data-background=info]:has(> [data-background=error]) [class$=__column],
+[data-background=info].wp-block-columns:has(> [data-background=error]) [class$=__column],
+[data-background=info][class$=__columns]:has(> [data-background=error]) [class$=__column] {
   padding: var(--spacing-md);
 }
-.columns[data-background=info]:has(> [data-background=light]) .columns__column, [data-background=info].wp-block-columns:has(> [data-background=light]) .columns__column {
+.columns[data-background=info]:has(> [data-background=light]) .columns__column, [data-background=info].wp-block-columns:has(> [data-background=light]) .columns__column, .columns[data-background=info]:has(> [data-background=light]) [class$=__columns__column], [data-background=info].wp-block-columns:has(> [data-background=light]) [class$=__columns__column], [data-background=info][class$=__columns]:has(> [data-background=light]) .columns__column, [data-background=info][class$=__columns]:has(> [data-background=light]) [class$=__columns__column],
+.columns[data-background=info]:has(> [data-background=light]) [class$=__column],
+[data-background=info].wp-block-columns:has(> [data-background=light]) [class$=__column],
+[data-background=info][class$=__columns]:has(> [data-background=light]) [class$=__column] {
   padding: var(--spacing-md);
 }
-.columns[data-background=info]:has(> [data-background=dark]) .columns__column, [data-background=info].wp-block-columns:has(> [data-background=dark]) .columns__column {
+.columns[data-background=info]:has(> [data-background=dark]) .columns__column, [data-background=info].wp-block-columns:has(> [data-background=dark]) .columns__column, .columns[data-background=info]:has(> [data-background=dark]) [class$=__columns__column], [data-background=info].wp-block-columns:has(> [data-background=dark]) [class$=__columns__column], [data-background=info][class$=__columns]:has(> [data-background=dark]) .columns__column, [data-background=info][class$=__columns]:has(> [data-background=dark]) [class$=__columns__column],
+.columns[data-background=info]:has(> [data-background=dark]) [class$=__column],
+[data-background=info].wp-block-columns:has(> [data-background=dark]) [class$=__column],
+[data-background=info][class$=__columns]:has(> [data-background=dark]) [class$=__column] {
   padding: var(--spacing-md);
 }
-.columns[data-background=info]:has(> [data-background=white]) .columns__column, [data-background=info].wp-block-columns:has(> [data-background=white]) .columns__column {
+.columns[data-background=info]:has(> [data-background=white]) .columns__column, [data-background=info].wp-block-columns:has(> [data-background=white]) .columns__column, .columns[data-background=info]:has(> [data-background=white]) [class$=__columns__column], [data-background=info].wp-block-columns:has(> [data-background=white]) [class$=__columns__column], [data-background=info][class$=__columns]:has(> [data-background=white]) .columns__column, [data-background=info][class$=__columns]:has(> [data-background=white]) [class$=__columns__column],
+.columns[data-background=info]:has(> [data-background=white]) [class$=__column],
+[data-background=info].wp-block-columns:has(> [data-background=white]) [class$=__column],
+[data-background=info][class$=__columns]:has(> [data-background=white]) [class$=__column] {
   padding: var(--spacing-md);
 }
-.columns[data-background=info] + .columns[data-background=info], [data-background=info].wp-block-columns + .columns[data-background=info], .columns[data-background=info] + [data-background=info].wp-block-columns, [data-background=info].wp-block-columns + [data-background=info].wp-block-columns {
+.columns[data-background=info] + .columns[data-background=info], [data-background=info].wp-block-columns + .columns[data-background=info], .columns[data-background=info] + [data-background=info].wp-block-columns, [data-background=info].wp-block-columns + [data-background=info].wp-block-columns, [data-background=info][class$=__columns] + .columns[data-background=info], [data-background=info][class$=__columns] + [data-background=info].wp-block-columns, .columns[data-background=info] + [data-background=info][class$=__columns], [data-background=info].wp-block-columns + [data-background=info][class$=__columns], [data-background=info][class$=__columns] + [data-background=info][class$=__columns] {
   margin-block-start: calc(var(--spacing-md) * -2);
 }
-.columns[data-background=warning]:has(> [data-background=primary]) .columns__column, [data-background=warning].wp-block-columns:has(> [data-background=primary]) .columns__column {
+.columns[data-background=warning]:has(> [data-background=primary]) .columns__column, [data-background=warning].wp-block-columns:has(> [data-background=primary]) .columns__column, .columns[data-background=warning]:has(> [data-background=primary]) [class$=__columns__column], [data-background=warning].wp-block-columns:has(> [data-background=primary]) [class$=__columns__column], [data-background=warning][class$=__columns]:has(> [data-background=primary]) .columns__column, [data-background=warning][class$=__columns]:has(> [data-background=primary]) [class$=__columns__column],
+.columns[data-background=warning]:has(> [data-background=primary]) [class$=__column],
+[data-background=warning].wp-block-columns:has(> [data-background=primary]) [class$=__column],
+[data-background=warning][class$=__columns]:has(> [data-background=primary]) [class$=__column] {
   padding: var(--spacing-md);
 }
-.columns[data-background=warning]:has(> [data-background=secondary]) .columns__column, [data-background=warning].wp-block-columns:has(> [data-background=secondary]) .columns__column {
+.columns[data-background=warning]:has(> [data-background=secondary]) .columns__column, [data-background=warning].wp-block-columns:has(> [data-background=secondary]) .columns__column, .columns[data-background=warning]:has(> [data-background=secondary]) [class$=__columns__column], [data-background=warning].wp-block-columns:has(> [data-background=secondary]) [class$=__columns__column], [data-background=warning][class$=__columns]:has(> [data-background=secondary]) .columns__column, [data-background=warning][class$=__columns]:has(> [data-background=secondary]) [class$=__columns__column],
+.columns[data-background=warning]:has(> [data-background=secondary]) [class$=__column],
+[data-background=warning].wp-block-columns:has(> [data-background=secondary]) [class$=__column],
+[data-background=warning][class$=__columns]:has(> [data-background=secondary]) [class$=__column] {
   padding: var(--spacing-md);
 }
-.columns[data-background=warning]:has(> [data-background=accent]) .columns__column, [data-background=warning].wp-block-columns:has(> [data-background=accent]) .columns__column {
+.columns[data-background=warning]:has(> [data-background=accent]) .columns__column, [data-background=warning].wp-block-columns:has(> [data-background=accent]) .columns__column, .columns[data-background=warning]:has(> [data-background=accent]) [class$=__columns__column], [data-background=warning].wp-block-columns:has(> [data-background=accent]) [class$=__columns__column], [data-background=warning][class$=__columns]:has(> [data-background=accent]) .columns__column, [data-background=warning][class$=__columns]:has(> [data-background=accent]) [class$=__columns__column],
+.columns[data-background=warning]:has(> [data-background=accent]) [class$=__column],
+[data-background=warning].wp-block-columns:has(> [data-background=accent]) [class$=__column],
+[data-background=warning][class$=__columns]:has(> [data-background=accent]) [class$=__column] {
   padding: var(--spacing-md);
 }
-.columns[data-background=warning]:has(> [data-background=info]) .columns__column, [data-background=warning].wp-block-columns:has(> [data-background=info]) .columns__column {
+.columns[data-background=warning]:has(> [data-background=info]) .columns__column, [data-background=warning].wp-block-columns:has(> [data-background=info]) .columns__column, .columns[data-background=warning]:has(> [data-background=info]) [class$=__columns__column], [data-background=warning].wp-block-columns:has(> [data-background=info]) [class$=__columns__column], [data-background=warning][class$=__columns]:has(> [data-background=info]) .columns__column, [data-background=warning][class$=__columns]:has(> [data-background=info]) [class$=__columns__column],
+.columns[data-background=warning]:has(> [data-background=info]) [class$=__column],
+[data-background=warning].wp-block-columns:has(> [data-background=info]) [class$=__column],
+[data-background=warning][class$=__columns]:has(> [data-background=info]) [class$=__column] {
   padding: var(--spacing-md);
 }
-.columns[data-background=warning]:has(> [data-background=success]) .columns__column, [data-background=warning].wp-block-columns:has(> [data-background=success]) .columns__column {
+.columns[data-background=warning]:has(> [data-background=success]) .columns__column, [data-background=warning].wp-block-columns:has(> [data-background=success]) .columns__column, .columns[data-background=warning]:has(> [data-background=success]) [class$=__columns__column], [data-background=warning].wp-block-columns:has(> [data-background=success]) [class$=__columns__column], [data-background=warning][class$=__columns]:has(> [data-background=success]) .columns__column, [data-background=warning][class$=__columns]:has(> [data-background=success]) [class$=__columns__column],
+.columns[data-background=warning]:has(> [data-background=success]) [class$=__column],
+[data-background=warning].wp-block-columns:has(> [data-background=success]) [class$=__column],
+[data-background=warning][class$=__columns]:has(> [data-background=success]) [class$=__column] {
   padding: var(--spacing-md);
 }
-.columns[data-background=warning]:has(> [data-background=error]) .columns__column, [data-background=warning].wp-block-columns:has(> [data-background=error]) .columns__column {
+.columns[data-background=warning]:has(> [data-background=error]) .columns__column, [data-background=warning].wp-block-columns:has(> [data-background=error]) .columns__column, .columns[data-background=warning]:has(> [data-background=error]) [class$=__columns__column], [data-background=warning].wp-block-columns:has(> [data-background=error]) [class$=__columns__column], [data-background=warning][class$=__columns]:has(> [data-background=error]) .columns__column, [data-background=warning][class$=__columns]:has(> [data-background=error]) [class$=__columns__column],
+.columns[data-background=warning]:has(> [data-background=error]) [class$=__column],
+[data-background=warning].wp-block-columns:has(> [data-background=error]) [class$=__column],
+[data-background=warning][class$=__columns]:has(> [data-background=error]) [class$=__column] {
   padding: var(--spacing-md);
 }
-.columns[data-background=warning]:has(> [data-background=light]) .columns__column, [data-background=warning].wp-block-columns:has(> [data-background=light]) .columns__column {
+.columns[data-background=warning]:has(> [data-background=light]) .columns__column, [data-background=warning].wp-block-columns:has(> [data-background=light]) .columns__column, .columns[data-background=warning]:has(> [data-background=light]) [class$=__columns__column], [data-background=warning].wp-block-columns:has(> [data-background=light]) [class$=__columns__column], [data-background=warning][class$=__columns]:has(> [data-background=light]) .columns__column, [data-background=warning][class$=__columns]:has(> [data-background=light]) [class$=__columns__column],
+.columns[data-background=warning]:has(> [data-background=light]) [class$=__column],
+[data-background=warning].wp-block-columns:has(> [data-background=light]) [class$=__column],
+[data-background=warning][class$=__columns]:has(> [data-background=light]) [class$=__column] {
   padding: var(--spacing-md);
 }
-.columns[data-background=warning]:has(> [data-background=dark]) .columns__column, [data-background=warning].wp-block-columns:has(> [data-background=dark]) .columns__column {
+.columns[data-background=warning]:has(> [data-background=dark]) .columns__column, [data-background=warning].wp-block-columns:has(> [data-background=dark]) .columns__column, .columns[data-background=warning]:has(> [data-background=dark]) [class$=__columns__column], [data-background=warning].wp-block-columns:has(> [data-background=dark]) [class$=__columns__column], [data-background=warning][class$=__columns]:has(> [data-background=dark]) .columns__column, [data-background=warning][class$=__columns]:has(> [data-background=dark]) [class$=__columns__column],
+.columns[data-background=warning]:has(> [data-background=dark]) [class$=__column],
+[data-background=warning].wp-block-columns:has(> [data-background=dark]) [class$=__column],
+[data-background=warning][class$=__columns]:has(> [data-background=dark]) [class$=__column] {
   padding: var(--spacing-md);
 }
-.columns[data-background=warning]:has(> [data-background=white]) .columns__column, [data-background=warning].wp-block-columns:has(> [data-background=white]) .columns__column {
+.columns[data-background=warning]:has(> [data-background=white]) .columns__column, [data-background=warning].wp-block-columns:has(> [data-background=white]) .columns__column, .columns[data-background=warning]:has(> [data-background=white]) [class$=__columns__column], [data-background=warning].wp-block-columns:has(> [data-background=white]) [class$=__columns__column], [data-background=warning][class$=__columns]:has(> [data-background=white]) .columns__column, [data-background=warning][class$=__columns]:has(> [data-background=white]) [class$=__columns__column],
+.columns[data-background=warning]:has(> [data-background=white]) [class$=__column],
+[data-background=warning].wp-block-columns:has(> [data-background=white]) [class$=__column],
+[data-background=warning][class$=__columns]:has(> [data-background=white]) [class$=__column] {
   padding: var(--spacing-md);
 }
-.columns[data-background=warning] + .columns[data-background=warning], [data-background=warning].wp-block-columns + .columns[data-background=warning], .columns[data-background=warning] + [data-background=warning].wp-block-columns, [data-background=warning].wp-block-columns + [data-background=warning].wp-block-columns {
+.columns[data-background=warning] + .columns[data-background=warning], [data-background=warning].wp-block-columns + .columns[data-background=warning], .columns[data-background=warning] + [data-background=warning].wp-block-columns, [data-background=warning].wp-block-columns + [data-background=warning].wp-block-columns, [data-background=warning][class$=__columns] + .columns[data-background=warning], [data-background=warning][class$=__columns] + [data-background=warning].wp-block-columns, .columns[data-background=warning] + [data-background=warning][class$=__columns], [data-background=warning].wp-block-columns + [data-background=warning][class$=__columns], [data-background=warning][class$=__columns] + [data-background=warning][class$=__columns] {
   margin-block-start: calc(var(--spacing-md) * -2);
 }
-.columns[data-background=success]:has(> [data-background=primary]) .columns__column, [data-background=success].wp-block-columns:has(> [data-background=primary]) .columns__column {
+.columns[data-background=success]:has(> [data-background=primary]) .columns__column, [data-background=success].wp-block-columns:has(> [data-background=primary]) .columns__column, .columns[data-background=success]:has(> [data-background=primary]) [class$=__columns__column], [data-background=success].wp-block-columns:has(> [data-background=primary]) [class$=__columns__column], [data-background=success][class$=__columns]:has(> [data-background=primary]) .columns__column, [data-background=success][class$=__columns]:has(> [data-background=primary]) [class$=__columns__column],
+.columns[data-background=success]:has(> [data-background=primary]) [class$=__column],
+[data-background=success].wp-block-columns:has(> [data-background=primary]) [class$=__column],
+[data-background=success][class$=__columns]:has(> [data-background=primary]) [class$=__column] {
   padding: var(--spacing-md);
 }
-.columns[data-background=success]:has(> [data-background=secondary]) .columns__column, [data-background=success].wp-block-columns:has(> [data-background=secondary]) .columns__column {
+.columns[data-background=success]:has(> [data-background=secondary]) .columns__column, [data-background=success].wp-block-columns:has(> [data-background=secondary]) .columns__column, .columns[data-background=success]:has(> [data-background=secondary]) [class$=__columns__column], [data-background=success].wp-block-columns:has(> [data-background=secondary]) [class$=__columns__column], [data-background=success][class$=__columns]:has(> [data-background=secondary]) .columns__column, [data-background=success][class$=__columns]:has(> [data-background=secondary]) [class$=__columns__column],
+.columns[data-background=success]:has(> [data-background=secondary]) [class$=__column],
+[data-background=success].wp-block-columns:has(> [data-background=secondary]) [class$=__column],
+[data-background=success][class$=__columns]:has(> [data-background=secondary]) [class$=__column] {
   padding: var(--spacing-md);
 }
-.columns[data-background=success]:has(> [data-background=accent]) .columns__column, [data-background=success].wp-block-columns:has(> [data-background=accent]) .columns__column {
+.columns[data-background=success]:has(> [data-background=accent]) .columns__column, [data-background=success].wp-block-columns:has(> [data-background=accent]) .columns__column, .columns[data-background=success]:has(> [data-background=accent]) [class$=__columns__column], [data-background=success].wp-block-columns:has(> [data-background=accent]) [class$=__columns__column], [data-background=success][class$=__columns]:has(> [data-background=accent]) .columns__column, [data-background=success][class$=__columns]:has(> [data-background=accent]) [class$=__columns__column],
+.columns[data-background=success]:has(> [data-background=accent]) [class$=__column],
+[data-background=success].wp-block-columns:has(> [data-background=accent]) [class$=__column],
+[data-background=success][class$=__columns]:has(> [data-background=accent]) [class$=__column] {
   padding: var(--spacing-md);
 }
-.columns[data-background=success]:has(> [data-background=info]) .columns__column, [data-background=success].wp-block-columns:has(> [data-background=info]) .columns__column {
+.columns[data-background=success]:has(> [data-background=info]) .columns__column, [data-background=success].wp-block-columns:has(> [data-background=info]) .columns__column, .columns[data-background=success]:has(> [data-background=info]) [class$=__columns__column], [data-background=success].wp-block-columns:has(> [data-background=info]) [class$=__columns__column], [data-background=success][class$=__columns]:has(> [data-background=info]) .columns__column, [data-background=success][class$=__columns]:has(> [data-background=info]) [class$=__columns__column],
+.columns[data-background=success]:has(> [data-background=info]) [class$=__column],
+[data-background=success].wp-block-columns:has(> [data-background=info]) [class$=__column],
+[data-background=success][class$=__columns]:has(> [data-background=info]) [class$=__column] {
   padding: var(--spacing-md);
 }
-.columns[data-background=success]:has(> [data-background=warning]) .columns__column, [data-background=success].wp-block-columns:has(> [data-background=warning]) .columns__column {
+.columns[data-background=success]:has(> [data-background=warning]) .columns__column, [data-background=success].wp-block-columns:has(> [data-background=warning]) .columns__column, .columns[data-background=success]:has(> [data-background=warning]) [class$=__columns__column], [data-background=success].wp-block-columns:has(> [data-background=warning]) [class$=__columns__column], [data-background=success][class$=__columns]:has(> [data-background=warning]) .columns__column, [data-background=success][class$=__columns]:has(> [data-background=warning]) [class$=__columns__column],
+.columns[data-background=success]:has(> [data-background=warning]) [class$=__column],
+[data-background=success].wp-block-columns:has(> [data-background=warning]) [class$=__column],
+[data-background=success][class$=__columns]:has(> [data-background=warning]) [class$=__column] {
   padding: var(--spacing-md);
 }
-.columns[data-background=success]:has(> [data-background=error]) .columns__column, [data-background=success].wp-block-columns:has(> [data-background=error]) .columns__column {
+.columns[data-background=success]:has(> [data-background=error]) .columns__column, [data-background=success].wp-block-columns:has(> [data-background=error]) .columns__column, .columns[data-background=success]:has(> [data-background=error]) [class$=__columns__column], [data-background=success].wp-block-columns:has(> [data-background=error]) [class$=__columns__column], [data-background=success][class$=__columns]:has(> [data-background=error]) .columns__column, [data-background=success][class$=__columns]:has(> [data-background=error]) [class$=__columns__column],
+.columns[data-background=success]:has(> [data-background=error]) [class$=__column],
+[data-background=success].wp-block-columns:has(> [data-background=error]) [class$=__column],
+[data-background=success][class$=__columns]:has(> [data-background=error]) [class$=__column] {
   padding: var(--spacing-md);
 }
-.columns[data-background=success]:has(> [data-background=light]) .columns__column, [data-background=success].wp-block-columns:has(> [data-background=light]) .columns__column {
+.columns[data-background=success]:has(> [data-background=light]) .columns__column, [data-background=success].wp-block-columns:has(> [data-background=light]) .columns__column, .columns[data-background=success]:has(> [data-background=light]) [class$=__columns__column], [data-background=success].wp-block-columns:has(> [data-background=light]) [class$=__columns__column], [data-background=success][class$=__columns]:has(> [data-background=light]) .columns__column, [data-background=success][class$=__columns]:has(> [data-background=light]) [class$=__columns__column],
+.columns[data-background=success]:has(> [data-background=light]) [class$=__column],
+[data-background=success].wp-block-columns:has(> [data-background=light]) [class$=__column],
+[data-background=success][class$=__columns]:has(> [data-background=light]) [class$=__column] {
   padding: var(--spacing-md);
 }
-.columns[data-background=success]:has(> [data-background=dark]) .columns__column, [data-background=success].wp-block-columns:has(> [data-background=dark]) .columns__column {
+.columns[data-background=success]:has(> [data-background=dark]) .columns__column, [data-background=success].wp-block-columns:has(> [data-background=dark]) .columns__column, .columns[data-background=success]:has(> [data-background=dark]) [class$=__columns__column], [data-background=success].wp-block-columns:has(> [data-background=dark]) [class$=__columns__column], [data-background=success][class$=__columns]:has(> [data-background=dark]) .columns__column, [data-background=success][class$=__columns]:has(> [data-background=dark]) [class$=__columns__column],
+.columns[data-background=success]:has(> [data-background=dark]) [class$=__column],
+[data-background=success].wp-block-columns:has(> [data-background=dark]) [class$=__column],
+[data-background=success][class$=__columns]:has(> [data-background=dark]) [class$=__column] {
   padding: var(--spacing-md);
 }
-.columns[data-background=success]:has(> [data-background=white]) .columns__column, [data-background=success].wp-block-columns:has(> [data-background=white]) .columns__column {
+.columns[data-background=success]:has(> [data-background=white]) .columns__column, [data-background=success].wp-block-columns:has(> [data-background=white]) .columns__column, .columns[data-background=success]:has(> [data-background=white]) [class$=__columns__column], [data-background=success].wp-block-columns:has(> [data-background=white]) [class$=__columns__column], [data-background=success][class$=__columns]:has(> [data-background=white]) .columns__column, [data-background=success][class$=__columns]:has(> [data-background=white]) [class$=__columns__column],
+.columns[data-background=success]:has(> [data-background=white]) [class$=__column],
+[data-background=success].wp-block-columns:has(> [data-background=white]) [class$=__column],
+[data-background=success][class$=__columns]:has(> [data-background=white]) [class$=__column] {
   padding: var(--spacing-md);
 }
-.columns[data-background=success] + .columns[data-background=success], [data-background=success].wp-block-columns + .columns[data-background=success], .columns[data-background=success] + [data-background=success].wp-block-columns, [data-background=success].wp-block-columns + [data-background=success].wp-block-columns {
+.columns[data-background=success] + .columns[data-background=success], [data-background=success].wp-block-columns + .columns[data-background=success], .columns[data-background=success] + [data-background=success].wp-block-columns, [data-background=success].wp-block-columns + [data-background=success].wp-block-columns, [data-background=success][class$=__columns] + .columns[data-background=success], [data-background=success][class$=__columns] + [data-background=success].wp-block-columns, .columns[data-background=success] + [data-background=success][class$=__columns], [data-background=success].wp-block-columns + [data-background=success][class$=__columns], [data-background=success][class$=__columns] + [data-background=success][class$=__columns] {
   margin-block-start: calc(var(--spacing-md) * -2);
 }
-.columns[data-background=error]:has(> [data-background=primary]) .columns__column, [data-background=error].wp-block-columns:has(> [data-background=primary]) .columns__column {
+.columns[data-background=error]:has(> [data-background=primary]) .columns__column, [data-background=error].wp-block-columns:has(> [data-background=primary]) .columns__column, .columns[data-background=error]:has(> [data-background=primary]) [class$=__columns__column], [data-background=error].wp-block-columns:has(> [data-background=primary]) [class$=__columns__column], [data-background=error][class$=__columns]:has(> [data-background=primary]) .columns__column, [data-background=error][class$=__columns]:has(> [data-background=primary]) [class$=__columns__column],
+.columns[data-background=error]:has(> [data-background=primary]) [class$=__column],
+[data-background=error].wp-block-columns:has(> [data-background=primary]) [class$=__column],
+[data-background=error][class$=__columns]:has(> [data-background=primary]) [class$=__column] {
   padding: var(--spacing-md);
 }
-.columns[data-background=error]:has(> [data-background=secondary]) .columns__column, [data-background=error].wp-block-columns:has(> [data-background=secondary]) .columns__column {
+.columns[data-background=error]:has(> [data-background=secondary]) .columns__column, [data-background=error].wp-block-columns:has(> [data-background=secondary]) .columns__column, .columns[data-background=error]:has(> [data-background=secondary]) [class$=__columns__column], [data-background=error].wp-block-columns:has(> [data-background=secondary]) [class$=__columns__column], [data-background=error][class$=__columns]:has(> [data-background=secondary]) .columns__column, [data-background=error][class$=__columns]:has(> [data-background=secondary]) [class$=__columns__column],
+.columns[data-background=error]:has(> [data-background=secondary]) [class$=__column],
+[data-background=error].wp-block-columns:has(> [data-background=secondary]) [class$=__column],
+[data-background=error][class$=__columns]:has(> [data-background=secondary]) [class$=__column] {
   padding: var(--spacing-md);
 }
-.columns[data-background=error]:has(> [data-background=accent]) .columns__column, [data-background=error].wp-block-columns:has(> [data-background=accent]) .columns__column {
+.columns[data-background=error]:has(> [data-background=accent]) .columns__column, [data-background=error].wp-block-columns:has(> [data-background=accent]) .columns__column, .columns[data-background=error]:has(> [data-background=accent]) [class$=__columns__column], [data-background=error].wp-block-columns:has(> [data-background=accent]) [class$=__columns__column], [data-background=error][class$=__columns]:has(> [data-background=accent]) .columns__column, [data-background=error][class$=__columns]:has(> [data-background=accent]) [class$=__columns__column],
+.columns[data-background=error]:has(> [data-background=accent]) [class$=__column],
+[data-background=error].wp-block-columns:has(> [data-background=accent]) [class$=__column],
+[data-background=error][class$=__columns]:has(> [data-background=accent]) [class$=__column] {
   padding: var(--spacing-md);
 }
-.columns[data-background=error]:has(> [data-background=info]) .columns__column, [data-background=error].wp-block-columns:has(> [data-background=info]) .columns__column {
+.columns[data-background=error]:has(> [data-background=info]) .columns__column, [data-background=error].wp-block-columns:has(> [data-background=info]) .columns__column, .columns[data-background=error]:has(> [data-background=info]) [class$=__columns__column], [data-background=error].wp-block-columns:has(> [data-background=info]) [class$=__columns__column], [data-background=error][class$=__columns]:has(> [data-background=info]) .columns__column, [data-background=error][class$=__columns]:has(> [data-background=info]) [class$=__columns__column],
+.columns[data-background=error]:has(> [data-background=info]) [class$=__column],
+[data-background=error].wp-block-columns:has(> [data-background=info]) [class$=__column],
+[data-background=error][class$=__columns]:has(> [data-background=info]) [class$=__column] {
   padding: var(--spacing-md);
 }
-.columns[data-background=error]:has(> [data-background=warning]) .columns__column, [data-background=error].wp-block-columns:has(> [data-background=warning]) .columns__column {
+.columns[data-background=error]:has(> [data-background=warning]) .columns__column, [data-background=error].wp-block-columns:has(> [data-background=warning]) .columns__column, .columns[data-background=error]:has(> [data-background=warning]) [class$=__columns__column], [data-background=error].wp-block-columns:has(> [data-background=warning]) [class$=__columns__column], [data-background=error][class$=__columns]:has(> [data-background=warning]) .columns__column, [data-background=error][class$=__columns]:has(> [data-background=warning]) [class$=__columns__column],
+.columns[data-background=error]:has(> [data-background=warning]) [class$=__column],
+[data-background=error].wp-block-columns:has(> [data-background=warning]) [class$=__column],
+[data-background=error][class$=__columns]:has(> [data-background=warning]) [class$=__column] {
   padding: var(--spacing-md);
 }
-.columns[data-background=error]:has(> [data-background=success]) .columns__column, [data-background=error].wp-block-columns:has(> [data-background=success]) .columns__column {
+.columns[data-background=error]:has(> [data-background=success]) .columns__column, [data-background=error].wp-block-columns:has(> [data-background=success]) .columns__column, .columns[data-background=error]:has(> [data-background=success]) [class$=__columns__column], [data-background=error].wp-block-columns:has(> [data-background=success]) [class$=__columns__column], [data-background=error][class$=__columns]:has(> [data-background=success]) .columns__column, [data-background=error][class$=__columns]:has(> [data-background=success]) [class$=__columns__column],
+.columns[data-background=error]:has(> [data-background=success]) [class$=__column],
+[data-background=error].wp-block-columns:has(> [data-background=success]) [class$=__column],
+[data-background=error][class$=__columns]:has(> [data-background=success]) [class$=__column] {
   padding: var(--spacing-md);
 }
-.columns[data-background=error]:has(> [data-background=light]) .columns__column, [data-background=error].wp-block-columns:has(> [data-background=light]) .columns__column {
+.columns[data-background=error]:has(> [data-background=light]) .columns__column, [data-background=error].wp-block-columns:has(> [data-background=light]) .columns__column, .columns[data-background=error]:has(> [data-background=light]) [class$=__columns__column], [data-background=error].wp-block-columns:has(> [data-background=light]) [class$=__columns__column], [data-background=error][class$=__columns]:has(> [data-background=light]) .columns__column, [data-background=error][class$=__columns]:has(> [data-background=light]) [class$=__columns__column],
+.columns[data-background=error]:has(> [data-background=light]) [class$=__column],
+[data-background=error].wp-block-columns:has(> [data-background=light]) [class$=__column],
+[data-background=error][class$=__columns]:has(> [data-background=light]) [class$=__column] {
   padding: var(--spacing-md);
 }
-.columns[data-background=error]:has(> [data-background=dark]) .columns__column, [data-background=error].wp-block-columns:has(> [data-background=dark]) .columns__column {
+.columns[data-background=error]:has(> [data-background=dark]) .columns__column, [data-background=error].wp-block-columns:has(> [data-background=dark]) .columns__column, .columns[data-background=error]:has(> [data-background=dark]) [class$=__columns__column], [data-background=error].wp-block-columns:has(> [data-background=dark]) [class$=__columns__column], [data-background=error][class$=__columns]:has(> [data-background=dark]) .columns__column, [data-background=error][class$=__columns]:has(> [data-background=dark]) [class$=__columns__column],
+.columns[data-background=error]:has(> [data-background=dark]) [class$=__column],
+[data-background=error].wp-block-columns:has(> [data-background=dark]) [class$=__column],
+[data-background=error][class$=__columns]:has(> [data-background=dark]) [class$=__column] {
   padding: var(--spacing-md);
 }
-.columns[data-background=error]:has(> [data-background=white]) .columns__column, [data-background=error].wp-block-columns:has(> [data-background=white]) .columns__column {
+.columns[data-background=error]:has(> [data-background=white]) .columns__column, [data-background=error].wp-block-columns:has(> [data-background=white]) .columns__column, .columns[data-background=error]:has(> [data-background=white]) [class$=__columns__column], [data-background=error].wp-block-columns:has(> [data-background=white]) [class$=__columns__column], [data-background=error][class$=__columns]:has(> [data-background=white]) .columns__column, [data-background=error][class$=__columns]:has(> [data-background=white]) [class$=__columns__column],
+.columns[data-background=error]:has(> [data-background=white]) [class$=__column],
+[data-background=error].wp-block-columns:has(> [data-background=white]) [class$=__column],
+[data-background=error][class$=__columns]:has(> [data-background=white]) [class$=__column] {
   padding: var(--spacing-md);
 }
-.columns[data-background=error] + .columns[data-background=error], [data-background=error].wp-block-columns + .columns[data-background=error], .columns[data-background=error] + [data-background=error].wp-block-columns, [data-background=error].wp-block-columns + [data-background=error].wp-block-columns {
+.columns[data-background=error] + .columns[data-background=error], [data-background=error].wp-block-columns + .columns[data-background=error], .columns[data-background=error] + [data-background=error].wp-block-columns, [data-background=error].wp-block-columns + [data-background=error].wp-block-columns, [data-background=error][class$=__columns] + .columns[data-background=error], [data-background=error][class$=__columns] + [data-background=error].wp-block-columns, .columns[data-background=error] + [data-background=error][class$=__columns], [data-background=error].wp-block-columns + [data-background=error][class$=__columns], [data-background=error][class$=__columns] + [data-background=error][class$=__columns] {
   margin-block-start: calc(var(--spacing-md) * -2);
 }
-.columns[data-background=light]:has(> [data-background=primary]) .columns__column, [data-background=light].wp-block-columns:has(> [data-background=primary]) .columns__column {
+.columns[data-background=light]:has(> [data-background=primary]) .columns__column, [data-background=light].wp-block-columns:has(> [data-background=primary]) .columns__column, .columns[data-background=light]:has(> [data-background=primary]) [class$=__columns__column], [data-background=light].wp-block-columns:has(> [data-background=primary]) [class$=__columns__column], [data-background=light][class$=__columns]:has(> [data-background=primary]) .columns__column, [data-background=light][class$=__columns]:has(> [data-background=primary]) [class$=__columns__column],
+.columns[data-background=light]:has(> [data-background=primary]) [class$=__column],
+[data-background=light].wp-block-columns:has(> [data-background=primary]) [class$=__column],
+[data-background=light][class$=__columns]:has(> [data-background=primary]) [class$=__column] {
   padding: var(--spacing-md);
 }
-.columns[data-background=light]:has(> [data-background=secondary]) .columns__column, [data-background=light].wp-block-columns:has(> [data-background=secondary]) .columns__column {
+.columns[data-background=light]:has(> [data-background=secondary]) .columns__column, [data-background=light].wp-block-columns:has(> [data-background=secondary]) .columns__column, .columns[data-background=light]:has(> [data-background=secondary]) [class$=__columns__column], [data-background=light].wp-block-columns:has(> [data-background=secondary]) [class$=__columns__column], [data-background=light][class$=__columns]:has(> [data-background=secondary]) .columns__column, [data-background=light][class$=__columns]:has(> [data-background=secondary]) [class$=__columns__column],
+.columns[data-background=light]:has(> [data-background=secondary]) [class$=__column],
+[data-background=light].wp-block-columns:has(> [data-background=secondary]) [class$=__column],
+[data-background=light][class$=__columns]:has(> [data-background=secondary]) [class$=__column] {
   padding: var(--spacing-md);
 }
-.columns[data-background=light]:has(> [data-background=accent]) .columns__column, [data-background=light].wp-block-columns:has(> [data-background=accent]) .columns__column {
+.columns[data-background=light]:has(> [data-background=accent]) .columns__column, [data-background=light].wp-block-columns:has(> [data-background=accent]) .columns__column, .columns[data-background=light]:has(> [data-background=accent]) [class$=__columns__column], [data-background=light].wp-block-columns:has(> [data-background=accent]) [class$=__columns__column], [data-background=light][class$=__columns]:has(> [data-background=accent]) .columns__column, [data-background=light][class$=__columns]:has(> [data-background=accent]) [class$=__columns__column],
+.columns[data-background=light]:has(> [data-background=accent]) [class$=__column],
+[data-background=light].wp-block-columns:has(> [data-background=accent]) [class$=__column],
+[data-background=light][class$=__columns]:has(> [data-background=accent]) [class$=__column] {
   padding: var(--spacing-md);
 }
-.columns[data-background=light]:has(> [data-background=info]) .columns__column, [data-background=light].wp-block-columns:has(> [data-background=info]) .columns__column {
+.columns[data-background=light]:has(> [data-background=info]) .columns__column, [data-background=light].wp-block-columns:has(> [data-background=info]) .columns__column, .columns[data-background=light]:has(> [data-background=info]) [class$=__columns__column], [data-background=light].wp-block-columns:has(> [data-background=info]) [class$=__columns__column], [data-background=light][class$=__columns]:has(> [data-background=info]) .columns__column, [data-background=light][class$=__columns]:has(> [data-background=info]) [class$=__columns__column],
+.columns[data-background=light]:has(> [data-background=info]) [class$=__column],
+[data-background=light].wp-block-columns:has(> [data-background=info]) [class$=__column],
+[data-background=light][class$=__columns]:has(> [data-background=info]) [class$=__column] {
   padding: var(--spacing-md);
 }
-.columns[data-background=light]:has(> [data-background=warning]) .columns__column, [data-background=light].wp-block-columns:has(> [data-background=warning]) .columns__column {
+.columns[data-background=light]:has(> [data-background=warning]) .columns__column, [data-background=light].wp-block-columns:has(> [data-background=warning]) .columns__column, .columns[data-background=light]:has(> [data-background=warning]) [class$=__columns__column], [data-background=light].wp-block-columns:has(> [data-background=warning]) [class$=__columns__column], [data-background=light][class$=__columns]:has(> [data-background=warning]) .columns__column, [data-background=light][class$=__columns]:has(> [data-background=warning]) [class$=__columns__column],
+.columns[data-background=light]:has(> [data-background=warning]) [class$=__column],
+[data-background=light].wp-block-columns:has(> [data-background=warning]) [class$=__column],
+[data-background=light][class$=__columns]:has(> [data-background=warning]) [class$=__column] {
   padding: var(--spacing-md);
 }
-.columns[data-background=light]:has(> [data-background=success]) .columns__column, [data-background=light].wp-block-columns:has(> [data-background=success]) .columns__column {
+.columns[data-background=light]:has(> [data-background=success]) .columns__column, [data-background=light].wp-block-columns:has(> [data-background=success]) .columns__column, .columns[data-background=light]:has(> [data-background=success]) [class$=__columns__column], [data-background=light].wp-block-columns:has(> [data-background=success]) [class$=__columns__column], [data-background=light][class$=__columns]:has(> [data-background=success]) .columns__column, [data-background=light][class$=__columns]:has(> [data-background=success]) [class$=__columns__column],
+.columns[data-background=light]:has(> [data-background=success]) [class$=__column],
+[data-background=light].wp-block-columns:has(> [data-background=success]) [class$=__column],
+[data-background=light][class$=__columns]:has(> [data-background=success]) [class$=__column] {
   padding: var(--spacing-md);
 }
-.columns[data-background=light]:has(> [data-background=error]) .columns__column, [data-background=light].wp-block-columns:has(> [data-background=error]) .columns__column {
+.columns[data-background=light]:has(> [data-background=error]) .columns__column, [data-background=light].wp-block-columns:has(> [data-background=error]) .columns__column, .columns[data-background=light]:has(> [data-background=error]) [class$=__columns__column], [data-background=light].wp-block-columns:has(> [data-background=error]) [class$=__columns__column], [data-background=light][class$=__columns]:has(> [data-background=error]) .columns__column, [data-background=light][class$=__columns]:has(> [data-background=error]) [class$=__columns__column],
+.columns[data-background=light]:has(> [data-background=error]) [class$=__column],
+[data-background=light].wp-block-columns:has(> [data-background=error]) [class$=__column],
+[data-background=light][class$=__columns]:has(> [data-background=error]) [class$=__column] {
   padding: var(--spacing-md);
 }
-.columns[data-background=light]:has(> [data-background=dark]) .columns__column, [data-background=light].wp-block-columns:has(> [data-background=dark]) .columns__column {
+.columns[data-background=light]:has(> [data-background=dark]) .columns__column, [data-background=light].wp-block-columns:has(> [data-background=dark]) .columns__column, .columns[data-background=light]:has(> [data-background=dark]) [class$=__columns__column], [data-background=light].wp-block-columns:has(> [data-background=dark]) [class$=__columns__column], [data-background=light][class$=__columns]:has(> [data-background=dark]) .columns__column, [data-background=light][class$=__columns]:has(> [data-background=dark]) [class$=__columns__column],
+.columns[data-background=light]:has(> [data-background=dark]) [class$=__column],
+[data-background=light].wp-block-columns:has(> [data-background=dark]) [class$=__column],
+[data-background=light][class$=__columns]:has(> [data-background=dark]) [class$=__column] {
   padding: var(--spacing-md);
 }
-.columns[data-background=light]:has(> [data-background=white]) .columns__column, [data-background=light].wp-block-columns:has(> [data-background=white]) .columns__column {
+.columns[data-background=light]:has(> [data-background=white]) .columns__column, [data-background=light].wp-block-columns:has(> [data-background=white]) .columns__column, .columns[data-background=light]:has(> [data-background=white]) [class$=__columns__column], [data-background=light].wp-block-columns:has(> [data-background=white]) [class$=__columns__column], [data-background=light][class$=__columns]:has(> [data-background=white]) .columns__column, [data-background=light][class$=__columns]:has(> [data-background=white]) [class$=__columns__column],
+.columns[data-background=light]:has(> [data-background=white]) [class$=__column],
+[data-background=light].wp-block-columns:has(> [data-background=white]) [class$=__column],
+[data-background=light][class$=__columns]:has(> [data-background=white]) [class$=__column] {
   padding: var(--spacing-md);
 }
-.columns[data-background=light] + .columns[data-background=light], [data-background=light].wp-block-columns + .columns[data-background=light], .columns[data-background=light] + [data-background=light].wp-block-columns, [data-background=light].wp-block-columns + [data-background=light].wp-block-columns {
+.columns[data-background=light] + .columns[data-background=light], [data-background=light].wp-block-columns + .columns[data-background=light], .columns[data-background=light] + [data-background=light].wp-block-columns, [data-background=light].wp-block-columns + [data-background=light].wp-block-columns, [data-background=light][class$=__columns] + .columns[data-background=light], [data-background=light][class$=__columns] + [data-background=light].wp-block-columns, .columns[data-background=light] + [data-background=light][class$=__columns], [data-background=light].wp-block-columns + [data-background=light][class$=__columns], [data-background=light][class$=__columns] + [data-background=light][class$=__columns] {
   margin-block-start: calc(var(--spacing-md) * -2);
 }
-.columns[data-background=dark]:has(> [data-background=primary]) .columns__column, [data-background=dark].wp-block-columns:has(> [data-background=primary]) .columns__column {
+.columns[data-background=dark]:has(> [data-background=primary]) .columns__column, [data-background=dark].wp-block-columns:has(> [data-background=primary]) .columns__column, .columns[data-background=dark]:has(> [data-background=primary]) [class$=__columns__column], [data-background=dark].wp-block-columns:has(> [data-background=primary]) [class$=__columns__column], [data-background=dark][class$=__columns]:has(> [data-background=primary]) .columns__column, [data-background=dark][class$=__columns]:has(> [data-background=primary]) [class$=__columns__column],
+.columns[data-background=dark]:has(> [data-background=primary]) [class$=__column],
+[data-background=dark].wp-block-columns:has(> [data-background=primary]) [class$=__column],
+[data-background=dark][class$=__columns]:has(> [data-background=primary]) [class$=__column] {
   padding: var(--spacing-md);
 }
-.columns[data-background=dark]:has(> [data-background=secondary]) .columns__column, [data-background=dark].wp-block-columns:has(> [data-background=secondary]) .columns__column {
+.columns[data-background=dark]:has(> [data-background=secondary]) .columns__column, [data-background=dark].wp-block-columns:has(> [data-background=secondary]) .columns__column, .columns[data-background=dark]:has(> [data-background=secondary]) [class$=__columns__column], [data-background=dark].wp-block-columns:has(> [data-background=secondary]) [class$=__columns__column], [data-background=dark][class$=__columns]:has(> [data-background=secondary]) .columns__column, [data-background=dark][class$=__columns]:has(> [data-background=secondary]) [class$=__columns__column],
+.columns[data-background=dark]:has(> [data-background=secondary]) [class$=__column],
+[data-background=dark].wp-block-columns:has(> [data-background=secondary]) [class$=__column],
+[data-background=dark][class$=__columns]:has(> [data-background=secondary]) [class$=__column] {
   padding: var(--spacing-md);
 }
-.columns[data-background=dark]:has(> [data-background=accent]) .columns__column, [data-background=dark].wp-block-columns:has(> [data-background=accent]) .columns__column {
+.columns[data-background=dark]:has(> [data-background=accent]) .columns__column, [data-background=dark].wp-block-columns:has(> [data-background=accent]) .columns__column, .columns[data-background=dark]:has(> [data-background=accent]) [class$=__columns__column], [data-background=dark].wp-block-columns:has(> [data-background=accent]) [class$=__columns__column], [data-background=dark][class$=__columns]:has(> [data-background=accent]) .columns__column, [data-background=dark][class$=__columns]:has(> [data-background=accent]) [class$=__columns__column],
+.columns[data-background=dark]:has(> [data-background=accent]) [class$=__column],
+[data-background=dark].wp-block-columns:has(> [data-background=accent]) [class$=__column],
+[data-background=dark][class$=__columns]:has(> [data-background=accent]) [class$=__column] {
   padding: var(--spacing-md);
 }
-.columns[data-background=dark]:has(> [data-background=info]) .columns__column, [data-background=dark].wp-block-columns:has(> [data-background=info]) .columns__column {
+.columns[data-background=dark]:has(> [data-background=info]) .columns__column, [data-background=dark].wp-block-columns:has(> [data-background=info]) .columns__column, .columns[data-background=dark]:has(> [data-background=info]) [class$=__columns__column], [data-background=dark].wp-block-columns:has(> [data-background=info]) [class$=__columns__column], [data-background=dark][class$=__columns]:has(> [data-background=info]) .columns__column, [data-background=dark][class$=__columns]:has(> [data-background=info]) [class$=__columns__column],
+.columns[data-background=dark]:has(> [data-background=info]) [class$=__column],
+[data-background=dark].wp-block-columns:has(> [data-background=info]) [class$=__column],
+[data-background=dark][class$=__columns]:has(> [data-background=info]) [class$=__column] {
   padding: var(--spacing-md);
 }
-.columns[data-background=dark]:has(> [data-background=warning]) .columns__column, [data-background=dark].wp-block-columns:has(> [data-background=warning]) .columns__column {
+.columns[data-background=dark]:has(> [data-background=warning]) .columns__column, [data-background=dark].wp-block-columns:has(> [data-background=warning]) .columns__column, .columns[data-background=dark]:has(> [data-background=warning]) [class$=__columns__column], [data-background=dark].wp-block-columns:has(> [data-background=warning]) [class$=__columns__column], [data-background=dark][class$=__columns]:has(> [data-background=warning]) .columns__column, [data-background=dark][class$=__columns]:has(> [data-background=warning]) [class$=__columns__column],
+.columns[data-background=dark]:has(> [data-background=warning]) [class$=__column],
+[data-background=dark].wp-block-columns:has(> [data-background=warning]) [class$=__column],
+[data-background=dark][class$=__columns]:has(> [data-background=warning]) [class$=__column] {
   padding: var(--spacing-md);
 }
-.columns[data-background=dark]:has(> [data-background=success]) .columns__column, [data-background=dark].wp-block-columns:has(> [data-background=success]) .columns__column {
+.columns[data-background=dark]:has(> [data-background=success]) .columns__column, [data-background=dark].wp-block-columns:has(> [data-background=success]) .columns__column, .columns[data-background=dark]:has(> [data-background=success]) [class$=__columns__column], [data-background=dark].wp-block-columns:has(> [data-background=success]) [class$=__columns__column], [data-background=dark][class$=__columns]:has(> [data-background=success]) .columns__column, [data-background=dark][class$=__columns]:has(> [data-background=success]) [class$=__columns__column],
+.columns[data-background=dark]:has(> [data-background=success]) [class$=__column],
+[data-background=dark].wp-block-columns:has(> [data-background=success]) [class$=__column],
+[data-background=dark][class$=__columns]:has(> [data-background=success]) [class$=__column] {
   padding: var(--spacing-md);
 }
-.columns[data-background=dark]:has(> [data-background=error]) .columns__column, [data-background=dark].wp-block-columns:has(> [data-background=error]) .columns__column {
+.columns[data-background=dark]:has(> [data-background=error]) .columns__column, [data-background=dark].wp-block-columns:has(> [data-background=error]) .columns__column, .columns[data-background=dark]:has(> [data-background=error]) [class$=__columns__column], [data-background=dark].wp-block-columns:has(> [data-background=error]) [class$=__columns__column], [data-background=dark][class$=__columns]:has(> [data-background=error]) .columns__column, [data-background=dark][class$=__columns]:has(> [data-background=error]) [class$=__columns__column],
+.columns[data-background=dark]:has(> [data-background=error]) [class$=__column],
+[data-background=dark].wp-block-columns:has(> [data-background=error]) [class$=__column],
+[data-background=dark][class$=__columns]:has(> [data-background=error]) [class$=__column] {
   padding: var(--spacing-md);
 }
-.columns[data-background=dark]:has(> [data-background=light]) .columns__column, [data-background=dark].wp-block-columns:has(> [data-background=light]) .columns__column {
+.columns[data-background=dark]:has(> [data-background=light]) .columns__column, [data-background=dark].wp-block-columns:has(> [data-background=light]) .columns__column, .columns[data-background=dark]:has(> [data-background=light]) [class$=__columns__column], [data-background=dark].wp-block-columns:has(> [data-background=light]) [class$=__columns__column], [data-background=dark][class$=__columns]:has(> [data-background=light]) .columns__column, [data-background=dark][class$=__columns]:has(> [data-background=light]) [class$=__columns__column],
+.columns[data-background=dark]:has(> [data-background=light]) [class$=__column],
+[data-background=dark].wp-block-columns:has(> [data-background=light]) [class$=__column],
+[data-background=dark][class$=__columns]:has(> [data-background=light]) [class$=__column] {
   padding: var(--spacing-md);
 }
-.columns[data-background=dark]:has(> [data-background=white]) .columns__column, [data-background=dark].wp-block-columns:has(> [data-background=white]) .columns__column {
+.columns[data-background=dark]:has(> [data-background=white]) .columns__column, [data-background=dark].wp-block-columns:has(> [data-background=white]) .columns__column, .columns[data-background=dark]:has(> [data-background=white]) [class$=__columns__column], [data-background=dark].wp-block-columns:has(> [data-background=white]) [class$=__columns__column], [data-background=dark][class$=__columns]:has(> [data-background=white]) .columns__column, [data-background=dark][class$=__columns]:has(> [data-background=white]) [class$=__columns__column],
+.columns[data-background=dark]:has(> [data-background=white]) [class$=__column],
+[data-background=dark].wp-block-columns:has(> [data-background=white]) [class$=__column],
+[data-background=dark][class$=__columns]:has(> [data-background=white]) [class$=__column] {
   padding: var(--spacing-md);
 }
-.columns[data-background=dark] + .columns[data-background=dark], [data-background=dark].wp-block-columns + .columns[data-background=dark], .columns[data-background=dark] + [data-background=dark].wp-block-columns, [data-background=dark].wp-block-columns + [data-background=dark].wp-block-columns {
+.columns[data-background=dark] + .columns[data-background=dark], [data-background=dark].wp-block-columns + .columns[data-background=dark], .columns[data-background=dark] + [data-background=dark].wp-block-columns, [data-background=dark].wp-block-columns + [data-background=dark].wp-block-columns, [data-background=dark][class$=__columns] + .columns[data-background=dark], [data-background=dark][class$=__columns] + [data-background=dark].wp-block-columns, .columns[data-background=dark] + [data-background=dark][class$=__columns], [data-background=dark].wp-block-columns + [data-background=dark][class$=__columns], [data-background=dark][class$=__columns] + [data-background=dark][class$=__columns] {
   margin-block-start: calc(var(--spacing-md) * -2);
 }
-.columns[data-background=white]:has(> [data-background=primary]) .columns__column, [data-background=white].wp-block-columns:has(> [data-background=primary]) .columns__column {
+.columns[data-background=white]:has(> [data-background=primary]) .columns__column, [data-background=white].wp-block-columns:has(> [data-background=primary]) .columns__column, .columns[data-background=white]:has(> [data-background=primary]) [class$=__columns__column], [data-background=white].wp-block-columns:has(> [data-background=primary]) [class$=__columns__column], [data-background=white][class$=__columns]:has(> [data-background=primary]) .columns__column, [data-background=white][class$=__columns]:has(> [data-background=primary]) [class$=__columns__column],
+.columns[data-background=white]:has(> [data-background=primary]) [class$=__column],
+[data-background=white].wp-block-columns:has(> [data-background=primary]) [class$=__column],
+[data-background=white][class$=__columns]:has(> [data-background=primary]) [class$=__column] {
   padding: var(--spacing-md);
 }
-.columns[data-background=white]:has(> [data-background=secondary]) .columns__column, [data-background=white].wp-block-columns:has(> [data-background=secondary]) .columns__column {
+.columns[data-background=white]:has(> [data-background=secondary]) .columns__column, [data-background=white].wp-block-columns:has(> [data-background=secondary]) .columns__column, .columns[data-background=white]:has(> [data-background=secondary]) [class$=__columns__column], [data-background=white].wp-block-columns:has(> [data-background=secondary]) [class$=__columns__column], [data-background=white][class$=__columns]:has(> [data-background=secondary]) .columns__column, [data-background=white][class$=__columns]:has(> [data-background=secondary]) [class$=__columns__column],
+.columns[data-background=white]:has(> [data-background=secondary]) [class$=__column],
+[data-background=white].wp-block-columns:has(> [data-background=secondary]) [class$=__column],
+[data-background=white][class$=__columns]:has(> [data-background=secondary]) [class$=__column] {
   padding: var(--spacing-md);
 }
-.columns[data-background=white]:has(> [data-background=accent]) .columns__column, [data-background=white].wp-block-columns:has(> [data-background=accent]) .columns__column {
+.columns[data-background=white]:has(> [data-background=accent]) .columns__column, [data-background=white].wp-block-columns:has(> [data-background=accent]) .columns__column, .columns[data-background=white]:has(> [data-background=accent]) [class$=__columns__column], [data-background=white].wp-block-columns:has(> [data-background=accent]) [class$=__columns__column], [data-background=white][class$=__columns]:has(> [data-background=accent]) .columns__column, [data-background=white][class$=__columns]:has(> [data-background=accent]) [class$=__columns__column],
+.columns[data-background=white]:has(> [data-background=accent]) [class$=__column],
+[data-background=white].wp-block-columns:has(> [data-background=accent]) [class$=__column],
+[data-background=white][class$=__columns]:has(> [data-background=accent]) [class$=__column] {
   padding: var(--spacing-md);
 }
-.columns[data-background=white]:has(> [data-background=info]) .columns__column, [data-background=white].wp-block-columns:has(> [data-background=info]) .columns__column {
+.columns[data-background=white]:has(> [data-background=info]) .columns__column, [data-background=white].wp-block-columns:has(> [data-background=info]) .columns__column, .columns[data-background=white]:has(> [data-background=info]) [class$=__columns__column], [data-background=white].wp-block-columns:has(> [data-background=info]) [class$=__columns__column], [data-background=white][class$=__columns]:has(> [data-background=info]) .columns__column, [data-background=white][class$=__columns]:has(> [data-background=info]) [class$=__columns__column],
+.columns[data-background=white]:has(> [data-background=info]) [class$=__column],
+[data-background=white].wp-block-columns:has(> [data-background=info]) [class$=__column],
+[data-background=white][class$=__columns]:has(> [data-background=info]) [class$=__column] {
   padding: var(--spacing-md);
 }
-.columns[data-background=white]:has(> [data-background=warning]) .columns__column, [data-background=white].wp-block-columns:has(> [data-background=warning]) .columns__column {
+.columns[data-background=white]:has(> [data-background=warning]) .columns__column, [data-background=white].wp-block-columns:has(> [data-background=warning]) .columns__column, .columns[data-background=white]:has(> [data-background=warning]) [class$=__columns__column], [data-background=white].wp-block-columns:has(> [data-background=warning]) [class$=__columns__column], [data-background=white][class$=__columns]:has(> [data-background=warning]) .columns__column, [data-background=white][class$=__columns]:has(> [data-background=warning]) [class$=__columns__column],
+.columns[data-background=white]:has(> [data-background=warning]) [class$=__column],
+[data-background=white].wp-block-columns:has(> [data-background=warning]) [class$=__column],
+[data-background=white][class$=__columns]:has(> [data-background=warning]) [class$=__column] {
   padding: var(--spacing-md);
 }
-.columns[data-background=white]:has(> [data-background=success]) .columns__column, [data-background=white].wp-block-columns:has(> [data-background=success]) .columns__column {
+.columns[data-background=white]:has(> [data-background=success]) .columns__column, [data-background=white].wp-block-columns:has(> [data-background=success]) .columns__column, .columns[data-background=white]:has(> [data-background=success]) [class$=__columns__column], [data-background=white].wp-block-columns:has(> [data-background=success]) [class$=__columns__column], [data-background=white][class$=__columns]:has(> [data-background=success]) .columns__column, [data-background=white][class$=__columns]:has(> [data-background=success]) [class$=__columns__column],
+.columns[data-background=white]:has(> [data-background=success]) [class$=__column],
+[data-background=white].wp-block-columns:has(> [data-background=success]) [class$=__column],
+[data-background=white][class$=__columns]:has(> [data-background=success]) [class$=__column] {
   padding: var(--spacing-md);
 }
-.columns[data-background=white]:has(> [data-background=error]) .columns__column, [data-background=white].wp-block-columns:has(> [data-background=error]) .columns__column {
+.columns[data-background=white]:has(> [data-background=error]) .columns__column, [data-background=white].wp-block-columns:has(> [data-background=error]) .columns__column, .columns[data-background=white]:has(> [data-background=error]) [class$=__columns__column], [data-background=white].wp-block-columns:has(> [data-background=error]) [class$=__columns__column], [data-background=white][class$=__columns]:has(> [data-background=error]) .columns__column, [data-background=white][class$=__columns]:has(> [data-background=error]) [class$=__columns__column],
+.columns[data-background=white]:has(> [data-background=error]) [class$=__column],
+[data-background=white].wp-block-columns:has(> [data-background=error]) [class$=__column],
+[data-background=white][class$=__columns]:has(> [data-background=error]) [class$=__column] {
   padding: var(--spacing-md);
 }
-.columns[data-background=white]:has(> [data-background=light]) .columns__column, [data-background=white].wp-block-columns:has(> [data-background=light]) .columns__column {
+.columns[data-background=white]:has(> [data-background=light]) .columns__column, [data-background=white].wp-block-columns:has(> [data-background=light]) .columns__column, .columns[data-background=white]:has(> [data-background=light]) [class$=__columns__column], [data-background=white].wp-block-columns:has(> [data-background=light]) [class$=__columns__column], [data-background=white][class$=__columns]:has(> [data-background=light]) .columns__column, [data-background=white][class$=__columns]:has(> [data-background=light]) [class$=__columns__column],
+.columns[data-background=white]:has(> [data-background=light]) [class$=__column],
+[data-background=white].wp-block-columns:has(> [data-background=light]) [class$=__column],
+[data-background=white][class$=__columns]:has(> [data-background=light]) [class$=__column] {
   padding: var(--spacing-md);
 }
-.columns[data-background=white]:has(> [data-background=dark]) .columns__column, [data-background=white].wp-block-columns:has(> [data-background=dark]) .columns__column {
+.columns[data-background=white]:has(> [data-background=dark]) .columns__column, [data-background=white].wp-block-columns:has(> [data-background=dark]) .columns__column, .columns[data-background=white]:has(> [data-background=dark]) [class$=__columns__column], [data-background=white].wp-block-columns:has(> [data-background=dark]) [class$=__columns__column], [data-background=white][class$=__columns]:has(> [data-background=dark]) .columns__column, [data-background=white][class$=__columns]:has(> [data-background=dark]) [class$=__columns__column],
+.columns[data-background=white]:has(> [data-background=dark]) [class$=__column],
+[data-background=white].wp-block-columns:has(> [data-background=dark]) [class$=__column],
+[data-background=white][class$=__columns]:has(> [data-background=dark]) [class$=__column] {
   padding: var(--spacing-md);
 }
-.columns[data-background=white] + .columns[data-background=white], [data-background=white].wp-block-columns + .columns[data-background=white], .columns[data-background=white] + [data-background=white].wp-block-columns, [data-background=white].wp-block-columns + [data-background=white].wp-block-columns {
+.columns[data-background=white] + .columns[data-background=white], [data-background=white].wp-block-columns + .columns[data-background=white], .columns[data-background=white] + [data-background=white].wp-block-columns, [data-background=white].wp-block-columns + [data-background=white].wp-block-columns, [data-background=white][class$=__columns] + .columns[data-background=white], [data-background=white][class$=__columns] + [data-background=white].wp-block-columns, .columns[data-background=white] + [data-background=white][class$=__columns], [data-background=white].wp-block-columns + [data-background=white][class$=__columns], [data-background=white][class$=__columns] + [data-background=white][class$=__columns] {
   margin-block-start: calc(var(--spacing-md) * -2);
 }
-.columns:not([data-background]):has(> [data-background]) .columns__column, .wp-block-columns:not([data-background]):has(> [data-background]) .columns__column {
+.columns:not([data-background]):has(> [data-background]) .columns__column, .wp-block-columns:not([data-background]):has(> [data-background]) .columns__column, .columns:not([data-background]):has(> [data-background]) [class$=__columns__column], .wp-block-columns:not([data-background]):has(> [data-background]) [class$=__columns__column], [class$=__columns]:not([data-background]):has(> [data-background]) .columns__column, [class$=__columns]:not([data-background]):has(> [data-background]) [class$=__columns__column],
+.columns:not([data-background]):has(> [data-background]) [class$=__column],
+.wp-block-columns:not([data-background]):has(> [data-background]) [class$=__column],
+[class$=__columns]:not([data-background]):has(> [data-background]) [class$=__column] {
   padding: var(--spacing-md);
 }
 
@@ -394,10 +723,6 @@
   min-width: 0;
   display: flex;
   flex-direction: column;
-}
-.column__inner {
-  display: flow-root;
-  width: 100%;
 }
 
 .separator, .wp-block-separator {
@@ -481,6 +806,9 @@
   gap: var(--spacing-sm);
   padding-block: var(--spacing-sm);
 }
+.button-group:last-child, .wp-block-buttons:last-child {
+  padding-block-end: 0;
+}
 
 .button, .wp-block-button {
   display: inline-block;
@@ -507,193 +835,193 @@
   justify-content: center;
   gap: var(--spacing-xs);
 }
-.button[data-color-theme=primary]:not(.is-style-outline), [data-color-theme=primary].wp-block-button:not(.is-style-outline) {
+.button[data-color-theme=primary]:not(.is-style-outline):not([data-style=outline]), [data-color-theme=primary].wp-block-button:not(.is-style-outline):not([data-style=outline]) {
   background-color: var(--color-primary);
   border: 1px solid var(--color-primary);
   color: var(--readable-color-primary);
 }
-.button[data-color-theme=primary]:not(.is-style-outline):hover, [data-color-theme=primary].wp-block-button:not(.is-style-outline):hover, .button[data-color-theme=primary]:not(.is-style-outline):focus, [data-color-theme=primary].wp-block-button:not(.is-style-outline):focus, .button[data-color-theme=primary]:not(.is-style-outline):active, [data-color-theme=primary].wp-block-button:not(.is-style-outline):active {
+.button[data-color-theme=primary]:not(.is-style-outline):not([data-style=outline]):hover, [data-color-theme=primary].wp-block-button:not(.is-style-outline):not([data-style=outline]):hover, .button[data-color-theme=primary]:not(.is-style-outline):not([data-style=outline]):focus, [data-color-theme=primary].wp-block-button:not(.is-style-outline):not([data-style=outline]):focus, .button[data-color-theme=primary]:not(.is-style-outline):not([data-style=outline]):active, [data-color-theme=primary].wp-block-button:not(.is-style-outline):not([data-style=outline]):active {
   background-color: color-mix(in srgb, var(--color-primary) 80%, black);
   border-color: color-mix(in srgb, var(--color-primary) 80%, black);
   color: var(--readable-color-primary);
 }
-.button[data-color-theme=primary].is-style-outline, [data-color-theme=primary].is-style-outline.wp-block-button {
+.button[data-color-theme=primary].is-style-outline, [data-color-theme=primary].is-style-outline.wp-block-button, .button[data-color-theme=primary][data-style=outline], [data-color-theme=primary][data-style=outline].wp-block-button {
   border: 1px solid var(--color-primary);
   background-color: transparent;
   color: var(--color-primary);
 }
-.button[data-color-theme=primary].is-style-outline:hover, [data-color-theme=primary].is-style-outline.wp-block-button:hover, .button[data-color-theme=primary].is-style-outline:focus, [data-color-theme=primary].is-style-outline.wp-block-button:focus, .button[data-color-theme=primary].is-style-outline:active, [data-color-theme=primary].is-style-outline.wp-block-button:active {
+.button[data-color-theme=primary].is-style-outline:hover, [data-color-theme=primary].is-style-outline.wp-block-button:hover, .button[data-color-theme=primary].is-style-outline:focus, [data-color-theme=primary].is-style-outline.wp-block-button:focus, .button[data-color-theme=primary].is-style-outline:active, [data-color-theme=primary].is-style-outline.wp-block-button:active, .button[data-color-theme=primary][data-style=outline]:hover, [data-color-theme=primary][data-style=outline].wp-block-button:hover, .button[data-color-theme=primary][data-style=outline]:focus, [data-color-theme=primary][data-style=outline].wp-block-button:focus, .button[data-color-theme=primary][data-style=outline]:active, [data-color-theme=primary][data-style=outline].wp-block-button:active {
   background: var(--color-primary);
   color: var(--readable-color-primary);
 }
-.button[data-color-theme=secondary]:not(.is-style-outline), [data-color-theme=secondary].wp-block-button:not(.is-style-outline) {
+.button[data-color-theme=secondary]:not(.is-style-outline):not([data-style=outline]), [data-color-theme=secondary].wp-block-button:not(.is-style-outline):not([data-style=outline]) {
   background-color: var(--color-secondary);
   border: 1px solid var(--color-secondary);
   color: var(--readable-color-secondary);
 }
-.button[data-color-theme=secondary]:not(.is-style-outline):hover, [data-color-theme=secondary].wp-block-button:not(.is-style-outline):hover, .button[data-color-theme=secondary]:not(.is-style-outline):focus, [data-color-theme=secondary].wp-block-button:not(.is-style-outline):focus, .button[data-color-theme=secondary]:not(.is-style-outline):active, [data-color-theme=secondary].wp-block-button:not(.is-style-outline):active {
+.button[data-color-theme=secondary]:not(.is-style-outline):not([data-style=outline]):hover, [data-color-theme=secondary].wp-block-button:not(.is-style-outline):not([data-style=outline]):hover, .button[data-color-theme=secondary]:not(.is-style-outline):not([data-style=outline]):focus, [data-color-theme=secondary].wp-block-button:not(.is-style-outline):not([data-style=outline]):focus, .button[data-color-theme=secondary]:not(.is-style-outline):not([data-style=outline]):active, [data-color-theme=secondary].wp-block-button:not(.is-style-outline):not([data-style=outline]):active {
   background-color: color-mix(in srgb, var(--color-secondary) 80%, black);
   border-color: color-mix(in srgb, var(--color-secondary) 80%, black);
   color: var(--readable-color-secondary);
 }
-.button[data-color-theme=secondary].is-style-outline, [data-color-theme=secondary].is-style-outline.wp-block-button {
+.button[data-color-theme=secondary].is-style-outline, [data-color-theme=secondary].is-style-outline.wp-block-button, .button[data-color-theme=secondary][data-style=outline], [data-color-theme=secondary][data-style=outline].wp-block-button {
   border: 1px solid var(--color-secondary);
   background-color: transparent;
   color: var(--color-secondary);
 }
-.button[data-color-theme=secondary].is-style-outline:hover, [data-color-theme=secondary].is-style-outline.wp-block-button:hover, .button[data-color-theme=secondary].is-style-outline:focus, [data-color-theme=secondary].is-style-outline.wp-block-button:focus, .button[data-color-theme=secondary].is-style-outline:active, [data-color-theme=secondary].is-style-outline.wp-block-button:active {
+.button[data-color-theme=secondary].is-style-outline:hover, [data-color-theme=secondary].is-style-outline.wp-block-button:hover, .button[data-color-theme=secondary].is-style-outline:focus, [data-color-theme=secondary].is-style-outline.wp-block-button:focus, .button[data-color-theme=secondary].is-style-outline:active, [data-color-theme=secondary].is-style-outline.wp-block-button:active, .button[data-color-theme=secondary][data-style=outline]:hover, [data-color-theme=secondary][data-style=outline].wp-block-button:hover, .button[data-color-theme=secondary][data-style=outline]:focus, [data-color-theme=secondary][data-style=outline].wp-block-button:focus, .button[data-color-theme=secondary][data-style=outline]:active, [data-color-theme=secondary][data-style=outline].wp-block-button:active {
   background: var(--color-secondary);
   color: var(--readable-color-secondary);
 }
-.button[data-color-theme=accent]:not(.is-style-outline), [data-color-theme=accent].wp-block-button:not(.is-style-outline) {
+.button[data-color-theme=accent]:not(.is-style-outline):not([data-style=outline]), [data-color-theme=accent].wp-block-button:not(.is-style-outline):not([data-style=outline]) {
   background-color: var(--color-accent);
   border: 1px solid var(--color-accent);
   color: var(--readable-color-accent);
 }
-.button[data-color-theme=accent]:not(.is-style-outline):hover, [data-color-theme=accent].wp-block-button:not(.is-style-outline):hover, .button[data-color-theme=accent]:not(.is-style-outline):focus, [data-color-theme=accent].wp-block-button:not(.is-style-outline):focus, .button[data-color-theme=accent]:not(.is-style-outline):active, [data-color-theme=accent].wp-block-button:not(.is-style-outline):active {
+.button[data-color-theme=accent]:not(.is-style-outline):not([data-style=outline]):hover, [data-color-theme=accent].wp-block-button:not(.is-style-outline):not([data-style=outline]):hover, .button[data-color-theme=accent]:not(.is-style-outline):not([data-style=outline]):focus, [data-color-theme=accent].wp-block-button:not(.is-style-outline):not([data-style=outline]):focus, .button[data-color-theme=accent]:not(.is-style-outline):not([data-style=outline]):active, [data-color-theme=accent].wp-block-button:not(.is-style-outline):not([data-style=outline]):active {
   background-color: color-mix(in srgb, var(--color-accent) 80%, black);
   border-color: color-mix(in srgb, var(--color-accent) 80%, black);
   color: var(--readable-color-accent);
 }
-.button[data-color-theme=accent].is-style-outline, [data-color-theme=accent].is-style-outline.wp-block-button {
+.button[data-color-theme=accent].is-style-outline, [data-color-theme=accent].is-style-outline.wp-block-button, .button[data-color-theme=accent][data-style=outline], [data-color-theme=accent][data-style=outline].wp-block-button {
   border: 1px solid var(--color-accent);
   background-color: transparent;
   color: var(--color-accent);
 }
-.button[data-color-theme=accent].is-style-outline:hover, [data-color-theme=accent].is-style-outline.wp-block-button:hover, .button[data-color-theme=accent].is-style-outline:focus, [data-color-theme=accent].is-style-outline.wp-block-button:focus, .button[data-color-theme=accent].is-style-outline:active, [data-color-theme=accent].is-style-outline.wp-block-button:active {
+.button[data-color-theme=accent].is-style-outline:hover, [data-color-theme=accent].is-style-outline.wp-block-button:hover, .button[data-color-theme=accent].is-style-outline:focus, [data-color-theme=accent].is-style-outline.wp-block-button:focus, .button[data-color-theme=accent].is-style-outline:active, [data-color-theme=accent].is-style-outline.wp-block-button:active, .button[data-color-theme=accent][data-style=outline]:hover, [data-color-theme=accent][data-style=outline].wp-block-button:hover, .button[data-color-theme=accent][data-style=outline]:focus, [data-color-theme=accent][data-style=outline].wp-block-button:focus, .button[data-color-theme=accent][data-style=outline]:active, [data-color-theme=accent][data-style=outline].wp-block-button:active {
   background: var(--color-accent);
   color: var(--readable-color-accent);
 }
-.button[data-color-theme=info]:not(.is-style-outline), [data-color-theme=info].wp-block-button:not(.is-style-outline) {
+.button[data-color-theme=info]:not(.is-style-outline):not([data-style=outline]), [data-color-theme=info].wp-block-button:not(.is-style-outline):not([data-style=outline]) {
   background-color: var(--color-info);
   border: 1px solid var(--color-info);
   color: var(--readable-color-info);
 }
-.button[data-color-theme=info]:not(.is-style-outline):hover, [data-color-theme=info].wp-block-button:not(.is-style-outline):hover, .button[data-color-theme=info]:not(.is-style-outline):focus, [data-color-theme=info].wp-block-button:not(.is-style-outline):focus, .button[data-color-theme=info]:not(.is-style-outline):active, [data-color-theme=info].wp-block-button:not(.is-style-outline):active {
+.button[data-color-theme=info]:not(.is-style-outline):not([data-style=outline]):hover, [data-color-theme=info].wp-block-button:not(.is-style-outline):not([data-style=outline]):hover, .button[data-color-theme=info]:not(.is-style-outline):not([data-style=outline]):focus, [data-color-theme=info].wp-block-button:not(.is-style-outline):not([data-style=outline]):focus, .button[data-color-theme=info]:not(.is-style-outline):not([data-style=outline]):active, [data-color-theme=info].wp-block-button:not(.is-style-outline):not([data-style=outline]):active {
   background-color: color-mix(in srgb, var(--color-info) 80%, black);
   border-color: color-mix(in srgb, var(--color-info) 80%, black);
   color: var(--readable-color-info);
 }
-.button[data-color-theme=info].is-style-outline, [data-color-theme=info].is-style-outline.wp-block-button {
+.button[data-color-theme=info].is-style-outline, [data-color-theme=info].is-style-outline.wp-block-button, .button[data-color-theme=info][data-style=outline], [data-color-theme=info][data-style=outline].wp-block-button {
   border: 1px solid var(--color-info);
   background-color: transparent;
   color: var(--color-info);
 }
-.button[data-color-theme=info].is-style-outline:hover, [data-color-theme=info].is-style-outline.wp-block-button:hover, .button[data-color-theme=info].is-style-outline:focus, [data-color-theme=info].is-style-outline.wp-block-button:focus, .button[data-color-theme=info].is-style-outline:active, [data-color-theme=info].is-style-outline.wp-block-button:active {
+.button[data-color-theme=info].is-style-outline:hover, [data-color-theme=info].is-style-outline.wp-block-button:hover, .button[data-color-theme=info].is-style-outline:focus, [data-color-theme=info].is-style-outline.wp-block-button:focus, .button[data-color-theme=info].is-style-outline:active, [data-color-theme=info].is-style-outline.wp-block-button:active, .button[data-color-theme=info][data-style=outline]:hover, [data-color-theme=info][data-style=outline].wp-block-button:hover, .button[data-color-theme=info][data-style=outline]:focus, [data-color-theme=info][data-style=outline].wp-block-button:focus, .button[data-color-theme=info][data-style=outline]:active, [data-color-theme=info][data-style=outline].wp-block-button:active {
   background: var(--color-info);
   color: var(--readable-color-info);
 }
-.button[data-color-theme=warning]:not(.is-style-outline), [data-color-theme=warning].wp-block-button:not(.is-style-outline) {
+.button[data-color-theme=warning]:not(.is-style-outline):not([data-style=outline]), [data-color-theme=warning].wp-block-button:not(.is-style-outline):not([data-style=outline]) {
   background-color: var(--color-warning);
   border: 1px solid var(--color-warning);
   color: var(--readable-color-warning);
 }
-.button[data-color-theme=warning]:not(.is-style-outline):hover, [data-color-theme=warning].wp-block-button:not(.is-style-outline):hover, .button[data-color-theme=warning]:not(.is-style-outline):focus, [data-color-theme=warning].wp-block-button:not(.is-style-outline):focus, .button[data-color-theme=warning]:not(.is-style-outline):active, [data-color-theme=warning].wp-block-button:not(.is-style-outline):active {
+.button[data-color-theme=warning]:not(.is-style-outline):not([data-style=outline]):hover, [data-color-theme=warning].wp-block-button:not(.is-style-outline):not([data-style=outline]):hover, .button[data-color-theme=warning]:not(.is-style-outline):not([data-style=outline]):focus, [data-color-theme=warning].wp-block-button:not(.is-style-outline):not([data-style=outline]):focus, .button[data-color-theme=warning]:not(.is-style-outline):not([data-style=outline]):active, [data-color-theme=warning].wp-block-button:not(.is-style-outline):not([data-style=outline]):active {
   background-color: color-mix(in srgb, var(--color-warning) 80%, black);
   border-color: color-mix(in srgb, var(--color-warning) 80%, black);
   color: var(--readable-color-warning);
 }
-.button[data-color-theme=warning].is-style-outline, [data-color-theme=warning].is-style-outline.wp-block-button {
+.button[data-color-theme=warning].is-style-outline, [data-color-theme=warning].is-style-outline.wp-block-button, .button[data-color-theme=warning][data-style=outline], [data-color-theme=warning][data-style=outline].wp-block-button {
   border: 1px solid var(--color-warning);
   background-color: transparent;
   color: var(--color-warning);
 }
-.button[data-color-theme=warning].is-style-outline:hover, [data-color-theme=warning].is-style-outline.wp-block-button:hover, .button[data-color-theme=warning].is-style-outline:focus, [data-color-theme=warning].is-style-outline.wp-block-button:focus, .button[data-color-theme=warning].is-style-outline:active, [data-color-theme=warning].is-style-outline.wp-block-button:active {
+.button[data-color-theme=warning].is-style-outline:hover, [data-color-theme=warning].is-style-outline.wp-block-button:hover, .button[data-color-theme=warning].is-style-outline:focus, [data-color-theme=warning].is-style-outline.wp-block-button:focus, .button[data-color-theme=warning].is-style-outline:active, [data-color-theme=warning].is-style-outline.wp-block-button:active, .button[data-color-theme=warning][data-style=outline]:hover, [data-color-theme=warning][data-style=outline].wp-block-button:hover, .button[data-color-theme=warning][data-style=outline]:focus, [data-color-theme=warning][data-style=outline].wp-block-button:focus, .button[data-color-theme=warning][data-style=outline]:active, [data-color-theme=warning][data-style=outline].wp-block-button:active {
   background: var(--color-warning);
   color: var(--readable-color-warning);
 }
-.button[data-color-theme=success]:not(.is-style-outline), [data-color-theme=success].wp-block-button:not(.is-style-outline) {
+.button[data-color-theme=success]:not(.is-style-outline):not([data-style=outline]), [data-color-theme=success].wp-block-button:not(.is-style-outline):not([data-style=outline]) {
   background-color: var(--color-success);
   border: 1px solid var(--color-success);
   color: var(--readable-color-success);
 }
-.button[data-color-theme=success]:not(.is-style-outline):hover, [data-color-theme=success].wp-block-button:not(.is-style-outline):hover, .button[data-color-theme=success]:not(.is-style-outline):focus, [data-color-theme=success].wp-block-button:not(.is-style-outline):focus, .button[data-color-theme=success]:not(.is-style-outline):active, [data-color-theme=success].wp-block-button:not(.is-style-outline):active {
+.button[data-color-theme=success]:not(.is-style-outline):not([data-style=outline]):hover, [data-color-theme=success].wp-block-button:not(.is-style-outline):not([data-style=outline]):hover, .button[data-color-theme=success]:not(.is-style-outline):not([data-style=outline]):focus, [data-color-theme=success].wp-block-button:not(.is-style-outline):not([data-style=outline]):focus, .button[data-color-theme=success]:not(.is-style-outline):not([data-style=outline]):active, [data-color-theme=success].wp-block-button:not(.is-style-outline):not([data-style=outline]):active {
   background-color: color-mix(in srgb, var(--color-success) 80%, black);
   border-color: color-mix(in srgb, var(--color-success) 80%, black);
   color: var(--readable-color-success);
 }
-.button[data-color-theme=success].is-style-outline, [data-color-theme=success].is-style-outline.wp-block-button {
+.button[data-color-theme=success].is-style-outline, [data-color-theme=success].is-style-outline.wp-block-button, .button[data-color-theme=success][data-style=outline], [data-color-theme=success][data-style=outline].wp-block-button {
   border: 1px solid var(--color-success);
   background-color: transparent;
   color: var(--color-success);
 }
-.button[data-color-theme=success].is-style-outline:hover, [data-color-theme=success].is-style-outline.wp-block-button:hover, .button[data-color-theme=success].is-style-outline:focus, [data-color-theme=success].is-style-outline.wp-block-button:focus, .button[data-color-theme=success].is-style-outline:active, [data-color-theme=success].is-style-outline.wp-block-button:active {
+.button[data-color-theme=success].is-style-outline:hover, [data-color-theme=success].is-style-outline.wp-block-button:hover, .button[data-color-theme=success].is-style-outline:focus, [data-color-theme=success].is-style-outline.wp-block-button:focus, .button[data-color-theme=success].is-style-outline:active, [data-color-theme=success].is-style-outline.wp-block-button:active, .button[data-color-theme=success][data-style=outline]:hover, [data-color-theme=success][data-style=outline].wp-block-button:hover, .button[data-color-theme=success][data-style=outline]:focus, [data-color-theme=success][data-style=outline].wp-block-button:focus, .button[data-color-theme=success][data-style=outline]:active, [data-color-theme=success][data-style=outline].wp-block-button:active {
   background: var(--color-success);
   color: var(--readable-color-success);
 }
-.button[data-color-theme=error]:not(.is-style-outline), [data-color-theme=error].wp-block-button:not(.is-style-outline) {
+.button[data-color-theme=error]:not(.is-style-outline):not([data-style=outline]), [data-color-theme=error].wp-block-button:not(.is-style-outline):not([data-style=outline]) {
   background-color: var(--color-error);
   border: 1px solid var(--color-error);
   color: var(--readable-color-error);
 }
-.button[data-color-theme=error]:not(.is-style-outline):hover, [data-color-theme=error].wp-block-button:not(.is-style-outline):hover, .button[data-color-theme=error]:not(.is-style-outline):focus, [data-color-theme=error].wp-block-button:not(.is-style-outline):focus, .button[data-color-theme=error]:not(.is-style-outline):active, [data-color-theme=error].wp-block-button:not(.is-style-outline):active {
+.button[data-color-theme=error]:not(.is-style-outline):not([data-style=outline]):hover, [data-color-theme=error].wp-block-button:not(.is-style-outline):not([data-style=outline]):hover, .button[data-color-theme=error]:not(.is-style-outline):not([data-style=outline]):focus, [data-color-theme=error].wp-block-button:not(.is-style-outline):not([data-style=outline]):focus, .button[data-color-theme=error]:not(.is-style-outline):not([data-style=outline]):active, [data-color-theme=error].wp-block-button:not(.is-style-outline):not([data-style=outline]):active {
   background-color: color-mix(in srgb, var(--color-error) 80%, black);
   border-color: color-mix(in srgb, var(--color-error) 80%, black);
   color: var(--readable-color-error);
 }
-.button[data-color-theme=error].is-style-outline, [data-color-theme=error].is-style-outline.wp-block-button {
+.button[data-color-theme=error].is-style-outline, [data-color-theme=error].is-style-outline.wp-block-button, .button[data-color-theme=error][data-style=outline], [data-color-theme=error][data-style=outline].wp-block-button {
   border: 1px solid var(--color-error);
   background-color: transparent;
   color: var(--color-error);
 }
-.button[data-color-theme=error].is-style-outline:hover, [data-color-theme=error].is-style-outline.wp-block-button:hover, .button[data-color-theme=error].is-style-outline:focus, [data-color-theme=error].is-style-outline.wp-block-button:focus, .button[data-color-theme=error].is-style-outline:active, [data-color-theme=error].is-style-outline.wp-block-button:active {
+.button[data-color-theme=error].is-style-outline:hover, [data-color-theme=error].is-style-outline.wp-block-button:hover, .button[data-color-theme=error].is-style-outline:focus, [data-color-theme=error].is-style-outline.wp-block-button:focus, .button[data-color-theme=error].is-style-outline:active, [data-color-theme=error].is-style-outline.wp-block-button:active, .button[data-color-theme=error][data-style=outline]:hover, [data-color-theme=error][data-style=outline].wp-block-button:hover, .button[data-color-theme=error][data-style=outline]:focus, [data-color-theme=error][data-style=outline].wp-block-button:focus, .button[data-color-theme=error][data-style=outline]:active, [data-color-theme=error][data-style=outline].wp-block-button:active {
   background: var(--color-error);
   color: var(--readable-color-error);
 }
-.button[data-color-theme=light]:not(.is-style-outline), [data-color-theme=light].wp-block-button:not(.is-style-outline) {
+.button[data-color-theme=light]:not(.is-style-outline):not([data-style=outline]), [data-color-theme=light].wp-block-button:not(.is-style-outline):not([data-style=outline]) {
   background-color: var(--color-light);
   border: 1px solid var(--color-light);
   color: var(--readable-color-light);
 }
-.button[data-color-theme=light]:not(.is-style-outline):hover, [data-color-theme=light].wp-block-button:not(.is-style-outline):hover, .button[data-color-theme=light]:not(.is-style-outline):focus, [data-color-theme=light].wp-block-button:not(.is-style-outline):focus, .button[data-color-theme=light]:not(.is-style-outline):active, [data-color-theme=light].wp-block-button:not(.is-style-outline):active {
+.button[data-color-theme=light]:not(.is-style-outline):not([data-style=outline]):hover, [data-color-theme=light].wp-block-button:not(.is-style-outline):not([data-style=outline]):hover, .button[data-color-theme=light]:not(.is-style-outline):not([data-style=outline]):focus, [data-color-theme=light].wp-block-button:not(.is-style-outline):not([data-style=outline]):focus, .button[data-color-theme=light]:not(.is-style-outline):not([data-style=outline]):active, [data-color-theme=light].wp-block-button:not(.is-style-outline):not([data-style=outline]):active {
   background-color: color-mix(in srgb, var(--color-light) 80%, black);
   border-color: color-mix(in srgb, var(--color-light) 80%, black);
   color: var(--readable-color-light);
 }
-.button[data-color-theme=light].is-style-outline, [data-color-theme=light].is-style-outline.wp-block-button {
+.button[data-color-theme=light].is-style-outline, [data-color-theme=light].is-style-outline.wp-block-button, .button[data-color-theme=light][data-style=outline], [data-color-theme=light][data-style=outline].wp-block-button {
   border: 1px solid var(--color-light);
   background-color: transparent;
   color: var(--color-light);
 }
-.button[data-color-theme=light].is-style-outline:hover, [data-color-theme=light].is-style-outline.wp-block-button:hover, .button[data-color-theme=light].is-style-outline:focus, [data-color-theme=light].is-style-outline.wp-block-button:focus, .button[data-color-theme=light].is-style-outline:active, [data-color-theme=light].is-style-outline.wp-block-button:active {
+.button[data-color-theme=light].is-style-outline:hover, [data-color-theme=light].is-style-outline.wp-block-button:hover, .button[data-color-theme=light].is-style-outline:focus, [data-color-theme=light].is-style-outline.wp-block-button:focus, .button[data-color-theme=light].is-style-outline:active, [data-color-theme=light].is-style-outline.wp-block-button:active, .button[data-color-theme=light][data-style=outline]:hover, [data-color-theme=light][data-style=outline].wp-block-button:hover, .button[data-color-theme=light][data-style=outline]:focus, [data-color-theme=light][data-style=outline].wp-block-button:focus, .button[data-color-theme=light][data-style=outline]:active, [data-color-theme=light][data-style=outline].wp-block-button:active {
   background: var(--color-light);
   color: var(--readable-color-light);
 }
-.button[data-color-theme=dark]:not(.is-style-outline), [data-color-theme=dark].wp-block-button:not(.is-style-outline) {
+.button[data-color-theme=dark]:not(.is-style-outline):not([data-style=outline]), [data-color-theme=dark].wp-block-button:not(.is-style-outline):not([data-style=outline]) {
   background-color: var(--color-dark);
   border: 1px solid var(--color-dark);
   color: var(--readable-color-dark);
 }
-.button[data-color-theme=dark]:not(.is-style-outline):hover, [data-color-theme=dark].wp-block-button:not(.is-style-outline):hover, .button[data-color-theme=dark]:not(.is-style-outline):focus, [data-color-theme=dark].wp-block-button:not(.is-style-outline):focus, .button[data-color-theme=dark]:not(.is-style-outline):active, [data-color-theme=dark].wp-block-button:not(.is-style-outline):active {
+.button[data-color-theme=dark]:not(.is-style-outline):not([data-style=outline]):hover, [data-color-theme=dark].wp-block-button:not(.is-style-outline):not([data-style=outline]):hover, .button[data-color-theme=dark]:not(.is-style-outline):not([data-style=outline]):focus, [data-color-theme=dark].wp-block-button:not(.is-style-outline):not([data-style=outline]):focus, .button[data-color-theme=dark]:not(.is-style-outline):not([data-style=outline]):active, [data-color-theme=dark].wp-block-button:not(.is-style-outline):not([data-style=outline]):active {
   background-color: color-mix(in srgb, var(--color-dark) 80%, black);
   border-color: color-mix(in srgb, var(--color-dark) 80%, black);
   color: var(--readable-color-dark);
 }
-.button[data-color-theme=dark].is-style-outline, [data-color-theme=dark].is-style-outline.wp-block-button {
+.button[data-color-theme=dark].is-style-outline, [data-color-theme=dark].is-style-outline.wp-block-button, .button[data-color-theme=dark][data-style=outline], [data-color-theme=dark][data-style=outline].wp-block-button {
   border: 1px solid var(--color-dark);
   background-color: transparent;
   color: var(--color-dark);
 }
-.button[data-color-theme=dark].is-style-outline:hover, [data-color-theme=dark].is-style-outline.wp-block-button:hover, .button[data-color-theme=dark].is-style-outline:focus, [data-color-theme=dark].is-style-outline.wp-block-button:focus, .button[data-color-theme=dark].is-style-outline:active, [data-color-theme=dark].is-style-outline.wp-block-button:active {
+.button[data-color-theme=dark].is-style-outline:hover, [data-color-theme=dark].is-style-outline.wp-block-button:hover, .button[data-color-theme=dark].is-style-outline:focus, [data-color-theme=dark].is-style-outline.wp-block-button:focus, .button[data-color-theme=dark].is-style-outline:active, [data-color-theme=dark].is-style-outline.wp-block-button:active, .button[data-color-theme=dark][data-style=outline]:hover, [data-color-theme=dark][data-style=outline].wp-block-button:hover, .button[data-color-theme=dark][data-style=outline]:focus, [data-color-theme=dark][data-style=outline].wp-block-button:focus, .button[data-color-theme=dark][data-style=outline]:active, [data-color-theme=dark][data-style=outline].wp-block-button:active {
   background: var(--color-dark);
   color: var(--readable-color-dark);
 }
-.button[data-color-theme=white]:not(.is-style-outline), [data-color-theme=white].wp-block-button:not(.is-style-outline) {
+.button[data-color-theme=white]:not(.is-style-outline):not([data-style=outline]), [data-color-theme=white].wp-block-button:not(.is-style-outline):not([data-style=outline]) {
   background-color: var(--color-white);
   border: 1px solid var(--color-white);
   color: var(--readable-color-white);
 }
-.button[data-color-theme=white]:not(.is-style-outline):hover, [data-color-theme=white].wp-block-button:not(.is-style-outline):hover, .button[data-color-theme=white]:not(.is-style-outline):focus, [data-color-theme=white].wp-block-button:not(.is-style-outline):focus, .button[data-color-theme=white]:not(.is-style-outline):active, [data-color-theme=white].wp-block-button:not(.is-style-outline):active {
+.button[data-color-theme=white]:not(.is-style-outline):not([data-style=outline]):hover, [data-color-theme=white].wp-block-button:not(.is-style-outline):not([data-style=outline]):hover, .button[data-color-theme=white]:not(.is-style-outline):not([data-style=outline]):focus, [data-color-theme=white].wp-block-button:not(.is-style-outline):not([data-style=outline]):focus, .button[data-color-theme=white]:not(.is-style-outline):not([data-style=outline]):active, [data-color-theme=white].wp-block-button:not(.is-style-outline):not([data-style=outline]):active {
   background-color: color-mix(in srgb, var(--color-white) 80%, black);
   border-color: color-mix(in srgb, var(--color-white) 80%, black);
   color: var(--readable-color-white);
 }
-.button[data-color-theme=white].is-style-outline, [data-color-theme=white].is-style-outline.wp-block-button {
+.button[data-color-theme=white].is-style-outline, [data-color-theme=white].is-style-outline.wp-block-button, .button[data-color-theme=white][data-style=outline], [data-color-theme=white][data-style=outline].wp-block-button {
   border: 1px solid var(--color-white);
   background-color: transparent;
   color: var(--color-white);
 }
-.button[data-color-theme=white].is-style-outline:hover, [data-color-theme=white].is-style-outline.wp-block-button:hover, .button[data-color-theme=white].is-style-outline:focus, [data-color-theme=white].is-style-outline.wp-block-button:focus, .button[data-color-theme=white].is-style-outline:active, [data-color-theme=white].is-style-outline.wp-block-button:active {
+.button[data-color-theme=white].is-style-outline:hover, [data-color-theme=white].is-style-outline.wp-block-button:hover, .button[data-color-theme=white].is-style-outline:focus, [data-color-theme=white].is-style-outline.wp-block-button:focus, .button[data-color-theme=white].is-style-outline:active, [data-color-theme=white].is-style-outline.wp-block-button:active, .button[data-color-theme=white][data-style=outline]:hover, [data-color-theme=white][data-style=outline].wp-block-button:hover, .button[data-color-theme=white][data-style=outline]:focus, [data-color-theme=white][data-style=outline].wp-block-button:focus, .button[data-color-theme=white][data-style=outline]:active, [data-color-theme=white][data-style=outline].wp-block-button:active {
   background: var(--color-white);
   color: var(--readable-color-white);
 }
@@ -803,7 +1131,7 @@
   font-size: var(--font-size-sm);
 }
 
-.table, .wp-block-comet-table > table {
+.table, .wp-block-comet-table > table, [class$=__table] {
   min-width: 100%;
   width: fit-content;
   font-family: var(--font-family-body);
@@ -812,20 +1140,20 @@
   font-size: 1rem;
   margin: var(--spacing-md) 0 var(--spacing-xl) 0;
 }
-.table:first-child, .wp-block-comet-table > table:first-child {
+.table:first-child, .wp-block-comet-table > table:first-child, [class$=__table]:first-child {
   margin-block-start: 0;
 }
-.table th, .wp-block-comet-table > table th, .table td, .wp-block-comet-table > table td {
+.table th, .wp-block-comet-table > table th, [class$=__table] th, .table td, .wp-block-comet-table > table td, [class$=__table] td {
   text-align: start;
   padding: var(--spacing-xs);
   border-bottom: 1px solid color-mix(in srgb, var(--color-light) 90%, black);
   vertical-align: top;
 }
-.table th, .wp-block-comet-table > table th {
+.table th, .wp-block-comet-table > table th, [class$=__table] th {
   background: var(--color-light);
   font-weight: var(--font-weight-semibold);
 }
-.table td, .wp-block-comet-table > table td {
+.table td, .wp-block-comet-table > table td, [class$=__table] td {
   font-weight: var(--font-weight-light);
 }
 .table__caption {
