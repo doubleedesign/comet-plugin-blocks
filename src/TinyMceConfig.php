@@ -5,7 +5,7 @@ use Doubleedesign\Comet\Core\{Config};
 
 class TinyMceConfig {
     // TODO: Add callout and possibly some other miniblocks
-    private array $comet_miniblocks = ['comet_miniblocks_pullquote'];
+    private array $comet_miniblocks = ['comet_miniblocks_pullquote', 'comet_miniblocks_callout'];
 
     public function __construct() {
         add_filter('tiny_mce_before_init', [$this, 'init_settings'], 10, 1);
@@ -385,7 +385,7 @@ class TinyMceConfig {
     }
 
     public function register_miniblock_buttons($buttons) {
-        array_push($buttons, 'comet_miniblocks_pullquote', 'comet_miniblocks_button-group');
+        array_push($buttons, $this->comet_miniblocks);
 
         return $buttons;
     }
