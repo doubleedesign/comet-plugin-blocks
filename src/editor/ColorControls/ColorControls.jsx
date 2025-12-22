@@ -1,18 +1,13 @@
 /* global wp */
-/* global comet */
-import {
-	PanelBody,
-	Dropdown,
-	Button,
-	ColorIndicator,
-	ColorPalette,
-	__experimentalToggleGroupControl,
-	__experimentalToggleGroupControlOption
-} from '@wordpress/components';
-import { useRef, useState } from '@wordpress/element';
+import { PanelBody, Dropdown, Button, ColorIndicator, ColorPalette } from '@wordpress/components';
+import { useEffect, useRef, useState } from '@wordpress/element';
+import { BLOCKS_WITH_TINYMCE } from '../constants.js';
 
-const ColorPaletteDropdown = ({ label, palette, onChange }) => {
-	const [hex, setHex] = useState('');
+/** @type {{ PluginManager: import('tinymce').AddOnManager }} */
+const tinymce = window.tinymce;
+
+const ColorPaletteDropdown = ({ label, hexValue, palette, onChange }) => {
+	const [hex, setHex] = useState(hexValue);
 	const triggerRef = useRef();
 
 	const getNameByColorValue = (colorValue) => {
@@ -20,7 +15,6 @@ const ColorPaletteDropdown = ({ label, palette, onChange }) => {
 
 		return color ? color.name : colorValue;
 	};
-
 
 	return (
 		<Dropdown
@@ -50,7 +44,9 @@ const ColorPaletteDropdown = ({ label, palette, onChange }) => {
 	);
 };
 
-export const ColorControls = ({ attributes, setAttributes }) => {
+export const ColorControls = (props) => {
+	const { attributes, setAttributes } = props;
+	console.log(attributes);
 	// TODO: Use component defaults from comet JS object (which are set using the PHP global Config object). They should take precedence over block.json
 	// Use refs to keep track of the presence of attribute support without the fields disappearing when the colour field is cleared
 	const hasColorTheme = useRef(!!attributes?.colorTheme);
@@ -72,6 +68,32 @@ export const ColorControls = ({ attributes, setAttributes }) => {
 		return color ? color.color : colorName;
 	};
 
+	const setTinyMceBodyAttribute = (attribute, value) => {
+		if (BLOCKS_WITH_TINYMCE.includes(attributes.name)) {
+			const iframe = tinymce?.activeEditor?.iframeElement;
+			if (iframe) {
+				const iframeBody = iframe.contentDocument.body;
+				iframeBody.setAttribute(attribute, value ?? '');
+			}
+		}
+	};
+
+	const handleThemeChange = (name) => {
+		setAttributes({ colorTheme: name ?? '' });
+		setTinyMceBodyAttribute('data-color-theme', name ?? '');
+	};
+
+	const handleBackgroundChange = (name) => {
+		setAttributes({ backgroundColor: name ?? '' });
+		setTinyMceBodyAttribute('data-background', name ?? '');
+	};
+
+	// On load, set the TinyMCE body attributes if applicable
+	useEffect(() => {
+		setTinyMceBodyAttribute('data-color-theme', attributes?.colorTheme ?? '');
+		setTinyMceBodyAttribute('data-background', attributes?.backgroundColor ?? '');
+	}, []);
+
 	// TODO: Limit valid combinations of background + theme where appropriate
 	return (
 		<PanelBody title="Colours" initialOpen={true} className="comet-color-controls">
@@ -79,11 +101,9 @@ export const ColorControls = ({ attributes, setAttributes }) => {
 				<div className="comet-color-controls__item">
 					<ColorPaletteDropdown
 						label="Theme"
-						value={getValueByColorName(attributes?.colorTheme) ?? ''}
+						hexValue={getValueByColorName(attributes?.colorTheme) ?? ''}
 						palette={palette}
-						onChange={(name) => {
-							setAttributes({ colorTheme: name ?? '' });
-						}}
+						onChange={handleThemeChange}
 					/>
 				</div>
 			)}
@@ -91,11 +111,9 @@ export const ColorControls = ({ attributes, setAttributes }) => {
 				<div className="comet-color-controls__item">
 					<ColorPaletteDropdown
 						label="Background"
-						value={getValueByColorName(attributes?.backgroundColor) ?? ''}
+						hexValue={getValueByColorName(attributes?.backgroundColor) ?? ''}
 						palette={palette}
-						onChange={(name) => {
-							setAttributes({ backgroundColor: name ?? '' });
-						}}
+						onChange={handleBackgroundChange}
 					/>
 				</div>
 			)}
