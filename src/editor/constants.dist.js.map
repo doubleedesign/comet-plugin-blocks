@@ -1,0 +1,1 @@
+{"version":3,"file":"constants.dist.js","sources":["constants.js"],"sourcesContent":["export const BLOCKS_WITH_TINYMCE = ['comet/copy', 'comet/copy-image', 'comet/accordion'];\r\n"],"names":["BLOCKS_WITH_TINYMCE"],"mappings":"AAAO,MAAMA,mBAAmB,GAAG,CAAC,YAAY,EAAE,kBAAkB,EAAE,iBAAiB;;;;"}
