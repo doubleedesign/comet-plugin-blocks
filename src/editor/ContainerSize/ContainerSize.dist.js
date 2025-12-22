@@ -7,6 +7,8 @@ const {
 	PanelBody,
 	SelectControl
 } = wp.components;
+
+// TODO: Handle supporting backgroundSize where appropriate (it's not really built into the Core components unless we nest a container)
 const ContainerSize = ({
 	attributes,
 	setAttributes

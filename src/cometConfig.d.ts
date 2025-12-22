@@ -6,6 +6,12 @@ interface Config {
 	defaults: Record<string, any>;
 	globalBackground: ThemeColor;
 	palette: Record<ThemeColor, string>;
+	ajaxUrl: string;
+	nonce: string;
+	context: {
+		object_type: string;
+		id: number;
+	}
 }
 
 declare global {

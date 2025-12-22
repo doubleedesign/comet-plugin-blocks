@@ -273,9 +273,4 @@ body :where(.editor-styles-wrapper) p {
   display: none;
 }
 
-.mce-window.mce-container:not([aria-label="Keyboard Shortcuts"]) {
-  width: 600px;
-  left: calc(50dvw - 300px) !important;
-}
-
 /*# sourceMappingURL=admin.css.map */

@@ -9,7 +9,7 @@ export default [
 	{
 		input: 'src/tinymce/miniblock-plugin.js',
 		output: {
-			file: 'src/tinymce/miniblock-plugin.dist.js',
+			file: 'src/tinymce/dist/miniblock-plugin.dist.js',
 			format: 'iife',
 			sourcemap: true
 		},

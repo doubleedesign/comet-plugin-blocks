@@ -1,5 +1,6 @@
 import { PullquotePlugin } from './_miniblock-pullquote.js';
 import { CalloutPlugin } from './_miniblock-callout.js';
+import { ButtonGroupPlugin } from './_miniblock-buttongroup.js';
 
 /** @type {{ PluginManager: import('tinymce').AddOnManager }} */
 const tinymce = window.tinymce;
@@ -13,4 +14,5 @@ const tinymce = window.tinymce;
 tinymce.PluginManager.add('comet_miniblocks', function (editor, url) {
 	new PullquotePlugin(editor);
 	new CalloutPlugin(editor);
+	new ButtonGroupPlugin(editor);
 });

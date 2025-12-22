@@ -5,13 +5,15 @@ export class CalloutPlugin extends MiniblockPlugin {
 	constructor(editor) {
 		super();
 		const plugin = this;
+
 		editor.addButton('comet_miniblocks_callout', {
-			title: 'Callout',
+			title: 'Insert callout or alert message',
 			icon: 'notice',
 			onclick: function () {
 				plugin.openModal(editor);
 			}
 		});
+
 		editor.on('click', function (e) {
 			// Handle clicks on existing callouts
 			/** @var {HTMLElement} */
@@ -24,6 +26,7 @@ export class CalloutPlugin extends MiniblockPlugin {
 				plugin.openModal(editor, data, callout);
 			}
 		});
+
 		editor.on('BeforeSetContent', function (e) {
 			// Ensure callouts stay non-editable when content is loaded
 			e.content = e.content.replace(

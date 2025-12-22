@@ -5,7 +5,8 @@ use Doubleedesign\Comet\Core\{Config};
 
 class TinyMceConfig {
     // TODO: Add callout and possibly some other miniblocks
-    private array $comet_miniblocks = ['comet_miniblocks_pullquote', 'comet_miniblocks_callout'];
+    private array $comet_miniblocks = ['comet_miniblocks_pullquote', 'comet_miniblocks_callout', 'comet_miniblocks_buttongroup'];
+    private string $default_dynamic_acf_field_group_prefix = 'comet_tinymce_dynamic_field_group';
 
     public function __construct() {
         add_filter('tiny_mce_before_init', [$this, 'init_settings'], 10, 1);
@@ -17,10 +18,13 @@ class TinyMceConfig {
         add_filter('mce_external_plugins', [$this, 'register_miniblocks_plugin'], 1, 1);
         add_action('admin_enqueue_scripts', [$this, 'register_miniblocks_admin_css'], 20);
         add_filter('mce_buttons', [$this, 'register_miniblock_buttons'], 5);
-        add_action('admin_enqueue_scripts', [$this, 'make_theme_colours_available_to_tinymce_js'], 20);
+        add_action('admin_enqueue_scripts', [$this, 'make_data_available_to_tinymce_js'], 20);
 
-        add_action('after_setup_theme', [$this, 'editor_css']);
+        add_action('admin_enqueue_scripts', [$this, 'editor_css']);
         add_filter('tiny_mce_before_init', [$this, 'editor_css_acf']);
+
+        add_action('wp_ajax_get_button_group_modal_content', [$this, 'get_button_group_modal_content']);
+        add_action('admin_head', 'acf_form_head');
     }
 
     /**
@@ -200,6 +204,10 @@ class TinyMceConfig {
                 'url'  => get_stylesheet_directory_uri() . '/tinymce.css',
             ],
             [
+                'path' => __DIR__ . DIRECTORY_SEPARATOR . 'tinymce' . DIRECTORY_SEPARATOR . 'components.css',
+                'url'  => plugin_dir_url(__FILE__) . 'tinymce/components.css',
+            ],
+            [
                 'path' => __DIR__ . DIRECTORY_SEPARATOR . 'tinymce' . DIRECTORY_SEPARATOR . 'miniblock-plugin.css',
                 'url'  => plugin_dir_url(__FILE__) . 'tinymce/miniblock-plugin.css',
             ]
@@ -373,21 +381,19 @@ class TinyMceConfig {
     public function register_miniblocks_plugin(array $plugins): array {
         $currentDir = plugin_dir_url(__FILE__);
         $pluginDir = dirname($currentDir, 1);
-        $plugins['comet_miniblocks'] = $pluginDir . '/src/tinymce/miniblock-plugin.dist.js';
+        $plugins['comet_miniblocks'] = $pluginDir . '/src/tinymce/dist/miniblock-plugin.dist.js';
 
         return $plugins;
     }
 
-    public function register_miniblocks_admin_css() {
+    public function register_miniblocks_admin_css(): void {
         $currentDir = plugin_dir_url(__FILE__);
         $pluginDir = dirname($currentDir, 1);
         wp_enqueue_style('comet-miniblocks-admin-css', $pluginDir . '/src/tinymce/miniblock-plugin.css', array(), null);
     }
 
-    public function register_miniblock_buttons($buttons) {
-        array_push($buttons, $this->comet_miniblocks);
-
-        return $buttons;
+    public function register_miniblock_buttons($buttons): array {
+        return array_merge($buttons, $this->comet_miniblocks);
     }
 
     /**
@@ -395,7 +401,7 @@ class TinyMceConfig {
      *
      * @return void
      */
-    public function make_theme_colours_available_to_tinymce_js(): void {
+    public function make_data_available_to_tinymce_js(): void {
         if (!class_exists('Doubleedesign\Comet\Core\Config')) {
             return;
         }
@@ -408,6 +414,13 @@ class TinyMceConfig {
                 'defaults'         => $defaults,
                 'globalBackground' => $background,
                 'palette'          => $this->get_theme(),
+                'ajaxUrl'          => admin_url('admin-ajax.php'),
+                'nonce'            => wp_create_nonce('comet_ajax_nonce'),
+                'context'          => [
+                    // TODO: Handle taxonomy term types here too
+                    'object_type' => get_post_type(),
+                    'id'		        => get_the_id(),
+                ]
             ));
         }
         catch (\Exception $e) {
@@ -420,4 +433,117 @@ class TinyMceConfig {
         }
     }
 
+    /**
+     * Generate the HTML for an ACF button group repeater field to be used in the modal dialog for selecting links and other button options,
+     * to be called via AJAX for rendering on the JS side.
+     * Note: The data should not and is not intended to be saved in post meta as usual,
+     *       we are using this purely to leverage the ACF form UI in the modal.
+     *       The data is to be handled on the JS side to insert the button group into the content as HTML.
+     *
+     * @return void
+     */
+    public function get_button_group_modal_content(): void {
+        if (!wp_verify_nonce($_POST['nonce'], 'comet_ajax_nonce')) {
+            wp_die('Security check failed');
+        }
+
+        try {
+            $postData = json_decode(stripslashes($_POST['body']), true);
+            $field_group = $this->create_acf_button_group($postData['object_type'], $postData['id']);
+
+            // Temporarily register the field group in the ACF store to allow rendering the form
+            acf_add_local_field_group($field_group);
+
+            ob_start();
+            acf_form(array(
+                'id'                      => 'comet-dynamic-acf-button-group-form',
+                'field_groups'            => array($field_group['key']),
+                'form'                    => false,
+                'return'                  => false,
+                'html_before_fields'      => "<p>Add a group of button-style links to your content block.</p>",
+                'html_after_fields'       => '',
+                'submit_value'            => '',
+                'updated_message'         => 'Button group updated',
+            ));
+            $form = ob_get_clean();
+
+            wp_send_json_success(array(
+                'acf_field_group_key'           => $field_group['key'],
+                'acf_button_group_repeater_key' => $field_group['fields'][0]['key'],
+                'form_html'                     => $form,
+            ));
+
+            // Remove the field group from the ACF store because we're not saving data in the usual way and don't need it there
+            acf_remove_local_field_group($field_group['key']);
+        }
+        catch (\Exception $e) {
+            wp_send_json_error(array(
+                'message' => $e->getMessage(),
+            ));
+        }
+
+    }
+
+    /**
+     * Dynamically create a button group ACF field group for the given object.
+     * Note: As long as this is not called with acf_add_local_field_group on acf/include_fields or similar,
+     *       the field group will not be registered as usual and thus not show up as a post meta box or save data to post meta.
+     *       This is intentional, as we just want it for the UI in the modal dialog, which will handle the data on the JS side.
+     *       For this reason, we don't need to worry about deleting unused field groups later.
+     *
+     * @param  string  $object_type
+     * @param  string|int  $object_id
+     * @param  array  $existing_data
+     *
+     * @return array - The ACF field group array
+     */
+    private function create_acf_button_group(string $object_type, string|int $object_id): array {
+        $innerKey = $this->generate_random_key();
+        $template = BlockFieldHandler::create_button_group_repeater("comet_dynamic_$innerKey", true);
+
+        return array(
+            'key'    => $this->generate_field_group_key($this->default_dynamic_acf_field_group_prefix),
+            'title'  => 'Button group',
+            'fields' => array($template),
+            // TODO: Ensure taxonomy terms and other non-post locations (options fields?) are handled here too
+            'location' => array(
+                array(
+                    array(
+                        'param'    => $object_type,
+                        'operator' => '==',
+                        'value'    => $object_id,
+                    ),
+                ),
+            )
+        );
+    }
+
+    private function generate_field_group_key(string $prefix): string {
+        do {
+            $key = $this->generate_random_key();
+        }
+        while (acf_get_field_group("{$prefix}__{$key}") === null);
+
+        return "{$prefix}__{$key}";
+    }
+
+    private function generate_random_key(int $length = 10): string {
+        try {
+            // Each byte converts to two hexadecimal characters, so request half the length
+            $bytes = random_bytes(ceil($length / 2));
+
+            return substr(bin2hex($bytes), 0, $length);
+        }
+        catch (\Exception $e) {
+            if (function_exists('dump')) {
+                dump($e->getMessage());
+            }
+            else {
+                error_log($e->getMessage());
+            }
+        }
+
+        // Fall back to returning the current timestamp if random_bytes fails
+        return (string)time();
+    }
 }

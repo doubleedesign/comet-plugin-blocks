@@ -30,15 +30,15 @@ class BlockFieldHandler {
             'name'              => 'buttons',
             'type'              => 'repeater',
             'min'               => 1,
-            'max'               => 5,
+            'max'               => 3,
             'layout'            => 'table',
             'button_label'      => 'Add button',
             'repeatable'        => true,
             'sub_fields'        => array(
                 array(
                     'key'               => "field__{$parent_key}__button-group__button",
-                    'label'             => 'Button',
-                    'name'              => 'button',
+                    'label'             => 'Link',
+                    'name'              => 'link',
                     'type'              => 'link',
                     'return_format'     => 'array',
                     'repeatable'        => true,
@@ -53,8 +53,8 @@ class BlockFieldHandler {
                     'name'          => 'style',
                     'type'          => 'button_group',
                     'choices'       => array(
-                        'default'   => 'Solid',
-                        'isOutline' => 'Outline',
+                        'default'     => 'Solid',
+                        'isOutline'   => 'Outline',
                     ),
                     'wrapper' => array(
                         'width' => 30,

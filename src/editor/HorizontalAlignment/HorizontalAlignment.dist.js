@@ -7,6 +7,7 @@ const HorizontalAlignment = ({
 	attributes,
 	setAttributes
 }) => {
+	// TODO: Use component defaults from comet JS object (which are set using the PHP global Config object). They should take precedence over block.json
 	if (!attributes?.horizontalAlignment) {
 		return null;
 	}
