@@ -83,9 +83,37 @@ class ComponentAssets {
      * @return void
      */
     public function enqueue_admin_css(): void {
+        // Load in the theme's common typography and whatnot so that it gets used by the TinyMCE styleselect,
+        // general admin styles, etc. like it does when loaded into pages with the block editor using enqueue_block_editor_assets
+        // but for pages that don't trigger that book.
+        // Note: If using external fonts (e.g., Typekit) you may need to enqueue those separately within the theme, using the admin_enqueue_scripts hook.
+        $theme_common_css = array(
+            [
+                'path' => get_template_directory() . '/admin.css',
+                'url'  => get_template_directory_uri() . '/admin.css',
+            ],
+            [
+                'path' => get_stylesheet_directory() . '/admin.css',
+                'url'  => get_stylesheet_directory_uri() . '/admin.css',
+            ]
+        );
+
+        foreach ($theme_common_css as $file_info) {
+            if (file_exists($file_info['path'])) {
+                $version = filemtime($file_info['path']);
+                wp_enqueue_style(
+                    'comet-admin-theme-common-' . md5($file_info['path']),
+                    $file_info['url'],
+                    array(),
+                    $version,
+                    'all'
+                );
+            }
+        }
+
+        // Load admin-specific CSS after the theme common stuff, so it can override it if needed
         $currentDir = plugin_dir_url(__FILE__);
         $pluginDir = dirname($currentDir, 1);
-
         $admin_css_path = $pluginDir . '/src/admin.css';
         wp_enqueue_style('comet-admin-styles', $admin_css_path, array(), COMET_VERSION);
     }
