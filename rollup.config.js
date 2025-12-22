@@ -19,8 +19,7 @@ export default [
 	},
 	// Block editor components
 	{
-		//input: glob.sync('src/editor/**/*.jsx'), // would do all files
-		input: glob.sync('src/editor/CustomControlsWrapper/CustomControlsWrapper.jsx'), // is the only one that needs to be compiled for the editor
+		input: glob.sync('src/editor/**/*.jsx'),
 		output: {
 			dir: 'src/editor',
 			format: 'es',

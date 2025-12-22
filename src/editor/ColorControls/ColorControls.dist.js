@@ -1,24 +1,28 @@
+import { BLOCKS_WITH_TINYMCE } from '../constants.dist.js';
+
 /* global wp */
-/* global comet */
 const {
 	PanelBody,
 	Dropdown,
 	Button,
 	ColorIndicator,
-	ColorPalette,
-	__experimentalToggleGroupControl,
-	__experimentalToggleGroupControlOption
+	ColorPalette
 } = wp.components;
 const {
+	useEffect,
 	useRef,
 	useState
 } = wp.element;
+
+/** @type {{ PluginManager: import('tinymce').AddOnManager }} */
+const tinymce = window.tinymce;
 const ColorPaletteDropdown = ({
 	label,
+	hexValue,
 	palette,
 	onChange
 }) => {
-	const [hex, setHex] = useState('');
+	const [hex, setHex] = useState(hexValue);
 	const triggerRef = useRef();
 	const getNameByColorValue = colorValue => {
 		const color = palette.find(c => c.color === colorValue);
@@ -50,10 +54,12 @@ const ColorPaletteDropdown = ({
 		})
 	});
 };
-const ColorControls = ({
-	attributes,
-	setAttributes
-}) => {
+const ColorControls = props => {
+	const {
+		attributes,
+		setAttributes
+	} = props;
+	console.log(attributes);
 	// TODO: Use component defaults from comet JS object (which are set using the PHP global Config object). They should take precedence over block.json
 	// Use refs to keep track of the presence of attribute support without the fields disappearing when the colour field is cleared
 	const hasColorTheme = useRef(!!attributes?.colorTheme);
@@ -72,6 +78,33 @@ const ColorControls = ({
 
 		return color ? color.color : colorName;
 	};
+	const setTinyMceBodyAttribute = (attribute, value) => {
+		if (BLOCKS_WITH_TINYMCE.includes(attributes.name)) {
+			const iframe = tinymce?.activeEditor?.iframeElement;
+			if (iframe) {
+				const iframeBody = iframe.contentDocument.body;
+				iframeBody.setAttribute(attribute, value ?? '');
+			}
+		}
+	};
+	const handleThemeChange = name => {
+		setAttributes({
+			colorTheme: name ?? ''
+		});
+		setTinyMceBodyAttribute('data-color-theme', name ?? '');
+	};
+	const handleBackgroundChange = name => {
+		setAttributes({
+			backgroundColor: name ?? ''
+		});
+		setTinyMceBodyAttribute('data-background', name ?? '');
+	};
+
+	// On load, set the TinyMCE body attributes if applicable
+	useEffect(() => {
+		setTinyMceBodyAttribute('data-color-theme', attributes?.colorTheme ?? '');
+		setTinyMceBodyAttribute('data-background', attributes?.backgroundColor ?? '');
+	}, []);
 
 	// TODO: Limit valid combinations of background + theme where appropriate
 	return /*#__PURE__*/React.createElement(PanelBody, {
@@ -82,24 +115,16 @@ const ColorControls = ({
 		className: 'comet-color-controls__item'
 	}, /*#__PURE__*/React.createElement(ColorPaletteDropdown, {
 		label: 'Theme',
-		value: getValueByColorName(attributes?.colorTheme) ?? '',
+		hexValue: getValueByColorName(attributes?.colorTheme) ?? '',
 		palette: palette,
-		onChange: name => {
-			setAttributes({
-				colorTheme: name ?? ''
-			});
-		}
+		onChange: handleThemeChange
 	})), hasBackgroundColor.current && /*#__PURE__*/React.createElement('div', {
 		className: 'comet-color-controls__item'
 	}, /*#__PURE__*/React.createElement(ColorPaletteDropdown, {
 		label: 'Background',
-		value: getValueByColorName(attributes?.backgroundColor) ?? '',
+		hexValue: getValueByColorName(attributes?.backgroundColor) ?? '',
 		palette: palette,
-		onChange: name => {
-			setAttributes({
-				backgroundColor: name ?? ''
-			});
-		}
+		onChange: handleBackgroundChange
 	})));
 };
 
