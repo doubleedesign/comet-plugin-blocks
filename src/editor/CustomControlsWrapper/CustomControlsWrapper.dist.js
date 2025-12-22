@@ -19,7 +19,7 @@ wp.domReady(() => {
 		return /*#__PURE__*/React.createElement('div', {
 			className: 'comet-block-edit-wrapper',
 			'data-block': props.name,
-			'data-background': props?.attributes?.backgroundColor ?? comet?.defaults?.globalBackground ?? 'white',
+			'data-background': props?.attributes?.backgroundColor ?? comet?.globalBackground ?? 'white',
 			'data-size': props?.attributes?.backgroundSize ?? 'fullwidth'
 		}, /*#__PURE__*/React.createElement('div', {
 			className: 'comet-plugin-blocks-custom-controls'

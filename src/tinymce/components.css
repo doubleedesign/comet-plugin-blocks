@@ -1,0 +1,408 @@
+.button-group {
+  display: flex;
+  gap: var(--spacing-sm);
+  padding-block: var(--spacing-sm);
+}
+.button-group:last-child {
+  padding-block-end: 0;
+}
+
+.button {
+  display: inline-block;
+  padding: var(--spacing-sm) var(--spacing-lg);
+  border: none;
+  appearance: none;
+  cursor: pointer;
+  transition: all 0.3s;
+  text-decoration: none;
+  border-radius: var(--button-border-radius);
+  text-align: center;
+}
+.button > span {
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  transition: text-decoration-color 0.3s, color 0.3s;
+}
+.button:hover > span, .button:focus > span, .button:active > span {
+  text-decoration-color: currentColor;
+}
+.button:has(i, svg) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-xs);
+}
+.button[data-color-theme=primary]:not(.is-style-outline):not([data-style=outline]), [data-color-theme=primary] .button:not(.is-style-outline):not([data-style=outline]) {
+  background-color: var(--color-primary);
+  border: 1px solid var(--color-primary);
+  color: var(--readable-color-primary);
+}
+.button[data-color-theme=primary]:not(.is-style-outline):not([data-style=outline]):hover, .button[data-color-theme=primary]:not(.is-style-outline):not([data-style=outline]):focus, .button[data-color-theme=primary]:not(.is-style-outline):not([data-style=outline]):active, [data-color-theme=primary] .button:not(.is-style-outline):not([data-style=outline]):hover, [data-color-theme=primary] .button:not(.is-style-outline):not([data-style=outline]):focus, [data-color-theme=primary] .button:not(.is-style-outline):not([data-style=outline]):active {
+  background-color: color-mix(in srgb, var(--color-primary) 80%, black);
+  border-color: color-mix(in srgb, var(--color-primary) 80%, black);
+  color: var(--readable-color-primary);
+}
+.button[data-color-theme=primary].is-style-outline, .button[data-color-theme=primary][data-style=outline], [data-color-theme=primary] .button.is-style-outline, [data-color-theme=primary] .button[data-style=outline] {
+  border: 1px solid var(--color-primary);
+  background-color: transparent;
+  color: var(--color-primary);
+}
+.button[data-color-theme=primary].is-style-outline:hover, .button[data-color-theme=primary].is-style-outline:focus, .button[data-color-theme=primary].is-style-outline:active, .button[data-color-theme=primary][data-style=outline]:hover, .button[data-color-theme=primary][data-style=outline]:focus, .button[data-color-theme=primary][data-style=outline]:active, [data-color-theme=primary] .button.is-style-outline:hover, [data-color-theme=primary] .button.is-style-outline:focus, [data-color-theme=primary] .button.is-style-outline:active, [data-color-theme=primary] .button[data-style=outline]:hover, [data-color-theme=primary] .button[data-style=outline]:focus, [data-color-theme=primary] .button[data-style=outline]:active {
+  background: var(--color-primary);
+  color: var(--readable-color-primary);
+}
+.button[data-color-theme=secondary]:not(.is-style-outline):not([data-style=outline]), [data-color-theme=secondary] .button:not(.is-style-outline):not([data-style=outline]) {
+  background-color: var(--color-secondary);
+  border: 1px solid var(--color-secondary);
+  color: var(--readable-color-secondary);
+}
+.button[data-color-theme=secondary]:not(.is-style-outline):not([data-style=outline]):hover, .button[data-color-theme=secondary]:not(.is-style-outline):not([data-style=outline]):focus, .button[data-color-theme=secondary]:not(.is-style-outline):not([data-style=outline]):active, [data-color-theme=secondary] .button:not(.is-style-outline):not([data-style=outline]):hover, [data-color-theme=secondary] .button:not(.is-style-outline):not([data-style=outline]):focus, [data-color-theme=secondary] .button:not(.is-style-outline):not([data-style=outline]):active {
+  background-color: color-mix(in srgb, var(--color-secondary) 80%, black);
+  border-color: color-mix(in srgb, var(--color-secondary) 80%, black);
+  color: var(--readable-color-secondary);
+}
+.button[data-color-theme=secondary].is-style-outline, .button[data-color-theme=secondary][data-style=outline], [data-color-theme=secondary] .button.is-style-outline, [data-color-theme=secondary] .button[data-style=outline] {
+  border: 1px solid var(--color-secondary);
+  background-color: transparent;
+  color: var(--color-secondary);
+}
+.button[data-color-theme=secondary].is-style-outline:hover, .button[data-color-theme=secondary].is-style-outline:focus, .button[data-color-theme=secondary].is-style-outline:active, .button[data-color-theme=secondary][data-style=outline]:hover, .button[data-color-theme=secondary][data-style=outline]:focus, .button[data-color-theme=secondary][data-style=outline]:active, [data-color-theme=secondary] .button.is-style-outline:hover, [data-color-theme=secondary] .button.is-style-outline:focus, [data-color-theme=secondary] .button.is-style-outline:active, [data-color-theme=secondary] .button[data-style=outline]:hover, [data-color-theme=secondary] .button[data-style=outline]:focus, [data-color-theme=secondary] .button[data-style=outline]:active {
+  background: var(--color-secondary);
+  color: var(--readable-color-secondary);
+}
+.button[data-color-theme=accent]:not(.is-style-outline):not([data-style=outline]), [data-color-theme=accent] .button:not(.is-style-outline):not([data-style=outline]) {
+  background-color: var(--color-accent);
+  border: 1px solid var(--color-accent);
+  color: var(--readable-color-accent);
+}
+.button[data-color-theme=accent]:not(.is-style-outline):not([data-style=outline]):hover, .button[data-color-theme=accent]:not(.is-style-outline):not([data-style=outline]):focus, .button[data-color-theme=accent]:not(.is-style-outline):not([data-style=outline]):active, [data-color-theme=accent] .button:not(.is-style-outline):not([data-style=outline]):hover, [data-color-theme=accent] .button:not(.is-style-outline):not([data-style=outline]):focus, [data-color-theme=accent] .button:not(.is-style-outline):not([data-style=outline]):active {
+  background-color: color-mix(in srgb, var(--color-accent) 80%, black);
+  border-color: color-mix(in srgb, var(--color-accent) 80%, black);
+  color: var(--readable-color-accent);
+}
+.button[data-color-theme=accent].is-style-outline, .button[data-color-theme=accent][data-style=outline], [data-color-theme=accent] .button.is-style-outline, [data-color-theme=accent] .button[data-style=outline] {
+  border: 1px solid var(--color-accent);
+  background-color: transparent;
+  color: var(--color-accent);
+}
+.button[data-color-theme=accent].is-style-outline:hover, .button[data-color-theme=accent].is-style-outline:focus, .button[data-color-theme=accent].is-style-outline:active, .button[data-color-theme=accent][data-style=outline]:hover, .button[data-color-theme=accent][data-style=outline]:focus, .button[data-color-theme=accent][data-style=outline]:active, [data-color-theme=accent] .button.is-style-outline:hover, [data-color-theme=accent] .button.is-style-outline:focus, [data-color-theme=accent] .button.is-style-outline:active, [data-color-theme=accent] .button[data-style=outline]:hover, [data-color-theme=accent] .button[data-style=outline]:focus, [data-color-theme=accent] .button[data-style=outline]:active {
+  background: var(--color-accent);
+  color: var(--readable-color-accent);
+}
+.button[data-color-theme=info]:not(.is-style-outline):not([data-style=outline]), [data-color-theme=info] .button:not(.is-style-outline):not([data-style=outline]) {
+  background-color: var(--color-info);
+  border: 1px solid var(--color-info);
+  color: var(--readable-color-info);
+}
+.button[data-color-theme=info]:not(.is-style-outline):not([data-style=outline]):hover, .button[data-color-theme=info]:not(.is-style-outline):not([data-style=outline]):focus, .button[data-color-theme=info]:not(.is-style-outline):not([data-style=outline]):active, [data-color-theme=info] .button:not(.is-style-outline):not([data-style=outline]):hover, [data-color-theme=info] .button:not(.is-style-outline):not([data-style=outline]):focus, [data-color-theme=info] .button:not(.is-style-outline):not([data-style=outline]):active {
+  background-color: color-mix(in srgb, var(--color-info) 80%, black);
+  border-color: color-mix(in srgb, var(--color-info) 80%, black);
+  color: var(--readable-color-info);
+}
+.button[data-color-theme=info].is-style-outline, .button[data-color-theme=info][data-style=outline], [data-color-theme=info] .button.is-style-outline, [data-color-theme=info] .button[data-style=outline] {
+  border: 1px solid var(--color-info);
+  background-color: transparent;
+  color: var(--color-info);
+}
+.button[data-color-theme=info].is-style-outline:hover, .button[data-color-theme=info].is-style-outline:focus, .button[data-color-theme=info].is-style-outline:active, .button[data-color-theme=info][data-style=outline]:hover, .button[data-color-theme=info][data-style=outline]:focus, .button[data-color-theme=info][data-style=outline]:active, [data-color-theme=info] .button.is-style-outline:hover, [data-color-theme=info] .button.is-style-outline:focus, [data-color-theme=info] .button.is-style-outline:active, [data-color-theme=info] .button[data-style=outline]:hover, [data-color-theme=info] .button[data-style=outline]:focus, [data-color-theme=info] .button[data-style=outline]:active {
+  background: var(--color-info);
+  color: var(--readable-color-info);
+}
+.button[data-color-theme=warning]:not(.is-style-outline):not([data-style=outline]), [data-color-theme=warning] .button:not(.is-style-outline):not([data-style=outline]) {
+  background-color: var(--color-warning);
+  border: 1px solid var(--color-warning);
+  color: var(--readable-color-warning);
+}
+.button[data-color-theme=warning]:not(.is-style-outline):not([data-style=outline]):hover, .button[data-color-theme=warning]:not(.is-style-outline):not([data-style=outline]):focus, .button[data-color-theme=warning]:not(.is-style-outline):not([data-style=outline]):active, [data-color-theme=warning] .button:not(.is-style-outline):not([data-style=outline]):hover, [data-color-theme=warning] .button:not(.is-style-outline):not([data-style=outline]):focus, [data-color-theme=warning] .button:not(.is-style-outline):not([data-style=outline]):active {
+  background-color: color-mix(in srgb, var(--color-warning) 80%, black);
+  border-color: color-mix(in srgb, var(--color-warning) 80%, black);
+  color: var(--readable-color-warning);
+}
+.button[data-color-theme=warning].is-style-outline, .button[data-color-theme=warning][data-style=outline], [data-color-theme=warning] .button.is-style-outline, [data-color-theme=warning] .button[data-style=outline] {
+  border: 1px solid var(--color-warning);
+  background-color: transparent;
+  color: var(--color-warning);
+}
+.button[data-color-theme=warning].is-style-outline:hover, .button[data-color-theme=warning].is-style-outline:focus, .button[data-color-theme=warning].is-style-outline:active, .button[data-color-theme=warning][data-style=outline]:hover, .button[data-color-theme=warning][data-style=outline]:focus, .button[data-color-theme=warning][data-style=outline]:active, [data-color-theme=warning] .button.is-style-outline:hover, [data-color-theme=warning] .button.is-style-outline:focus, [data-color-theme=warning] .button.is-style-outline:active, [data-color-theme=warning] .button[data-style=outline]:hover, [data-color-theme=warning] .button[data-style=outline]:focus, [data-color-theme=warning] .button[data-style=outline]:active {
+  background: var(--color-warning);
+  color: var(--readable-color-warning);
+}
+.button[data-color-theme=success]:not(.is-style-outline):not([data-style=outline]), [data-color-theme=success] .button:not(.is-style-outline):not([data-style=outline]) {
+  background-color: var(--color-success);
+  border: 1px solid var(--color-success);
+  color: var(--readable-color-success);
+}
+.button[data-color-theme=success]:not(.is-style-outline):not([data-style=outline]):hover, .button[data-color-theme=success]:not(.is-style-outline):not([data-style=outline]):focus, .button[data-color-theme=success]:not(.is-style-outline):not([data-style=outline]):active, [data-color-theme=success] .button:not(.is-style-outline):not([data-style=outline]):hover, [data-color-theme=success] .button:not(.is-style-outline):not([data-style=outline]):focus, [data-color-theme=success] .button:not(.is-style-outline):not([data-style=outline]):active {
+  background-color: color-mix(in srgb, var(--color-success) 80%, black);
+  border-color: color-mix(in srgb, var(--color-success) 80%, black);
+  color: var(--readable-color-success);
+}
+.button[data-color-theme=success].is-style-outline, .button[data-color-theme=success][data-style=outline], [data-color-theme=success] .button.is-style-outline, [data-color-theme=success] .button[data-style=outline] {
+  border: 1px solid var(--color-success);
+  background-color: transparent;
+  color: var(--color-success);
+}
+.button[data-color-theme=success].is-style-outline:hover, .button[data-color-theme=success].is-style-outline:focus, .button[data-color-theme=success].is-style-outline:active, .button[data-color-theme=success][data-style=outline]:hover, .button[data-color-theme=success][data-style=outline]:focus, .button[data-color-theme=success][data-style=outline]:active, [data-color-theme=success] .button.is-style-outline:hover, [data-color-theme=success] .button.is-style-outline:focus, [data-color-theme=success] .button.is-style-outline:active, [data-color-theme=success] .button[data-style=outline]:hover, [data-color-theme=success] .button[data-style=outline]:focus, [data-color-theme=success] .button[data-style=outline]:active {
+  background: var(--color-success);
+  color: var(--readable-color-success);
+}
+.button[data-color-theme=error]:not(.is-style-outline):not([data-style=outline]), [data-color-theme=error] .button:not(.is-style-outline):not([data-style=outline]) {
+  background-color: var(--color-error);
+  border: 1px solid var(--color-error);
+  color: var(--readable-color-error);
+}
+.button[data-color-theme=error]:not(.is-style-outline):not([data-style=outline]):hover, .button[data-color-theme=error]:not(.is-style-outline):not([data-style=outline]):focus, .button[data-color-theme=error]:not(.is-style-outline):not([data-style=outline]):active, [data-color-theme=error] .button:not(.is-style-outline):not([data-style=outline]):hover, [data-color-theme=error] .button:not(.is-style-outline):not([data-style=outline]):focus, [data-color-theme=error] .button:not(.is-style-outline):not([data-style=outline]):active {
+  background-color: color-mix(in srgb, var(--color-error) 80%, black);
+  border-color: color-mix(in srgb, var(--color-error) 80%, black);
+  color: var(--readable-color-error);
+}
+.button[data-color-theme=error].is-style-outline, .button[data-color-theme=error][data-style=outline], [data-color-theme=error] .button.is-style-outline, [data-color-theme=error] .button[data-style=outline] {
+  border: 1px solid var(--color-error);
+  background-color: transparent;
+  color: var(--color-error);
+}
+.button[data-color-theme=error].is-style-outline:hover, .button[data-color-theme=error].is-style-outline:focus, .button[data-color-theme=error].is-style-outline:active, .button[data-color-theme=error][data-style=outline]:hover, .button[data-color-theme=error][data-style=outline]:focus, .button[data-color-theme=error][data-style=outline]:active, [data-color-theme=error] .button.is-style-outline:hover, [data-color-theme=error] .button.is-style-outline:focus, [data-color-theme=error] .button.is-style-outline:active, [data-color-theme=error] .button[data-style=outline]:hover, [data-color-theme=error] .button[data-style=outline]:focus, [data-color-theme=error] .button[data-style=outline]:active {
+  background: var(--color-error);
+  color: var(--readable-color-error);
+}
+.button[data-color-theme=light]:not(.is-style-outline):not([data-style=outline]), [data-color-theme=light] .button:not(.is-style-outline):not([data-style=outline]) {
+  background-color: var(--color-light);
+  border: 1px solid var(--color-light);
+  color: var(--readable-color-light);
+}
+.button[data-color-theme=light]:not(.is-style-outline):not([data-style=outline]):hover, .button[data-color-theme=light]:not(.is-style-outline):not([data-style=outline]):focus, .button[data-color-theme=light]:not(.is-style-outline):not([data-style=outline]):active, [data-color-theme=light] .button:not(.is-style-outline):not([data-style=outline]):hover, [data-color-theme=light] .button:not(.is-style-outline):not([data-style=outline]):focus, [data-color-theme=light] .button:not(.is-style-outline):not([data-style=outline]):active {
+  background-color: color-mix(in srgb, var(--color-light) 80%, black);
+  border-color: color-mix(in srgb, var(--color-light) 80%, black);
+  color: var(--readable-color-light);
+}
+.button[data-color-theme=light].is-style-outline, .button[data-color-theme=light][data-style=outline], [data-color-theme=light] .button.is-style-outline, [data-color-theme=light] .button[data-style=outline] {
+  border: 1px solid var(--color-light);
+  background-color: transparent;
+  color: var(--color-light);
+}
+.button[data-color-theme=light].is-style-outline:hover, .button[data-color-theme=light].is-style-outline:focus, .button[data-color-theme=light].is-style-outline:active, .button[data-color-theme=light][data-style=outline]:hover, .button[data-color-theme=light][data-style=outline]:focus, .button[data-color-theme=light][data-style=outline]:active, [data-color-theme=light] .button.is-style-outline:hover, [data-color-theme=light] .button.is-style-outline:focus, [data-color-theme=light] .button.is-style-outline:active, [data-color-theme=light] .button[data-style=outline]:hover, [data-color-theme=light] .button[data-style=outline]:focus, [data-color-theme=light] .button[data-style=outline]:active {
+  background: var(--color-light);
+  color: var(--readable-color-light);
+}
+.button[data-color-theme=dark]:not(.is-style-outline):not([data-style=outline]), [data-color-theme=dark] .button:not(.is-style-outline):not([data-style=outline]) {
+  background-color: var(--color-dark);
+  border: 1px solid var(--color-dark);
+  color: var(--readable-color-dark);
+}
+.button[data-color-theme=dark]:not(.is-style-outline):not([data-style=outline]):hover, .button[data-color-theme=dark]:not(.is-style-outline):not([data-style=outline]):focus, .button[data-color-theme=dark]:not(.is-style-outline):not([data-style=outline]):active, [data-color-theme=dark] .button:not(.is-style-outline):not([data-style=outline]):hover, [data-color-theme=dark] .button:not(.is-style-outline):not([data-style=outline]):focus, [data-color-theme=dark] .button:not(.is-style-outline):not([data-style=outline]):active {
+  background-color: color-mix(in srgb, var(--color-dark) 80%, black);
+  border-color: color-mix(in srgb, var(--color-dark) 80%, black);
+  color: var(--readable-color-dark);
+}
+.button[data-color-theme=dark].is-style-outline, .button[data-color-theme=dark][data-style=outline], [data-color-theme=dark] .button.is-style-outline, [data-color-theme=dark] .button[data-style=outline] {
+  border: 1px solid var(--color-dark);
+  background-color: transparent;
+  color: var(--color-dark);
+}
+.button[data-color-theme=dark].is-style-outline:hover, .button[data-color-theme=dark].is-style-outline:focus, .button[data-color-theme=dark].is-style-outline:active, .button[data-color-theme=dark][data-style=outline]:hover, .button[data-color-theme=dark][data-style=outline]:focus, .button[data-color-theme=dark][data-style=outline]:active, [data-color-theme=dark] .button.is-style-outline:hover, [data-color-theme=dark] .button.is-style-outline:focus, [data-color-theme=dark] .button.is-style-outline:active, [data-color-theme=dark] .button[data-style=outline]:hover, [data-color-theme=dark] .button[data-style=outline]:focus, [data-color-theme=dark] .button[data-style=outline]:active {
+  background: var(--color-dark);
+  color: var(--readable-color-dark);
+}
+.button[data-color-theme=white]:not(.is-style-outline):not([data-style=outline]), [data-color-theme=white] .button:not(.is-style-outline):not([data-style=outline]) {
+  background-color: var(--color-white);
+  border: 1px solid var(--color-white);
+  color: var(--readable-color-white);
+}
+.button[data-color-theme=white]:not(.is-style-outline):not([data-style=outline]):hover, .button[data-color-theme=white]:not(.is-style-outline):not([data-style=outline]):focus, .button[data-color-theme=white]:not(.is-style-outline):not([data-style=outline]):active, [data-color-theme=white] .button:not(.is-style-outline):not([data-style=outline]):hover, [data-color-theme=white] .button:not(.is-style-outline):not([data-style=outline]):focus, [data-color-theme=white] .button:not(.is-style-outline):not([data-style=outline]):active {
+  background-color: color-mix(in srgb, var(--color-white) 80%, black);
+  border-color: color-mix(in srgb, var(--color-white) 80%, black);
+  color: var(--readable-color-white);
+}
+.button[data-color-theme=white].is-style-outline, .button[data-color-theme=white][data-style=outline], [data-color-theme=white] .button.is-style-outline, [data-color-theme=white] .button[data-style=outline] {
+  border: 1px solid var(--color-white);
+  background-color: transparent;
+  color: var(--color-white);
+}
+.button[data-color-theme=white].is-style-outline:hover, .button[data-color-theme=white].is-style-outline:focus, .button[data-color-theme=white].is-style-outline:active, .button[data-color-theme=white][data-style=outline]:hover, .button[data-color-theme=white][data-style=outline]:focus, .button[data-color-theme=white][data-style=outline]:active, [data-color-theme=white] .button.is-style-outline:hover, [data-color-theme=white] .button.is-style-outline:focus, [data-color-theme=white] .button.is-style-outline:active, [data-color-theme=white] .button[data-style=outline]:hover, [data-color-theme=white] .button[data-style=outline]:focus, [data-color-theme=white] .button[data-style=outline]:active {
+  background: var(--color-white);
+  color: var(--readable-color-white);
+}
+
+.callout {
+  padding: var(--spacing-md);
+  display: flex;
+  flex-wrap: nowrap;
+  gap: var(--spacing-md);
+  margin-block: var(--spacing-md);
+}
+.callout[data-color-theme=primary], .callout--primary {
+  border: 1px solid var(--color-primary);
+  border-left-width: var(--spacing-xxs);
+  color: var(--color-primary);
+  background-color: hsl(from var(--color-primary) h s l/0.05);
+}
+.callout[data-color-theme=secondary], .callout--secondary {
+  border: 1px solid var(--color-secondary);
+  border-left-width: var(--spacing-xxs);
+  color: var(--color-secondary);
+  background-color: hsl(from var(--color-secondary) h s l/0.05);
+}
+.callout[data-color-theme=accent], .callout--accent {
+  border: 1px solid var(--color-accent);
+  border-left-width: var(--spacing-xxs);
+  color: var(--color-accent);
+  background-color: hsl(from var(--color-accent) h s l/0.05);
+}
+.callout[data-color-theme=info], .callout--info {
+  border: 1px solid var(--color-info);
+  border-left-width: var(--spacing-xxs);
+  color: var(--color-info);
+  background-color: hsl(from var(--color-info) h s l/0.05);
+}
+.callout[data-color-theme=warning], .callout--warning {
+  border: 1px solid var(--color-warning);
+  border-left-width: var(--spacing-xxs);
+  color: var(--color-warning);
+  background-color: hsl(from var(--color-warning) h s l/0.05);
+}
+.callout[data-color-theme=success], .callout--success {
+  border: 1px solid var(--color-success);
+  border-left-width: var(--spacing-xxs);
+  color: var(--color-success);
+  background-color: hsl(from var(--color-success) h s l/0.05);
+}
+.callout[data-color-theme=error], .callout--error {
+  border: 1px solid var(--color-error);
+  border-left-width: var(--spacing-xxs);
+  color: var(--color-error);
+  background-color: hsl(from var(--color-error) h s l/0.05);
+}
+.callout[data-color-theme=light], .callout--light {
+  border: 1px solid var(--color-light);
+  border-left-width: var(--spacing-xxs);
+  color: var(--color-light);
+  background-color: hsl(from var(--color-light) h s l/0.05);
+}
+.callout[data-color-theme=dark], .callout--dark {
+  border: 1px solid var(--color-dark);
+  border-left-width: var(--spacing-xxs);
+  color: var(--color-dark);
+  background-color: hsl(from var(--color-dark) h s l/0.05);
+}
+.callout[data-color-theme=white], .callout--white {
+  border: 1px solid var(--color-white);
+  border-left-width: var(--spacing-xxs);
+  color: var(--color-white);
+  background-color: hsl(from var(--color-white) h s l/0.05);
+}
+.callout i, .callout svg {
+  font-size: var(--spacing-lg);
+}
+.callout__content {
+  flex-grow: 1;
+}
+.callout__content h2 {
+  margin-block-end: 0;
+}
+
+.pullquote {
+  text-align: center;
+  padding: var(--spacing-md);
+  margin-block: var(--spacing-lg);
+  position: relative;
+}
+.pullquote::before, .pullquote::after {
+  font-family: var(--font-family-accent);
+  font-size: 12rem;
+  position: absolute;
+  height: 4rem;
+}
+.pullquote::before {
+  content: open-quote;
+  top: 0;
+  left: 0;
+  transform: rotate(15deg) translateY(-2.5rem) translateX(-1rem);
+  transform-origin: center center;
+}
+.pullquote::after {
+  content: close-quote;
+  bottom: var(--spacing-lg);
+  transform: rotate(15deg) translateX(1rem);
+  right: 0;
+}
+.pullquote[data-color-theme=primary] {
+  color: var(--color-primary);
+  background: color-mix(in srgb, var(--color-primary) 5%, white);
+}
+.pullquote[data-color-theme=primary]::before, .pullquote[data-color-theme=primary]::after {
+  color: color-mix(in srgb, var(--color-primary) 25%, white);
+}
+.pullquote[data-color-theme=secondary] {
+  color: var(--color-secondary);
+  background: color-mix(in srgb, var(--color-secondary) 5%, white);
+}
+.pullquote[data-color-theme=secondary]::before, .pullquote[data-color-theme=secondary]::after {
+  color: color-mix(in srgb, var(--color-secondary) 25%, white);
+}
+.pullquote[data-color-theme=accent] {
+  color: var(--color-accent);
+  background: color-mix(in srgb, var(--color-accent) 5%, white);
+}
+.pullquote[data-color-theme=accent]::before, .pullquote[data-color-theme=accent]::after {
+  color: color-mix(in srgb, var(--color-accent) 25%, white);
+}
+.pullquote[data-color-theme=info] {
+  color: var(--color-info);
+  background: color-mix(in srgb, var(--color-info) 5%, white);
+}
+.pullquote[data-color-theme=info]::before, .pullquote[data-color-theme=info]::after {
+  color: color-mix(in srgb, var(--color-info) 25%, white);
+}
+.pullquote[data-color-theme=warning] {
+  color: var(--color-warning);
+  background: color-mix(in srgb, var(--color-warning) 5%, white);
+}
+.pullquote[data-color-theme=warning]::before, .pullquote[data-color-theme=warning]::after {
+  color: color-mix(in srgb, var(--color-warning) 25%, white);
+}
+.pullquote[data-color-theme=success] {
+  color: var(--color-success);
+  background: color-mix(in srgb, var(--color-success) 5%, white);
+}
+.pullquote[data-color-theme=success]::before, .pullquote[data-color-theme=success]::after {
+  color: color-mix(in srgb, var(--color-success) 25%, white);
+}
+.pullquote[data-color-theme=error] {
+  color: var(--color-error);
+  background: color-mix(in srgb, var(--color-error) 5%, white);
+}
+.pullquote[data-color-theme=error]::before, .pullquote[data-color-theme=error]::after {
+  color: color-mix(in srgb, var(--color-error) 25%, white);
+}
+.pullquote[data-color-theme=light] {
+  color: var(--color-light);
+  background: color-mix(in srgb, var(--color-light) 5%, white);
+}
+.pullquote[data-color-theme=light]::before, .pullquote[data-color-theme=light]::after {
+  color: color-mix(in srgb, var(--color-light) 25%, white);
+}
+.pullquote[data-color-theme=dark] {
+  color: var(--color-dark);
+  background: color-mix(in srgb, var(--color-dark) 5%, white);
+}
+.pullquote[data-color-theme=dark]::before, .pullquote[data-color-theme=dark]::after {
+  color: color-mix(in srgb, var(--color-dark) 25%, white);
+}
+.pullquote[data-color-theme=white] {
+  color: var(--color-white);
+  background: color-mix(in srgb, var(--color-white) 5%, white);
+}
+.pullquote[data-color-theme=white]::before, .pullquote[data-color-theme=white]::after {
+  color: color-mix(in srgb, var(--color-white) 25%, white);
+}
+.pullquote p {
+  font-weight: var(--font-weight-bold);
+  font-size: 1.125rem;
+  position: relative;
+  z-index: 10;
+}
+.pullquote cite {
+  font-size: var(--font-size-sm);
+}
+
+/*# sourceMappingURL=components.css.map */

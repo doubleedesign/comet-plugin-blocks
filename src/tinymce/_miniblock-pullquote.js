@@ -5,13 +5,15 @@ export class PullquotePlugin extends MiniblockPlugin {
 	constructor(editor) {
 		super();
 		const plugin = this;
+
 		editor.addButton('comet_miniblocks_pullquote', {
-			title: 'Pullquote',
+			title: 'Insert pullquote',
 			icon: 'blockquote',
 			onclick: function () {
 				plugin.openModal(editor);
 			}
 		});
+
 		editor.on('click', function (e) {
 			// Handle clicks on existing pullquotes
 			/** @var {HTMLElement} */
@@ -25,6 +27,7 @@ export class PullquotePlugin extends MiniblockPlugin {
 				plugin.openModal(editor, data, pullquote);
 			}
 		});
+
 		editor.on('BeforeSetContent', function (e) {
 			// Prevent cursor from entering the blockquote and ensure they stay non-editable when content is loaded
 			e.content = e.content.replace(
