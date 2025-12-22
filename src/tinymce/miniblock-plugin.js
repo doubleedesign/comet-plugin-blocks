@@ -14,5 +14,5 @@ const tinymce = window.tinymce;
 tinymce.PluginManager.add('comet_miniblocks', function (editor, url) {
 	new PullquotePlugin(editor);
 	new CalloutPlugin(editor);
-	new ButtonGroupPlugin(editor);
+	new ButtonGroupPlugin(editor, url);
 });

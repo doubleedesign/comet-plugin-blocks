@@ -195,13 +195,17 @@
 
 
 	class ButtonGroupPlugin extends MiniblockPlugin {
-		/** @param {import('tinymce').Editor} editor */
-		constructor(editor) {
+		/**
+		 * @param {import('tinymce').Editor} editor
+		 * @param {string} url
+		 */
+		constructor(editor, url) {
 			super();
 			const plugin = this;
+
 			editor.addButton('comet_miniblocks_buttongroup', {
 				title: 'Insert button group',
-				icon: 'link',
+				image: url + '/icons/button-group.svg',
 				onclick: function () {
 					plugin.openModal(editor);
 				}
@@ -277,7 +281,6 @@
 				if (container) {
 					container.innerHTML = response.data.form_html;
 					acf.doAction('ready', jQuery(container));
-					//acf.doAction('append', jQuery(container));
 				}
 				else {
 					throw new Error('Failed to find container for button group form fields in modal');
@@ -436,7 +439,7 @@
 	tinymce.PluginManager.add('comet_miniblocks', function (editor, url) {
 		new PullquotePlugin(editor);
 		new CalloutPlugin(editor);
-		new ButtonGroupPlugin(editor);
+		new ButtonGroupPlugin(editor, url);
 	});
 
 })();
