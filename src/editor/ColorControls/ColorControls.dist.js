@@ -59,7 +59,7 @@ const ColorControls = props => {
 		attributes,
 		setAttributes
 	} = props;
-	console.log(attributes);
+
 	// TODO: Use component defaults from comet JS object (which are set using the PHP global Config object). They should take precedence over block.json
 	// Use refs to keep track of the presence of attribute support without the fields disappearing when the colour field is cleared
 	const hasColorTheme = useRef(!!attributes?.colorTheme);
