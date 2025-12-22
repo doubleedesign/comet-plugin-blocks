@@ -43,7 +43,7 @@ class TinyMceConfig {
 
     private function filter_buttons(array $buttons): array {
         // Note: formatselect is the standard paragraph/heading selector, but we are replacing this with the custom format selector
-        $always_remove = ['formatselect', 'forecolor', 'fullscreen', 'wp_more', 'alignjustify', 'indent', 'outdent', 'underline', 'blockquote', 'wp_adv'];
+        $always_remove = ['formatselect', 'forecolor', 'fullscreen', 'wp_more', 'alignjustify', 'indent', 'outdent', 'underline', 'wp_adv'];
         $rows = array_keys($buttons);
         foreach ($rows as $row) {
             $buttons[$row] = array_filter($buttons[$row], function($button) use ($always_remove) {
@@ -65,22 +65,19 @@ class TinyMceConfig {
      * @return array
      */
     public function customise_wysiwyg_toolbars_acf($toolbars): array {
-        $filtered_basic = array_filter($toolbars['Basic']['1'], function($button) {
-            return !in_array($button, ['underline', 'fullscreen', 'blockquote']);
-        });
-
         // Specify basic toolbar for ACF fields
         $toolbars['Basic']['1'] = array_merge(
             ['styleselect', 'removeformat'],
-            $filtered_basic,
+            $toolbars['Basic']['1'],
+            ['blockquote'],
             $this->comet_miniblocks,
-            ['charmap', 'pastetext', 'undo', 'redo']
+            ['hr', 'charmap', 'pastetext', 'undo', 'redo']
         );
 
         // Specify minimal toolbar for ACF fields
         $toolbars['Minimal']['1'] = array_merge(
             ['styleselect', 'removeformat'],
-            array_filter($filtered_basic, function($button) {
+            array_filter($toolbars['Basic']['1'], function($button) {
                 return !in_array($button, ['alignleft', 'alignjustify', 'aligncenter', 'alignright', 'bullist', 'numlist']);
             }),
             $this->comet_miniblocks,
@@ -93,9 +90,10 @@ class TinyMceConfig {
             array_filter(
                 $toolbars['Full']['1'],
                 function($button) {
-                    return !in_array($button, ['formatselect', 'underline', 'fullscreen', 'blockquote']);
+                    return !in_array($button, ['formatselect', 'underline', 'fullscreen']);
                 }
             ),
+            ['blockquote'],
             $this->comet_miniblocks,
             array_filter(
                 $toolbars['Full']['2'],
@@ -103,7 +101,7 @@ class TinyMceConfig {
                     return !in_array($button, ['pastetext', 'undo', 'redo']);
                 }
             ),
-            ['charmap']
+            ['hr', 'charmap']
         );
         usort($toolbars['Full']['1'], function($a, $b) use ($toolbars) {
             $order = $toolbars['Basic']['1'];
@@ -303,6 +301,27 @@ class TinyMceConfig {
                 'block'   => 'p',
                 'classes' => 'is-style-lead'
             ),
+            // Because we remove the standard format selector in favour of this custom one, we need to add standard headings too
+            array(
+                'title' => 'Heading',
+                'items' => array(
+                    array(
+                        'title'   => 'H2',
+                        'block'   => 'h2',
+                        'classes' => ''
+                    ),
+                    array(
+                        'title'   => 'H3',
+                        'block'   => 'h3',
+                        'classes' => ''
+                    ),
+                    array(
+                        'title'   => 'H4',
+                        'block'   => 'h4',
+                        'classes' => ''
+                    ),
+                )
+            ),
             array(
                 'title' => 'Small style heading',
                 'items' => array(
@@ -321,16 +340,6 @@ class TinyMceConfig {
                         'block'   => 'h4',
                         'classes' => 'is-style-small'
                     ),
-                    array(
-                        'title'   => 'H5',
-                        'block'   => 'h5',
-                        'classes' => 'is-style-small'
-                    ),
-                    array(
-                        'title'   => 'H6',
-                        'block'   => 'h6',
-                        'classes' => 'is-style-small'
-                    )
                 )
             ),
             array(
@@ -351,16 +360,6 @@ class TinyMceConfig {
                         'block'   => 'h4',
                         'classes' => 'is-style-accent'
                     ),
-                    array(
-                        'title'   => 'H5',
-                        'block'   => 'h5',
-                        'classes' => 'is-style-accent'
-                    ),
-                    array(
-                        'title'   => 'H6',
-                        'block'   => 'h6',
-                        'classes' => 'is-style-accent'
-                    )
                 )
             )
         );

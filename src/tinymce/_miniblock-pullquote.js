@@ -2,13 +2,13 @@ import { MiniblockPlugin } from './_miniblock.js';
 
 export class PullquotePlugin extends MiniblockPlugin {
 	/** @param {import('tinymce').Editor} editor */
-	constructor(editor) {
+	constructor(editor, url) {
 		super();
 		const plugin = this;
 
 		editor.addButton('comet_miniblocks_pullquote', {
-			title: 'Insert pullquote',
-			icon: 'blockquote',
+			title: 'Insert pullquote with citation',
+			image: url + '/icons/pullquote.svg',
 			onclick: function () {
 				plugin.openModal(editor);
 			}

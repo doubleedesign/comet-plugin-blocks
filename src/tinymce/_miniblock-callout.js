@@ -2,13 +2,13 @@ import { MiniblockPlugin } from './_miniblock.js';
 
 export class CalloutPlugin extends MiniblockPlugin {
 	/** @param {import('tinymce').Editor} editor */
-	constructor(editor) {
+	constructor(editor, url) {
 		super();
 		const plugin = this;
 
 		editor.addButton('comet_miniblocks_callout', {
 			title: 'Insert callout or alert message',
-			icon: 'notice',
+			image: url + '/icons/callout.svg',
 			onclick: function () {
 				plugin.openModal(editor);
 			}

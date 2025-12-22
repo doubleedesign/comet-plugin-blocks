@@ -29,13 +29,13 @@
 
 	class PullquotePlugin extends MiniblockPlugin {
 		/** @param {import('tinymce').Editor} editor */
-		constructor(editor) {
+		constructor(editor, url) {
 			super();
 			const plugin = this;
 
 			editor.addButton('comet_miniblocks_pullquote', {
-				title: 'Insert pullquote',
-				icon: 'blockquote',
+				title: 'Insert pullquote with citation',
+				image: url + '/icons/pullquote.svg',
 				onclick: function () {
 					plugin.openModal(editor);
 				}
@@ -115,13 +115,13 @@
 
 	class CalloutPlugin extends MiniblockPlugin {
 		/** @param {import('tinymce').Editor} editor */
-		constructor(editor) {
+		constructor(editor, url) {
 			super();
 			const plugin = this;
 
 			editor.addButton('comet_miniblocks_callout', {
 				title: 'Insert callout or alert message',
-				icon: 'notice',
+				image: url + '/icons/callout.svg',
 				onclick: function () {
 					plugin.openModal(editor);
 				}
@@ -437,8 +437,8 @@
 	 * Plugin buttons also need to be specified in TinyMceConfig.php to be available in the editor.
 	 */
 	tinymce.PluginManager.add('comet_miniblocks', function (editor, url) {
-		new PullquotePlugin(editor);
-		new CalloutPlugin(editor);
+		new PullquotePlugin(editor, url);
+		new CalloutPlugin(editor, url);
 		new ButtonGroupPlugin(editor, url);
 	});
 
