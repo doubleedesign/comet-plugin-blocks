@@ -229,6 +229,10 @@ body :where(.editor-styles-wrapper) p {
   line-height: inherit !important;
 }
 
+.acf-tooltip {
+  padding: 0.75rem !important;
+}
+
 .editor-styles-wrapper:has(.page-header[data-background=primary]) .is-root-container :first-child[data-background=primary] {
   padding-block-start: 0;
 }

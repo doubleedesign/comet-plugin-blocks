@@ -106,6 +106,12 @@ html :where(.wp-block) {
 	img {
 		max-width: 100% !important;
 	}
+
+	.advanced-image-field {
+		img {
+			max-width: unset !important;
+		}
+	}
 }
 
 .comet-toggle-group {
@@ -127,7 +133,7 @@ html :where(.wp-block) {
 
 		.components-dropdown {
 			flex-grow: 1;
-			
+
 			button {
 				width: 100%;
 				border: 1px solid #e0e0e0;

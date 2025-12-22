@@ -33,20 +33,11 @@ class BlockEditorConfig extends JavaScriptImplementation {
     public function enqueue_common_css_into_block_editor(): void {
         $css = array(
             [
-                'path' => COMET_COMPOSER_VENDOR_PATH . '/doubleedesign/comet-components-core/src/components/global.css',
-                'url'  => COMET_COMPOSER_VENDOR_URL . '/doubleedesign/comet-components-core/src/components/global.css',
-            ],
-            [
-                'path' => COMET_COMPOSER_VENDOR_PATH . '/doubleedesign/comet-components-core/src/components/common.css',
-                'url'  => COMET_COMPOSER_VENDOR_URL . '/doubleedesign/comet-components-core/src/components/common.css',
-            ],
-            [
-                'path' => COMET_COMPOSER_VENDOR_PATH . '/doubleedesign/comet-components-core/src/components/Container/container.css',
-                'url'  => COMET_COMPOSER_VENDOR_URL . '/doubleedesign/comet-components-core/src/components/Container/container.css',
-            ],
-            [
-                'path' => COMET_COMPOSER_VENDOR_PATH . '/doubleedesign/comet-components-core/src/components/PageSection/page-section.css',
-                'url'  => COMET_COMPOSER_VENDOR_URL . '/doubleedesign/comet-components-core/src/components/PageSection/page-section.css',
+                // This just loads all of Comet's bundled CSS. Ideally we should probably just load global and common here
+                // and register all of the individual stylesheets and use the editorStyle field in block.json to just load what each block needs.
+                // But then again maybe not, because the front-end loads the bundled CSS so this might be more reliable.
+                'path' => COMET_COMPOSER_VENDOR_PATH . '/doubleedesign/comet-components-core/dist/dist.css',
+                'url'  => COMET_COMPOSER_VENDOR_URL . '/doubleedesign/comet-components-core/dist/dist.css',
             ],
             [
                 'path' => get_template_directory() . '/common.css',
