@@ -16,7 +16,6 @@ class ComponentAssets {
 
         if (is_admin()) {
             add_action('admin_enqueue_scripts', [$this, 'enqueue_admin_css'], 10);
-            add_action('enqueue_block_assets', [$this, 'enqueue_block_editor_css'], 10);
             add_filter('block_editor_settings_all', [$this, 'remove_gutenberg_inline_styles'], 10, 2);
         }
     }
@@ -76,22 +75,6 @@ class ComponentAssets {
         }
 
         return $tag;
-    }
-
-    /**
-     * Block editor overrides
-     *
-     * @return void
-     */
-    public function enqueue_block_editor_css(): void {
-        $currentDir = plugin_dir_url(__FILE__);
-        $pluginDir = dirname($currentDir, 1);
-
-        $global_css_path = COMET_COMPOSER_VENDOR_URL . '/doubleedesign/comet-components-core/src/components/global.css';
-        $common_css_path = COMET_COMPOSER_VENDOR_URL . '/doubleedesign/comet-components-core/src/components/common.css';
-
-        wp_enqueue_style('comet-global-styles', $global_css_path, array('wp-edit-blocks'), COMET_VERSION);
-        wp_enqueue_style('comet-common-styles', $common_css_path, array('wp-edit-blocks'), COMET_VERSION);
     }
 
     /**

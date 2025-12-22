@@ -63,7 +63,7 @@ class BlockEditorConfig extends JavaScriptImplementation {
                 wp_enqueue_style(
                     'comet-block-editor-common-' . md5($file_info['path']),
                     $file_info['url'],
-                    array(),
+                    array('wp-edit-blocks'),
                     filemtime($file_info['path']),
                     'all'
                 );
@@ -95,7 +95,7 @@ class BlockEditorConfig extends JavaScriptImplementation {
         if (!class_exists('Doubleedesign\Comet\Core\Config')) {
             return;
         }
-        
+
         $defaults = Config::getInstance()->get('component_defaults');
         $background = Config::getInstance()->get_global_background();
 
