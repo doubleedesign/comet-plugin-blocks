@@ -12,7 +12,7 @@ const tinymce = window.tinymce;
  * Plugin buttons also need to be specified in TinyMceConfig.php to be available in the editor.
  */
 tinymce.PluginManager.add('comet_miniblocks', function (editor, url) {
-	new PullquotePlugin(editor);
-	new CalloutPlugin(editor);
+	new PullquotePlugin(editor, url);
+	new CalloutPlugin(editor, url);
 	new ButtonGroupPlugin(editor, url);
 });
