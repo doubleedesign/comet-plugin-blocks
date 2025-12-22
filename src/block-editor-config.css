@@ -85,6 +85,9 @@ html :where(.wp-block) {
 .components-resizable-box__container img {
   max-width: 100% !important;
 }
+.components-resizable-box__container .advanced-image-field img {
+  max-width: unset !important;
+}
 
 .comet-toggle-group button {
   min-height: 2rem;

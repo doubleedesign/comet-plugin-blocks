@@ -6,7 +6,10 @@
 	"title": "Copy + image",
 	"icon": "image-flip-horizontal",
 	"description": "Add a short section of text content with an image alongside it",
-	"category": "text",
+	"editorStyle": [
+		"file:./editor.css"
+	],
+	"category": "design",
 	"acf": {
 		"mode": "edit",
 		"renderTemplate": "render.php"
