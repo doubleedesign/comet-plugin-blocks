@@ -1,3 +1,11 @@
+.mce-window.mce-container:not([aria-label="Keyboard Shortcuts"]) {
+  width: 600px;
+  left: calc(50dvw - 300px) !important;
+}
+.mce-window.mce-container:not([aria-label="Keyboard Shortcuts"]):has(#button-group-form-container) {
+  width: 700px !important;
+}
+
 .mce-floatpanel [role=menu]:has(.mce-color-theme-field__swatch) {
   display: flex;
   flex-wrap: wrap;
@@ -179,6 +187,37 @@
   display: flex !important;
   width: 100% !important;
   justify-content: unset !important;
+}
+
+.mce-container-body:has(#button-group-form-container) {
+  background: white;
+  min-height: 300px !important;
+  width: auto !important;
+  display: flex !important;
+  flex-direction: column;
+}
+.mce-container-body:has(#button-group-form-container) > .mce-label {
+  position: relative !important;
+  display: block;
+  top: unset !important;
+}
+
+#button-group-form-container > .acf-fields p {
+  text-wrap: wrap;
+}
+#button-group-form-container .acf-field-repeater {
+  padding: 0 !important;
+  margin-top: 0.5rem !important;
+}
+#button-group-form-container .acf-field-repeater > .acf-label {
+  display: none;
+}
+#button-group-form-container .acf-field-repeater .acf-table {
+  border: 1px solid #CCC;
+}
+
+.mce-content-body [contenteditable=false] {
+  cursor: pointer;
 }
 
 /*# sourceMappingURL=miniblock-plugin.css.map */
