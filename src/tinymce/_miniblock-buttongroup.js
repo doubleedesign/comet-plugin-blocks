@@ -3,13 +3,17 @@
 import { MiniblockPlugin } from './_miniblock.js';
 
 export class ButtonGroupPlugin extends MiniblockPlugin {
-	/** @param {import('tinymce').Editor} editor */
-	constructor(editor) {
+	/**
+	 * @param {import('tinymce').Editor} editor
+	 * @param {string} url
+	 */
+	constructor(editor, url) {
 		super();
 		const plugin = this;
+
 		editor.addButton('comet_miniblocks_buttongroup', {
 			title: 'Insert button group',
-			icon: 'link',
+			image: url + '/icons/button-group.svg',
 			onclick: function () {
 				plugin.openModal(editor);
 			}
