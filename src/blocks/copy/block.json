@@ -17,7 +17,7 @@
 		"content"
 	],
 	"attributes": {
-		"containerSize": {
+		"size": {
 			"type": "string",
 			"default": "contained"
 		},
@@ -32,7 +32,7 @@
 		"innerBlocks": false,
 		"anchor": true,
 		"colorTheme": true,
-		"containerSize": true,
+		"size": true,
 		"align": false
 	}
 }
