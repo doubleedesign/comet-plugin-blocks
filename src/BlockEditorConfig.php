@@ -12,6 +12,7 @@ class BlockEditorConfig extends JavaScriptImplementation {
         remove_action('enqueue_block_editor_assets', 'gutenberg_enqueue_block_editor_assets_block_directory');
         add_filter('should_load_separate_core_block_assets', '__return_true', 5);
         add_action('enqueue_block_editor_assets', [$this, 'enqueue_common_css_into_block_editor'], 10);
+        add_action('enqueue_block_editor_assets', [$this, 'enqueue_common_js_into_block_editor'], 10);
         add_action('enqueue_block_editor_assets', [$this, 'make_component_defaults_available_to_block_editor_js'], 250);
 
         add_action('init', [$this, 'load_merged_theme_json'], 5, 1);
@@ -60,6 +61,11 @@ class BlockEditorConfig extends JavaScriptImplementation {
                 );
             }
         }
+    }
+
+    public function enqueue_common_js_into_block_editor(): void {
+        $libraryDir = COMET_COMPOSER_VENDOR_URL . '/doubleedesign/comet-components-core';
+        wp_enqueue_script('comet-components-js', "$libraryDir/dist/dist.js", array(), COMET_VERSION, true);
     }
 
     /**

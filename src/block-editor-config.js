@@ -1,5 +1,6 @@
 /* global wp */
 /* global comet */
+/* global acf */
 
 /**
  * Customisations for the block editor interface broadly
@@ -26,6 +27,19 @@ document.addEventListener('DOMContentLoaded', async function () {
 
 		// Collapse some metaboxes by default
 		collapseMetaboxesByDefault(['breadcrumb-settings', 'tsf-inpost-box', 'acf-group_67ca2ef6a0243']);
+
+		// On ACF preview load
+		acf.addAction('render_block_preview', function (element, block) {
+			if (block.name === 'comet/accordion') {
+				window.dispatchEvent(new Event('ReloadVueAccordions'));
+			}
+			if (block.name === 'comet/tabs') {
+				window.dispatchEvent(new Event('ReloadVueTabs'));
+			}
+			if (block.name === 'comet/responsive-panels') {
+				window.dispatchEvent(new Event('ReloadVueResponsivePanels'));
+			}
+		});
 
 	});
 });
