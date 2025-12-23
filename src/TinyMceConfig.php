@@ -1,6 +1,8 @@
 <?php
 namespace Doubleedesign\Comet\WordPress;
 
+use DOMDocument;
+use DOMXPath;
 use Doubleedesign\Comet\Core\{Config};
 
 class TinyMceConfig {
@@ -25,6 +27,8 @@ class TinyMceConfig {
 
         add_action('wp_ajax_get_button_group_modal_content', [$this, 'get_button_group_modal_content']);
         add_action('admin_head', 'acf_form_head');
+
+        add_filter('the_content', [$this, 'filter_out_miniblock_attributes_when_rendering_html'], 20);
     }
 
     /**
@@ -75,12 +79,13 @@ class TinyMceConfig {
         );
 
         // Specify minimal toolbar for ACF fields
+        // Miniblocks are not included here because this toolbar is intended for very simple content areas,
+        // and is used for things like the call-to-action that have their own button group fields so it doesn't make sense to have the button group miniblock
         $toolbars['Minimal']['1'] = array_merge(
             ['styleselect', 'removeformat'],
             array_filter($toolbars['Basic']['1'], function($button) {
                 return !in_array($button, ['alignleft', 'alignjustify', 'aligncenter', 'alignright', 'bullist', 'numlist']);
             }),
-            $this->comet_miniblocks,
             ['charmap', 'pastetext', 'undo', 'redo'],
         );
 
@@ -492,7 +497,6 @@ class TinyMceConfig {
      *
      * @param  string  $object_type
      * @param  string|int  $object_id
-     * @param  array  $existing_data
      *
      * @return array - The ACF field group array
      */
@@ -544,5 +548,30 @@ class TinyMceConfig {
 
         // Fall back to returning the current timestamp if random_bytes fails
         return (string)time();
+    }
+
+    /**
+     * The miniblocks plugin adds some data attributes to the HTML to allow for its editing features,
+     * but we don't want those rendered on the front-end.
+     *
+     * @param  $content
+     *
+     * @return string
+     */
+    public function filter_out_miniblock_attributes_when_rendering_html($content): string {
+        $attributes = ['contenteditable', 'data-quote', 'data-citation', 'data-content'];
+        $dom = new DOMDocument();
+        @$dom->loadHTML('<?xml encoding="UTF-8">' . $content, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD | LIBXML_NOERROR);
+
+        $xpath = new DOMXPath($dom);
+        foreach ($attributes as $attr) {
+            foreach ($xpath->query('//*[@' . $attr . ']') as $node) {
+                $node->removeAttribute($attr);
+            }
+        }
+
+        $output = $dom->saveHTML();
+
+        return str_replace('<?xml encoding="UTF-8">', '', $output);
     }
 }
