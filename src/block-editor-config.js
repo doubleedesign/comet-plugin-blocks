@@ -41,6 +41,13 @@ document.addEventListener('DOMContentLoaded', async function () {
 			}
 		});
 
+		// Hackily remove the responsive preview menu because the non-desktop preview mode breaks ACF block previews
+		const observer = new MutationObserver(function () {
+			const btn = document.querySelector('.editor-preview-dropdown');
+			if (btn) btn.remove();
+		});
+		observer.observe(document.body, { childList: true, subtree: true });
+
 	});
 });
 
