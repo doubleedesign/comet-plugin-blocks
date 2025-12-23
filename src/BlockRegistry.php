@@ -9,7 +9,7 @@ class BlockRegistry extends JavaScriptImplementation {
         parent::__construct();
         $this->wpInstance = WP_Block_Type_Registry::get_instance();
 
-        add_action('init', [$this, 'register_blocks'], 10, 2);
+        add_action('init', [$this, 'register_blocks'], 10);
         add_action('acf/include_fields', [$this, 'register_block_fields'], 10, 2);
 
         add_filter('allowed_block_types_all', [$this, 'filter_allowed_blocks_server_side'], 10, 2);
