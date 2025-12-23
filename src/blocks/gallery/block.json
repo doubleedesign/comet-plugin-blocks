@@ -19,7 +19,7 @@
 		"gallery"
 	],
 	"attributes": {
-		"containerSize": {
+		"size": {
 			"type": "string",
 			"default": "contained"
 		},
@@ -34,7 +34,7 @@
 		"innerBlocks": false,
 		"anchor": true,
 		"backgroundColor": true,
-		"containerSize": true,
+		"size": true,
 		"align": false
 	}
 }
