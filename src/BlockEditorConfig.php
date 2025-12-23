@@ -10,7 +10,9 @@ class BlockEditorConfig extends JavaScriptImplementation {
 
         remove_action('enqueue_block_editor_assets', 'wp_enqueue_editor_block_directory_assets');
         remove_action('enqueue_block_editor_assets', 'gutenberg_enqueue_block_editor_assets_block_directory');
+        add_filter('print_styles_array', [$this, 'filter_core_styles_in_block_editor'], 10, 1);
         add_filter('should_load_separate_core_block_assets', '__return_true', 5);
+        add_filter('should_load_block_assets_on_demand', '__return_true', 5);
         add_action('enqueue_block_editor_assets', [$this, 'enqueue_common_css_into_block_editor'], 10);
         add_action('enqueue_block_editor_assets', [$this, 'enqueue_common_js_into_block_editor'], 10);
         add_action('enqueue_block_editor_assets', [$this, 'make_component_defaults_available_to_block_editor_js'], 250);
@@ -21,6 +23,7 @@ class BlockEditorConfig extends JavaScriptImplementation {
         add_filter('block_editor_settings_all', [$this, 'block_inspector_single_panel'], 10, 2);
         add_filter('block_editor_settings_all', [$this, 'disable_block_code_editor'], 10, 2);
         add_filter('block_editor_settings_all', [$this, 'disable_unwanted_appearance_settings'], 10, 2);
+        add_filter('block_editor_settings_all', [$this, 'disable_miscellaneous_unwanted_features'], 10, 2);
         add_filter('use_block_editor_for_post_type', [$this, 'selective_gutenberg'], 10, 2);
         add_action('after_setup_theme', [$this, 'disable_block_template_editor']);
 
@@ -28,7 +31,25 @@ class BlockEditorConfig extends JavaScriptImplementation {
             add_action('admin_enqueue_scripts', [$this, 'admin_css']);
             add_filter('admin_body_class', [$this, 'block_editor_body_class'], 10, 1);
         }
+    }
 
+    public function filter_core_styles_in_block_editor($styles): array {
+        if (acf_is_block_editor()) {
+            $styles = array_filter($styles, function($style_handle) {
+                $unwanted_styles = array(
+                    'wp-reusable-blocks',
+                    'wp-patterns',
+                    'wp-block-editor-content',
+                    'wp-edit-blocks',
+                    'buttons', // contains .button styles that conflict with Comet's button block and are broadly not needed in Gutenberg contexts
+                    'forms', // contains .card styles that conflict with Comet's card block
+                );
+
+                return !in_array($style_handle, $unwanted_styles);
+            });
+        }
+
+        return $styles;
     }
 
     public function enqueue_common_css_into_block_editor(): void {
@@ -200,6 +221,7 @@ class BlockEditorConfig extends JavaScriptImplementation {
         $settings['disableCustomFontSizes'] = true;
         $settings['disableCustomSpacingSizes'] = true;
         $settings['disableLayoutStyles'] = true;
+        $settings['supportsLayout'] = false;
         $settings['enableCustomSpacing'] = false;
         $settings['enableCustomLineHeight'] = false;
         $settings['__experimentalFeatures']['appearanceTools'] = false;
@@ -215,6 +237,15 @@ class BlockEditorConfig extends JavaScriptImplementation {
         unset($settings['__experimentalFeatures']['blocks']);
         unset($settings['__experimentalDiscussionSettings']);
         unset($settings['spacingSizes']);
+
+        return $settings;
+    }
+
+    public function disable_miscellaneous_unwanted_features($settings, $context): array {
+        unset($settings['styles']);
+        unset($settings['__experimentalBlockBindingsSupportedAttributes']);
+        unset($settings['__experimentalAdditionalBlockPatterns']);
+        unset($settings['__experimentalAdditionalBlockPatternCategories']);
 
         return $settings;
     }

@@ -4,6 +4,19 @@ html :where(.wp-block) {
   max-width: var(--width-contained);
 }
 
+.components-menu-item__button[href*="site-editor.php"] {
+  display: none !important;
+}
+
+.preferences-modal__section-content .preference-base-option:has(#inspector-toggle-control-3),
+.preferences-modal__section-content .preference-base-option:has(#inspector-toggle-control-0) {
+  display: none;
+}
+
+.preferences__tabs #tabs-2-blocks {
+  display: none;
+}
+
 .editor-visual-editor__post-title-wrapper {
   padding-inline: var(--spacing-md);
   margin-top: 0 !important;
@@ -29,6 +42,14 @@ html :where(.wp-block) {
 
 .block-list-appender {
   margin: 0 auto;
+}
+.block-list-appender .block-editor-inserter {
+  width: 100%;
+}
+.block-list-appender__toggle {
+  width: 100%;
+  justify-content: center;
+  border: 1px solid #3c434a;
 }
 
 .acf-block-component .acf-block-fields {

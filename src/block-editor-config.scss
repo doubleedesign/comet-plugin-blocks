@@ -4,6 +4,23 @@ html :where(.wp-block) {
 	max-width: var(--width-contained);
 }
 
+.components-menu-item__button[href*="site-editor.php"] {
+	display: none !important;
+}
+
+.preferences-modal__section-content {
+	.preference-base-option:has(#inspector-toggle-control-3), // starter patterns toggle
+	.preference-base-option:has(#inspector-toggle-control-0) { // list view toggle (behaviour is overridden in JS)
+		display: none;
+	}
+}
+
+.preferences__tabs {
+	#tabs-2-blocks {
+		display: none; // because it crashes the editor, probably because we disable core blocks
+	}
+}
+
 .editor-visual-editor__post-title-wrapper {
 	padding-inline: var(--spacing-md);
 	margin-top: 0 !important;
@@ -31,6 +48,17 @@ html :where(.wp-block) {
 
 .block-list-appender {
 	margin: 0 auto;
+
+	.block-editor-inserter {
+		width: 100%;
+	}
+
+	&__toggle {
+		width: 100%;
+		justify-content: center;
+		border: 1px solid #3c434a;
+	}
+
 }
 
 .acf-block-component .acf-block-fields {
