@@ -3,7 +3,7 @@ import { PanelBody, SelectControl } from '@wordpress/components';
 
 // TODO: Handle supporting backgroundSize where appropriate (it's not really built into the Core components unless we nest a container)
 export const ContainerSize = ({ attributes, setAttributes }) => {
-	if (!attributes?.containerSize && !attributes?.backgroundSize) {
+	if (!attributes?.size && !attributes?.backgroundSize) {
 		return null;
 	}
 
@@ -14,15 +14,15 @@ export const ContainerSize = ({ attributes, setAttributes }) => {
 		{ label: 'Full-width', value: 'fullwidth' },
 	];
 
-	// Account for blocks that support containerSize but not backgroundSize
+	// Account for blocks that support container size but not backgroundSize
 	if (!attributes?.backgroundSize) {
 		return (
 			<SelectControl
 				label="Container size"
 				size={'__unstable-large'}
-				value={attributes.containerSize ?? 'contained'}
+				value={attributes.size ?? 'contained'}
 				options={options}
-				onChange={(newSize) => setAttributes({ containerSize: newSize })}
+				onChange={(newSize) => setAttributes({ size: newSize })}
 			/>
 		);
 	}
@@ -31,7 +31,7 @@ export const ContainerSize = ({ attributes, setAttributes }) => {
 	const [backgroundSizeIndex, setBackgroundSizeIndex] = useState(3);
 
 	const updateContainerSize = (newSize) => {
-		setAttributes({ containerSize: newSize });
+		setAttributes({ size: newSize });
 		setContainerSizeIndex(options.findIndex(option => option.value === newSize));
 	};
 
@@ -43,18 +43,18 @@ export const ContainerSize = ({ attributes, setAttributes }) => {
 	// Filter background size options to only those larger than or equal to the selected container size
 	const filteredBackgroundOptions = useMemo(() => {
 		return options.slice(containerSizeIndex);
-	}, [attributes.containerSize]);
+	}, [attributes.size]);
 
 	// React to the other selection changing to ensure valid state
 	useEffect(() => {
 		// If the current background size is smaller than the container size, make it the same as the container
 		if (backgroundSizeIndex < containerSizeIndex) {
-			setAttributes({ backgroundSize: attributes.containerSize });
+			setAttributes({ backgroundSize: attributes.size });
 		}
 
 		// If the container size is larger than the background size, set it to the background size
 		if (containerSizeIndex > backgroundSizeIndex) {
-			setAttributes({ containerSize: attributes.backgroundSize });
+			setAttributes({ size: attributes.backgroundSize });
 		}
 	}, [containerSizeIndex, backgroundSizeIndex]);
 
@@ -63,7 +63,7 @@ export const ContainerSize = ({ attributes, setAttributes }) => {
 			<SelectControl
 				label="Container size"
 				size={'__unstable-large'}
-				value={attributes?.containerSize ?? 'contained'}
+				value={attributes?.size ?? 'contained'}
 				options={options}
 				onChange={updateContainerSize}
 			/>

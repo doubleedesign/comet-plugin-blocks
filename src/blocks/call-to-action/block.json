@@ -3,7 +3,7 @@
 	"apiVersion": 3,
 	"textdomain": "comet",
 	"name": "comet/call-to-action",
-	"title": "Call to Action",
+	"title": "Call-to-action",
 	"icon": "megaphone",
 	"description": "Highlight important messages and encourage user interaction with a featured block of brief text and action buttons",
 	"category": "design",
@@ -20,29 +20,13 @@
 		"cta"
 	],
 	"attributes": {
-		"horizontalAlignment": {
-			"type": "string",
-			"default": "center"
-		},
-		"orientation": {
-			"type": "string",
-			"default": "vertical"
-		},
-		"containerSize": {
+		"size": {
 			"type": "string",
 			"default": "contained"
-		},
-		"backgroundSize": {
-			"type": "string",
-			"default": "fullwidth"
 		},
 		"colorTheme": {
 			"type": "string",
 			"default": "primary"
-		},
-		"backgroundColor": {
-			"type": "string",
-			"default": "white"
 		}
 	},
 	"supports": {
@@ -50,9 +34,7 @@
 		"jsx": true,
 		"innerBlocks": false,
 		"anchor": true,
-		"colorTheme": true,
-		"backgroundColor": true,
-		"containerSize": true,
+		"size": true,
 		"align": false
 	}
 }

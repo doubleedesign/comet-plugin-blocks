@@ -1,11 +1,12 @@
 <?php
+/** @var $block array */
 use Doubleedesign\Comet\Core\{Column, Columns, ContentImageAdvanced, Copy};
 use Doubleedesign\Comet\WordPress\PreprocessedHTML;
 
 $component = new Columns(
     array(
         'shortName'  => 'copy-image',
-        'size'       => $block['data']['containerSize'] ?? $block['attributes']['containerSize']['default'],
+        'size'       => $block['data']['size'] ?? $block['attributes']['size']['default'],
         'vAlign'     => $block['data']['verticalAlignment'] ?? $block['attributes']['verticalAlignment']['default'],
     ),
     array(

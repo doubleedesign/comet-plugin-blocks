@@ -28,7 +28,7 @@
 			"type": "string",
 			"default": "center"
 		},
-		"containerSize": {
+		"size": {
 			"type": "string",
 			"default": "default"
 		},
@@ -43,7 +43,7 @@
 		"innerBlocks": false,
 		"anchor": true,
 		"colorTheme": true,
-		"containerSize": true,
+		"size": true,
 		"align": false
 	}
 }

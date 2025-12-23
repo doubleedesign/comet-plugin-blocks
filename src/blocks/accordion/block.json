@@ -21,7 +21,7 @@
 		"accordion"
 	],
 	"attributes": {
-		"containerSize": {
+		"size": {
 			"type": "string",
 			"default": "contained"
 		},
@@ -45,7 +45,7 @@
 		"anchor": true,
 		"colorTheme": true,
 		"backgroundColor": true,
-		"containerSize": true,
+		"size": true,
 		"align": false
 	}
 }
