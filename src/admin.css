@@ -277,4 +277,8 @@ body :where(.editor-styles-wrapper) p {
   display: none;
 }
 
+.acf-field-wysiwyg.acf-field--call-to-action--description .mce-edit-area {
+  height: 100px;
+}
+
 /*# sourceMappingURL=admin.css.map */

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "53e54d7db5ea208dbcce8cb8e39a9b00",
+    "content-hash": "12ca57715cc7eef89094395652d6bfc9",
     "packages": [
         {
             "name": "carbonphp/carbon-doctrine-types",
@@ -171,7 +171,7 @@
             "dist": {
                 "type": "path",
                 "url": "../core",
-                "reference": "cdc983e20f0237fe34545d611cf965a2e015a03e"
+                "reference": "106bdd7769e82de67df87cdf4db75ea8083f6c20"
             },
             "require": {
                 "ext-intl": "*",
@@ -182,7 +182,8 @@
                 "illuminate/filesystem": "^10.0",
                 "illuminate/support": "^10.0",
                 "illuminate/view": "^10.0",
-                "openpsa/ranger": "^0.5.8"
+                "openpsa/ranger": "^0.5.8",
+                "tomloprod/colority": "^1.4"
             },
             "type": "library",
             "autoload": {
