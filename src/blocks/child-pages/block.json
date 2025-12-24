@@ -1,0 +1,40 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"textdomain": "comet",
+	"name": "comet/child-pages",
+	"title": "Child pages",
+	"icon": "editor-ul",
+	"description": "Add an automatically-generated list of links to pages below this one in the site hierarchy",
+	"category": "design",
+	"acf": {
+		"mode": "edit",
+		"renderTemplate": "render.php"
+	},
+	"keywords": [
+		"content",
+		"layout",
+		"common"
+	],
+	"attributes": {
+		"size": {
+			"type": "string",
+			"default": "contained"
+		},
+		"colorTheme": {
+			"type": "string",
+			"default": "primary"
+		},
+		"backgroundColor": {
+			"type": "string",
+			"default": "white"
+		}
+	},
+	"supports": {
+		"mode": true,
+		"jsx": true,
+		"innerBlocks": false,
+		"anchor": true,
+		"align": false
+	}
+}
