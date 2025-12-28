@@ -5,6 +5,7 @@ class AdminUI {
     public function __construct() {
         add_action('admin_menu', [$this, 'remove_patterns_site_editor_etc_from_admin_menu']);
         add_action('admin_init', [$this, 'redirect_away_from_site_editor_urls']);
+        add_action('add_meta_boxes', [$this, 'remove_metaboxes'], 99);
     }
 
     /**
@@ -43,5 +44,12 @@ class AdminUI {
             wp_redirect(admin_url());
             exit;
         }
+    }
+
+    /**
+     * Remove unwanted metaboxes
+     */
+    public function remove_metaboxes(): void {
+        remove_meta_box('nf_admin_metaboxes_appendaform', array('page', 'post'), 'side');
     }
 }

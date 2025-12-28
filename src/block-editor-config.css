@@ -8,15 +8,12 @@ html :where(.wp-block) {
   display: none !important;
 }
 
-.preferences-modal__section-content .preference-base-option:has(#inspector-toggle-control-3),
-.preferences-modal__section-content .preference-base-option:has(#inspector-toggle-control-0) {
-  display: none;
-}
-
+/** Preferences modal **/
 .preferences__tabs #tabs-2-blocks {
   display: none;
 }
 
+/** Block editor - content region **/
 .editor-visual-editor__post-title-wrapper {
   padding-inline: var(--spacing-md);
   margin-top: 0 !important;
