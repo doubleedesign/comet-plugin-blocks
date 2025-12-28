@@ -195,8 +195,13 @@ class BlockEditorConfig extends JavaScriptImplementation {
             $colours = array_merge(...$colours);
         }
 
-        // Make the defaults available to the plugin's block-editor-config.js file
+        // Make the defaults available to the plugin's block-editor-config files
         wp_localize_script('comet-block-editor-config', 'comet', array(
+            'defaults'         => $defaults,
+            'globalBackground' => $background,
+            'palette'          => $colours ?? [],
+        ));
+        wp_localize_script('comet-block-editor-config-iframe', 'comet', array(
             'defaults'         => $defaults,
             'globalBackground' => $background,
             'palette'          => $colours ?? [],
