@@ -10,6 +10,7 @@ Development of this project belongs in the main Comet Components monorepo.
 ## Feature support
 
 This plugin is intended for use as the primary block library in a site. In order to ensure a straightforward editing experience for clients, a number of block editor and adjacent core features are either actively disabled (if necessary) or not supported (if they are opt-in). These include:
+
 - Most core blocks are disabled
 - Block patterns are disabled in favour of a "Shared content" custom post type which works similarly but has better UX for clients (given how I usually set everything else up)
 - Full-site editing (FSE) is not supported.
@@ -63,21 +64,25 @@ Comet Components blocks that use the custom attribute controls should have a def
 ### Creating new blocks
 
 To create a new block that corresponds to a Comet component, you need three files:
+
 1. A `block.json` file that defines the block's metadata, attributes, CSS files, etc.
 2. A `fields.php` file that defines the ACF fields for the block's content using `acf_add_local_field_group()`
 3. A `render.php` file that contains the PHP rendering logic for the block editor preview and for the front-end.
 
 Refer to the existing blocks in the plugin for examples.
 
-The editor CSS field should reference the Comet Components Core package CSS files. Note that some blocks will also need the CSS of their inner components to be imported as well. Some very common components' CSS such as `Container` and `PageSection` are already loaded into the editor by default.
+> [!WARNING]  
+> **All** blocks must use `apiVersion: 3` for any blocks to render in an iframe in the editor. If blocks are not rendered in an iframe, WordPress core admin styles may affect the preview appearance due to CSS leakage. This includes blocks from third-party plugins, so if you start seeing WP core admin styles affecting block previews, a third-party plugin may be the culprit.
 
-Ideally, additional CSS should not be necessary in the plugin (client themes and plugins can of course add their own custom CSS in the relevant files) because they should be a basic implementation of the core component and nothing more.
+The `editorStyle` field should reference the Comet Components Core package CSS files (most are registered by this plugin, using the handle convention `comet-kebab-case-component-name`.) Note that some blocks will also need the CSS of their inner components to be loaded here as well. At the time of writing, this plugin automatically loads all of Comet Components' CSS on the front-end in a single bundled file, so you should not use the `style` field in `block.json` to load core library styles because that would cause unnecessary duplication on the front-end.
+
+Ideally, additional CSS should not be necessary in this plugin (client themes and plugins can of course add their own custom CSS in the relevant files) because they should be a basic implementation of the core component and nothing more.
+
+This plugin automatically looks for a `common.css` file in the active theme and loads it into the block editor for shared styles (this file should also be loaded on the front-end by importing it into the theme's `style.css`). Any further CSS required per-block will need to be loaded by the plugin/theme that requires it.
 
 ### Plugin structure
 
-Due to the way that some things for the block editor can be done in PHP and others must be done in JavaScript, some of
-the code organisation feels a bit unintuitive because there can be code in either language that deals with the same
-domain. The following table outlines the purpose these pairs of files in this plugin.
+Due to the way that some things for the block editor can be done in PHP and others must be done in JavaScript, some of the code organisation feels a bit unintuitive because there can be code in either language that deals with the same domain. The following table outlines the purpose these pairs of files in this plugin.
 
 | PHP file                       | JS or other file         | Purpose                                                                                                                                                                                                                                                                                                                       |
 |--------------------------------|--------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|

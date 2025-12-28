@@ -2,6 +2,10 @@
 namespace Doubleedesign\Comet\WordPress;
 
 use Doubleedesign\Comet\Core\{Config, Utils};
+use Exception;
+use FilesystemIterator;
+use RecursiveDirectoryIterator;
+use RecursiveIteratorIterator;
 use WP_Theme_JSON_Data;
 
 class BlockEditorConfig extends JavaScriptImplementation {
@@ -10,19 +14,15 @@ class BlockEditorConfig extends JavaScriptImplementation {
 
         remove_action('enqueue_block_editor_assets', 'wp_enqueue_editor_block_directory_assets');
         remove_action('enqueue_block_editor_assets', 'gutenberg_enqueue_block_editor_assets_block_directory');
-        add_filter('print_styles_array', [$this, 'filter_core_styles_in_block_editor'], 10, 1);
         add_filter('should_load_separate_core_block_assets', '__return_true', 5);
         add_filter('should_load_block_assets_on_demand', '__return_true', 5);
-        add_action('enqueue_block_editor_assets', [$this, 'enqueue_common_css_into_block_editor'], 10);
-        add_action('enqueue_block_editor_assets', [$this, 'enqueue_common_js_into_block_editor'], 10);
-        add_action('enqueue_block_editor_assets', [$this, 'make_component_defaults_available_to_block_editor_js'], 250);
-
         add_action('init', [$this, 'load_merged_theme_json'], 5, 1);
         add_action('init', [$this, 'register_page_template'], 15, 2);
 
         add_filter('block_editor_settings_all', [$this, 'block_inspector_single_panel'], 10, 2);
         add_filter('block_editor_settings_all', [$this, 'disable_block_code_editor'], 10, 2);
         add_filter('block_editor_settings_all', [$this, 'disable_unwanted_appearance_settings'], 10, 2);
+        add_filter('block_editor_settings_all', [$this, 'disable_default_block_editor_styles'], 10, 2);
         add_filter('block_editor_settings_all', [$this, 'disable_miscellaneous_unwanted_features'], 10, 2);
         add_filter('use_block_editor_for_post_type', [$this, 'selective_gutenberg'], 10, 2);
         add_action('after_setup_theme', [$this, 'disable_block_template_editor']);
@@ -30,60 +30,127 @@ class BlockEditorConfig extends JavaScriptImplementation {
         if (is_admin()) {
             add_action('admin_enqueue_scripts', [$this, 'admin_css']);
             add_filter('admin_body_class', [$this, 'block_editor_body_class'], 10, 1);
+            add_action('init', [$this, 'register_comet_component_stylesheets_for_use_in_block_json'], 5);
+            // using enqueue_block_assets to ensure this runs in the new iframed experience (as opposed to enqueue_block_editor_assets)
+            // but note that enqueue_block_assets  also runs on the front-end, hence the is_admin() check to ensure we don't double up on the front-end
+            add_action('enqueue_block_assets', [$this, 'enqueue_common_css_into_block_editor'], 10);
+            add_action('enqueue_block_assets', [$this, 'enqueue_common_js_into_block_editor'], 10);
+            add_action('enqueue_block_assets', [$this, 'make_component_defaults_available_to_block_editor_js'], 250);
         }
     }
 
-    public function filter_core_styles_in_block_editor($styles): array {
-        if (acf_is_block_editor()) {
-            $styles = array_filter($styles, function($style_handle) {
-                $unwanted_styles = array(
-                    'wp-reusable-blocks',
-                    'wp-patterns',
-                    'wp-block-editor-content',
-                    'wp-edit-blocks',
-                    'buttons', // contains .button styles that conflict with Comet's button block and are broadly not needed in Gutenberg contexts
-                    'forms', // contains .card styles that conflict with Comet's card block
-                );
+    /**
+     * Register Comet Components' individual CSS files so they can be loaded as-needed for blocks
+     * by using the "editorStyle" or "style" field in block.json.
+     *
+     * Almost all component stylesheets should be registered here, except for global.css and common.css,
+     * and components like SiteHeader and SiteFooter that are not intended to be used in blocks.
+     *
+     * Note: If loading all of Comet's CSS on the front-end using the bundled/dist file, use editorStyle here to avoid duplication on the front-end.
+     *
+     * @return void
+     */
+    public function register_comet_component_stylesheets_for_use_in_block_json(): void {
+        $excludedDirectories = ['SiteHeader', 'SiteFooter', 'Menu', 'PostNav'];
+        $componentsDir = COMET_COMPOSER_VENDOR_PATH . '/doubleedesign/comet-components-core/src/components';
+        $registered = []; // for debugging
 
-                return !in_array($style_handle, $unwanted_styles);
-            });
+        try {
+            $iterator = new RecursiveIteratorIterator(
+                new RecursiveDirectoryIterator($componentsDir, FilesystemIterator::SKIP_DOTS),
+                RecursiveIteratorIterator::SELF_FIRST
+            );
+            $iterator->setMaxDepth(3);
+
+            foreach ($iterator as $file) {
+                if (!$file->isDir()) {
+                    continue;
+                }
+
+                if (in_array($file->getFilename(), $excludedDirectories)) {
+                    continue;
+                }
+
+                $componentName = $file->getBasename();
+                $shortName = Utils::kebab_case($componentName);
+                $cssFile = $file->getPathname() . "/$shortName.css";
+
+                if (file_exists($cssFile)) {
+                    $handle = 'comet-' . $shortName;
+                    $relativePath = str_replace($componentsDir, '', $file->getPathname());
+                    wp_register_style(
+                        $handle,
+                        COMET_COMPOSER_VENDOR_URL . '/doubleedesign/comet-components-core/src/components/' . $relativePath . '/' . $shortName . '.css',
+                        [],
+                        COMET_VERSION
+                    );
+                    $registered[] = $handle;
+                }
+            }
         }
-
-        return $styles;
+        catch (Exception $e) {
+            if (function_exists('dump')) {
+                dump('Error registering Comet component stylesheet: ' . $e->getMessage());
+            }
+            else {
+                error_log('Error registering Comet component stylesheet: ' . $e->getMessage());
+            }
+        }
     }
 
+    /**
+     * Load global and common CSS from both Comet Components and the theme (if a common.css file is present) for all blocks in the editor.
+     * Global CSS is intended to be things like CSS variables and the application of data-* attributes like color theme and background.
+     * Common CSS should contain site-wide typography styles and the like.
+     *
+     * @return void
+     */
     public function enqueue_common_css_into_block_editor(): void {
         $css = array(
             [
-                // This just loads all of Comet's bundled CSS. Ideally we should probably just load global and common here
-                // and register all of the individual stylesheets and use the editorStyle field in block.json to just load what each block needs.
-                // But then again maybe not, because the front-end loads the bundled CSS so this might be more reliable.
-                'path' => COMET_COMPOSER_VENDOR_PATH . '/doubleedesign/comet-components-core/dist/dist.css',
-                'url'  => COMET_COMPOSER_VENDOR_URL . '/doubleedesign/comet-components-core/dist/dist.css',
+                'handle' => 'comet-components-global-styles',
+                'path'   => COMET_COMPOSER_VENDOR_PATH . '/doubleedesign/comet-components-core/src/components/global.css',
+                'url'    => COMET_COMPOSER_VENDOR_URL . '/doubleedesign/comet-components-core/src/components/global.css',
             ],
             [
-                'path' => get_template_directory() . '/common.css',
-                'url'  => get_template_directory_uri() . '/common.css',
+                'handle' => 'comet-components-common-styles',
+                'path'   => COMET_COMPOSER_VENDOR_PATH . '/doubleedesign/comet-components-core/src/components/common.css',
+                'url'    => COMET_COMPOSER_VENDOR_URL . '/doubleedesign/comet-components-core/src/components/common.css',
             ],
             [
-                'path' => get_stylesheet_directory() . '/common.css',
-                'url'  => get_stylesheet_directory_uri() . '/common.css',
-            ]
+                'handle' => 'theme-common-styles',
+                'path'   => get_stylesheet_directory() . '/common.css',
+                'url'    => get_stylesheet_directory_uri() . '/common.css',
+            ],
         );
 
         foreach ($css as $file_info) {
             if (file_exists($file_info['path'])) {
                 wp_enqueue_style(
-                    'comet-block-editor-common-' . md5($file_info['path']),
+                    $file_info['handle'],
                     $file_info['url'],
-                    array('wp-edit-blocks'),
+                    [],
                     filemtime($file_info['path']),
-                    'all'
+
                 );
+            }
+            else {
+                if (function_exists('dump')) {
+                    dump('File not found: ' . $file_info['path']);
+                }
+                else {
+                    error_log('File not found: ' . $file_info['path']);
+                }
             }
         }
     }
 
+    /**
+     * Load bundled JavaScript from Comet Components into the block editor for use in block previews.
+     * TODO: The individual scripts could probably be registered and loaded on-demand using block.json instead of loading the entire bundle all the time, like the CSS above.
+     *
+     * @return void
+     */
     public function enqueue_common_js_into_block_editor(): void {
         $libraryDir = COMET_COMPOSER_VENDOR_URL . '/doubleedesign/comet-components-core';
         wp_enqueue_script('comet-components-js', "$libraryDir/dist/dist.js", array(), COMET_VERSION, true);
@@ -237,6 +304,20 @@ class BlockEditorConfig extends JavaScriptImplementation {
         unset($settings['__experimentalFeatures']['blocks']);
         unset($settings['__experimentalDiscussionSettings']);
         unset($settings['spacingSizes']);
+
+        return $settings;
+    }
+
+    /**
+     * If WP thinks we don't have our own editor styles for blocks, ensure it still doesn't load its defaults.
+     *
+     * @param  $settings
+     * @param  $context
+     *
+     * @return array
+     */
+    public function disable_default_block_editor_styles($settings, $context): array {
+        unset($settings['defaultEditorStyles']);
 
         return $settings;
     }

@@ -6,10 +6,12 @@
 	"title": "Gallery",
 	"icon": "images-alt2",
 	"description": "Showcase a collection of images in a grid layout",
-	"category": "design",
+	"category": "media",
 	"acf": {
 		"mode": "edit",
-		"renderTemplate": "render.php"
+		"renderTemplate": "render.php",
+		"blockVersion": 3,
+		"hideFieldsInSidebar": true
 	},
 	"keywords": [
 		"layout",

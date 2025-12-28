@@ -1,6 +1,6 @@
 {
 	"$schema": "https://schemas.wp.org/trunk/block.json",
-	"apiVersion": 2,
+	"apiVersion": 3,
 	"name": "comet/file-group",
 	"title": "File group",
 	"icon": "media-document",
@@ -8,9 +8,14 @@
 	"category": "media",
 	"acf": {
 		"mode": "edit",
-		"renderTemplate": "render.php"
+		"renderTemplate": "render.php",
+		"blockVersion": 3,
+		"hideFieldsInSidebar": true
 	},
-	"editorStyle": "file:./editor.css",
+	"editorStyle": [
+		"comet-container",
+		"comet-file-group"
+	],
 	"keywords": [
 		"files",
 		"downloads"
