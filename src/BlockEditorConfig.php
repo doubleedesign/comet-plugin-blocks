@@ -53,6 +53,7 @@ class BlockEditorConfig extends JavaScriptImplementation {
     public function register_comet_component_stylesheets_for_use_in_block_json(): void {
         $excludedDirectories = ['SiteHeader', 'SiteFooter', 'Menu', 'PostNav'];
         $componentsDir = COMET_COMPOSER_VENDOR_PATH . '/doubleedesign/comet-components-core/src/components';
+        $componentsUrlbase = COMET_COMPOSER_VENDOR_URL . '/doubleedesign/comet-components-core/src/components';
         $registered = []; // for debugging
 
         try {
@@ -78,9 +79,10 @@ class BlockEditorConfig extends JavaScriptImplementation {
                 if (file_exists($cssFile)) {
                     $handle = 'comet-' . $shortName;
                     $relativePath = str_replace($componentsDir, '', $file->getPathname());
+                    $relativePath = str_replace('\\', '/', $relativePath) . '/';
                     wp_register_style(
                         $handle,
-                        COMET_COMPOSER_VENDOR_URL . '/doubleedesign/comet-components-core/src/components/' . $relativePath . '/' . $shortName . '.css',
+                        $componentsUrlbase . $relativePath . $shortName . '.css',
                         [],
                         COMET_VERSION
                     );

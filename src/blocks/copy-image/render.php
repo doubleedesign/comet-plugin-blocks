@@ -1,5 +1,6 @@
 <?php
 /** @var $block array */
+
 use Doubleedesign\Comet\Core\{Column, Columns, ContentImageAdvanced, Copy};
 use Doubleedesign\Comet\WordPress\PreprocessedHTML;
 
@@ -18,13 +19,13 @@ $component = new Columns(
                     'isNested'   => true,
                 ),
                 array(
-                    new PreprocessedHTML([], get_field('copy'))
+                    new PreprocessedHTML([], get_field('copy') ?? '')
                 )
             )]
         ))->set_bem_modifier('copy'),
         (new Column(
             ['context' => 'copy-image'],
-            [new ContentImageAdvanced(get_field('image'))]
+            [...get_field('image') ? [new ContentImageAdvanced(get_field('image'))] : []]
         ))->set_bem_modifier('image')
     )
 );
