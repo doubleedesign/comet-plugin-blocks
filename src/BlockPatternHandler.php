@@ -1,13 +1,15 @@
 <?php
 namespace Doubleedesign\Comet\WordPress;
 
-class BlockPatternHandler {
+class BlockPatternHandler extends JavaScriptImplementation {
 
     public function __construct() {
+        parent::__construct();
         add_filter('should_load_remote_block_patterns', '__return_false');
         add_filter('allowed_block_types_all', [$this, 'disable_block_patterns'], 10, 2);
         add_filter('block_editor_settings_all', [$this, 'remove_patterns_from_inserter'], 10, 2);
         add_action('init', [$this, 'allowed_block_patterns'], 10, 2);
+        add_action('admin_init', [$this, 'disable_choose_pattern_modal'], 5);
     }
 
     /**
@@ -62,6 +64,20 @@ class BlockPatternHandler {
         unregister_block_pattern('core/query-standard-posts');
         unregister_block_pattern('core/query-medium-posts');
         unregister_block_pattern('core/query-small-posts');
+    }
+
+    public function disable_choose_pattern_modal(): void {
+        $user = wp_get_current_user();
+        $preferences = get_user_meta($user->ID, 'wp_persisted_preferences', true);
+
+        // Initialize preferences array if needed
+        if (!is_array($preferences)) {
+            $preferences = [];
+        }
+
+        unset($preferences['core']['enableChoosePatternModal']);
+
+        update_user_meta($user->ID, 'wp_persisted_preferences', $preferences);
     }
 
 }
