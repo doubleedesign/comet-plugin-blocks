@@ -11,12 +11,6 @@ html :where(.wp-block) {
 	display: none !important;
 }
 
-/** Preferences modal **/
-.preferences__tabs {
-	#tabs-2-blocks {
-		display: none; // because it crashes the editor, probably because we disable core blocks
-	}
-}
 
 /** Block editor - content region **/
 .editor-visual-editor__post-title-wrapper {

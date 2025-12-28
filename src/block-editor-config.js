@@ -17,7 +17,7 @@ wp.domReady(() => {
 		dispatch('core/editor').setIsListViewOpened(true);
 	}
 	hackPreferencesModal();
-	
+
 	// Collapse some metaboxes by default
 	collapseMetaboxesByDefault(['breadcrumb-settings', 'tsf-inpost-box', 'acf-group_67ca2ef6a0243']);
 
@@ -105,6 +105,7 @@ function hackPreferencesModal() {
 			if (tabs) {
 				removePreferenceByLabelText(tabs, 'Always open List View');
 				removePreferenceByLabelText(tabs, 'Use theme styles');
+				removeTabByLabelText(tabs, 'Blocks');
 			}
 		});
 
@@ -121,6 +122,21 @@ function removePreferenceByLabelText(parent, labelText) {
 				preference.remove();
 			}
 		});
-	}, 100);
+	}, 50);
+}
+
+function removeTabByLabelText(parent, labelText) {
+	setTimeout(() => {
+		const tabs = parent.querySelectorAll('[role="tab"]');
+		tabs.forEach(function (tab) {
+			if (tab.textContent.trim() === labelText) {
+				const tabPanelId = tab.getAttribute('aria-controls');
+				const tabPanel = parent.querySelector(`[role='tabpanel']#${tabPanelId}`);
+
+				tab.remove();
+				tabPanel.remove();
+			}
+		});
+	}, 50);
 }
 
