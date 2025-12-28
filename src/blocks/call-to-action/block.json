@@ -9,8 +9,16 @@
 	"category": "design",
 	"acf": {
 		"mode": "edit",
-		"renderTemplate": "render.php"
+		"renderTemplate": "render.php",
+		"blockVersion": 3,
+		"hideFieldsInSidebar": true
 	},
+	"editorStyle": [
+		"comet-container",
+		"comet-call-to-action",
+		"comet-button-group",
+		"comet-button"
+	],
 	"keywords": [
 		"text",
 		"paragraph",

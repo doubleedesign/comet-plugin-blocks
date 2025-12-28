@@ -1,5 +1,3 @@
-import { BLOCKS_WITH_TINYMCE } from '../constants.dist.js';
-
 /* global wp */
 const {
 	PanelBody,
@@ -13,9 +11,6 @@ const {
 	useRef,
 	useState
 } = wp.element;
-
-/** @type {{ PluginManager: import('tinymce').AddOnManager }} */
-const tinymce = window.tinymce;
 const ColorPaletteDropdown = ({
 	label,
 	hexValue,
@@ -27,7 +22,7 @@ const ColorPaletteDropdown = ({
 	const getNameByColorValue = colorValue => {
 		const color = palette.find(c => c.color === colorValue);
 
-		return color ? color.name : colorValue;
+		return color ? color.slug : colorValue;
 	};
 
 	return /*#__PURE__*/React.createElement(Dropdown, {
@@ -74,37 +69,20 @@ const ColorControls = props => {
 		return null;
 	}
 	const getValueByColorName = colorName => {
-		const color = palette.find(c => c.name === colorName);
+		const color = palette.find(c => c.slug === colorName);
 
 		return color ? color.color : colorName;
-	};
-	const setTinyMceBodyAttribute = (attribute, value) => {
-		if (BLOCKS_WITH_TINYMCE.includes(attributes.name)) {
-			const iframe = tinymce?.activeEditor?.iframeElement;
-			if (iframe) {
-				const iframeBody = iframe.contentDocument.body;
-				iframeBody.setAttribute(attribute, value ?? '');
-			}
-		}
 	};
 	const handleThemeChange = name => {
 		setAttributes({
 			colorTheme: name ?? ''
 		});
-		setTinyMceBodyAttribute('data-color-theme', name ?? '');
 	};
 	const handleBackgroundChange = name => {
 		setAttributes({
 			backgroundColor: name ?? ''
 		});
-		setTinyMceBodyAttribute('data-background', name ?? '');
 	};
-
-	// On load, set the TinyMCE body attributes if applicable
-	useEffect(() => {
-		setTinyMceBodyAttribute('data-color-theme', attributes?.colorTheme ?? '');
-		setTinyMceBodyAttribute('data-background', attributes?.backgroundColor ?? '');
-	}, []);
 
 	// TODO: Limit valid combinations of background + theme where appropriate
 	return /*#__PURE__*/React.createElement(PanelBody, {

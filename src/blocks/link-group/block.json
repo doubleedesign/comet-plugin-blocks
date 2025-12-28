@@ -1,6 +1,6 @@
 {
 	"$schema": "https://schemas.wp.org/trunk/block.json",
-	"apiVersion": 2,
+	"apiVersion": 3,
 	"name": "comet/link-group",
 	"textdomain": "comet",
 	"title": "Link group",
@@ -9,9 +9,14 @@
 	"category": "media",
 	"acf": {
 		"mode": "edit",
-		"renderTemplate": "render.php"
+		"renderTemplate": "render.php",
+		"blockVersion": 3,
+		"hideFieldsInSidebar": true
 	},
-	"editorStyle": "file:./editor.css",
+	"editorStyle": [
+		"comet-container",
+		"comet-link-group"
+	],
 	"keywords": [
 		"link",
 		"links"

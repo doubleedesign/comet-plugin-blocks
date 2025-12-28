@@ -28,12 +28,12 @@
 					"color": "#ba3caf"
 				},
 				{
-					"name": "Warning",
+					"name": "warning",
 					"slug": "warning",
 					"color": "#f9c971"
 				},
 				{
-					"name": "Error",
+					"name": "error",
 					"slug": "error",
 					"color": "#d23e3e"
 				},

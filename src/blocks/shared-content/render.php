@@ -21,7 +21,14 @@ $is_editor = isset($is_preview) && $is_preview;
 if ($is_editor) {
     $blocks = parse_blocks($post->post_content);
     foreach ($blocks as $block_data) {
-        acf_render_block($block_data['attrs'], $post->post_content, true);
+        acf_render_block(
+            [
+                'id' => $block_data['id'] ?? uniqid(),
+                ...$block_data['attrs']
+            ],
+            $post->post_content,
+            true
+        );
     }
 }
 else {
