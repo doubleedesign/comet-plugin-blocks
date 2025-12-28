@@ -26,11 +26,11 @@ wp.domReady(() => {
 	// Collapse some metaboxes by default
 	collapseMetaboxesByDefault(['breadcrumb-settings', 'tsf-inpost-box', 'acf-group_67ca2ef6a0243']);
 
-	// On ACF block add, open the v3 block editing panel automatically
 	acf.addAction('render_block_preview', function (element, block) {
 		let blockCount = select('core/block-editor').getBlockCount();
 		const blocks = select('core/block-editor').getBlocks();
 
+		// On ACF block add, open the v3 block editing panel automatically
 		wp.data.subscribe(function () {
 			const newBlockCount = select('core/block-editor').getBlockCount();
 			if (newBlockCount > blockCount) {
@@ -47,6 +47,30 @@ wp.domReady(() => {
 				}
 			}
 		});
+
+		// If there is only one block on the page, it is an ACF block, and it is empty,
+		// open the block editing panel automatically (useful for new pages)
+		if (blockCount === 1 && block.name.startsWith('comet/')) {
+			let isProbablyEmpty = true;
+			if (block?.data) {
+				isProbablyEmpty = Object.entries(block?.data)
+					?.filter(([key, value]) => !key.startsWith('_'))
+					?.every(([key, value]) => {
+						return !value || (Array.isArray(value) && value.length === 0);
+					});
+			}
+
+			if (isProbablyEmpty) {
+				element.focus();
+				setTimeout(() => {
+					const panel = document.querySelector('.acf-block-form-modal');
+					const trigger = document.querySelector('.acf-blocks-open-expanded-editor-btn');
+					if (!panel && trigger) {
+						trigger.click();
+					}
+				}, 100);
+			}
+		}
 	});
 
 
