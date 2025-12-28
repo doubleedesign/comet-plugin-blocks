@@ -8,7 +8,6 @@
 	"description": "Add a short section of text content with an image alongside it",
 	"category": "design",
 	"acf": {
-		"mode": "edit",
 		"renderTemplate": "render.php",
 		"blockVersion": 3,
 		"hideFieldsInSidebar": true
