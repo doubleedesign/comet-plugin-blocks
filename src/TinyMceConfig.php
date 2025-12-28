@@ -84,7 +84,7 @@ class TinyMceConfig {
         $toolbars['Minimal']['1'] = array_merge(
             ['styleselect', 'removeformat'],
             array_filter($toolbars['Basic']['1'], function($button) {
-                return !in_array($button, ['alignleft', 'alignjustify', 'aligncenter', 'alignright', 'bullist', 'numlist']);
+                return !in_array($button, ['alignleft', 'alignjustify', 'aligncenter', 'alignright', 'bullist', 'numlist', 'blockquote', ...$this->comet_miniblocks]);
             }),
             ['charmap', 'pastetext', 'undo', 'redo'],
         );
