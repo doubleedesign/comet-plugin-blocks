@@ -6,48 +6,41 @@
  * Customisations for the block editor interface broadly
  * (not individual blocks)
  */
-document.addEventListener('DOMContentLoaded', async function () {
-	// Disable full-screen mode by default
-	const isFullscreenMode = wp.data.select('core/edit-post').isFeatureActive('fullscreenMode');
-	if (isFullscreenMode) {
-		wp.data.dispatch('core/edit-post').toggleFeature('fullscreenMode');
+
+wp.domReady(() => {
+	const { select, dispatch } = wp.data;
+
+	// Open list view by default and remove the preference setting from the DOM when the preferences modal is opened
+	const listViewIsOpen = select('core/editor').isListViewOpened();
+	if (!listViewIsOpen) {
+		dispatch('core/editor').setIsListViewOpened(true);
 	}
+	hackPreferencesModal();
 
-	wp.domReady(() => {
-		const { select, dispatch } = wp.data;
+	// Add HTML so that the post title inherits Comet page header styling
+	wrapPostTitle();
 
-		// Open list view by default
-		const listViewIsOpen = select('core/editor').isListViewOpened();
-		if (!listViewIsOpen) {
-			dispatch('core/editor').setIsListViewOpened(true);
+	// Collapse some metaboxes by default
+	collapseMetaboxesByDefault(['breadcrumb-settings', 'tsf-inpost-box', 'acf-group_67ca2ef6a0243']);
+
+	// On ACF preview load
+	acf.addAction('render_block_preview', function (element, block) {
+		if (block.name === 'comet/accordion') {
+			window.dispatchEvent(new Event('ReloadVueAccordions'));
 		}
-
-		// Add HTML so that the post title inherits Comet page header styling
-		wrapPostTitle();
-
-		// Collapse some metaboxes by default
-		collapseMetaboxesByDefault(['breadcrumb-settings', 'tsf-inpost-box', 'acf-group_67ca2ef6a0243']);
-
-		// On ACF preview load
-		acf.addAction('render_block_preview', function (element, block) {
-			if (block.name === 'comet/accordion') {
-				window.dispatchEvent(new Event('ReloadVueAccordions'));
-			}
-			if (block.name === 'comet/tabs') {
-				window.dispatchEvent(new Event('ReloadVueTabs'));
-			}
-			if (block.name === 'comet/responsive-panels') {
-				window.dispatchEvent(new Event('ReloadVueResponsivePanels'));
-			}
-		});
-
+		if (block.name === 'comet/tabs') {
+			window.dispatchEvent(new Event('ReloadVueTabs'));
+		}
+		if (block.name === 'comet/responsive-panels') {
+			window.dispatchEvent(new Event('ReloadVueResponsivePanels'));
+		}
+		
 		// Hackily remove the responsive preview menu because the non-desktop preview mode breaks ACF block previews
 		const observer = new MutationObserver(function () {
 			const btn = document.querySelector('.editor-preview-dropdown');
 			if (btn) btn.remove();
 		});
 		observer.observe(document.body, { childList: true, subtree: true });
-
 	});
 });
 
@@ -106,3 +99,40 @@ function collapseMetaboxesByDefault(metaboxIds) {
 		}, 5000);
 	}
 }
+
+function hackPreferencesModal() {
+	const modalObserver = new MutationObserver(function (mutations, obs) {
+		const modal = document.querySelector('.preferences-modal');
+		if (modal) {
+			watchPreferencesModalContent(modal);
+			obs.disconnect();
+		}
+	});
+
+	modalObserver.observe(document.body, { childList: true, subtree: true });
+
+	function watchPreferencesModalContent(modal) {
+		const contentObserver = new MutationObserver(function (mutations, obs) {
+			const tabs = modal.querySelector('.preferences__tabs');
+			if (tabs) {
+				removePreferenceByLabelText(tabs, 'Always open List View');
+				removePreferenceByLabelText(tabs, 'Use theme styles');
+			}
+		});
+
+		contentObserver.observe(modal, { childList: true, subtree: true });
+	}
+}
+
+function removePreferenceByLabelText(parent, labelText) {
+	setTimeout(() => {
+		const preferences = parent.querySelectorAll('.preference-base-option');
+		preferences.forEach(function (preference) {
+			const label = preference.querySelector('label');
+			if (label.textContent.trim() === labelText) {
+				preference.remove();
+			}
+		});
+	}, 100);
+}
+
