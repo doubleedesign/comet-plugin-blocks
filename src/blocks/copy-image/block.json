@@ -6,9 +6,6 @@
 	"title": "Copy + image",
 	"icon": "image-flip-horizontal",
 	"description": "Add a short section of text content with an image alongside it",
-	"editorStyle": [
-		"file:./editor.css"
-	],
 	"category": "design",
 	"acf": {
 		"mode": "edit",
@@ -16,6 +13,12 @@
 		"blockVersion": 3,
 		"hideFieldsInSidebar": true
 	},
+	"editorStyle": [
+		"comet-container",
+		"comet-columns",
+		"comet-column",
+		"comet-content-image-advanced"
+	],
 	"keywords": [
 		"text",
 		"paragraph",

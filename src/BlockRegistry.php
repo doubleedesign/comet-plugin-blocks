@@ -10,6 +10,7 @@ class BlockRegistry extends JavaScriptImplementation {
         $this->wpInstance = WP_Block_Type_Registry::get_instance();
 
         add_action('init', [$this, 'register_blocks'], 10);
+        add_filter('block_type_metadata', [$this, 'modify_block_json_dynamically'], 10, 1);
         add_action('acf/include_fields', [$this, 'register_block_fields'], 10, 2);
 
         add_filter('allowed_block_types_all', [$this, 'filter_allowed_blocks_server_side'], 10, 2);
@@ -32,6 +33,38 @@ class BlockRegistry extends JavaScriptImplementation {
 
             register_block_type($folder);
         }
+    }
+
+    /**
+     * Modify block metadata from block.json centrally for some common settings
+     *
+     * @param  array  $metadata
+     *
+     * @return array
+     */
+    public function modify_block_json_dynamically(array $metadata): array {
+        if ((!isset($metadata['textdomain']) || $metadata['textdomain'] !== 'comet')) {
+            return $metadata;
+        }
+
+        $shortName = str_replace('comet/', '', $metadata['name']);
+        // TODO: Dynamically get this from the field group registrations
+        $hasWysiwgField = in_array($shortName, ['copy', 'copy-image', 'accordion', 'call-to-action']);
+        if (!$hasWysiwgField) {
+            return $metadata;
+        }
+
+        // Ensure blocks with WYSIWYG load the component styles needed for the "miniblocks" available in TinyMCE
+        // @see TinyMceConfig.php
+        $metadata['editorStyle'] = [
+            ...$metadata['editorStyle'] ?? [],
+            'comet-button-group',
+            'comet-button',
+            'comet-pullquote',
+            'comet-callout'
+        ];
+
+        return $metadata;
     }
 
     /**

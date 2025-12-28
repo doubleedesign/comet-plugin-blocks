@@ -14,7 +14,8 @@
 		"hideFieldsInSidebar": true
 	},
 	"editorStyle": [
-		"comet-container"
+		"comet-container",
+		"comet-copy"
 	],
 	"keywords": [
 		"text",
