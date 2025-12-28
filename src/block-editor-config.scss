@@ -6,36 +6,17 @@ html :where(.wp-block) {
 	max-width: var(--width-contained);
 }
 
+.block-editor-iframe__container {
+	width: 100% !important;
+	max-width: 100% !important;
+}
+
+.block-editor-inserter__panel-title {
+	font-size: 0.75rem !important;
+}
 
 .components-menu-item__button[href*="site-editor.php"] {
 	display: none !important;
-}
-
-
-/** Block editor - content region **/
-.editor-visual-editor__post-title-wrapper {
-	padding-inline: var(--spacing-md);
-	margin-top: 0 !important;
-
-	.is-homepage & {
-		display: none;
-	}
-}
-
-.block-editor-block-list__layout {
-	container-type: inline-size;
-
-	> .wp-block-group {
-		padding-inline: var(--spacing-md);
-	}
-}
-
-.block-editor-inner-blocks .block-editor-block-list__layout {
-	container-type: unset;
-}
-
-.wp-site-blocks {
-	font-family: var(--font-family-body);
 }
 
 .block-list-appender {

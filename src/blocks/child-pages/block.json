@@ -13,6 +13,11 @@
 		"blockVersion": 3,
 		"hideFieldsInSidebar": true
 	},
+	"editorStyle": [
+		"comet-container",
+		"comet-card-list",
+		"comet-card"
+	],
 	"keywords": [
 		"content",
 		"layout",

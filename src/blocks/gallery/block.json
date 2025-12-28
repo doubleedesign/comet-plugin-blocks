@@ -13,6 +13,11 @@
 		"blockVersion": 3,
 		"hideFieldsInSidebar": true
 	},
+	"editorStyle": [
+		"comet-container",
+		"comet-gallery",
+		"comet-content-image-basic"
+	],
 	"keywords": [
 		"layout",
 		"images",
