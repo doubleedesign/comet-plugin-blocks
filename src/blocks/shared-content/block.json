@@ -8,8 +8,10 @@
 	"description": "Display content defined in the Shared Content area of the admin",
 	"category": "design",
 	"acf": {
-		"mode": "edit",
-		"renderTemplate": "render.php"
+		"mode": "preview",
+		"renderTemplate": "render.php",
+		"blockVersion": 3,
+		"hideFieldsInSidebar": true
 	},
 	"keywords": [
 		"content",

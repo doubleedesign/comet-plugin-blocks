@@ -13,11 +13,7 @@ class ComponentAssets {
         add_action('wp_enqueue_scripts', [$this, 'enqueue_comet_combined_component_js'], 10);
         add_filter('script_loader_tag', [$this, 'script_type_module'], 10, 3);
         add_filter('script_loader_tag', [$this, 'script_base_path'], 10, 3);
-
-        if (is_admin()) {
-            add_action('admin_enqueue_scripts', [$this, 'enqueue_admin_css'], 10);
-            add_filter('block_editor_settings_all', [$this, 'remove_gutenberg_inline_styles'], 10, 2);
-        }
+        add_action('admin_enqueue_scripts', [$this, 'enqueue_admin_css'], 10);
     }
 
     /**
@@ -116,21 +112,5 @@ class ComponentAssets {
         $pluginDir = dirname($currentDir, 1);
         $admin_css_path = $pluginDir . '/src/admin.css';
         wp_enqueue_style('comet-admin-styles', $admin_css_path, array(), COMET_VERSION);
-    }
-
-    /**
-     * Remove default inline styles from the block editor
-     *
-     * @param  $settings
-     * @param  $context
-     *
-     * @return array
-     */
-    public function remove_gutenberg_inline_styles($settings, $context): array {
-        if (!empty($settings['styles'])) {
-            $settings['styles'] = [];
-        }
-
-        return $settings;
     }
 }

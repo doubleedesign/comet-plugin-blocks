@@ -1,6 +1,7 @@
 /* global wp */
 /* global comet */
 /* global acf */
+/* global tinymce */
 
 /**
  * Customisations for the block editor interface broadly
@@ -34,13 +35,31 @@ wp.domReady(() => {
 		if (block.name === 'comet/responsive-panels') {
 			window.dispatchEvent(new Event('ReloadVueResponsivePanels'));
 		}
-		
-		// Hackily remove the responsive preview menu because the non-desktop preview mode breaks ACF block previews
-		const observer = new MutationObserver(function () {
-			const btn = document.querySelector('.editor-preview-dropdown');
-			if (btn) btn.remove();
-		});
-		observer.observe(document.body, { childList: true, subtree: true });
+	});
+
+	// On mount of the ACF block editing form that opens in an overlay panel as of ACF Blocks v3
+	// @see https://www.advancedcustomfields.com/blog/acf-6-6-released/
+	acf.addAction('remount_field/type=wysiwyg', function (field) {
+		// Check if modal is open first (because remount action also fires at other times)
+		const modal = document.querySelector('.acf-block-form-modal');
+		if (modal) {
+			// Get the client ID of the parent block
+			const blockId = field?.$el[0]?.offsetParent?.getAttribute('data-block-id')?.replace('block_', '');
+			if (blockId) {
+				const attributes = select('core/block-editor').getBlockAttributes(blockId); // native block attributes
+				const editor = tinymce.activeEditor;
+				// Make sure the active editor matches the current field
+				if (editor?.acf?.cid === field?.cid) {
+					// Set TinyMCE body attributes based on the block attributes
+					if (attributes?.colorTheme) {
+						editor.getBody().setAttribute('data-color-theme', attributes.colorTheme);
+					}
+					if (attributes?.backgroundColor) {
+						editor.getBody().setAttribute('data-background', attributes.backgroundColor);
+					}
+				}
+			}
+		}
 	});
 });
 

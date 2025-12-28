@@ -15,7 +15,7 @@ $description = get_field('description');
 $buttons = get_field('buttons');
 $headingClasses = apply_filters('comet_blocks_cta_heading_classes', []);
 $buttonGroupAttrs = [
-    'colorTheme'  => $block['colorTheme'] ? ColorUtils::get_readable_colour($block['colorTheme'], ['accent']) : 'primary',
+    'colorTheme'  => ColorUtils::get_readable_colour($block['colorTheme'], ['accent']),
     ...apply_filters('comet_blocks_cta_button_group_attributes', [])
 ];
 
@@ -33,6 +33,7 @@ $component = new CallToAction(
                             'href'        => $button['link']['url'] ?? '#',
                             'target'      => $button['link']['target'] ?? '',
                             'isOutline'   => $button['style'] === 'isOutline',
+                            'colorTheme'  => null // let the CSS inherit from the button group
                         ],
                         $button['link']['title']
                     );

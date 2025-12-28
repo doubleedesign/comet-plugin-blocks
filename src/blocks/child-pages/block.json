@@ -9,7 +9,9 @@
 	"category": "design",
 	"acf": {
 		"mode": "edit",
-		"renderTemplate": "render.php"
+		"renderTemplate": "render.php",
+		"blockVersion": 3,
+		"hideFieldsInSidebar": true
 	},
 	"keywords": [
 		"content",

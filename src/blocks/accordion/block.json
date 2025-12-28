@@ -2,14 +2,16 @@
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3,
 	"textdomain": "comet",
-	"name": "comet/call-accordion",
+	"name": "comet/accordion",
 	"title": "Accordion",
 	"icon": "arrow-down-alt2",
 	"description": "Create expandable/collapsible sections to organise a content grouping such as FAQs",
 	"category": "design",
 	"acf": {
 		"mode": "edit",
-		"renderTemplate": "render.php"
+		"renderTemplate": "render.php",
+		"blockVersion": 3,
+		"hideFieldsInSidebar": true
 	},
 	"keywords": [
 		"content",

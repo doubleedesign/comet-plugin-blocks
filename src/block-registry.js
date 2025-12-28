@@ -27,19 +27,15 @@ wp.domReady(() => {
 		}
 	});
 
-	wp.hooks.addFilter(
-		'blocks.registerBlockType',
-		'comet/customise-block-categories',
-		(settings, name) => {
-			// Change category for a specific block
-			if (name.startsWith('ninja-forms')) {
-				return {
-					...settings,
-					category: 'misc',
-				};
-			}
-
-			return settings;
+	// Use new API version for third-party blocks so that all blocks can use the new iframe-based editor experience
+	wp.hooks.addFilter('blocks.registerBlockType', 'comet/use-new-block-api', (settings, name) => {
+		if (name.startsWith('ninja-forms')) {
+			return {
+				...settings,
+				apiVersion: 3,
+			};
 		}
-	);
+
+		return settings;
+	});
 });

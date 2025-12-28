@@ -273,12 +273,4 @@ body :where(.editor-styles-wrapper) p {
   max-width: 100%;
 }
 
-.acf-block-component.acf-block-panel {
-  display: none;
-}
-
-.acf-field-wysiwyg.acf-field--call-to-action--description .mce-edit-area {
-  height: 100px;
-}
-
 /*# sourceMappingURL=admin.css.map */

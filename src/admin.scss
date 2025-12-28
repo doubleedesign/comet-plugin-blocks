@@ -51,14 +51,3 @@ body :where(.editor-styles-wrapper) {
 		max-width: 100%;
 	}
 }
-
-// Do not show ACF block content in the sidebar
-.acf-block-component.acf-block-panel {
-	display: none;
-}
-
-.acf-field-wysiwyg.acf-field--call-to-action--description {
-	.mce-edit-area {
-		height: 100px;
-	}
-}

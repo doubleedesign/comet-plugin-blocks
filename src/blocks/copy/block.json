@@ -9,8 +9,13 @@
 	"category": "text",
 	"acf": {
 		"mode": "edit",
-		"renderTemplate": "render.php"
+		"renderTemplate": "render.php",
+		"blockVersion": 3,
+		"hideFieldsInSidebar": true
 	},
+	"editorStyle": [
+		"comet-container"
+	],
 	"keywords": [
 		"text",
 		"paragraph",
