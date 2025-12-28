@@ -42,6 +42,7 @@ use Doubleedesign\Comet\WordPress\{AdminUI,
     BlockRenderer,
     ComponentAssets,
     SharedBlocks,
+    ThemeStyle,
     TinyMceConfig};
 
 new AdminUI();
@@ -49,6 +50,7 @@ new BlockRegistry();
 new BlockRenderer();
 new BlockEditorConfig();
 new ComponentAssets();
+new ThemeStyle();
 new BlockPatternHandler();
 new BlockFieldHandler();
 new TinyMceConfig();
