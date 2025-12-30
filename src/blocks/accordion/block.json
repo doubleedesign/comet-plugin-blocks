@@ -13,6 +13,12 @@
 		"blockVersion": 3,
 		"hideFieldsInSidebar": true
 	},
+	"editorStyle": [
+		"comet-accordion"
+	],
+	"editorScript": [
+		"comet-accordion-js"
+	],
 	"keywords": [
 		"content",
 		"layout",
@@ -27,17 +33,9 @@
 			"type": "string",
 			"default": "contained"
 		},
-		"backgroundSize": {
-			"type": "string",
-			"default": "fullwidth"
-		},
 		"colorTheme": {
 			"type": "string",
 			"default": "primary"
-		},
-		"backgroundColor": {
-			"type": "string",
-			"default": "white"
 		}
 	},
 	"supports": {
