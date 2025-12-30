@@ -1,16 +1,25 @@
 <?php
+/** @var $block array */
 
-use Doubleedesign\Comet\Core\FileGroup;
+use Doubleedesign\Comet\Core\{File, FileGroup};
 
-$colorTheme = $block['colorTheme'] ?? 'primary';
+$heading = get_field('heading');
 $files = array_map(function($file) {
-    return [
+    return new File([
         'url'         => $file['url'],
         'title'       => $file['title'],
         'description' => $file['description'],
         'mimeType'    => $file['mime_type'],
-        // TODO: Add field for to have their own colour theme, so certain files can be highlighted by using a different colour
-    ];
+    ]);
 }, get_field('files'));
-$component = new FileGroup(['colorTheme' => $colorTheme], $files);
+
+$attributes = [
+    'colorTheme' => $block['colorTheme'] ?? 'primary',
+    'size'       => $block['size'] ?? 'contained'
+];
+if ($heading) {
+    $attributes['heading'] = $heading;
+}
+
+$component = new FileGroup($attributes, $files);
 $component->render();
