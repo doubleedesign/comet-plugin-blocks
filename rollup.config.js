@@ -5,18 +5,6 @@ import { createFilter } from '@rollup/pluginutils';
 import { glob } from 'glob';
 
 export default [
-	// Custom TinyMCE plugins
-	{
-		input: 'src/tinymce/miniblock-plugin.js',
-		output: {
-			file: 'src/tinymce/dist/miniblock-plugin.dist.js',
-			format: 'iife',
-			sourcemap: true
-		},
-		plugins: [
-			resolve()
-		]
-	},
 	// Block editor components
 	{
 		input: glob.sync('src/editor/**/*.jsx'),

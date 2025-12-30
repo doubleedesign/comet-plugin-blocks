@@ -9,7 +9,7 @@ acf_add_local_field_group(array(
             'name'              => 'copy',
             'type'              => 'wysiwyg',
             'tabs'              => 'all',
-            'toolbar'           => 'basic',
+            'toolbar'           => 'full',
             'media_upload'      => true,
             'delay'             => false,
             'repeatable'        => true,

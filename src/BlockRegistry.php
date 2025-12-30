@@ -61,7 +61,8 @@ class BlockRegistry extends JavaScriptImplementation {
             'comet-button-group',
             'comet-button',
             'comet-pullquote',
-            'comet-callout'
+            'comet-callout',
+            'comet-table'
         ];
 
         return $metadata;
