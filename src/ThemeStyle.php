@@ -17,6 +17,10 @@ class ThemeStyle {
         add_action('admin_head', [$this, 'add_css_variables_to_head'], 25);
         add_action('wp_enqueue_scripts', [$this, 'enqueue_theme_stylesheets'], 20);
         add_action('enqueue_block_assets', [$this, 'add_css_variables_to_block_editor_iframe'], 20);
+
+        // Miscellaneous
+        add_theme_support('title-tag');
+        add_theme_support('post-thumbnails', array('post', 'page', 'event', 'person'));
     }
 
     public function set_colours(): void {
