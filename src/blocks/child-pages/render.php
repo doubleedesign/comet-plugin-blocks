@@ -1,5 +1,6 @@
 <?php
 /** @var $block array */
+
 use Doubleedesign\Comet\Core\{Card, CardList, Utils};
 
 $page_ids = wp_list_pluck((new WP_Query([
@@ -51,7 +52,7 @@ $component = new CardList(
         ...Utils::array_pick($block, ['size', 'colorTheme', 'backgroundColor']),
         'heading'    => get_field('heading'),
         'hAlign'     => 'center',
-        'maxPerRow'  => 3,
+        'maxPerRow'  => count($cards) > 3 ? 4 : 3
     ),
     $cards
 );
