@@ -75,15 +75,16 @@ wp.domReady(() => {
 
 
 	// On ACF preview load
+	// Note: element[0]?.ownerDocument gives us the iframe's document when blocks are rendered in an iframe in the editor.
 	acf.addAction('render_block_preview', function (element, block) {
 		if (block.name === 'comet/accordion') {
-			window.dispatchEvent(new Event('ReloadVueAccordions'));
+			window.dispatchEvent(new CustomEvent('ReloadVueAccordions', { detail: { targetDocument: element[0]?.ownerDocument ?? document } }));
 		}
 		if (block.name === 'comet/tabs') {
-			window.dispatchEvent(new Event('ReloadVueTabs'));
+			window.dispatchEvent(new CustomEvent('ReloadVueTabs', { detail: { targetDocument: element[0]?.ownerDocument ?? document } }));
 		}
 		if (block.name === 'comet/responsive-panels') {
-			window.dispatchEvent(new Event('ReloadVueResponsivePanels'));
+			window.dispatchEvent(new CustomEvent('ReloadVueResponsivePanels', { detail: { targetDocument: element[0]?.ownerDocument ?? document } }));
 		}
 	});
 

@@ -61,8 +61,13 @@ abstract class JavaScriptImplementation {
      * @return mixed|string
      */
     public function script_type_module($tag, $handle, $src): mixed {
+        // If it already has the type="module" attribute, skip
+        if (str_contains($tag, 'type="module"')) {
+            return $tag;
+        }
+
         if (str_starts_with($handle, 'comet-')) {
-            $tag = '<script type="module" src="' . esc_url($src) . '" id="' . $handle . '" ></script>';
+            return '<script type="module" src="' . esc_url($src) . '" id="' . $handle . '" ></script>';
         }
 
         return $tag;

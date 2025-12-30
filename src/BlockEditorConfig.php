@@ -28,19 +28,21 @@ class BlockEditorConfig extends JavaScriptImplementation {
         add_action('after_setup_theme', [$this, 'disable_block_template_editor']);
 
         if (is_admin()) {
-            add_action('admin_enqueue_scripts', [$this, 'admin_css']);
+            add_action('enqueue_block_editor_assets', [$this, 'block_editor_ui_css_hacks']);
             add_filter('admin_body_class', [$this, 'block_editor_body_class'], 10, 1);
-            add_action('init', [$this, 'register_comet_component_stylesheets_for_use_in_block_json'], 5);
+            add_action('init', [$this, 'register_comet_component_assets_for_use_in_block_json'], 5);
             // using enqueue_block_assets to ensure this runs in the new iframed experience (as opposed to enqueue_block_editor_assets)
-            // but note that enqueue_block_assets  also runs on the front-end, hence the is_admin() check to ensure we don't double up on the front-end
+            // but note that enqueue_block_assets  also runs on the front-end, hence the is_admin() check to ensure we don't double up on the front-end.
             add_action('enqueue_block_assets', [$this, 'enqueue_common_css_into_block_editor'], 10);
-            add_action('enqueue_block_assets', [$this, 'enqueue_common_js_into_block_editor'], 10);
             add_action('enqueue_block_assets', [$this, 'make_component_defaults_available_to_block_editor_js'], 250);
+
+            // NOTE: The bundled JS (core/dist/dist.js) is deliberately not loaded into the editor because of path resolution issues for the Vue components.
+            // Vue-powered blocks should load the scripts individually for their editor previews in block.json using the "editorScript" field.
         }
     }
 
     /**
-     * Register Comet Components' individual CSS files so they can be loaded as-needed for blocks
+     * Register Comet Components' individual CSS and JS files so they can be loaded as-needed for blocks
      * by using the "editorStyle" or "style" field in block.json.
      *
      * Almost all component stylesheets should be registered here, except for global.css and common.css,
@@ -50,11 +52,12 @@ class BlockEditorConfig extends JavaScriptImplementation {
      *
      * @return void
      */
-    public function register_comet_component_stylesheets_for_use_in_block_json(): void {
+    public function register_comet_component_assets_for_use_in_block_json(): void {
         $excludedDirectories = ['SiteHeader', 'SiteFooter', 'Menu', 'PostNav'];
         $componentsDir = COMET_COMPOSER_VENDOR_PATH . '/doubleedesign/comet-components-core/src/components';
         $componentsUrlbase = COMET_COMPOSER_VENDOR_URL . '/doubleedesign/comet-components-core/src/components';
-        $registered = []; // for debugging
+        $registered_css = []; // for debugging
+        $registered_js = []; // for debugging
 
         try {
             $iterator = new RecursiveIteratorIterator(
@@ -74,8 +77,8 @@ class BlockEditorConfig extends JavaScriptImplementation {
 
                 $componentName = $file->getBasename();
                 $shortName = Utils::kebab_case($componentName);
-                $cssFile = $file->getPathname() . "/$shortName.css";
 
+                $cssFile = $file->getPathname() . "/$shortName.css";
                 if (file_exists($cssFile)) {
                     $handle = 'comet-' . $shortName;
                     $relativePath = str_replace($componentsDir, '', $file->getPathname());
@@ -86,7 +89,22 @@ class BlockEditorConfig extends JavaScriptImplementation {
                         [],
                         COMET_VERSION
                     );
-                    $registered[] = $handle;
+                    $registered_css[] = $handle;
+                }
+
+                $jsFile = $file->getPathname() . "/$shortName.js";
+                if (file_exists($jsFile)) {
+                    $handle = 'comet-' . $shortName . '-js';
+                    $relativePath = str_replace($componentsDir, '', $file->getPathname());
+                    $relativePath = str_replace('\\', '/', $relativePath) . '/';
+                    wp_register_script(
+                        $handle,
+                        $componentsUrlbase . $relativePath . $shortName . '.js',
+                        ['wp-blocks', 'wp-element', 'wp-editor'],
+                        COMET_VERSION,
+                        false
+                    );
+                    $registered_js[] = $handle;
                 }
             }
         }
@@ -145,17 +163,6 @@ class BlockEditorConfig extends JavaScriptImplementation {
                 }
             }
         }
-    }
-
-    /**
-     * Load bundled JavaScript from Comet Components into the block editor for use in block previews.
-     * TODO: The individual scripts could probably be registered and loaded on-demand using block.json instead of loading the entire bundle all the time, like the CSS above.
-     *
-     * @return void
-     */
-    public function enqueue_common_js_into_block_editor(): void {
-        $libraryDir = COMET_COMPOSER_VENDOR_URL . '/doubleedesign/comet-components-core';
-        wp_enqueue_script('comet-components-js', "$libraryDir/dist/dist.js", array(), COMET_VERSION, true);
     }
 
     /**
@@ -344,7 +351,7 @@ class BlockEditorConfig extends JavaScriptImplementation {
      *
      * @return void
      */
-    public function admin_css(): void {
+    public function block_editor_ui_css_hacks(): void {
         $currentDir = plugin_dir_url(__FILE__);
         $pluginDir = dirname($currentDir, 1);
 

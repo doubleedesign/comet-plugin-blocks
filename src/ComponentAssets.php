@@ -12,7 +12,7 @@ class ComponentAssets {
         add_action('wp_enqueue_scripts', [$this, 'enqueue_comet_combined_component_css'], 10);
         add_action('wp_enqueue_scripts', [$this, 'enqueue_comet_combined_component_js'], 10);
         add_filter('script_loader_tag', [$this, 'script_type_module'], 10, 3);
-        add_filter('script_loader_tag', [$this, 'script_base_path'], 10, 3);
+        add_filter('script_loader_tag', [$this, 'script_base_path'], 10, 5);
         add_action('admin_enqueue_scripts', [$this, 'enqueue_admin_css'], 10);
     }
 
@@ -46,8 +46,13 @@ class ComponentAssets {
      * @return mixed|string
      */
     public function script_type_module($tag, $handle, $src): mixed {
+        // If it already has the type="module" attribute, skip
+        if (str_contains($tag, 'type="module"')) {
+            return $tag;
+        }
+
         if (str_starts_with($handle, 'comet-')) {
-            $tag = '<script type="module" src="' . esc_url($src) . '" id="' . $handle . '" ></script>';
+            return '<script type="module" src="' . esc_url($src) . '" id="' . $handle . '" ></script>';
         }
 
         return $tag;
@@ -64,10 +69,22 @@ class ComponentAssets {
      * @return mixed|string
      */
     public function script_base_path($tag, $handle, $src): mixed {
+        $libraryDir = COMET_COMPOSER_VENDOR_URL . '/doubleedesign/comet-components-core';
+        $libraryDirShort = str_replace(get_site_url(), '', $libraryDir);
+        $src = esc_url($src);
+
         if ($handle === 'comet-components-js') {
-            $libraryDir = COMET_COMPOSER_VENDOR_URL . '/doubleedesign/comet-components-core';
-            $libraryDirShort = str_replace(get_site_url(), '', $libraryDir);
-            $tag = '<script type="module" src="' . esc_url($src) . '" id="' . $handle . '" data-base-path="' . $libraryDirShort . '" ></script>';
+            $tag = <<<HTML
+			<script type="module" src="{$src}" id="{$handle}" data-base-path="{$libraryDirShort}"></script>
+			HTML;
+        }
+
+        // If in block editor iframe context, comet-components-js (the bundled JS) is intentionally not loaded,
+        // so we need to attach the base path to something else relevant to that context.
+        if ($handle === 'comet-block-registry') {
+            $tag = <<<HTML
+			<script type="module" src="{$src}" id="{$handle}" data-base-path="{$libraryDirShort}"></script>
+			HTML;
         }
 
         return $tag;
