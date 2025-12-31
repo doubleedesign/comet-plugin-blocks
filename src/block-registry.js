@@ -38,4 +38,17 @@ wp.domReady(() => {
 
 		return settings;
 	});
+
+	// Customise category of some third-party blocks
+	// Use new API version for third-party blocks so that all blocks can use the new iframe-based editor experience
+	wp.hooks.addFilter('blocks.registerBlockType', 'comet/customise-block-categories', (settings, name) => {
+		if (name.startsWith('ninja-forms')) {
+			return {
+				...settings,
+				category: 'widgets'
+			};
+		}
+
+		return settings;
+	});
 });
