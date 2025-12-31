@@ -1,0 +1,43 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"textdomain": "comet",
+	"name": "comet/separator",
+	"title": "Separator",
+	"icon": "editor-insertmore",
+	"description": "Add a stylised break between sections",
+	"category": "design",
+	"acf": {
+		"mode": "preview",
+		"renderTemplate": "render.php",
+		"hideFieldsInSidebar": false
+	},
+	"editorStyle": [
+		"comet-separator"
+	],
+	"keywords": [
+		"separator",
+		"hr",
+		"break",
+		"divider"
+	],
+	"attributes": {
+		"size": {
+			"type": "string",
+			"default": "contained"
+		},
+		"colorTheme": {
+			"type": "string",
+			"default": "primary"
+		}
+	},
+	"supports": {
+		"mode": true,
+		"jsx": true,
+		"innerBlocks": false,
+		"anchor": true,
+		"colorTheme": true,
+		"size": true,
+		"align": false
+	}
+}
