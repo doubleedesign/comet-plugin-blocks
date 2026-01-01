@@ -14,6 +14,7 @@ class BlockEditorConfig extends JavaScriptImplementation {
 
         remove_action('enqueue_block_editor_assets', 'wp_enqueue_editor_block_directory_assets');
         remove_action('enqueue_block_editor_assets', 'gutenberg_enqueue_block_editor_assets_block_directory');
+
         add_filter('should_load_separate_core_block_assets', '__return_true', 5);
         add_filter('should_load_block_assets_on_demand', '__return_true', 5);
         add_action('init', [$this, 'load_merged_theme_json'], 5, 1);
@@ -151,7 +152,6 @@ class BlockEditorConfig extends JavaScriptImplementation {
                     $file_info['url'],
                     [],
                     filemtime($file_info['path']),
-
                 );
             }
             else {
