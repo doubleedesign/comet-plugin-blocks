@@ -51,6 +51,10 @@ html :where(.wp-block) {
   border-color: var(--wp-components-color-gray-700, #757575);
 }
 
+.edit-post-meta-boxes-area__container {
+  padding-inline: 0;
+}
+
 .components-panel__body + .comet-custom-layout-controls {
   display: none;
 }
@@ -112,6 +116,25 @@ html :where(.wp-block) {
 }
 .comet-color-controls__item .components-dropdown button[aria-expanded=true] {
   border-color: var(--wp-components-color-primary, #007cba);
+}
+
+.wp-core-ui .acf-block-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.wp-core-ui .acf-block-panel .acf-label {
+  text-transform: uppercase;
+  font-size: 11px;
+  margin: 0;
+}
+.wp-core-ui .acf-block-panel .acf-input select {
+  font-size: 13px;
+  background-size: 13px;
+  background-position: right 10px top 55%;
+  min-height: 40px;
+  border-radius: 3px;
+  padding: 0 30px 0 12px;
 }
 
 /*# sourceMappingURL=block-editor-config.css.map */
