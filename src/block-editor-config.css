@@ -33,6 +33,10 @@ html :where(.wp-block) {
   font-family: inherit;
 }
 
+.block-editor-block-list__block a {
+  pointer-events: none !important;
+}
+
 /**
  * =========== Block editor sidebar ====================================================================================
  */
