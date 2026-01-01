@@ -16,6 +16,8 @@ class BlockRegistry extends JavaScriptImplementation {
 
         add_filter('allowed_block_types_all', [$this, 'filter_allowed_blocks_server_side'], 10, 2);
         add_filter('block_editor_settings_all', [$this, 'filter_allowed_blocks_client_side'], 20, 2);
+
+        add_filter('block_categories_all', [$this, 'add_block_categories'], 10, 2);
     }
 
     /**
@@ -151,5 +153,22 @@ class BlockRegistry extends JavaScriptImplementation {
         $settings['allowedBlockTypes'] = $allowed_blocks;
 
         return $settings;
+    }
+
+    /**
+     * Add custom block categories for organising blocks in the inserter and anywhere else that uses them
+     *
+     * @param  array  $categories
+     *
+     * @return array
+     */
+    public function add_block_categories($categories): array {
+        array_push($categories, [
+            'slug'  => 'content',
+            'title' => __('Content', 'comet'),
+            'icon'  => null
+        ]);
+
+        return $categories;
     }
 }
