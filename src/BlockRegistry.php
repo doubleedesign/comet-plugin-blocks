@@ -11,6 +11,7 @@ class BlockRegistry extends JavaScriptImplementation {
 
         add_action('init', [$this, 'register_blocks'], 10);
         add_filter('block_type_metadata', [$this, 'modify_block_json_dynamically'], 10, 1);
+        add_filter('register_block_type_args', [$this, 'modify_third_party_block_json'], 100, 2);
         add_action('acf/include_fields', [$this, 'register_block_fields'], 10, 2);
 
         add_filter('allowed_block_types_all', [$this, 'filter_allowed_blocks_server_side'], 10, 2);
@@ -66,6 +67,31 @@ class BlockRegistry extends JavaScriptImplementation {
         ];
 
         return $metadata;
+    }
+
+    /**
+     * Add some of our common custom attributes to some third-party blocks
+     * in a way that will pass server-side validation so we can use a custom PHP render template
+     * (see wrap_third_party_blocks in BlockRenderer.php)
+     *
+     * @param  array  $args
+     * @param  string  $name
+     *
+     * @return array
+     */
+    public function modify_third_party_block_json(array $args, string $name): array {
+        if ($name === 'ninja-forms/form') {
+            $args['attributes']['colorTheme'] = [
+                'type'    => 'string',
+                'default' => 'primary',
+            ];
+            $args['attributes']['size'] = [
+                'type'    => 'string',
+                'default' => 'contained'
+            ];
+        }
+
+        return $args;
     }
 
     /**
