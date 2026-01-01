@@ -8,7 +8,6 @@
 	"description": "Add a stylised break between sections",
 	"category": "design",
 	"acf": {
-		"mode": "preview",
 		"renderTemplate": "render.php",
 		"hideFieldsInSidebar": false
 	},
@@ -32,12 +31,10 @@
 		}
 	},
 	"supports": {
-		"mode": true,
+		"mode": false,
 		"jsx": true,
 		"innerBlocks": false,
 		"anchor": true,
-		"colorTheme": true,
-		"size": true,
 		"align": false
 	}
 }

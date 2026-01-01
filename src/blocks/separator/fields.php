@@ -12,7 +12,7 @@ acf_add_local_field_group(array(
                 'default' => 'Default',
                 'dots'    => 'Dots'
             ]),
-            'repeatable'        => true,
+            'repeatable'        => true
         ),
     ),
     'location' => array(
