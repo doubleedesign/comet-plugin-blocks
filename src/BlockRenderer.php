@@ -2,11 +2,11 @@
 namespace Doubleedesign\Comet\WordPress;
 
 class BlockRenderer {
-    private static array $theme_json;
 
     public function __construct() {
         add_filter('wp_theme_json_data_default', [$this, 'filter_default_theme_json'], 10, 1);
         add_filter('the_content', [$this, 'clean_up_html'], 10, 1);
+        add_filter('render_block', [$this, 'wrap_third_party_blocks'], 10, 2);
     }
 
     /**
@@ -42,4 +42,32 @@ class BlockRenderer {
         return preg_replace('/<p>(\s|&nbsp;)*<\/p>/', '', $content);
     }
 
+    /**
+     * Wrap third-party blocks with Comet components for consistent theming and layout
+     * if a render file exists in blocks/third-party/{block-name}/render.php.
+     * Works in conjunction with Comet attributes being added to the block in BlockRegistry.php AND block-registry.js.
+     *
+     * Note: For Ninja Forms, this doesn't work out of the box in the editor
+     * - we need to do some customisation to editor rendering in block-registry.js.
+     * This may be similar for some other third-party blocks.
+     *
+     * TODO: Add documentation for this in README.md and/or Comet docs site.
+     *
+     * @param  $block_content
+     * @param  $block
+     *
+     * @return string
+     */
+    public function wrap_third_party_blocks($block_content, $block): string {
+        $block_file = __DIR__ . "/blocks/third-party/{$block['blockName']}/render.php";
+
+        if (file_exists($block_file)) {
+            ob_start();
+            include $block_file;
+
+            return ob_get_clean();
+        }
+
+        return $block_content;
+    }
 }

@@ -57,6 +57,7 @@ function wordpressGlobals(options = {}) {
 		'@wordpress/i18n': 'wp.i18n',
 		'@wordpress/compose': 'wp.compose',
 		'@wordpress/hooks': 'wp.hooks',
+		'@wordpress/server-side-render': 'wp.serverSideRender',
 		'react': 'React',
 		'react-dom': 'ReactDOM'
 	};
