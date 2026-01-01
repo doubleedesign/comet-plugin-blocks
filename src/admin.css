@@ -273,4 +273,9 @@ body :where(.editor-styles-wrapper) p {
   max-width: 100%;
 }
 
+.media-toolbar h2, .media-sidebar h2 {
+  font-size: unset;
+  margin-top: 1rem;
+}
+
 /*# sourceMappingURL=admin.css.map */

@@ -51,3 +51,11 @@ body :where(.editor-styles-wrapper) {
 		max-width: 100%;
 	}
 }
+
+// Deal with CSS loaded on enqueue_block_assets affecting the media uploader
+.media-toolbar, .media-sidebar {
+	h2 {
+		font-size: unset;
+		margin-top: 1rem;
+	}
+}
