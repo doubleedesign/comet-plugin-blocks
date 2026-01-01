@@ -4,6 +4,11 @@
 use Doubleedesign\Comet\Core\{File, FileGroup};
 
 $heading = get_field('heading');
+
+$fileItems = get_field('files');
+if (!$fileItems) {
+    return;
+}
 $files = array_map(function($file) {
     return new File([
         'url'         => $file['url'],
