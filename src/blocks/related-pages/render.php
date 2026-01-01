@@ -42,6 +42,7 @@ $cards = array_map(function($page_id) use ($orientation) {
 
 $component = new CardList(
     array(
+        'shortName' => 'related-pages',
         ...Utils::array_pick($block, ['size', 'colorTheme', 'backgroundColor']),
         'heading'    => get_field('heading'),
         'hAlign'     => 'center',
