@@ -17,16 +17,18 @@ if ($intro_text) {
 }
 
 $panelItems = get_field('panels');
-$panels = array_map(function($item) {
-    return new AccordionPanel(
-        ['title' => $item['heading']],
-        [new PreprocessedHTML([], $item['panel_content'])]
-    );
-}, $panelItems ?? []);
+if ($panelItems) {
+    $panels = array_map(function($item) {
+        return new AccordionPanel(
+            ['title' => $item['heading']],
+            [new PreprocessedHTML([], $item['panel_content'])]
+        );
+    }, $panelItems ?? []);
+}
 
 $component = new Accordion(
     ['colorTheme' => $colorTheme, 'size' => $block['size'] ?? 'contained'],
-    $panels,
+    $panels ?? [],
     $beforeComponents
 );
 
