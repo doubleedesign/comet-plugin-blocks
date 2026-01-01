@@ -1,7 +1,6 @@
 /* global wp */
 import { PanelBody, Dropdown, Button, ColorIndicator, ColorPalette } from '@wordpress/components';
 import { useEffect, useRef, useState } from '@wordpress/element';
-import { BLOCKS_WITH_TINYMCE } from '../constants.js';
 
 /** @type {{ PluginManager: import('tinymce').AddOnManager }} */
 const tinymce = window.tinymce;
