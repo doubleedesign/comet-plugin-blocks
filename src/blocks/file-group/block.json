@@ -22,6 +22,10 @@
 	],
 	"textdomain": "comet",
 	"attributes": {
+		"size": {
+			"type": "string",
+			"default": "contained"
+		},
 		"colorTheme": {
 			"type": "string",
 			"default": "primary"
