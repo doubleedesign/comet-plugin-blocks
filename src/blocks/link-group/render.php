@@ -1,16 +1,31 @@
 <?php
-use Doubleedesign\Comet\Core\LinkGroup;
+/** @var $block array */
 
-$colorTheme = $block['colorTheme'] ?? 'primary';
+use Doubleedesign\Comet\Core\{LinkGroup, Utils};
+
+$heading = get_field('heading');
 $links = get_field('links');
-$links = array_map(function ($data) {
-	return [
-		'attributes' => [
-			'href'   => $data['link']['url'],
-			'target' => $data['link']['target']
-		],
-		'content'    => $data['link']['title'] ?? 'Untitled link'
-	];
+if (!is_array($links) || empty($links)) {
+    return;
+}
+
+$links = array_map(function($data) {
+    return [
+        'href'        => $data['link']['url'] ?? '#',
+        'target'      => $data['link']['target'] ?? '_self',
+        'label'       => $data['link']['title'] ?? 'Untitled link',
+        'description' => $data['description'] ?? null,
+    ];
 }, $links);
-$component = new LinkGroup(['colorTheme' => $colorTheme], $links);
+
+$attributes = [
+    ...Utils::array_pick($block, ['colorTheme', 'size', 'layout']),
+    'hAlign'        => $block['horizontalAlignment'] ?? null,
+    'maxPerRow'     => count($links) % 3 === 0 ? 3 : 4, // TODO: Make this configurable
+];
+if ($heading) {
+    $attributes['heading'] = $heading;
+}
+
+$component = new LinkGroup($attributes, $links);
 $component->render();

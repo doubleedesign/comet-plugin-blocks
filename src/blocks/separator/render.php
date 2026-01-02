@@ -9,8 +9,8 @@ $attributes = array_merge(
 );
 $component = new Separator($attributes);
 
-// FIXME: div is a workaround for something causing subsequent blocks to not render.
+// FIXME: wrapper is a workaround for something causing subsequent blocks to not render.
 // This is a hr specific issue and occurs even when directly rendering a <hr/> here and not involving Comet objects at all.
-echo '<div class="separator-wrapper">';
+echo '<span class="separator-wrapper">';
 $component->render();
-echo '</div>';
+echo '</span>';

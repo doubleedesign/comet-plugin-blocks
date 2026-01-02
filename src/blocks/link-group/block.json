@@ -22,9 +22,21 @@
 		"links"
 	],
 	"attributes": {
+		"size": {
+			"type": "string",
+			"default": "contained"
+		},
 		"colorTheme": {
 			"type": "string",
 			"default": "primary"
+		},
+		"layout": {
+			"type": "string",
+			"default": "list"
+		},
+		"horizontalAlignment": {
+			"type": "string",
+			"default": "start"
 		}
 	},
 	"supports": {

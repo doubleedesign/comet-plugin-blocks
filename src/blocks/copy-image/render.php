@@ -4,6 +4,21 @@
 use Doubleedesign\Comet\Core\{Column, Columns, ContentImageAdvanced, Copy};
 use Doubleedesign\Comet\WordPress\PreprocessedHTML;
 
+$image = get_field('image');
+$image['styleName'] = 'polaroid'; // TODO: Make this configurable with a theme filter and/or block option
+$meta = wp_get_attachment_metadata($image['image_id']);
+$dimensions = $meta['sizes']['image_advanced_resized'] ?? $meta;
+list('width' => $width, 'height' => $height) = $dimensions;
+if ($width > $height) {
+    $image['originalImageOrientation'] = 'horizontal';
+}
+else if ($height > $width) {
+    $image['originalImageOrientation'] = 'vertical';
+}
+else {
+    $image['originalImageOrientation'] = null; // TODO: Test with square images
+}
+
 $component = new Columns(
     array(
         'shortName'  => 'copy-image',
@@ -25,7 +40,7 @@ $component = new Columns(
         ))->set_bem_modifier('copy'),
         (new Column(
             ['context' => 'copy-image'],
-            [...get_field('image') ? [new ContentImageAdvanced(get_field('image'))] : []]
+            [...$image ? [new ContentImageAdvanced($image)] : []]
         ))->set_bem_modifier('image')
     )
 );

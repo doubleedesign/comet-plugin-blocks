@@ -4,7 +4,6 @@
 use Doubleedesign\Comet\Core\{File, FileGroup};
 
 $heading = get_field('heading');
-
 $fileItems = get_field('files');
 if (!$fileItems) {
     return;
