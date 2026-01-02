@@ -1,5 +1,6 @@
 import { useMemo, useEffect, useState } from '@wordpress/element';
 import { PanelBody, SelectControl } from '@wordpress/components';
+import { FieldTooltip } from '../FieldTooltip/FieldTooltip.jsx';
 
 // TODO: Handle supporting backgroundSize where appropriate (it's not really built into the Core components unless we nest a container)
 export const ContainerSize = ({ attributes, setAttributes }) => {
@@ -18,7 +19,14 @@ export const ContainerSize = ({ attributes, setAttributes }) => {
 	if (!attributes?.backgroundSize) {
 		return (
 			<SelectControl
-				label="Container size"
+				label={
+					<>
+						Container size
+						<FieldTooltip
+							tooltip={'Represents the maximum width of the content area inside the block; may appear to have no effect on smaller viewports'}
+						/>
+					</>
+				}
 				size={'__unstable-large'}
 				value={attributes.size ?? 'contained'}
 				options={options}
@@ -61,7 +69,14 @@ export const ContainerSize = ({ attributes, setAttributes }) => {
 	return (
 		<>
 			<SelectControl
-				label="Container size"
+				label={
+					<>
+						Container size
+						<FieldTooltip
+							tooltip={'Represents the maximum width of the content area inside the block; may appear to have no effect on smaller viewports'}
+						/>
+					</>
+				}
 				size={'__unstable-large'}
 				value={attributes?.size ?? 'contained'}
 				options={options}
