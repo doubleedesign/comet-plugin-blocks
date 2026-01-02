@@ -6,7 +6,7 @@ export const HorizontalAlignment = ({ attributes, setAttributes }) => {
 	if (!attributes?.horizontalAlignment) {
 		return null;
 	}
-
+	
 	const ToggleGroupControl = __experimentalToggleGroupControl;
 	const ToggleGroupControlOption = __experimentalToggleGroupControlOption;
 
