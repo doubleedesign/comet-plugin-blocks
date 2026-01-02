@@ -84,6 +84,12 @@ html :where(.wp-block) {
 	}
 }
 
+.components-input-control__label {
+	display: flex !important;
+	align-items: center;
+	gap: 0.25rem;
+}
+
 .components-toggle-group-control {
 	transition: border 0.2s ease-in-out;
 	border: 1px solid var(--wp-components-color-gray-300, #dee2e6) !important;

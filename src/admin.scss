@@ -59,3 +59,8 @@ body :where(.editor-styles-wrapper) {
 		margin-top: 1rem;
 	}
 }
+
+// Deal with CSS loaded on enqueue_block_assets affecting the sidebar popups
+.block-editor-inspector-popover-header__heading {
+	font-size: unset;
+}
