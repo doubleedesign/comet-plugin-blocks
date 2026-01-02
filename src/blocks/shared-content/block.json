@@ -6,7 +6,7 @@
 	"title": "Shared content",
 	"icon": "share",
 	"description": "Display content defined in the Shared Content area of the admin",
-	"category": "design",
+	"category": "content",
 	"acf": {
 		"mode": "preview",
 		"renderTemplate": "render.php",

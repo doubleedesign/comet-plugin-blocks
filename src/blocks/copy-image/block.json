@@ -8,6 +8,7 @@
 	"description": "Add a short section of text content with an image alongside it",
 	"category": "design",
 	"acf": {
+		"mode": "preview",
 		"renderTemplate": "render.php",
 		"blockVersion": 3,
 		"hideFieldsInSidebar": true
@@ -46,8 +47,6 @@
 		"jsx": true,
 		"innerBlocks": false,
 		"anchor": true,
-		"colorTheme": true,
-		"size": true,
 		"align": false
 	}
 }

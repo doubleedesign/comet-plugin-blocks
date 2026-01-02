@@ -8,13 +8,7 @@ if (!$page_ids) {
     return; // Do not render at all if no child pages exist
 }
 
-// If there is 1-2 pages, render as a horizontal card; otherwise vertical
-$orientation = 'vertical';
-if (count($page_ids) <= 2) {
-    $orientation = 'horizontal';
-}
-
-$cards = array_map(function($page_id) use ($orientation) {
+$cards = array_map(function($page_id) {
     $heading = get_the_title($page_id);
     $bodyText = get_the_excerpt($page_id) ?? '';
     $imageUrl = get_the_post_thumbnail_url($page_id, 'large') ?: '';
@@ -35,7 +29,7 @@ $cards = array_map(function($page_id) use ($orientation) {
             'isOutline' => true
         ],
         'colorTheme'        => $block['colorTheme'] ?? 'primary',
-        'orientation'       => $orientation,
+        'orientation'       => 'horizontal', // TODO: Make this configurable
         'cardAsLink'        => apply_filters('comet_blocks_child_pages_card_as_link', false),
     ]);
 }, $page_ids);
@@ -46,7 +40,7 @@ $component = new CardList(
         ...Utils::array_pick($block, ['size', 'colorTheme', 'backgroundColor']),
         'heading'    => get_field('heading'),
         'hAlign'     => 'center',
-        'maxPerRow'  => count($cards) > 3 ? 4 : 3
+        'maxPerRow'  => 3 // TODO: Make this configurable
     ),
     $cards
 );
