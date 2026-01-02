@@ -1,5 +1,6 @@
 <?php
 /** @var $block array */
+
 use Doubleedesign\Comet\Core\{Button, ButtonGroup, CallToAction, ColorUtils, Config, Heading, Utils};
 use Doubleedesign\Comet\WordPress\PreprocessedHTML;
 
@@ -11,6 +12,7 @@ $attributes = [
     'colorTheme'      => $block['colorTheme'] ? ColorUtils::get_readable_colour($block['colorTheme'], ['accent']) : 'primary',
 ];
 
+$heading = get_field('heading');
 $description = get_field('description');
 $buttons = get_field('buttons');
 $headingClasses = apply_filters('comet_blocks_cta_heading_classes', []);
@@ -22,9 +24,9 @@ $buttonGroupAttrs = [
 $component = new CallToAction(
     $attributes,
     array(
-        new Heading(['classes' => $headingClasses], get_field('heading')),
+        ...(!empty($heading) ? [new Heading(['classes' => $headingClasses], $heading)] : []),
         ...(!empty($description) ? [new PreprocessedHTML([], $description)] : []),
-        new ButtonGroup(
+        ...(!empty($buttons) ? [new ButtonGroup(
             $buttonGroupAttrs,
             array_map(
                 function($button) use ($block) {
@@ -40,7 +42,7 @@ $component = new CallToAction(
                 },
                 (is_array($buttons) ? $buttons : [])
             )
-        )
+        )] : []),
     ));
 
 $component->render();

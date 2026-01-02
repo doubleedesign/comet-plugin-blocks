@@ -1,17 +1,17 @@
 <?php
 acf_add_local_field_group(array(
-    'key'                   => 'group_67bafb4622e47',
+    'key'                   => 'layout__file-group',
     'title'                 => 'File Group Block',
     'fields'                => array(
         array(
-            'key'       => 'field_67bafb4671235',
+            'key'       => 'field__file-group__heading',
             'label'     => 'Heading',
             'name'      => 'heading',
             'type'      => 'text',
             'maxlength' => 120
         ),
         array(
-            'key'               => 'field_67bafb4673236',
+            'key'               => 'field__file-group__files',
             'label'             => 'Files',
             'name'              => 'files',
             'type'              => 'gallery',
