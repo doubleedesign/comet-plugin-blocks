@@ -70,4 +70,64 @@ class BlockRenderer {
 
         return $block_content;
     }
+
+    /**
+     * Return early in the editor if the block content is empty,
+     * because that will trigger the built-in placeholder rather than a zero-height block of nothing.
+     * This should be used directly in block render templates,
+     * which have access to a $is_preview variable to pass in $is_editor like so:
+     * $is_editor = isset($is_preview) && $is_preview;
+     *
+     * @param  array  $block
+     * @param  bool  $is_editor
+     *
+     * @return bool
+     */
+    public static function maybe_render_editor_placeholder(array $block, bool $is_editor): bool {
+        if (!$is_editor) {
+            return false;
+        }
+
+        $filtered_data = self::filter_fields_for_determining_if_block_has_content($block['data'] ?? []);
+        $probably_empty = self::block_data_array_is_effectively_empty($filtered_data);
+
+        return $probably_empty;
+    }
+
+    private static function filter_fields_for_determining_if_block_has_content(array $data) {
+        // The $data array of an ACF block contains the field names prefixed with an underscore with the field key as the value.
+        // We don't want that for this, so filter them out first.
+        $filtered_data = array_filter($data, function($key) {
+            return !str_starts_with($key, '_');
+        }, ARRAY_FILTER_USE_KEY);
+
+        // Also skip some fields with default values
+        $filtered_data = array_filter($filtered_data, function($key) {
+            return !str_ends_with($key, 'aspect_ratio')
+                && !str_ends_with($key, 'focal_point')
+                && !str_ends_with($key, 'image_offset');
+        }, ARRAY_FILTER_USE_KEY);
+
+        return $filtered_data;
+    }
+
+    private static function block_data_array_is_effectively_empty(array $filtered_data): bool {
+        $non_empty_values = array_filter($filtered_data, function($value) {
+            if (is_array($value)) {
+                $sub_filtered = self::filter_fields_for_determining_if_block_has_content($value);
+
+                return !self::block_data_array_is_effectively_empty($sub_filtered);
+            }
+            if (is_string($value)) {
+                return trim($value) !== '' && trim($value) !== '0';
+            }
+            if (is_numeric($value)) {
+                return $value < 1;
+            }
+
+            return !empty($value);
+        });
+
+        return count($non_empty_values) === 0;
+    }
 }

@@ -1,9 +1,15 @@
 <?php
 
 use Doubleedesign\Comet\Core\{Accordion, AccordionPanel, Heading};
-use Doubleedesign\Comet\WordPress\PreprocessedHTML;
+use Doubleedesign\Comet\WordPress\{BlockRenderer, PreprocessedHTML};
 
 /** @var $block array */
+$is_editor = isset($is_preview) && $is_preview;
+$render_placeholder = BlockRenderer::maybe_render_editor_placeholder($block, $is_editor);
+if ($render_placeholder) {
+    return;
+}
+
 $heading = get_field('heading');
 $intro_text = get_field('intro_copy');
 $colorTheme = $block['colorTheme'];

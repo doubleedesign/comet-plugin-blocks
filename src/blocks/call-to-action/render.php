@@ -1,8 +1,14 @@
 <?php
 /** @var $block array */
 
-use Doubleedesign\Comet\Core\{Button, ButtonGroup, CallToAction, ColorUtils, Config, Heading, Utils};
-use Doubleedesign\Comet\WordPress\PreprocessedHTML;
+use Doubleedesign\Comet\Core\{Button, ButtonGroup, CallToAction, Config, Heading, Utils};
+use Doubleedesign\Comet\WordPress\{BlockRenderer, PreprocessedHTML};
+
+$is_editor = isset($is_preview) && $is_preview;
+$render_placeholder = BlockRenderer::maybe_render_editor_placeholder($block, $is_editor);
+if ($render_placeholder) {
+    return;
+}
 
 $defaults = Config::getInstance()->get_component_defaults('call-to-action');
 $attributes = [
