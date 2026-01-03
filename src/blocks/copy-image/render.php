@@ -15,7 +15,16 @@ $image['styleName'] = 'polaroid'; // TODO: Make this configurable with a theme f
 
 $image_field = get_field('image');
 if (isset($image_field['image_id'])) {
+    $image['alt'] = get_post_meta(get_post_thumbnail_id($image_field['image_id']), '_wp_attachment_image_alt', true) ?? '';
+
     $meta = wp_get_attachment_metadata($image_field['image_id']);
+    if (isset($meta['sizes']['image_advanced_resized'])) {
+        $image['src'] = wp_get_attachment_image_url($image_field['image_id'], 'image_advanced_resized');
+    }
+    else {
+        $image['src'] = wp_get_attachment_image_url($image_field['image_id'], 'full');
+    }
+
     $dimensions = $meta['sizes']['image_advanced_resized'] ?? $meta;
     list('width' => $width, 'height' => $height) = $dimensions;
     if ($width > $height) {
@@ -27,6 +36,8 @@ if (isset($image_field['image_id'])) {
     else {
         $image['originalImageOrientation'] = null; // TODO: Test with square images
     }
+
+    $imageComponent = new ContentImageAdvanced($image);
 }
 
 $component = new Columns(
@@ -48,10 +59,7 @@ $component = new Columns(
                 )
             )]
         ))->set_bem_modifier('copy'),
-        (new Column(
-            ['context' => 'copy-image'],
-            [...$image ? [new ContentImageAdvanced($image)] : []]
-        ))->set_bem_modifier('image')
+        (new Column(['context' => 'copy-image'], [$imageComponent ?? []]))->set_bem_modifier('image')
     )
 );
 
