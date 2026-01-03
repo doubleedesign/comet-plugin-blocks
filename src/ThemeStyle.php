@@ -32,9 +32,18 @@ class ThemeStyle {
             return $acc;
         }, []);
         $colours = apply_filters('comet_canvas_theme_colours', $defaults);
+        $maybe_pairs = apply_filters('comet_canvas_theme_colour_pairs_maybe', array(
+            ['accent', 'primary'],
+            ['accent', 'secondary'],
+            ['primary', 'dark'],
+            ['primary', 'light'],
+            ['secondary', 'dark'],
+            ['secondary', 'light'],
+        ));
 
         if (class_exists('Doubleedesign\Comet\Core\Config')) {
             Config::getInstance()->set_theme_colours($colours);
+            Config::getInstance()->maybe_add_theme_colour_pairs($maybe_pairs);
         }
     }
 
@@ -113,7 +122,12 @@ class ThemeStyle {
                 $css .= '--readable-color-' . $key . ': ' . $readable_hex . ";\n";
             }
             catch (Exception $e) {
-                dump($e->getMessage());
+                if (function_exists('dump')) {
+                    dump($e->getMessage());
+                }
+                else {
+                    error_log($e->getMessage());
+                }
             }
         }
 
