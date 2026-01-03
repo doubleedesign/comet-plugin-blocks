@@ -10,7 +10,6 @@ class TinyMceConfig {
         add_filter('tiny_mce_before_init', [$this, 'editor_css_acf']);
         add_filter('doublee_tinymce_theme_colours', [$this, 'add_theme_colours_to_tinymce_tools']);
         add_filter('tiny_mce_before_init', [$this, 'add_theme_colours_to_tinymce_content']);
-        add_action('admin_enqueue_scripts', [$this, 'make_data_available_to_tinymce_js'], 20);
     }
 
     /**
@@ -134,43 +133,5 @@ class TinyMceConfig {
         }
 
         return $settings;
-    }
-
-    /**
-     * Make theme colours and other config available to TinyMCE JS (primarily for use in the miniblocks plugin)
-     *
-     * @return void
-     */
-    public function make_data_available_to_tinymce_js(): void {
-        if (!class_exists('Doubleedesign\Comet\Core\Config')) {
-            return;
-        }
-
-        try {
-            $defaults = Config::getInstance()->get('component_defaults');
-            $background = Config::getInstance()->get_global_background();
-            $palette = Config::getInstance()->get_theme_colours();
-
-            wp_localize_script('wp-tinymce', 'comet', array(
-                'defaults'         => $defaults,
-                'globalBackground' => $background,
-                'palette'          => $palette,
-                'ajaxUrl'          => admin_url('admin-ajax.php'),
-                'nonce'            => wp_create_nonce('comet_ajax_nonce'),
-                'context'          => [
-                    // TODO: Handle taxonomy term types here too
-                    'object_type' => get_post_type(),
-                    'id'		        => get_the_id(),
-                ]
-            ));
-        }
-        catch (\Exception $e) {
-            if (function_exists('dump')) {
-                dump($e->getMessage());
-            }
-            else {
-                error_log($e->getMessage());
-            }
-        }
     }
 }
