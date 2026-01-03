@@ -32,9 +32,7 @@ wp.domReady(() => {
     }, [props?.name]);
     return /*#__PURE__*/React.createElement("div", {
       className: "comet-block-edit-wrapper",
-      "data-block": props.name,
-      "data-background": props?.attributes?.backgroundColor ?? comet?.globalBackground ?? undefined
-      //data-size={props?.attributes?.backgroundSize} // TODO: Implement this in a way that's not confusing with inner container size
+      "data-block": props.name
     }, /*#__PURE__*/React.createElement(BlockEditComponent, _extends({
       BlockEdit: BlockEdit
     }, props)));

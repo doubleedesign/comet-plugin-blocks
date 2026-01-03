@@ -3,12 +3,13 @@
  * using wp_localize_script
  */
 interface Config {
-	defaults: Record<string, any>;
-	globalBackground: ThemeColor;
-	palette: Record<ThemeColor, string>;
-	ajaxUrl: string;
-	nonce: string;
-	context: {
+	defaults?: Record<string, any>;
+	globalBackground?: ThemeColor;
+	palette?: Record<ThemeColor, string>;
+	colourPairs?: { foreground: string; background: string }[];
+	ajaxUrl?: string;
+	nonce?: string;
+	context?: {
 		object_type: string;
 		id: number;
 	}
