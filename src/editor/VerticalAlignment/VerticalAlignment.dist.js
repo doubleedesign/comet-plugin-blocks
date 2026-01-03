@@ -8,7 +8,7 @@ const VerticalAlignment = ({
   setAttributes
 }) => {
   // TODO: Use component defaults from comet JS object (which are set using the PHP global Config object). They should take precedence over block.json
-  if (!attributes?.verticalAlignment) {
+  if (!attributes?.vAlign) {
     return null;
   }
   const ToggleGroupControl = __experimentalToggleGroupControl;
@@ -19,9 +19,9 @@ const VerticalAlignment = ({
     isBlock: true,
     label: "Vertical alignment",
     onChange: value => setAttributes({
-      verticalAlignment: value
+      vAlign: value
     }),
-    value: attributes.verticalAlignment
+    value: attributes.vAlign
   }, /*#__PURE__*/React.createElement(ToggleGroupControlOption, {
     label: /*#__PURE__*/React.createElement("svg", {
       xmlns: "http://www.w3.org/2000/svg",
