@@ -282,4 +282,11 @@ body :where(.editor-styles-wrapper) p {
   font-size: unset;
 }
 
+.wp-core-ui .button {
+  font-family: inherit;
+}
+.wp-core-ui .button #wp-link label input {
+  display: revert;
+}
+
 /*# sourceMappingURL=admin.css.map */
