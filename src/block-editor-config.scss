@@ -84,6 +84,7 @@ html :where(.wp-block) {
 	}
 }
 
+.components-base-control__label,
 .components-input-control__label {
 	display: flex !important;
 	align-items: center;
@@ -142,10 +143,18 @@ html :where(.wp-block) {
 }
 
 .comet-color-controls {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+
+	.components-base-control {
+		margin-block: 0;
+	}
 
 	&__item {
 		width: 100%;
 		display: flex;
+		margin-block-end: 0.5rem;
 
 		.components-dropdown {
 			flex-grow: 1;

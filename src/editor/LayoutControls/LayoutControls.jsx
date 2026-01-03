@@ -5,6 +5,7 @@ import { GroupLayout } from '../GroupLayout/GroupLayout.jsx';
 import { VerticalAlignment } from '../VerticalAlignment/VerticalAlignment.jsx';
 import { HorizontalAlignment } from '../HorizontalAlignment/HorizontalAlignment.jsx';
 import { LayoutOrientation } from '../LayoutOrientation/LayoutOrientation.jsx';
+import { ContentMaxWidth } from '../ContentMaxWidth/ContentMaxWidth';
 
 export const LayoutControls = (props) => {
 	// If the block does not have any layout attributes, do not render the controls
@@ -17,8 +18,9 @@ export const LayoutControls = (props) => {
 		'size',
 		'groupLayout',
 		'orientation',
-		'horizontalAlignment',
-		'verticalAlignment',
+		'hAlign',
+		'vAlign',
+		'backgroundType'
 	];
 	const hasLayoutAttributes = [...componentDefault, ...currentAttributes].some((attr) => layoutAttributes.includes(attr));
 	if (!hasLayoutAttributes) {
@@ -28,6 +30,7 @@ export const LayoutControls = (props) => {
 	return (
 		<PanelBody title="Layout" initialOpen={true}>
 			<ContainerSize {...props} />
+			<ContentMaxWidth {...props}/>
 			<GroupLayout {...props} />
 			<LayoutOrientation {...props} />
 			<HorizontalAlignment {...props} />

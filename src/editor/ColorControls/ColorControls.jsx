@@ -52,37 +52,33 @@ export const ColorControls = ({ name, attributes, setAttributes }) => {
 	// If background colour is not supported, provide single colour theme option
 	if (!hasBackgroundColorSupport.current) {
 		return (
-			<PanelBody title="Colours" initialOpen={true} className="comet-color-controls">
-				<div className="comet-color-controls__item">
-					<ColorPaletteDropdown
-						label="Theme"
-						hexValue={getValueByColorName(attributes?.colorTheme) ?? ''}
-						palette={palette}
-						onChange={handleThemeChange}
-					/>
-				</div>
-			</PanelBody>
+			<div className="comet-color-controls__item">
+				<ColorPaletteDropdown
+					label="Theme"
+					hexValue={getValueByColorName(attributes?.colorTheme) ?? ''}
+					palette={palette}
+					onChange={handleThemeChange}
+				/>
+			</div>
 		);
 	}
 
 	// If both colour theme and background colour are available, provide colour pair selection
 	return (
-		<PanelBody title="Colours" initialOpen={true} className="comet-color-controls">
-			<div className="comet-color-controls__item">
-				<ColorPairPaletteDropdown
-					label="Theme"
-					value={{
-						foreground: foregroundColor,
-						background: backgroundColor,
-					}}
-					pairs={comet?.colourPairs ?? []}
-					onChange={(newValue) => {
-						handleThemeChange(newValue.foreground);
-						handleBackgroundChange(newValue.background);
-					}}
-				/>
-			</div>
-		</PanelBody>
+		<div className="comet-color-controls__item">
+			<ColorPairPaletteDropdown
+				label="Theme"
+				value={{
+					foreground: foregroundColor,
+					background: backgroundColor,
+				}}
+				pairs={comet?.colourPairs ?? []}
+				onChange={(newValue) => {
+					handleThemeChange(newValue.foreground);
+					handleBackgroundChange(newValue.background);
+				}}
+			/>
+		</div>
 	);
 };
 

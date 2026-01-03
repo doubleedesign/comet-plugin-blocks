@@ -6,6 +6,9 @@ import { LayoutControls } from '../LayoutControls/LayoutControls.jsx';
 import { ColorControls } from '../ColorControls/ColorControls.jsx';
 import { PanelBody, SelectControl } from '@wordpress/components';
 import { useMemo } from '@wordpress/element';
+import { GroupLayout } from '../GroupLayout/GroupLayout.jsx';
+import { BackgroundType } from '../BackgroundType/BackgroundType.jsx';
+import { BackgroundOpacity } from '../BackgroundOpacity/BackgroundOpacity.jsx';
 
 /**
  * Note: This file needs to be compiled (Rollup is configured for this)
@@ -47,7 +50,11 @@ function CometBlockEdit({ BlockEdit, ...props }) {
 			<div className="comet-plugin-blocks-custom-controls">
 				<InspectorControls>
 					<LayoutControls {...props} />
-					<ColorControls {...props} />
+					<PanelBody title="Colours" initialOpen={true} className="comet-color-controls">
+							<ColorControls {...props} />
+						<BackgroundOpacity {...props}/>
+						<BackgroundType {...props} />
+					</PanelBody>
 				</InspectorControls>
 			</div>
 			<BlockEdit {...props} />

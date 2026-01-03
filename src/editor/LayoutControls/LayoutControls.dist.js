@@ -3,6 +3,7 @@ import { GroupLayout } from '../GroupLayout/GroupLayout.dist.js';
 import { VerticalAlignment } from '../VerticalAlignment/VerticalAlignment.dist.js';
 import { HorizontalAlignment } from '../HorizontalAlignment/HorizontalAlignment.dist.js';
 import { LayoutOrientation } from '../LayoutOrientation/LayoutOrientation.dist.js';
+import { ContentMaxWidth } from '../ContentMaxWidth/ContentMaxWidth.dist.js';
 
 /* global wp */
 const {
@@ -15,7 +16,7 @@ const LayoutControls = props => {
   if (componentDefault.length === 0 && currentAttributes.length === 0) {
     return null;
   }
-  const layoutAttributes = ['size', 'groupLayout', 'orientation', 'horizontalAlignment', 'verticalAlignment'];
+  const layoutAttributes = ['size', 'groupLayout', 'orientation', 'hAlign', 'vAlign', 'backgroundType'];
   const hasLayoutAttributes = [...componentDefault, ...currentAttributes].some(attr => layoutAttributes.includes(attr));
   if (!hasLayoutAttributes) {
     return null;
@@ -23,7 +24,7 @@ const LayoutControls = props => {
   return /*#__PURE__*/React.createElement(PanelBody, {
     title: "Layout",
     initialOpen: true
-  }, /*#__PURE__*/React.createElement(ContainerSize, props), /*#__PURE__*/React.createElement(GroupLayout, props), /*#__PURE__*/React.createElement(LayoutOrientation, props), /*#__PURE__*/React.createElement(HorizontalAlignment, props), /*#__PURE__*/React.createElement(VerticalAlignment, props));
+  }, /*#__PURE__*/React.createElement(ContainerSize, props), /*#__PURE__*/React.createElement(ContentMaxWidth, props), /*#__PURE__*/React.createElement(GroupLayout, props), /*#__PURE__*/React.createElement(LayoutOrientation, props), /*#__PURE__*/React.createElement(HorizontalAlignment, props), /*#__PURE__*/React.createElement(VerticalAlignment, props));
 };
 
 export { LayoutControls };
