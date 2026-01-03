@@ -1,0 +1,72 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"textdomain": "comet",
+	"name": "comet/banner",
+	"title": "Banner",
+	"icon": "cover-image",
+	"description": "Add a large image banner with call-to-action to welcome visitors",
+	"category": "design",
+	"acf": {
+		"mode": "preview",
+		"renderTemplate": "render.php",
+		"blockVersion": 3,
+		"hideFieldsInSidebar": true
+	},
+	"editorStyle": [
+		"comet-container",
+		"comet-banner",
+		"comet-cover-image"
+	],
+	"keywords": [
+		"image",
+		"banner",
+		"cover",
+		"design"
+	],
+	"attributes": {
+		"size": {
+			"type": "string",
+			"default": "contained"
+		},
+		"colorTheme": {
+			"type": "string",
+			"default": "primary"
+		},
+		"backgroundColor": {
+			"type": "string",
+			"default": "primary"
+		},
+		"backgroundType": {
+			"type": "string",
+			"default": "overlay"
+		},
+		"backgroundOpacity": {
+			"type": "number",
+			"default": 50
+		},
+		"hAlign": {
+			"type": "string",
+			"default": "start"
+		},
+		"vAlign": {
+			"type": "string",
+			"default": "center"
+		},
+		"contentMaxWidth": {
+			"type": "number",
+			"default": 50
+		},
+		"isParallax": {
+			"type": "boolean",
+			"default": false
+		}
+	},
+	"supports": {
+		"mode": true,
+		"jsx": true,
+		"innerBlocks": false,
+		"anchor": true,
+		"align": false
+	}
+}
