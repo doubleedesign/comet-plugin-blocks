@@ -33,7 +33,7 @@ $component = new Columns(
     array(
         'shortName'  => 'copy-image',
         'size'       => $block['data']['size'] ?? $block['attributes']['size']['default'],
-        'vAlign'     => $block['data']['verticalAlignment'] ?? $block['attributes']['verticalAlignment']['default'],
+        'vAlign'     => $block['data']['vAlign'] ?? $block['attributes']['vAlign']['default'],
     ),
     array(
         (new Column(
