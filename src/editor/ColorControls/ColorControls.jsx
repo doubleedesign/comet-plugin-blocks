@@ -1,11 +1,92 @@
 /* global wp */
-import { PanelBody, Dropdown, Button, ColorIndicator, ColorPalette } from '@wordpress/components';
-import { useEffect, useRef, useState } from '@wordpress/element';
+import { PanelBody, Dropdown, Button, ColorIndicator, ColorPalette, GradientPicker } from '@wordpress/components';
+import { useEffect, useMemo, useRef, useState } from '@wordpress/element';
 
-/** @type {{ PluginManager: import('tinymce').AddOnManager }} */
-const tinymce = window.tinymce;
+export const ColorControls = ({ name, attributes, setAttributes }) => {
+	const palette = Object.entries(comet?.palette)
+		?.filter(([key, value]) => !['black', 'white'].includes(key))
+		?.map(([key, value]) => ({ slug: key, name: key, color: value }))
+		?? wp.data.select('core/block-editor').getSettings().colors;
 
-const ColorPaletteDropdown = ({ label, hexValue, palette, onChange }) => {
+	if (!palette || palette.length === 0) {
+		// eslint-disable-next-line max-len
+		console.error('No colour palette found in component library configuration. You can use theme.json or the comet_canvas_theme_colours filter to add colours. Developers: See set_colours() in ThemeStyle.php in the plugin source for more implementation details.');
+
+		return null;
+	}
+
+	const componentDefault = comet?.defaults[name.replace('comet/', '')] ?? {};
+	const startValues = {
+		colorTheme: attributes?.colorTheme ?? componentDefault?.colorTheme ?? null,
+		backgroundColor: attributes?.backgroundColor ?? componentDefault?.backgroundColor ?? null,
+	};
+
+
+	// Use refs to keep track of the presence of attribute support without the fields disappearing when the colour field is cleared
+	const hasColorThemeSupport = useRef(!!startValues.colorTheme);
+	const hasBackgroundColorSupport = useRef(!!startValues.backgroundColor);
+
+	if (!hasColorThemeSupport.current && !hasBackgroundColorSupport.current) {
+		return null;
+	}
+
+	const [foregroundColor, setForegroundColor] = useState(startValues.colorTheme);
+	const [backgroundColor, setBackgroundColor] = useState(startValues.backgroundColor);
+
+	const getValueByColorName = (colorName) => {
+		const color = palette.find((c) => c.slug === colorName);
+
+		return color ? color.color : colorName;
+	};
+
+	const handleThemeChange = (name) => {
+		setForegroundColor(name);
+		setAttributes({ colorTheme: name ?? '' });
+	};
+
+	const handleBackgroundChange = (name) => {
+		setBackgroundColor(name);
+		setAttributes({ backgroundColor: name ?? '' });
+	};
+
+	// If background colour is not supported, provide single colour theme option
+	if (!hasBackgroundColorSupport.current) {
+		return (
+			<PanelBody title="Colours" initialOpen={true} className="comet-color-controls">
+				<div className="comet-color-controls__item">
+					<ColorPaletteDropdown
+						label="Theme"
+						hexValue={getValueByColorName(attributes?.colorTheme) ?? ''}
+						palette={palette}
+						onChange={handleThemeChange}
+					/>
+				</div>
+			</PanelBody>
+		);
+	}
+
+	// If both colour theme and background colour are available, provide colour pair selection
+	return (
+		<PanelBody title="Colours" initialOpen={true} className="comet-color-controls">
+			<div className="comet-color-controls__item">
+				<ColorPairPaletteDropdown
+					label="Theme"
+					value={{
+						foreground: foregroundColor,
+						background: backgroundColor,
+					}}
+					pairs={comet?.colourPairs ?? []}
+					onChange={(newValue) => {
+						handleThemeChange(newValue.foreground);
+						handleBackgroundChange(newValue.background);
+					}}
+				/>
+			</div>
+		</PanelBody>
+	);
+};
+
+function ColorPaletteDropdown({ label, hexValue, palette, onChange }) {
 	const [hex, setHex] = useState(hexValue);
 	const triggerRef = useRef();
 
@@ -27,7 +108,7 @@ const ColorPaletteDropdown = ({ label, hexValue, palette, onChange }) => {
 					{label}
 				</Button>
 			)}
-			renderContent={() => (
+			renderContent={({ onToggle }) => (
 				<ColorPalette
 					label={label}
 					value={hex}
@@ -35,69 +116,68 @@ const ColorPaletteDropdown = ({ label, hexValue, palette, onChange }) => {
 					onChange={(color) => {
 						setHex(color ?? '');
 						onChange(getNameByColorValue(color));
-						triggerRef.current?.focus();
+						onToggle(); // close dropdown after selection
 					}}
 				/>
 			)}
 		/>
 	);
-};
+}
 
-export const ColorControls = (props) => {
-	const { attributes, setAttributes } = props;
+function ColorPairPaletteDropdown({ label, value, pairs, onChange }) {
+	const [foreground, setForeground] = useState(value?.foreground ?? '');
+	const [background, setBackground] = useState(value?.background !== 'transparent' ? value?.background : (comet?.globalBackground ?? 'white'));
+	const triggerRef = useRef();
 
-	// TODO: Use component defaults from comet JS object (which are set using the PHP global Config object). They should take precedence over block.json
-	// Use refs to keep track of the presence of attribute support without the fields disappearing when the colour field is cleared
-	const hasColorTheme = useRef(!!attributes?.colorTheme);
-	const hasBackgroundColor = useRef(!!attributes?.backgroundColor);
-	if (!hasColorTheme.current && !hasBackgroundColor.current) {
-		return null;
-	}
+	const palette = pairs.map((pair) => ({
+		name: `${pair.foreground} on ${pair.background}`,
+		slug: `${pair.foreground}-${pair.background}`,
+		gradient: `linear-gradient(135deg, var(--color-${pair.foreground}) 0%, var(--color-${pair.foreground}) 50%, var(--color-${pair.background}) 50%, var(--color-${pair.background}) 100%)`,
+	}));
 
-	const palette = wp.data.select('core/block-editor').getSettings().colors;
-	if (!palette || palette.length === 0) {
-		console.warn('No colour palette found in block editor settings. Please ensure it is configured in theme.json to access colour attribute controls.');
+	const gradientPreview = useMemo(() => {
+		return `linear-gradient(135deg, var(--color-${foreground}) 0%, var(--color-${foreground}) 50%, var(--color-${background}) 50%, var(--color-${background}) 100%)`;
+	}, [foreground, background]);
 
-		return null;
-	}
+	const handleChange = (newValue) => {
+		// New value is the gradient string; find the matching palette object
+		const matchedPair = palette.find((pair) => pair.gradient === newValue);
 
-	const getValueByColorName = (colorName) => {
-		const color = palette.find((c) => c.slug === colorName);
-
-		return color ? color.color : colorName;
+		if (matchedPair) {
+			const [newForeground, newBackground] = matchedPair.slug.split('-');
+			setForeground(newForeground);
+			setBackground(newBackground);
+			onChange({
+				foreground: newForeground,
+				background: newBackground,
+			});
+		}
 	};
 
-	const handleThemeChange = (name) => {
-		setAttributes({ colorTheme: name ?? '' });
-	};
-
-	const handleBackgroundChange = (name) => {
-		setAttributes({ backgroundColor: name ?? '' });
-	};
-
-	// TODO: Limit valid combinations of background + theme where appropriate
 	return (
-		<PanelBody title="Colours" initialOpen={true} className="comet-color-controls">
-			{hasColorTheme.current && (
-				<div className="comet-color-controls__item">
-					<ColorPaletteDropdown
-						label="Theme"
-						hexValue={getValueByColorName(attributes?.colorTheme) ?? ''}
-						palette={palette}
-						onChange={handleThemeChange}
-					/>
-				</div>
+		<Dropdown
+			renderToggle={({ onToggle, isOpen }) => (
+				<Button onClick={onToggle}
+					aria-expanded={isOpen}
+					ref={triggerRef}
+					__next40pxDefaultSize
+				>
+					<ColorIndicator colorValue={gradientPreview}/>
+					{label}
+				</Button>
 			)}
-			{hasBackgroundColor.current && (
-				<div className="comet-color-controls__item">
-					<ColorPaletteDropdown
-						label="Background"
-						hexValue={getValueByColorName(attributes?.backgroundColor) ?? ''}
-						palette={palette}
-						onChange={handleBackgroundChange}
-					/>
-				</div>
+			renderContent={({ isOpen, onToggle }) => (
+				<GradientPicker
+					label={label}
+					value={gradientPreview}
+					gradients={palette}
+					disableCustomGradients={true}
+					onChange={(value) => {
+						handleChange(value);
+						onToggle(); // close dropdown after selection
+					}}
+				/>
 			)}
-		</PanelBody>
+		/>
 	);
-};
+}

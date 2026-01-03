@@ -7,6 +7,24 @@ import { HorizontalAlignment } from '../HorizontalAlignment/HorizontalAlignment.
 import { LayoutOrientation } from '../LayoutOrientation/LayoutOrientation.jsx';
 
 export const LayoutControls = (props) => {
+	// If the block does not have any layout attributes, do not render the controls
+	const componentDefault = Object.keys(comet?.defaults[props.name.replace('comet/', '')] ?? {}) ?? [];
+	const currentAttributes = Object.keys(props.attributes) ?? [];
+	if (componentDefault.length === 0 && currentAttributes.length === 0) {
+		return null;
+	}
+	const layoutAttributes = [
+		'size',
+		'groupLayout',
+		'orientation',
+		'horizontalAlignment',
+		'verticalAlignment',
+	];
+	const hasLayoutAttributes = [...componentDefault, ...currentAttributes].some((attr) => layoutAttributes.includes(attr));
+	if (!hasLayoutAttributes) {
+		return null;
+	}
+
 	return (
 		<PanelBody title="Layout" initialOpen={true}>
 			<ContainerSize {...props} />

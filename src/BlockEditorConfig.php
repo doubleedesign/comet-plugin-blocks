@@ -27,9 +27,10 @@ class BlockEditorConfig extends JavaScriptImplementation {
         add_filter('block_editor_settings_all', [$this, 'disable_miscellaneous_unwanted_features'], 10, 2);
         add_filter('use_block_editor_for_post_type', [$this, 'selective_gutenberg'], 10, 2);
         add_action('after_setup_theme', [$this, 'disable_block_template_editor']);
+        add_filter('gettext', [$this, 'change_acf_expanded_editor_button_label'], 10, 3);
 
         if (is_admin()) {
-            add_action('enqueue_block_editor_assets', [$this, 'block_editor_ui_css_hacks']);
+            add_action('enqueue_block_assets', [$this, 'block_editor_ui_css_hacks']);
             add_filter('admin_body_class', [$this, 'block_editor_body_class'], 10, 1);
             add_action('init', [$this, 'register_comet_component_assets_for_use_in_block_json'], 5);
             // using enqueue_block_assets to ensure this runs in the new iframed experience (as opposed to enqueue_block_editor_assets)
@@ -190,37 +191,18 @@ class BlockEditorConfig extends JavaScriptImplementation {
             return;
         }
 
-        $defaults = Config::getInstance()->get('component_defaults');
-        $background = Config::getInstance()->get_global_background();
-
-        // Get theme.json colour palette
-        $theme_json = \WP_Theme_JSON_Resolver::get_theme_data();
-        $colours = $theme_json->get_data()['settings']['color']['palette'];
-        if ($colours) {
-            $colours = array_map(function($color_obj) {
-                return [$color_obj['slug'] => $color_obj['color']];
-            }, $colours);
-            // Flatten the array
-            $colours = array_merge(...$colours);
-        }
+        $data = array(
+            'defaults'         => Config::getInstance()->get('component_defaults'),
+            'globalBackground' => Config::getInstance()->get_global_background(),
+            'palette'          => Config::getInstance()->get_theme_colours(),
+            'colourPairs'      => Config::getInstance()->get_theme_colour_pairs(),
+        );
 
         // Make the defaults available to the plugin's block-editor-config files
-        wp_localize_script('comet-block-editor-config', 'comet', array(
-            'defaults'         => $defaults,
-            'globalBackground' => $background,
-            'palette'          => $colours ?? [],
-        ));
-        wp_localize_script('comet-block-editor-config-iframe', 'comet', array(
-            'defaults'         => $defaults,
-            'globalBackground' => $background,
-            'palette'          => $colours ?? [],
-        ));
+        wp_localize_script('comet-block-editor-config', 'comet', $data);
+        wp_localize_script('comet-block-editor-config-iframe', 'comet', $data);
         // And to the custom attribute controls
-        wp_localize_script('comet-blocks-custom-controls', 'comet', array(
-            'defaults'         => $defaults,
-            'globalBackground' => $background,
-            'palette'          => $colours ?? [],
-        ));
+        wp_localize_script('comet-blocks-custom-controls', 'comet', $data);
     }
 
     /**
@@ -376,5 +358,14 @@ class BlockEditorConfig extends JavaScriptImplementation {
         }
 
         return $classes;
+    }
+
+    public function change_acf_expanded_editor_button_label($translated, $original, $domain): string {
+        if ($domain === 'acf' && $original === 'Open Expanded Editor') {
+
+            return __('Edit block content', 'comet');
+        }
+
+        return $translated;
     }
 }

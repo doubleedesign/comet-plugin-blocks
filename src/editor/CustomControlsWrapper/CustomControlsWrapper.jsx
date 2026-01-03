@@ -26,11 +26,7 @@ wp.domReady(() => {
 			}, [props?.name]);
 
 			return (
-				<div className="comet-block-edit-wrapper"
-					data-block={props.name}
-					data-background={props?.attributes?.backgroundColor ?? comet?.globalBackground ?? undefined}
-					//data-size={props?.attributes?.backgroundSize} // TODO: Implement this in a way that's not confusing with inner container size
-				>
+				<div className="comet-block-edit-wrapper" data-block={props.name}>
 					<BlockEditComponent BlockEdit={BlockEdit} {...props} />
 				</div>
 			);
