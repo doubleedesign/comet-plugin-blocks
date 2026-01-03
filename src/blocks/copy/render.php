@@ -2,9 +2,13 @@
 /** @var $block array */
 
 use Doubleedesign\Comet\Core\{Column, Columns, Copy};
-use Doubleedesign\Comet\WordPress\PreprocessedHTML;
+use Doubleedesign\Comet\WordPress\{BlockRenderer, PreprocessedHTML};
 
 $is_editor = isset($is_preview) && $is_preview;
+$render_placeholder = BlockRenderer::maybe_render_editor_placeholder($block, $is_editor);
+if ($render_placeholder) {
+    return;
+}
 
 $has_second_column = get_field('field__copy__content__split') && !empty(get_field('field__copy__content_2'));
 $wrapperAttributes = [

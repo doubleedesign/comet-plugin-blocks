@@ -2,11 +2,11 @@
 if (!isset($block)) {
     return;
 }
-if (!isset($block['data']['shared_content_item'])) {
+if (!get_field('shared_content_item')) {
     return;
 }
 
-$shared_content_id = $block['data']['shared_content_item'];
+$shared_content_id = get_field('shared_content_item');
 if (!is_numeric($shared_content_id)) {
     return;
 }
@@ -16,8 +16,8 @@ if (!$post) {
     return;
 }
 
-// Work around issue where nested ACF blocks do not render when loaded in preview mode on initial page load
 $is_editor = isset($is_preview) && $is_preview;
+// $post->post_content is not parsed in block editor context, so we need to parse and render the blocks
 if ($is_editor) {
     $blocks = parse_blocks($post->post_content);
     foreach ($blocks as $block_data) {
