@@ -29,7 +29,7 @@
 		"layout"
 	],
 	"attributes": {
-		"verticalAlignment": {
+		"vAlign": {
 			"type": "string",
 			"default": "center"
 		},

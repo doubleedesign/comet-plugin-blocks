@@ -3,10 +3,10 @@ import { __experimentalToggleGroupControl, __experimentalToggleGroupControlOptio
 
 export const HorizontalAlignment = ({ attributes, setAttributes }) => {
 	// TODO: Use component defaults from comet JS object (which are set using the PHP global Config object). They should take precedence over block.json
-	if (!attributes?.horizontalAlignment) {
+	if (!attributes?.hAlign) {
 		return null;
 	}
-	
+
 	const ToggleGroupControl = __experimentalToggleGroupControl;
 	const ToggleGroupControlOption = __experimentalToggleGroupControlOption;
 
@@ -16,8 +16,8 @@ export const HorizontalAlignment = ({ attributes, setAttributes }) => {
 			__next40pxDefaultSize
 			isBlock
 			label="Horizontal alignment"
-			onChange={(value) => setAttributes({ horizontalAlignment: value })}
-			value={attributes.horizontalAlignment}
+			onChange={(value) => setAttributes({ hAlign: value })}
+			value={attributes.hAlign}
 		>
 			<ToggleGroupControlOption
 				label={<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">

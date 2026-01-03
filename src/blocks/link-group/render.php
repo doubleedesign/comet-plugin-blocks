@@ -27,7 +27,7 @@ $links = array_map(function($data) {
 
 $attributes = [
     ...Utils::array_pick($block, ['colorTheme', 'size', 'layout']),
-    'hAlign'        => $block['horizontalAlignment'] ?? null,
+    'hAlign'        => $block['hAlign'] ?? null,
     'maxPerRow'     => count($links) % 3 === 0 ? 3 : 4, // TODO: Make this configurable
 ];
 if ($heading) {

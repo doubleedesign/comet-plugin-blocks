@@ -8,7 +8,7 @@ const HorizontalAlignment = ({
   setAttributes
 }) => {
   // TODO: Use component defaults from comet JS object (which are set using the PHP global Config object). They should take precedence over block.json
-  if (!attributes?.horizontalAlignment) {
+  if (!attributes?.hAlign) {
     return null;
   }
   const ToggleGroupControl = __experimentalToggleGroupControl;
@@ -19,9 +19,9 @@ const HorizontalAlignment = ({
     isBlock: true,
     label: "Horizontal alignment",
     onChange: value => setAttributes({
-      horizontalAlignment: value
+      hAlign: value
     }),
-    value: attributes.horizontalAlignment
+    value: attributes.hAlign
   }, /*#__PURE__*/React.createElement(ToggleGroupControlOption, {
     label: /*#__PURE__*/React.createElement("svg", {
       xmlns: "http://www.w3.org/2000/svg",

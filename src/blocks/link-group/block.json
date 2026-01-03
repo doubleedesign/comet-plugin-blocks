@@ -34,7 +34,7 @@
 			"type": "string",
 			"default": "list"
 		},
-		"horizontalAlignment": {
+		"hAlign": {
 			"type": "string",
 			"default": "start"
 		}

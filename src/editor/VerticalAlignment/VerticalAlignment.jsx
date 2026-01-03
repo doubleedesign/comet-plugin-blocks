@@ -3,7 +3,7 @@ import { __experimentalToggleGroupControl, __experimentalToggleGroupControlOptio
 
 export const VerticalAlignment = ({ attributes, setAttributes }) => {
 	// TODO: Use component defaults from comet JS object (which are set using the PHP global Config object). They should take precedence over block.json
-	if (!attributes?.verticalAlignment) {
+	if (!attributes?.vAlign) {
 		return null;
 	}
 
@@ -16,8 +16,8 @@ export const VerticalAlignment = ({ attributes, setAttributes }) => {
 			__next40pxDefaultSize
 			isBlock
 			label="Vertical alignment"
-			onChange={(value) => setAttributes({ verticalAlignment: value })}
-			value={attributes.verticalAlignment}
+			onChange={(value) => setAttributes({ vAlign: value })}
+			value={attributes.vAlign}
 		>
 			<ToggleGroupControlOption
 				label={<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
