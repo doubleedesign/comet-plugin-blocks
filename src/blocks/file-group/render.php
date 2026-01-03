@@ -16,13 +16,22 @@ if (!$fileItems) {
     return;
 }
 $files = array_map(function($file) {
+    if (is_string($file) || is_numeric($file)) {
+        return new File([
+            'url'         => wp_get_attachment_url($file),
+            'title'       => get_the_title($file),
+            'description' => get_the_excerpt($file),
+            'mimeType'    => get_post_mime_type($file),
+        ]);
+    }
+
     return new File([
         'url'         => $file['url'],
         'title'       => $file['title'],
         'description' => $file['description'],
         'mimeType'    => $file['mime_type'],
     ]);
-}, get_field('files'));
+}, $fileItems);
 
 $attributes = [
     'colorTheme' => $block['colorTheme'] ?? 'primary',
