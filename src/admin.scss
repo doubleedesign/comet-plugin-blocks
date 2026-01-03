@@ -64,3 +64,19 @@ body :where(.editor-styles-wrapper) {
 .block-editor-inspector-popover-header__heading {
 	font-size: unset;
 }
+
+// Other various fixes for Comet/theme styles overriding admin styles where we don't want them to
+.wp-core-ui {
+	.button {
+		font-family: inherit;
+
+		// Link selector modal
+		#wp-link {
+			label {
+				input {
+					display: revert;
+				}
+			}
+		}
+	}
+}
