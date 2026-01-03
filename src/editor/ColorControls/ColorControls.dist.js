@@ -61,26 +61,18 @@ const ColorControls = ({
 
   // If background colour is not supported, provide single colour theme option
   if (!hasBackgroundColorSupport.current) {
-    return /*#__PURE__*/React.createElement(PanelBody, {
-      title: "Colours",
-      initialOpen: true,
-      className: "comet-color-controls"
-    }, /*#__PURE__*/React.createElement("div", {
+    return /*#__PURE__*/React.createElement("div", {
       className: "comet-color-controls__item"
     }, /*#__PURE__*/React.createElement(ColorPaletteDropdown, {
       label: "Theme",
       hexValue: getValueByColorName(attributes?.colorTheme) ?? '',
       palette: palette,
       onChange: handleThemeChange
-    })));
+    }));
   }
 
   // If both colour theme and background colour are available, provide colour pair selection
-  return /*#__PURE__*/React.createElement(PanelBody, {
-    title: "Colours",
-    initialOpen: true,
-    className: "comet-color-controls"
-  }, /*#__PURE__*/React.createElement("div", {
+  return /*#__PURE__*/React.createElement("div", {
     className: "comet-color-controls__item"
   }, /*#__PURE__*/React.createElement(ColorPairPaletteDropdown, {
     label: "Theme",
@@ -93,7 +85,7 @@ const ColorControls = ({
       handleThemeChange(newValue.foreground);
       handleBackgroundChange(newValue.background);
     }
-  })));
+  }));
 };
 function ColorPaletteDropdown({
   label,
