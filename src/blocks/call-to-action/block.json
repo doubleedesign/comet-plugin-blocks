@@ -33,8 +33,10 @@
 			"default": "contained"
 		},
 		"colorTheme": {
-			"type": "string",
-			"default": "primary"
+			"type": "string"
+		},
+		"backgroundColor": {
+			"type": "string"
 		}
 	},
 	"supports": {

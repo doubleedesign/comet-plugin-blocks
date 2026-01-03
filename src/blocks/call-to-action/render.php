@@ -13,17 +13,16 @@ if ($render_placeholder) {
 $defaults = Config::getInstance()->get_component_defaults('call-to-action');
 $attributes = [
     ...$defaults,
-    ...Utils::array_pick($block, ['size', 'colorTheme', 'backgroundColor']),
-    'innerBackground' => $block['colorTheme'] ?? 'primary',
-    'colorTheme'      => $block['colorTheme'] ? ColorUtils::get_readable_colour($block['colorTheme'], ['accent']) : 'primary',
+    ...Utils::array_pick($block, ['size', 'colorTheme']),
+    'innerBackground' => $block['backgroundColor'] ?? null,
 ];
 
 $heading = get_field('heading');
 $description = get_field('description');
-$buttons = get_field('buttons');
+$buttons = get_field('buttons') ?? [];
 $headingClasses = apply_filters('comet_blocks_cta_heading_classes', []);
 $buttonGroupAttrs = [
-    'colorTheme'  => ColorUtils::get_readable_colour($block['colorTheme'], ['accent']),
+    'colorTheme'  => $block['colorTheme'],
     ...apply_filters('comet_blocks_cta_button_group_attributes', [])
 ];
 
