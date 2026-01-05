@@ -11,7 +11,7 @@ acf_add_local_field_group(array(
             'label'         => 'Image',
             'name'          => 'image',
             'type'          => 'image_advanced',
-            'instructions'  => 'Note: Aspect ratio may be ignored on small viewports',
+            'instructions'  => 'Note: Aspect ratio may be ignored on some viewport sizes, e.g., to ensure sufficient height on mobile devices or to limit height to 100% of the viewport on large screens.',
             'required'      => 1,
             'return_format' => 'array',
             'preview_size'  => 'full',
