@@ -71,7 +71,7 @@ class SharedBlocks {
             'can_export'          => true,
             'has_archive'         => false,
             'exclude_from_search' => true,
-            'publicly_queryable'  => true,
+            'publicly_queryable'  => false,
             'capability_type'     => 'page',
         );
 
