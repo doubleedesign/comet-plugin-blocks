@@ -215,6 +215,10 @@ body > main > :not([data-background]):not(hr):not(span) + :not([data-background]
   --wp-editor-canvas-background: white;
 }
 
+#wpadminbar {
+  padding: 0 !important;
+}
+
 #adminmenu .wp-submenu {
   margin-left: 0;
 }
@@ -287,6 +291,11 @@ body :where(.editor-styles-wrapper) p {
 }
 .wp-core-ui .button #wp-link label input {
   display: revert;
+}
+
+.acf-button {
+  display: inline-flex !important;
+  align-items: center !important;
 }
 
 /*# sourceMappingURL=admin.css.map */
