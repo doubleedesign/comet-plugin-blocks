@@ -5,6 +5,10 @@
 	--wp-editor-canvas-background: white;
 }
 
+#wpadminbar {
+	padding: 0 !important;
+}
+
 #adminmenu {
 	.wp-submenu {
 		margin-left: 0;
@@ -79,4 +83,9 @@ body :where(.editor-styles-wrapper) {
 			}
 		}
 	}
+}
+
+.acf-button {
+	display: inline-flex !important;
+	align-items: center !important;
 }
