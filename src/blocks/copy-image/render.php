@@ -1,7 +1,7 @@
 <?php
 /** @var $block array */
 
-use Doubleedesign\Comet\Core\{Column, Columns, ContentImageAdvanced, Copy};
+use Doubleedesign\Comet\Core\{Column, Columns, ContentImageAdvanced, Copy, Utils};
 use Doubleedesign\Comet\WordPress\{BlockRenderer, PreprocessedHTML};
 
 $is_editor = isset($is_preview) && $is_preview;
@@ -11,10 +11,11 @@ if ($render_placeholder) {
 }
 
 $image = [];
-$image['styleName'] = 'polaroid'; // TODO: Make this configurable with a theme filter and/or block option
 
 $image_field = get_field('image');
 if (isset($image_field['image_id'])) {
+    $image = Utils::camel_case_array_keys(Utils::array_pick($image_field, ['aspect_ratio', 'focal_point', 'image_offset']));
+    $image['styleName'] = 'polaroid'; // TODO: Make this configurable with a theme filter and/or block option
     $image['alt'] = get_post_meta(get_post_thumbnail_id($image_field['image_id']), '_wp_attachment_image_alt', true) ?? '';
 
     $meta = wp_get_attachment_metadata($image_field['image_id']);
