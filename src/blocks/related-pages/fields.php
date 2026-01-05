@@ -18,7 +18,7 @@ acf_add_local_field_group(array(
             'label'         => 'Pages',
             'name'          => 'pages',
             'type'          => 'post_object',
-            'post_type'     => array('page'),
+            'post_type'     => array('page', 'cpt_index'),
             'multiple'      => true,
             'return_format' => 'id',
         ),

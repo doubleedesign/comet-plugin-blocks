@@ -20,7 +20,7 @@ class ThemeStyle {
 
         // Miscellaneous
         add_theme_support('title-tag');
-        add_theme_support('post-thumbnails', array('post', 'page', 'event', 'person'));
+        add_theme_support('post-thumbnails', array('post', 'page', 'event', 'person', 'cpt_index'));
         add_post_type_support('page', 'excerpt');
     }
 
