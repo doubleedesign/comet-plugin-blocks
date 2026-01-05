@@ -30,7 +30,7 @@ acf_add_local_field_group(array(
             'name'              => 'intro_copy',
             'type'              => 'wysiwyg',
             'tabs'              => 'all',
-            'toolbar'           => 'minimal',
+            'toolbar'           => 'basic',
             'media_upload'      => 1,
             'delay'             => 0,
             'repeatable'        => true,
@@ -71,7 +71,7 @@ acf_add_local_field_group(array(
                     'name'              => 'panel_content',
                     'type'              => 'wysiwyg',
                     'tabs'              => 'all',
-                    'toolbar'           => 'minimal',
+                    'toolbar'           => 'basic',
                     'button_label'      => 'Add content',
                     'wrapper'           => array(
                         'data-nested' => true
