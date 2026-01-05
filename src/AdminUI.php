@@ -6,6 +6,19 @@ class AdminUI {
         add_action('admin_menu', [$this, 'remove_patterns_site_editor_etc_from_admin_menu']);
         add_action('admin_init', [$this, 'redirect_away_from_site_editor_urls']);
         add_action('add_meta_boxes', [$this, 'remove_metaboxes'], 99);
+        add_action('wp_head', function() {
+            if (is_user_logged_in()) {
+                echo '<style>
+				#wpadminbar {
+					padding: 0;
+				}
+					
+				body:has(#wpadminbar) {
+					margin-top: -32px !important;
+				}
+			</style>';
+            }
+        });
     }
 
     /**
