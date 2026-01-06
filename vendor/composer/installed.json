@@ -167,12 +167,12 @@
         },
         {
             "name": "doubleedesign/comet-components-core",
-            "version": "0.3.0",
-            "version_normalized": "0.3.0.0",
+            "version": "0.5.0",
+            "version_normalized": "0.5.0.0",
             "dist": {
                 "type": "path",
                 "url": "../core",
-                "reference": "106bdd7769e82de67df87cdf4db75ea8083f6c20"
+                "reference": "be67c1b2e47d393b8559530505b984e3dd74268f"
             },
             "require": {
                 "ext-intl": "*",
@@ -184,6 +184,7 @@
                 "illuminate/support": "^10.0",
                 "illuminate/view": "^10.0",
                 "openpsa/ranger": "^0.5.8",
+                "php": ">=8.4",
                 "tomloprod/colority": "^1.4"
             },
             "type": "library",
@@ -1371,17 +1372,17 @@
         },
         {
             "name": "symfony/finder",
-            "version": "v6.4.27",
-            "version_normalized": "6.4.27.0",
+            "version": "v6.4.31",
+            "version_normalized": "6.4.31.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/finder.git",
-                "reference": "a1b6aa435d2fba50793b994a839c32b6064f063b"
+                "reference": "5547f2e1f0ca8e2e7abe490156b62da778cfbe2b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/finder/zipball/a1b6aa435d2fba50793b994a839c32b6064f063b",
-                "reference": "a1b6aa435d2fba50793b994a839c32b6064f063b",
+                "url": "https://api.github.com/repos/symfony/finder/zipball/5547f2e1f0ca8e2e7abe490156b62da778cfbe2b",
+                "reference": "5547f2e1f0ca8e2e7abe490156b62da778cfbe2b",
                 "shasum": ""
             },
             "require": {
@@ -1390,7 +1391,7 @@
             "require-dev": {
                 "symfony/filesystem": "^6.0|^7.0"
             },
-            "time": "2025-10-15T18:32:00+00:00",
+            "time": "2025-12-11T14:52:17+00:00",
             "type": "library",
             "installation-source": "source",
             "autoload": {
@@ -1418,7 +1419,7 @@
             "description": "Finds files and directories via an intuitive fluent interface",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/finder/tree/v6.4.27"
+                "source": "https://github.com/symfony/finder/tree/v6.4.31"
             },
             "funding": [
                 {
@@ -1709,17 +1710,17 @@
         },
         {
             "name": "symfony/translation",
-            "version": "v6.4.30",
-            "version_normalized": "6.4.30.0",
+            "version": "v6.4.31",
+            "version_normalized": "6.4.31.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/translation.git",
-                "reference": "d1fdeefd0707d15eb150c04e8837bf0b15ebea39"
+                "reference": "81579408ecf7dc5aa2d8462a6d5c3a430a80e6f2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/translation/zipball/d1fdeefd0707d15eb150c04e8837bf0b15ebea39",
-                "reference": "d1fdeefd0707d15eb150c04e8837bf0b15ebea39",
+                "url": "https://api.github.com/repos/symfony/translation/zipball/81579408ecf7dc5aa2d8462a6d5c3a430a80e6f2",
+                "reference": "81579408ecf7dc5aa2d8462a6d5c3a430a80e6f2",
                 "shasum": ""
             },
             "require": {
@@ -1756,7 +1757,7 @@
                 "symfony/service-contracts": "^2.5|^3",
                 "symfony/yaml": "^5.4|^6.0|^7.0"
             },
-            "time": "2025-11-24T13:57:00+00:00",
+            "time": "2025-12-18T11:37:55+00:00",
             "type": "library",
             "installation-source": "source",
             "autoload": {
@@ -1787,7 +1788,7 @@
             "description": "Provides tools to internationalize your application",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/translation/tree/v6.4.30"
+                "source": "https://github.com/symfony/translation/tree/v6.4.31"
             },
             "funding": [
                 {
@@ -1896,17 +1897,17 @@
         },
         {
             "name": "tomloprod/colority",
-            "version": "v1.4.0",
-            "version_normalized": "1.4.0.0",
+            "version": "v1.5.0",
+            "version_normalized": "1.5.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tomloprod/colority.git",
-                "reference": "873f0acead3efbd0632467406b8185742c13ec0f"
+                "reference": "fb82ecdacb28773701d8d6cfac9a92ccb36500a0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tomloprod/colority/zipball/873f0acead3efbd0632467406b8185742c13ec0f",
-                "reference": "873f0acead3efbd0632467406b8185742c13ec0f",
+                "url": "https://api.github.com/repos/tomloprod/colority/zipball/fb82ecdacb28773701d8d6cfac9a92ccb36500a0",
+                "reference": "fb82ecdacb28773701d8d6cfac9a92ccb36500a0",
                 "shasum": ""
             },
             "require": {
@@ -1919,7 +1920,7 @@
                 "pestphp/pest-plugin-type-coverage": "^3.5.0",
                 "rector/rector": "^1.0.4"
             },
-            "time": "2025-12-03T18:04:13+00:00",
+            "time": "2025-12-23T11:16:52+00:00",
             "type": "library",
             "installation-source": "source",
             "autoload": {
@@ -1949,7 +1950,7 @@
             ],
             "support": {
                 "issues": "https://github.com/tomloprod/colority/issues",
-                "source": "https://github.com/tomloprod/colority/tree/v1.4.0"
+                "source": "https://github.com/tomloprod/colority/tree/v1.5.0"
             },
             "funding": [
                 {
