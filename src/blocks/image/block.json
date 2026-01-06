@@ -1,0 +1,73 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"textdomain": "comet",
+	"name": "comet/image",
+	"title": "Image",
+	"icon": "format-image",
+	"description": "Display a standalone image",
+	"category": "media",
+	"acf": {
+		"mode": "edit",
+		"renderTemplate": "render.php",
+		"blockVersion": 3,
+		"hideFieldsInSidebar": true
+	},
+	"editorStyle": [
+		"comet-container",
+		"comet-image",
+		"comet-content-image-advanced"
+	],
+	"style": [
+		"file:./style.css"
+	],
+	"keywords": [
+		"image",
+		"photo",
+		"media"
+	],
+	"styles": [
+		{
+			"name": "default",
+			"label": "Default",
+			"isDefault": true
+		},
+		{
+			"name": "polaroid",
+			"label": "Polaroid"
+		},
+		{
+			"name": "rounded",
+			"label": "Rounded"
+		}
+	],
+	"attributes": {
+		"size": {
+			"type": "string",
+			"default": "contained"
+		},
+		"hAlign": {
+			"type": "string",
+			"default": "center"
+		},
+		"contentMaxWidth": {
+			"type": "number",
+			"default": 100
+		},
+		"negativeTopMargin": {
+			"type": "string",
+			"default": ""
+		},
+		"negativeBottomMargin": {
+			"type": "string",
+			"default": ""
+		}
+	},
+	"supports": {
+		"mode": true,
+		"jsx": true,
+		"innerBlocks": false,
+		"anchor": true,
+		"align": false
+	}
+}

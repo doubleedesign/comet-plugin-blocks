@@ -1,0 +1,59 @@
+// Additional styles that are truly local to the WP block implementation of the component
+.image-row {
+
+	&[style*="margin-block-start-"],
+	&[style*="margin-block-end:-"] {
+		position: relative;
+		z-index: -1;
+	}
+
+	// Limit the negative margins on small containers so the image doesn't get too covered when small
+	@container (max-width:600px) {
+
+		&[style*="margin-block-start:-"] {
+			&:has([data-aspect-ratio="cinemascope"]) {
+				margin-block-start: -2rem !important;
+			}
+
+			&:has([data-aspect-ratio="wide"]),
+			&:has([data-aspect-ratio="cinematic"]) {
+				margin-block-start: -6rem !important;
+			}
+
+			&:has([data-aspect-ratio="standard"]),
+			&:has([data-aspect-ratio="classic"]),
+			&:has([data-aspect-ratio="square"]) {
+				margin-block-start: -8rem !important;
+			}
+
+			&:has([data-aspect-ratio="square"]),
+			&:has([data-aspect-ratio="portrait"]),
+			&:has([data-aspect-ratio="classic_portrait"]) {
+				margin-block-start: -10rem !important;
+			}
+		}
+
+		&[style*="margin-block-end:-"] {
+			&:has([data-aspect-ratio="cinemascope"]) {
+				margin-block-start: -2rem !important;
+			}
+
+			&:has([data-aspect-ratio="wide"]),
+			&:has([data-aspect-ratio="cinematic"]) {
+				margin-block-end: -6rem !important;
+			}
+
+			&:has([data-aspect-ratio="standard"]),
+			&:has([data-aspect-ratio="classic"]),
+			&:has([data-aspect-ratio="square"]) {
+				margin-block-end: -8rem !important;
+			}
+
+			&:has([data-aspect-ratio="square"]),
+			&:has([data-aspect-ratio="portrait"]),
+			&:has([data-aspect-ratio="classic_portrait"]) {
+				margin-block-end: -10rem !important;
+			}
+		}
+	}
+}

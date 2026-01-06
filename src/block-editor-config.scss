@@ -91,6 +91,18 @@ html :where(.wp-block) {
 	gap: 0.25rem;
 }
 
+.components-panel__row {
+	gap: 0.25rem;
+
+	.components-base-control {
+		margin-block: 0;
+
+		&__field {
+			margin-block: 0;
+		}
+	}
+}
+
 .components-toggle-group-control {
 	transition: border 0.2s ease-in-out;
 	border: 1px solid var(--wp-components-color-gray-300, #dee2e6) !important;
