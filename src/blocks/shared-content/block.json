@@ -18,6 +18,20 @@
 		"layout",
 		"common"
 	],
+	"attributes": {
+		"size": {
+			"type": "string",
+			"default": "fullwidth"
+		},
+		"innerSize": {
+			"type": "string",
+			"default": "fullwidth"
+		},
+		"hAlign": {
+			"type": "string",
+			"default": "center"
+		}
+	},
 	"supports": {
 		"mode": true,
 		"jsx": true,
