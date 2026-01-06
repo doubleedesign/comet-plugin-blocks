@@ -18,7 +18,8 @@
 		}
 	},
 	"require": {
-		"doubleedesign/comet-components-core": "0.3.0"
+		"php": ">=8.4",
+		"doubleedesign/comet-components-core": "dev-master"
 	},
 	"repositories": [
 		{
