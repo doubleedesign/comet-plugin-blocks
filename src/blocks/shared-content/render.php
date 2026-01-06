@@ -1,4 +1,7 @@
 <?php
+
+use Doubleedesign\Comet\Core\{ContainerWithNesting, PreprocessedHTML, Utils};
+
 if (!isset($block)) {
     return;
 }
@@ -18,6 +21,7 @@ if (!$post) {
 
 $is_editor = isset($is_preview) && $is_preview;
 // $post->post_content is not parsed in block editor context, so we need to parse and render the blocks
+ob_start();
 if ($is_editor) {
     $blocks = parse_blocks($post->post_content);
     foreach ($blocks as $block_data) {
@@ -34,3 +38,19 @@ if ($is_editor) {
 else {
     echo apply_filters('the_content', $post->post_content);
 }
+$parsed_content = ob_get_clean();
+
+$finalInnerSize = null;
+if (isset($block['innerSize']) && $block['innerSize'] !== 'auto' && $block['innerSize'] !== $block['size']) {
+    $finalInnerSize = $block['innerSize'];
+}
+
+$component = new ContainerWithNesting(
+    [
+        ...Utils::array_pick($block, ['size', 'innerSize', 'hAlign']),
+        'tagName'         => 'div',
+        'shortName'       => 'shared-content'
+    ],
+    [new PreprocessedHTML([], $parsed_content)]
+);
+$component->render();

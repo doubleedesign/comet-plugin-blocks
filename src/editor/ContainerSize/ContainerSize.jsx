@@ -2,69 +2,90 @@ import { useMemo, useEffect, useState } from '@wordpress/element';
 import { PanelBody, SelectControl } from '@wordpress/components';
 import { FieldTooltip } from '../FieldTooltip/FieldTooltip.jsx';
 
-// TODO: Handle supporting backgroundSize where appropriate (it's not really built into the Core components unless we nest a container)
+// TODO: Handle supporting innerSize where appropriate (it's not really built into the Core components unless we nest a container)
 export const ContainerSize = ({ attributes, setAttributes }) => {
-	if (!attributes?.size && !attributes?.backgroundSize) {
+	console.log(attributes);
+	if (!attributes?.size && !attributes?.innerSize) {
 		return null;
 	}
 
-	const options = [
-		{ label: 'Narrow', value: 'narrow' },
-		{ label: 'Contained', value: 'contained' },
-		{ label: 'Wide', value: 'wide' },
-		{ label: 'Full-width', value: 'fullwidth' },
-	];
-
-	// Account for blocks that support container size but not backgroundSize
-	if (!attributes?.backgroundSize) {
-		return (
-			<SelectControl
-				label={
-					<>
-						Container size
-						<FieldTooltip
-							tooltip={'Represents the maximum width of the content area inside the block; may appear to have no effect on smaller viewports'}
-						/>
-					</>
-				}
-				size={'__unstable-large'}
-				value={attributes.size ?? 'contained'}
-				options={options}
-				onChange={(newSize) => setAttributes({ size: newSize })}
-			/>
-		);
+	if (!attributes?.innerSize) {
+		return <ContainerOnly attributes={attributes} setAttributes={setAttributes}/>;
 	}
 
-	const [containerSizeIndex, setContainerSizeIndex] = useState(1);
-	const [backgroundSizeIndex, setBackgroundSizeIndex] = useState(3);
+	return <ContainerAndInner attributes={attributes} setAttributes={setAttributes}/>;
+};
+
+const ContainerOnly = ({ attributes, setAttributes }) => {
+
+	const options = [
+		{ label: 'Full-width', value: 'fullwidth' },
+		{ label: 'Wide', value: 'wide' },
+		{ label: 'Contained', value: 'contained' },
+		{ label: 'Narrow', value: 'narrow' },
+	];
+
+	return (
+		<SelectControl
+			label={
+				<>
+					Container size
+					<FieldTooltip
+						tooltip={'Represents the maximum width of the content area inside the block; may appear to have no effect on smaller viewports'}
+					/>
+				</>
+			}
+			size={'__unstable-large'}
+			value={attributes.size}
+			options={options}
+			onChange={(newSize) => setAttributes({ size: newSize })}
+		/>
+	);
+};
+
+const ContainerAndInner = ({ attributes, setAttributes }) => {
+
+	const options = [
+		{ label: 'Full-width', value: 'fullwidth' },
+		{ label: 'Wide', value: 'wide' },
+		{ label: 'Contained', value: 'contained' },
+		{ label: 'Narrow', value: 'narrow' },
+	];
+
+	const innerOptions = [
+		{ label: 'Auto (do not override)', value: 'fullwidth' }, // needs to have the same values or we have a bad time with the compatibility logic
+		{ label: 'Wide', value: 'wide' },
+		{ label: 'Contained', value: 'contained' },
+		{ label: 'Narrow', value: 'narrow' },
+	];
+
 
 	const updateContainerSize = (newSize) => {
 		setAttributes({ size: newSize });
-		setContainerSizeIndex(options.findIndex(option => option.value === newSize));
+
+		// If the inner size was larger than the new container size, update it to be the same
+		const innerSizeIndex = options.findIndex(option => option.value === attributes.innerSize);
+		if (innerSizeIndex > options.findIndex(option => option.value === newSize)) {
+			setAttributes({ innerSize: newSize });
+		}
 	};
 
-	const updateBackgroundSize = (newSize) => {
-		setAttributes({ backgroundSize: newSize });
-		setBackgroundSizeIndex(options.findIndex(option => option.value === newSize));
+	const updateinnerSize = (newSize) => {
+		setAttributes({ innerSize: newSize });
+
+		// If the inner size is being set larger than the current container size, update the container to match
+		const containerSizeIndex = options.findIndex(option => option.value === attributes.size);
+		if (options.findIndex(option => option.value === newSize) < containerSizeIndex) {
+			setAttributes({ size: newSize });
+		}
 	};
 
-	// Filter background size options to only those larger than or equal to the selected container size
-	const filteredBackgroundOptions = useMemo(() => {
-		return options.slice(containerSizeIndex);
+	// Filter inner options to only those smaller than or equal to the container size
+	const filteredInnerOptions = useMemo(() => {
+		const containerSizeIndex = options.findIndex(option => option.value === attributes.size);
+
+		return innerOptions.slice(containerSizeIndex);
 	}, [attributes.size]);
-
-	// React to the other selection changing to ensure valid state
-	useEffect(() => {
-		// If the current background size is smaller than the container size, make it the same as the container
-		if (backgroundSizeIndex < containerSizeIndex) {
-			setAttributes({ backgroundSize: attributes.size });
-		}
-
-		// If the container size is larger than the background size, set it to the background size
-		if (containerSizeIndex > backgroundSizeIndex) {
-			setAttributes({ size: attributes.backgroundSize });
-		}
-	}, [containerSizeIndex, backgroundSizeIndex]);
 
 	return (
 		<>
@@ -78,17 +99,25 @@ export const ContainerSize = ({ attributes, setAttributes }) => {
 					</>
 				}
 				size={'__unstable-large'}
-				value={attributes?.size ?? 'contained'}
+				value={attributes.size}
 				options={options}
 				onChange={updateContainerSize}
 			/>
 			<SelectControl
-				label="Background size"
+				label={
+					<>
+						Inner content size
+						<FieldTooltip
+							tooltip={'Optionally override the inner content\'s overall max width; may appear to have no effect on smaller viewports'}
+						/>
+					</>
+				}
 				size={'__unstable-large'}
-				value={attributes?.backgroundSize ?? 'fullwidth'}
-				options={filteredBackgroundOptions}
-				onChange={updateBackgroundSize}
+				value={attributes.innerSize}
+				options={filteredInnerOptions}
+				onChange={updateinnerSize}
 			/>
 		</>
 	);
 };
+
