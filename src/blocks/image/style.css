@@ -1,0 +1,32 @@
+.image-row[style*=margin-block-start-], .image-row[style*="margin-block-end:-"] {
+  position: relative;
+  z-index: -1;
+}
+@container (max-width:600px) {
+  .image-row[style*="margin-block-start:-"]:has([data-aspect-ratio=cinemascope]) {
+    margin-block-start: -2rem !important;
+  }
+  .image-row[style*="margin-block-start:-"]:has([data-aspect-ratio=wide]), .image-row[style*="margin-block-start:-"]:has([data-aspect-ratio=cinematic]) {
+    margin-block-start: -6rem !important;
+  }
+  .image-row[style*="margin-block-start:-"]:has([data-aspect-ratio=standard]), .image-row[style*="margin-block-start:-"]:has([data-aspect-ratio=classic]), .image-row[style*="margin-block-start:-"]:has([data-aspect-ratio=square]) {
+    margin-block-start: -8rem !important;
+  }
+  .image-row[style*="margin-block-start:-"]:has([data-aspect-ratio=square]), .image-row[style*="margin-block-start:-"]:has([data-aspect-ratio=portrait]), .image-row[style*="margin-block-start:-"]:has([data-aspect-ratio=classic_portrait]) {
+    margin-block-start: -10rem !important;
+  }
+  .image-row[style*="margin-block-end:-"]:has([data-aspect-ratio=cinemascope]) {
+    margin-block-start: -2rem !important;
+  }
+  .image-row[style*="margin-block-end:-"]:has([data-aspect-ratio=wide]), .image-row[style*="margin-block-end:-"]:has([data-aspect-ratio=cinematic]) {
+    margin-block-end: -6rem !important;
+  }
+  .image-row[style*="margin-block-end:-"]:has([data-aspect-ratio=standard]), .image-row[style*="margin-block-end:-"]:has([data-aspect-ratio=classic]), .image-row[style*="margin-block-end:-"]:has([data-aspect-ratio=square]) {
+    margin-block-end: -8rem !important;
+  }
+  .image-row[style*="margin-block-end:-"]:has([data-aspect-ratio=square]), .image-row[style*="margin-block-end:-"]:has([data-aspect-ratio=portrait]), .image-row[style*="margin-block-end:-"]:has([data-aspect-ratio=classic_portrait]) {
+    margin-block-end: -10rem !important;
+  }
+}
+
+/*# sourceMappingURL=style.css.map */
