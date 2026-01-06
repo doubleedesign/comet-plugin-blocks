@@ -4,6 +4,7 @@ import { VerticalAlignment } from '../VerticalAlignment/VerticalAlignment.dist.j
 import { HorizontalAlignment } from '../HorizontalAlignment/HorizontalAlignment.dist.js';
 import { LayoutOrientation } from '../LayoutOrientation/LayoutOrientation.dist.js';
 import { ContentMaxWidth } from '../ContentMaxWidth/ContentMaxWidth.dist.js';
+import { NegativeMargins } from '../NegativeMargins/NegativeMargins.dist.js';
 
 /* global wp */
 const {
