@@ -3,6 +3,10 @@ import { PanelBody, Dropdown, Button, ColorIndicator, ColorPalette, GradientPick
 import { useEffect, useMemo, useRef, useState } from '@wordpress/element';
 
 export const ColorControls = ({ name, attributes, setAttributes }) => {
+	if(!Object.keys(attributes).some(attr => ['colorTheme', 'backgroundColor'].includes(attr))) {
+		return null;
+	}
+
 	const palette = Object.entries(comet?.palette)
 		?.filter(([key, value]) => !['black', 'white'].includes(key))
 		?.map(([key, value]) => ({ slug: key, name: key, color: value }))

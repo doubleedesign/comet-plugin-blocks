@@ -50,11 +50,13 @@ function CometBlockEdit({ BlockEdit, ...props }) {
 			<div className="comet-plugin-blocks-custom-controls">
 				<InspectorControls>
 					<LayoutControls {...props} />
-					<PanelBody title="Colours" initialOpen={true} className="comet-color-controls">
+					{Object.keys(props?.attributes).some(attr => ['colorTheme', 'backgroundColor', 'backgroundOpacity', 'backgroundType'].includes(attr)) && (
+						<PanelBody title="Colours" initialOpen={true} className="comet-color-controls">
 							<ColorControls {...props} />
-						<BackgroundOpacity {...props}/>
-						<BackgroundType {...props} />
-					</PanelBody>
+							<BackgroundOpacity {...props}/>
+							<BackgroundType {...props} />
+						</PanelBody>
+					)}
 				</InspectorControls>
 			</div>
 			<BlockEdit {...props} />

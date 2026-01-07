@@ -18,6 +18,9 @@ const ColorControls = ({
   attributes,
   setAttributes
 }) => {
+  if (!Object.keys(attributes).some(attr => ['colorTheme', 'backgroundColor'].includes(attr))) {
+    return null;
+  }
   const palette = Object.entries(comet?.palette)?.filter(([key, value]) => !['black', 'white'].includes(key))?.map(([key, value]) => ({
     slug: key,
     name: key,

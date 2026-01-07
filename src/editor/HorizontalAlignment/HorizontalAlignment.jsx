@@ -1,5 +1,6 @@
 /* global wp */
 import { __experimentalToggleGroupControl, __experimentalToggleGroupControlOption } from '@wordpress/components';
+import { FieldTooltip } from '../FieldTooltip/FieldTooltip.jsx';
 
 export const HorizontalAlignment = ({ attributes, setAttributes }) => {
 	// TODO: Use component defaults from comet JS object (which are set using the PHP global Config object). They should take precedence over block.json
@@ -15,7 +16,14 @@ export const HorizontalAlignment = ({ attributes, setAttributes }) => {
 			className="comet-toggle-group"
 			__next40pxDefaultSize
 			isBlock
-			label="Horizontal alignment"
+			label={
+				<>
+					Horizontal Alignment
+					<FieldTooltip
+						tooltip={'How to align the content if it does not take up the full width of the container'}
+					/>
+				</>
+			}
 			onChange={(value) => setAttributes({ hAlign: value })}
 			value={attributes.hAlign}
 		>
