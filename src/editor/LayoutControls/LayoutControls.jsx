@@ -1,11 +1,13 @@
 /* global wp */
-import { PanelBody } from '@wordpress/components';
+import { PanelBody, PanelRow } from '@wordpress/components';
 import { ContainerSize } from '../ContainerSize/ContainerSize.jsx';
 import { GroupLayout } from '../GroupLayout/GroupLayout.jsx';
 import { VerticalAlignment } from '../VerticalAlignment/VerticalAlignment.jsx';
 import { HorizontalAlignment } from '../HorizontalAlignment/HorizontalAlignment.jsx';
 import { LayoutOrientation } from '../LayoutOrientation/LayoutOrientation.jsx';
 import { ContentMaxWidth } from '../ContentMaxWidth/ContentMaxWidth';
+import { MaxPerRow } from '../MaxPerRow/MaxPerRow';
+import { ItemCount } from '../ItemCount/ItemCount.jsx';
 import { NegativeMargins } from '../NegativeMargins/NegativeMargins.jsx';
 
 export const LayoutControls = (props) => {
@@ -34,6 +36,8 @@ export const LayoutControls = (props) => {
 			<ContentMaxWidth {...props}/>
 			<NegativeMargins {...props} />
 			<GroupLayout {...props} />
+			<ItemCount {...props} />
+			<MaxPerRow {...props} />
 			<LayoutOrientation {...props} />
 			<HorizontalAlignment {...props} />
 			<VerticalAlignment {...props} />
