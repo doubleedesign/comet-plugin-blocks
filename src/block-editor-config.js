@@ -1,5 +1,4 @@
 /* global wp */
-/* global comet */
 /* global acf */
 /* global tinymce */
 
@@ -11,11 +10,6 @@
 wp.domReady(() => {
 	const { select, dispatch } = wp.data;
 
-	function unsubscribe() {
-		wp.data.subscribe(function () {
-		});
-	}
-
 	// Open list view by default and remove the preference setting from the DOM when the preferences modal is opened
 	const listViewIsOpen = select('core/editor').isListViewOpened();
 	if (!listViewIsOpen) {
@@ -25,54 +19,6 @@ wp.domReady(() => {
 
 	// Collapse some metaboxes by default
 	collapseMetaboxesByDefault(['breadcrumb-settings', 'tsf-inpost-box', 'acf-group_67ca2ef6a0243']);
-
-	acf.addAction('render_block_preview', function (element, block) {
-		let blockCount = select('core/block-editor').getBlockCount();
-		const blocks = select('core/block-editor').getBlocks();
-
-		// On ACF block add, open the v3 block editing panel automatically
-		wp.data.subscribe(function () {
-			const newBlockCount = select('core/block-editor').getBlockCount();
-			if (newBlockCount > blockCount) {
-				// A new block has been added
-				const updatedBlocks = select('core/block-editor').getBlocks();
-				const newBlock = updatedBlocks.find(b => !blocks.some(ob => ob.clientId === b.clientId));
-				const panel = document.querySelector('.acf-block-form-modal');
-				const trigger = document.querySelector('.acf-blocks-open-expanded-editor-btn');
-				// If the new block was found successfully, is active, and the ACF block editing panel is not already open, open it by "clicking" the trigger
-				if (!panel && newBlock && trigger && newBlock?.name?.startsWith('comet/')) {
-					trigger.click();
-					unsubscribe();
-					blockCount = newBlockCount; // Update block count to prevent it re-opening when closed
-				}
-			}
-		});
-
-		// If there is only one block on the page, it is an ACF block, and it is empty,
-		// open the block editing panel automatically (useful for new pages)
-		if (blockCount === 1 && block.name.startsWith('comet/')) {
-			let isProbablyEmpty = true;
-			if (block?.data) {
-				isProbablyEmpty = Object.entries(block?.data)
-					?.filter(([key, value]) => !key.startsWith('_'))
-					?.every(([key, value]) => {
-						return !value || (Array.isArray(value) && value.length === 0);
-					});
-			}
-
-			if (isProbablyEmpty) {
-				element.focus();
-				setTimeout(() => {
-					const panel = document.querySelector('.acf-block-form-modal');
-					const trigger = document.querySelector('.acf-blocks-open-expanded-editor-btn');
-					if (!panel && trigger) {
-						trigger.click();
-					}
-				}, 100);
-			}
-		}
-	});
-
 
 	// On ACF preview load
 	// Note: element[0]?.ownerDocument gives us the iframe's document when blocks are rendered in an iframe in the editor.
