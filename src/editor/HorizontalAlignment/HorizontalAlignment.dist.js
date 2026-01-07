@@ -1,3 +1,5 @@
+import { FieldTooltip } from '../FieldTooltip/FieldTooltip.dist.js';
+
 /* global wp */
 const {
   __experimentalToggleGroupControl,
@@ -17,7 +19,9 @@ const HorizontalAlignment = ({
     className: "comet-toggle-group",
     __next40pxDefaultSize: true,
     isBlock: true,
-    label: "Horizontal alignment",
+    label: /*#__PURE__*/React.createElement(React.Fragment, null, "Horizontal Alignment", /*#__PURE__*/React.createElement(FieldTooltip, {
+      tooltip: 'How to align the content if it does not take up the full width of the container'
+    })),
     onChange: value => setAttributes({
       hAlign: value
     }),

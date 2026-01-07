@@ -55,7 +55,7 @@ function CometBlockEdit({
 }) {
   return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
     className: "comet-plugin-blocks-custom-controls"
-  }, /*#__PURE__*/React.createElement(InspectorControls, null, /*#__PURE__*/React.createElement(LayoutControls, props), /*#__PURE__*/React.createElement(PanelBody, {
+  }, /*#__PURE__*/React.createElement(InspectorControls, null, /*#__PURE__*/React.createElement(LayoutControls, props), Object.keys(props?.attributes).some(attr => ['colorTheme', 'backgroundColor', 'backgroundOpacity', 'backgroundType'].includes(attr)) && /*#__PURE__*/React.createElement(PanelBody, {
     title: "Colours",
     initialOpen: true,
     className: "comet-color-controls"
