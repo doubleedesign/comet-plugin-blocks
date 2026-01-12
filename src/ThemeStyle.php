@@ -1,6 +1,6 @@
 <?php
 namespace Doubleedesign\Comet\WordPress;
-use Doubleedesign\Comet\Core\{ColorUtils, Config, ThemeColor};
+use Doubleedesign\Comet\Core\{ColorUtils, Config, ThemeColor, Utils};
 use Exception;
 
 class ThemeStyle {
@@ -62,13 +62,35 @@ class ThemeStyle {
     }
 
     public function set_component_defaults(): void {
-        $defaults = apply_filters('comet_canvas_component_defaults', []);
+        $themeData = wp_get_theme();
+        $authorName = $themeData->get('Author');
+        $authorUrl = $themeData->get('AuthorURI');
+        $siteName = get_bloginfo('name');
+        $startYear = 2025; // TODO: Make this configurable via a filter
+        $endYear = date('Y');
 
+        // Set some defaults that require use of WordPress functions to define (thus not putting them directly in the Config class)
         if (class_exists('Doubleedesign\Comet\Core\Config')) {
+            Config::getInstance()->set_component_defaults('site-footer', array(
+                'copyright' => [
+                    'siteName'        => $siteName,
+                    'startYear'       => $startYear,
+                    'endYear'         => $endYear,
+                ],
+                'devCredit'  => [
+                    'authorName'      => $authorName,
+                    'authorUrl'       => $authorUrl,
+                ]
+            ));
+
+            // Grab any site-specific defaults set via the 'comet_canvas_component_defaults' filter
+            $defaults = apply_filters('comet_canvas_component_defaults', []);
+            // Merge them with existing defaults
             foreach ($defaults as $componentName => $settings) {
-                $defaults = Config::getInstance()->get_component_defaults($componentName);
-                $defaults[$componentName] = array_merge($existing[$componentName] ?? [], $settings);
-                Config::getInstance()->set_component_defaults($componentName, $defaults[$componentName]);
+                $key = Utils::kebab_case($componentName);
+                $existing = Config::getInstance()->get_component_defaults($key);
+
+                Config::getInstance()->set_component_defaults($key, array_merge($existing, $settings));
             }
         }
     }
