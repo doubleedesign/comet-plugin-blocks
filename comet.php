@@ -41,11 +41,13 @@ use Doubleedesign\Comet\WordPress\{AdminUI,
     BlockRegistry,
     BlockRenderer,
     ComponentAssets,
+    GlobalSettings,
     SharedBlocks,
     ThemeStyle,
     TinyMceConfig};
 
 new AdminUI();
+new GlobalSettings();
 new BlockRegistry();
 new BlockRenderer();
 new BlockEditorConfig();
