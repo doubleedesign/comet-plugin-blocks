@@ -6,8 +6,7 @@
 
 /** @var $block array */
 
-use Doubleedesign\Comet\Core\{Container, Group};
-use Doubleedesign\Comet\WordPress\PreprocessedHTML;
+use Doubleedesign\Comet\Core\{Container, Group, PreprocessedHTML};
 
 $formId = is_numeric($block['attrs']['formID']) ? (int)$block['attrs']['formID'] : 0;
 ob_start();
