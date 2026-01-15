@@ -1,8 +1,8 @@
 <?php
 /** @var $block array */
 
-use Doubleedesign\Comet\Core\{Column, Columns, ContentImageAdvanced, Copy, Utils};
-use Doubleedesign\Comet\WordPress\{BlockRenderer, PreprocessedHTML};
+use Doubleedesign\Comet\Core\{Column, Columns, ContentImageAdvanced, Copy, PreprocessedHTML, Utils};
+use Doubleedesign\Comet\WordPress\{BlockRenderer};
 
 $is_editor = isset($is_preview) && $is_preview;
 $render_placeholder = BlockRenderer::maybe_render_editor_placeholder($block, $is_editor);
