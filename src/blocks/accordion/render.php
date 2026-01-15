@@ -1,7 +1,7 @@
 <?php
 
-use Doubleedesign\Comet\Core\{Accordion, AccordionPanel, Heading};
-use Doubleedesign\Comet\WordPress\{BlockRenderer, PreprocessedHTML};
+use Doubleedesign\Comet\Core\{Accordion, AccordionPanel, Heading, PreprocessedHTML};
+use Doubleedesign\Comet\WordPress\{BlockRenderer};
 
 /** @var $block array */
 $is_editor = isset($is_preview) && $is_preview;
