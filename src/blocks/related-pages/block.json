@@ -35,6 +35,10 @@
 		"backgroundColor": {
 			"type": "string",
 			"default": "white"
+		},
+		"hAlign": {
+			"type": "string",
+			"default": "center"
 		}
 	},
 	"supports": {
