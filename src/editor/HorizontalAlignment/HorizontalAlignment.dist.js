@@ -13,6 +13,9 @@ const HorizontalAlignment = ({
   if (!attributes?.hAlign) {
     return null;
   }
+  if (attributes.layout && attributes.layout === 'list') {
+    return null;
+  }
   const ToggleGroupControl = __experimentalToggleGroupControl;
   const ToggleGroupControlOption = __experimentalToggleGroupControlOption;
   return /*#__PURE__*/React.createElement(ToggleGroupControl, {
