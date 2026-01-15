@@ -89,3 +89,7 @@ body :where(.editor-styles-wrapper) {
 	display: inline-flex !important;
 	align-items: center !important;
 }
+
+.select2-container--default {
+	padding-inline: 0 !important;
+}

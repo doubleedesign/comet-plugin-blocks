@@ -298,4 +298,8 @@ body :where(.editor-styles-wrapper) p {
   align-items: center !important;
 }
 
+.select2-container--default {
+  padding-inline: 0 !important;
+}
+
 /*# sourceMappingURL=admin.css.map */

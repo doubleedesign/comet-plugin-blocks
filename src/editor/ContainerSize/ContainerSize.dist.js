@@ -15,7 +15,6 @@ const ContainerSize = ({
   attributes,
   setAttributes
 }) => {
-  console.log(attributes);
   if (!attributes?.size && !attributes?.innerSize) {
     return null;
   }

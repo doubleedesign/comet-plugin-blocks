@@ -4,7 +4,6 @@ import { FieldTooltip } from '../FieldTooltip/FieldTooltip.jsx';
 
 // TODO: Handle supporting innerSize where appropriate (it's not really built into the Core components unless we nest a container)
 export const ContainerSize = ({ attributes, setAttributes }) => {
-	console.log(attributes);
 	if (!attributes?.size && !attributes?.innerSize) {
 		return null;
 	}
