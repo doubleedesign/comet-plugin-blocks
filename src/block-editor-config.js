@@ -10,6 +10,12 @@
 wp.domReady(() => {
 	const { select, dispatch } = wp.data;
 
+	// Disable full-screen mode by default
+	const isFullscreenMode = wp.data.select('core/edit-post').isFeatureActive('fullscreenMode');
+	if (isFullscreenMode) {
+		wp.data.dispatch('core/edit-post').toggleFeature('fullscreenMode');
+	}
+
 	// Open list view by default and remove the preference setting from the DOM when the preferences modal is opened
 	const listViewIsOpen = select('core/editor').isListViewOpened();
 	if (!listViewIsOpen) {
