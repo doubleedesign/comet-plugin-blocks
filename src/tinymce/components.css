@@ -9,6 +9,7 @@
 
 .button {
   display: inline-block;
+  font-family: var(--font-family-body);
   padding: var(--spacing-sm) var(--spacing-lg);
   border: none;
   appearance: none;
@@ -27,10 +28,15 @@
   text-decoration-color: currentColor;
 }
 .button:has(i, svg) {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: var(--spacing-xs);
+}
+.button:disabled, .button[aria-disabled=true] {
+  opacity: 0.4;
+  cursor: not-allowed;
+  pointer-events: none;
 }
 .button[data-color-theme=primary]:not(.is-style-outline):not([data-style=outline]), [data-color-theme=primary] .button:not(.is-style-outline):not([data-style=outline]) {
   background-color: var(--color-primary);
@@ -405,7 +411,7 @@
   font-size: var(--font-size-sm);
 }
 
-.table, [class$=__table] {
+.table, [class$=__table], [class*=table--] {
   min-width: 100%;
   width: fit-content;
   font-family: var(--font-family-body);
@@ -414,20 +420,23 @@
   font-size: 1rem;
   margin: var(--spacing-md) 0 var(--spacing-xl) 0;
 }
-.table:first-child, [class$=__table]:first-child {
+.table:first-child, [class$=__table]:first-child, [class*=table--]:first-child {
   margin-block-start: 0;
 }
-.table th, [class$=__table] th, .table td, [class$=__table] td {
+.table:last-child, [class$=__table]:last-child, [class*=table--]:last-child {
+  margin-block-end: 0;
+}
+.table th, [class$=__table] th, [class*=table--] th, .table td, [class$=__table] td, [class*=table--] td {
   text-align: start;
   padding: var(--spacing-xs);
   border-bottom: 1px solid color-mix(in srgb, var(--color-light) 90%, black);
   vertical-align: top;
 }
-.table th, [class$=__table] th {
+.table th, [class$=__table] th, [class*=table--] th {
   background: var(--color-light);
   font-weight: var(--font-weight-semibold);
 }
-.table td, [class$=__table] td {
+.table td, [class$=__table] td, [class*=table--] td {
   font-weight: var(--font-weight-light);
 }
 .table__caption {
@@ -438,6 +447,9 @@
 }
 .table__header {
   border-bottom: 3px solid color-mix(in srgb, var(--color-light) 80%, black);
+}
+.table__body__row th[scope=row] {
+  width: 25%;
 }
 
 /*# sourceMappingURL=components.css.map */
