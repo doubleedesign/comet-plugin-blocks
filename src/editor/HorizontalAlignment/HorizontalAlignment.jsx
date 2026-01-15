@@ -8,6 +8,10 @@ export const HorizontalAlignment = ({ attributes, setAttributes }) => {
 		return null;
 	}
 
+	if (attributes.layout && attributes.layout === 'list') {
+		return null;
+	}
+
 	const ToggleGroupControl = __experimentalToggleGroupControl;
 	const ToggleGroupControlOption = __experimentalToggleGroupControlOption;
 
