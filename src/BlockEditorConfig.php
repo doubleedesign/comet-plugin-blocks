@@ -14,9 +14,9 @@ class BlockEditorConfig extends JavaScriptImplementation {
 
         remove_action('enqueue_block_editor_assets', 'wp_enqueue_editor_block_directory_assets');
         remove_action('enqueue_block_editor_assets', 'gutenberg_enqueue_block_editor_assets_block_directory');
-
         add_filter('should_load_separate_core_block_assets', '__return_true', 5);
         add_filter('should_load_block_assets_on_demand', '__return_true', 5);
+
         add_action('init', [$this, 'load_merged_theme_json'], 5, 1);
         add_action('init', [$this, 'register_page_template'], 15, 2);
 
@@ -138,6 +138,11 @@ class BlockEditorConfig extends JavaScriptImplementation {
                 'handle' => 'comet-components-common-styles',
                 'path'   => COMET_COMPOSER_VENDOR_PATH . '/doubleedesign/comet-components-core/src/components/common.css',
                 'url'    => COMET_COMPOSER_VENDOR_URL . '/doubleedesign/comet-components-core/src/components/common.css',
+            ],
+            [
+                'handle' => 'theme-foundation-styles',
+                'path'   => get_template_directory() . '/common.css',
+                'url'    => get_template_directory_uri() . '/common.css',
             ],
             [
                 'handle' => 'theme-common-styles',
