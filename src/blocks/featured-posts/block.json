@@ -1,0 +1,57 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"textdomain": "comet",
+	"name": "comet/featured-posts",
+	"title": "Featured posts",
+	"icon": "editor-ul",
+	"description": "Select some blog posts to feature in a card layout.",
+	"category": "content",
+	"acf": {
+		"mode": "edit",
+		"renderTemplate": "render.php",
+		"blockVersion": 3,
+		"hideFieldsInSidebar": true
+	},
+	"editorStyle": [
+		"comet-container",
+		"comet-card-list",
+		"comet-card"
+	],
+	"keywords": [
+		"content",
+		"layout",
+		"common",
+		"posts",
+		"blog"
+	],
+	"attributes": {
+		"size": {
+			"type": "string",
+			"default": "contained"
+		},
+		"colorTheme": {
+			"type": "string",
+			"default": "primary"
+		},
+		"backgroundColor": {
+			"type": "string",
+			"default": "white"
+		},
+		"hAlign": {
+			"type": "string",
+			"default": "center"
+		},
+		"layout": {
+			"type": "string",
+			"default": "grid"
+		}
+	},
+	"supports": {
+		"mode": true,
+		"jsx": true,
+		"innerBlocks": false,
+		"anchor": true,
+		"align": false
+	}
+}
