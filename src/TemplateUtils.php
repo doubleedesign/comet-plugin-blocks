@@ -69,7 +69,11 @@ class TemplateUtils {
         );
     }
 
-    public static function singularise(string $text): string {
+    public static function singularise(?string $text): string {
+        if ($text === null) {
+            return '';
+        }
+
         $words = explode(' ', $text);
         $lastWord = array_pop($words);
 
