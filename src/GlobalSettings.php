@@ -3,8 +3,8 @@ namespace Doubleedesign\Comet\WordPress;
 
 class GlobalSettings {
     public function __construct() {
-        add_filter('doublee_global_settings_fields', [$this, 'add_global_settings_fields'], 10, 1);
-        add_filter('doublee_global_settings_contributors', [$this, 'add_this_plugin_to_global_settings_about_tab'], 10, 1);
+        add_filter('doublee_integrations_settings_fields', [$this, 'add_integrations_settings_fields'], 10, 1);
+        add_filter('doublee_integrations_settings_contributors', [$this, 'add_this_plugin_to_integrations_settings_about_tab'], 10, 1);
 
     }
 
@@ -16,7 +16,7 @@ class GlobalSettings {
      *
      * @return array
      */
-    public function add_global_settings_fields($fields): array {
+    public function add_integrations_settings_fields($fields): array {
         $font_awesome_kit_field = array(
             'key'               => 'field_font_awesome_kit',
             'label'             => 'Font Awesome kit code (for icons)',
@@ -26,7 +26,7 @@ class GlobalSettings {
         );
 
         // Find the "Accounts & Assets" tab
-        $index = array_search('Accounts & Assets', array_column($fields['fields'], 'label'));
+        $index = array_search('Assets', array_column($fields['fields'], 'label'));
         if ($index !== false) {
             // Insert the new field after the tab
             array_splice($fields['fields'], $index + 1, 0, [$font_awesome_kit_field]);
@@ -39,7 +39,7 @@ class GlobalSettings {
         return $fields;
     }
 
-    public function add_this_plugin_to_global_settings_about_tab($contributors) {
+    public function add_this_plugin_to_integrations_settings_about_tab($contributors) {
         array_push($contributors, 'Comet Components plugin');
 
         return $contributors;
