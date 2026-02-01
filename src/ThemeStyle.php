@@ -10,7 +10,7 @@ class ThemeStyle {
         add_action('init', [$this, 'set_colours'], 5);
         add_action('init', [$this, 'set_global_background'], 10);
         add_action('init', [$this, 'set_icon_prefix'], 10);
-        add_action('init', [$this, 'set_component_defaults'], 10);
+        add_action('init', [$this, 'set_component_defaults'], 5);
 
         // Load styles into the various required places
         add_action('wp_head', [$this, 'add_css_variables_to_head'], 25);
