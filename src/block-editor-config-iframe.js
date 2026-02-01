@@ -16,9 +16,9 @@ function wrapPostTitle() {
 		if (titleElement && !titleElement.closest('.page-header')) {
 			const wrapper = document.createElement('section');
 			wrapper.classList.add('page-header');
-			wrapper.setAttribute('data-size', comet.defaults?.PageHeader?.size || 'contained');
-			wrapper.setAttribute('data-color-theme', comet.defaults?.PageHeader?.colorTheme || 'primary');
-			wrapper.setAttribute('data-background', comet.defaults?.PageHeader?.backgroundColor || 'white');
+			wrapper.setAttribute('data-size', comet.defaults?.['page-header']?.size || 'contained');
+			wrapper.setAttribute('data-color-theme', comet.defaults?.['page-header'].colorTheme || 'primary');
+			wrapper.setAttribute('data-background', comet.defaults?.['page-header']?.backgroundColor || 'white');
 
 			const container = document.createElement('div');
 			container.classList.add('page-header__container');
