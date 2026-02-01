@@ -1,14 +1,14 @@
 /* global wp */
 import { addFilter } from '@wordpress/hooks';
-import { InspectorControls } from '@wordpress/block-editor';
+import { InspectorControls, InspectorAdvancedControls } from '@wordpress/block-editor';
 import ServerSideRender from '@wordpress/server-side-render';
 import { LayoutControls } from '../LayoutControls/LayoutControls.jsx';
 import { ColorControls } from '../ColorControls/ColorControls.jsx';
 import { PanelBody, SelectControl } from '@wordpress/components';
 import { useMemo } from '@wordpress/element';
-import { GroupLayout } from '../GroupLayout/GroupLayout.jsx';
 import { BackgroundType } from '../BackgroundType/BackgroundType.jsx';
 import { BackgroundOpacity } from '../BackgroundOpacity/BackgroundOpacity.jsx';
+import { HtmlTag } from '../HtmlTag/HtmlTag.jsx';
 
 /**
  * Note: This file needs to be compiled (Rollup is configured for this)
@@ -51,13 +51,17 @@ function CometBlockEdit({ BlockEdit, ...props }) {
 				<InspectorControls>
 					<LayoutControls {...props} />
 					{Object.keys(props?.attributes).some(attr => ['colorTheme', 'backgroundColor', 'backgroundOpacity', 'backgroundType'].includes(attr)) && (
-						<PanelBody title="Colours" initialOpen={true} className="comet-color-controls">
+						<PanelBody title="Colours" initialOpen={true}
+							className={`comet-color-controls comet-color-controls--${props.name.split('/')[1]}`}>
 							<ColorControls {...props} />
 							<BackgroundOpacity {...props}/>
 							<BackgroundType {...props} />
 						</PanelBody>
 					)}
 				</InspectorControls>
+				<InspectorAdvancedControls>
+					<HtmlTag {...props} />
+				</InspectorAdvancedControls>
 			</div>
 			<BlockEdit {...props} />
 		</>

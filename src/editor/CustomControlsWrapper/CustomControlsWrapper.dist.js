@@ -1,16 +1,17 @@
 import { extends as _extends } from '../_virtual/_rollupPluginBabelHelpers.dist.js';
 import { LayoutControls } from '../LayoutControls/LayoutControls.dist.js';
 import { ColorControls } from '../ColorControls/ColorControls.dist.js';
-import '../GroupLayout/GroupLayout.dist.js';
 import { BackgroundType } from '../BackgroundType/BackgroundType.dist.js';
 import { BackgroundOpacity } from '../BackgroundOpacity/BackgroundOpacity.dist.js';
+import { HtmlTag } from '../HtmlTag/HtmlTag.dist.js';
 
 /* global wp */
 const {
   addFilter
 } = wp.hooks;
 const {
-  InspectorControls
+  InspectorControls,
+  InspectorAdvancedControls
 } = wp.blockEditor;
 const ServerSideRender = wp.serverSideRender;
 const {
@@ -58,8 +59,8 @@ function CometBlockEdit({
   }, /*#__PURE__*/React.createElement(InspectorControls, null, /*#__PURE__*/React.createElement(LayoutControls, props), Object.keys(props?.attributes).some(attr => ['colorTheme', 'backgroundColor', 'backgroundOpacity', 'backgroundType'].includes(attr)) && /*#__PURE__*/React.createElement(PanelBody, {
     title: "Colours",
     initialOpen: true,
-    className: "comet-color-controls"
-  }, /*#__PURE__*/React.createElement(ColorControls, props), /*#__PURE__*/React.createElement(BackgroundOpacity, props), /*#__PURE__*/React.createElement(BackgroundType, props)))), /*#__PURE__*/React.createElement(BlockEdit, props));
+    className: `comet-color-controls comet-color-controls--${props.name.split('/')[1]}`
+  }, /*#__PURE__*/React.createElement(ColorControls, props), /*#__PURE__*/React.createElement(BackgroundOpacity, props), /*#__PURE__*/React.createElement(BackgroundType, props))), /*#__PURE__*/React.createElement(InspectorAdvancedControls, null, /*#__PURE__*/React.createElement(HtmlTag, props))), /*#__PURE__*/React.createElement(BlockEdit, props));
 }
 
 /**
