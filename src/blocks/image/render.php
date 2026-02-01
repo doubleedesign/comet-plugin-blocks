@@ -21,7 +21,7 @@ $wrapperAttrs = [
 $imageAttrs = [
     ...Utils::camel_case_array_keys(Utils::array_pick(get_field('image'), ['src', 'alt', 'aspect_ratio', 'focal_point', 'image_offset'])),
     'context'   => 'image-row',
-    'styleName' => str_replace('is-style-', '', explode(' ', $block['className'])[0] ?? ''),
+    'styleName' => isset($block['className']) ? str_replace('is-style-', '', explode(' ', $block['className'])[0] ?? '') : null,
     'style'     => array_filter(['max-width' => "{$block['contentMaxWidth']}%" ?? null]),
 ];
 
