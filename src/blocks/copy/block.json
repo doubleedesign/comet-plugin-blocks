@@ -30,6 +30,10 @@
 		"colorTheme": {
 			"type": "string",
 			"default": "primary"
+		},
+		"tagName": {
+			"type": "string",
+			"default": "section"
 		}
 	},
 	"supports": {
