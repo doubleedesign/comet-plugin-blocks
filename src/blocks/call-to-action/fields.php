@@ -1,4 +1,5 @@
 <?php
+
 use Doubleedesign\Comet\WordPress\BlockFieldHandler;
 
 acf_add_local_field_group(array(
@@ -12,7 +13,6 @@ acf_add_local_field_group(array(
             'type'              => 'text',
             'required'          => true,
             'maxlength'         => 120,
-            'repeatable'        => true,
         ),
         array(
             'key'               => 'field__call-to-action__description',
@@ -23,7 +23,7 @@ acf_add_local_field_group(array(
             'media_upload'      => false,
             'required'          => false,
         ),
-        BlockFieldHandler::create_button_group_repeater('call-to-action', true),
+        BlockFieldHandler::create_button_group_repeater('call-to-action', false),
     ),
     'location' => array(
         array(
