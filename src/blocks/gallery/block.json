@@ -30,9 +30,25 @@
 			"type": "string",
 			"default": "contained"
 		},
-		"backgroundColor": {
+		"lightbox": {
+			"type": "boolean",
+			"default": false
+		},
+		"captions": {
+			"type": "boolean",
+			"default": true
+		},
+		"maxPerRow": {
+			"type": "number",
+			"default": 3
+		},
+		"aspectRatio": {
 			"type": "string",
-			"default": "white"
+			"default": "square"
+		},
+		"tagName": {
+			"type": "string",
+			"default": "section"
 		}
 	},
 	"supports": {

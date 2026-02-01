@@ -9,6 +9,8 @@ import { ContentMaxWidth } from '../ContentMaxWidth/ContentMaxWidth';
 import { MaxPerRow } from '../MaxPerRow/MaxPerRow';
 import { ItemCount } from '../ItemCount/ItemCount.jsx';
 import { NegativeMargins } from '../NegativeMargins/NegativeMargins.jsx';
+import { AspectRatio } from '../AspectRatio/AspectRatio.jsx';
+import { GalleryControls } from '../GalleryControls/GalleryControls.jsx';
 
 export const LayoutControls = (props) => {
 	// If the block does not have any layout attributes, do not render the controls
@@ -33,6 +35,7 @@ export const LayoutControls = (props) => {
 	return (
 		<PanelBody title="Layout" initialOpen={true}>
 			<ContainerSize {...props} />
+			<AspectRatio {...props} />
 			<ContentMaxWidth {...props}/>
 			<NegativeMargins {...props} />
 			<GroupLayout {...props} />
@@ -41,6 +44,7 @@ export const LayoutControls = (props) => {
 			<LayoutOrientation {...props} />
 			<HorizontalAlignment {...props} />
 			<VerticalAlignment {...props} />
+			<GalleryControls {...props} />
 		</PanelBody>
 	);
 };
