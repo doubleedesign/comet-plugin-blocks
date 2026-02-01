@@ -1,10 +1,12 @@
 import { FieldTooltip } from '../FieldTooltip/FieldTooltip.dist.js';
 
 /* eslint-disable max-len */
+/* global comet, wp */
 const {
   __experimentalNumberControl
 } = wp.components;
 const MaxPerRow = ({
+  name,
   attributes,
   setAttributes
 }) => {
@@ -19,10 +21,17 @@ const MaxPerRow = ({
     })),
     value: attributes.maxPerRow,
     min: 2,
-    max: 4,
-    onChange: newMax => setAttributes({
-      maxPerRow: newMax
-    })
+    max: 6,
+    onChange: newMax => {
+      try {
+        newMax = parseInt(newMax);
+      } catch {
+        newMax = attributes.maxPerRow;
+      }
+      return setAttributes({
+        maxPerRow: newMax
+      });
+    }
   });
 };
 
