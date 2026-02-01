@@ -1,0 +1,42 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"textdomain": "comet",
+	"name": "comet/contact-details",
+	"title": "Contact details",
+	"icon": "smartphone",
+	"description": "Insert your contact details as set in the site-wide settings",
+	"category": "content",
+	"acf": {
+		"mode": "preview",
+		"renderTemplate": "render.php",
+		"blockVersion": 3,
+		"hideFieldsInSidebar": true
+	},
+	"editorStyle": [
+		"comet-container",
+		"comet-copy"
+	],
+	"keywords": [
+		"contact",
+		"phone",
+		"business"
+	],
+	"attributes": {
+		"size": {
+			"type": "string",
+			"default": "contained"
+		},
+		"hAlign": {
+			"type": "string",
+			"default": "center"
+		}
+	},
+	"supports": {
+		"mode": true,
+		"jsx": true,
+		"innerBlocks": false,
+		"anchor": true,
+		"align": false
+	}
+}
