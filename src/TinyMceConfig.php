@@ -9,6 +9,7 @@ class TinyMceConfig {
         add_action('admin_enqueue_scripts', [$this, 'editor_css']);
         add_filter('tiny_mce_before_init', [$this, 'editor_css_acf']);
         add_filter('doublee_tinymce_theme_colours', [$this, 'add_theme_colours_to_tinymce_tools']);
+		add_filter('doublee_tinymce_miniblock_defaults', [$this, 'add_component_defaults_to_tinymce_tools']);
         add_filter('tiny_mce_before_init', [$this, 'add_theme_colours_to_tinymce_content']);
     }
 
@@ -101,6 +102,23 @@ class TinyMceConfig {
 
         return array_unique(array_merge($colours, $filtered));
     }
+
+	/**
+	 * Add some component defaults to TinyMCE miniblock defaults
+	 * @param $defaults
+	 * @return array
+	 */
+	public function add_component_defaults_to_tinymce_tools($defaults): array {
+		if (!class_exists('Doubleedesign\Comet\Core\Config')) {
+			return $defaults;
+		}
+
+		return array_merge($defaults, [
+			'button-group' => Config::getInstance()->get_component_defaults('button-group'),
+			'pullquote' => Config::getInstance()->get_component_defaults('pullquote'),
+			'callout' => Config::getInstance()->get_component_defaults('callout'),
+		]);
+	}
 
     /**
      * Add colours from theme.json as CSS variables to TinyMCE content
