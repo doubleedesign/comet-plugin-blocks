@@ -21,6 +21,7 @@ acf_add_local_field_group(array(
             'taxonomy'      => 'category',
             'field_type'    => 'multi_select',
             'return_format' => 'id',
+            'add_term'      => false
         ),
         array(
             'key'           => 'field__latest-posts__item-count',
