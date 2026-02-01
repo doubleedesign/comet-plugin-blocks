@@ -21,11 +21,20 @@ const ColorControls = ({
   if (!Object.keys(attributes).some(attr => ['colorTheme', 'backgroundColor'].includes(attr))) {
     return null;
   }
-  const palette = Object.entries(comet?.palette)?.filter(([key, value]) => !['black', 'white'].includes(key))?.map(([key, value]) => ({
+  let palette = Object.entries(comet?.palette)?.filter(([key, value]) => !['black', 'white'].includes(key))?.map(([key, value]) => ({
     slug: key,
     name: key,
     color: value
   })) ?? wp.data.select('core/block-editor').getSettings().colors;
+
+  // Most blocks shouldn't have access to the status/message type colours, only brand colours, whereas others are the opposite
+  if (['comet/callout'].includes(name)) {
+    palette = palette.filter(color => ['error', 'success', 'info', 'warning'].includes(color.slug));
+  } else if (['comet/separator', 'comet/copy', 'comet/copy-image'].includes(name)) {
+    palette = palette.filter(color => !['error', 'success', 'info', 'warning', 'light'].includes(color.slug));
+  } else {
+    palette = palette.filter(color => !['error', 'success', 'info', 'warning'].includes(color.slug));
+  }
   if (!palette || palette.length === 0) {
     // eslint-disable-next-line max-len
     console.error('No colour palette found in component library configuration. You can use theme.json or the comet_canvas_theme_colours filter to add colours. Developers: See set_colours() in ThemeStyle.php in the plugin source for more implementation details.');
@@ -83,6 +92,7 @@ const ColorControls = ({
       foreground: foregroundColor,
       background: backgroundColor
     },
+    blockName: name.split('/')[1],
     pairs: comet?.colourPairs ?? [],
     onChange: newValue => {
       handleThemeChange(newValue.foreground);
@@ -129,6 +139,7 @@ function ColorPaletteDropdown({
   });
 }
 function ColorPairPaletteDropdown({
+  blockName,
   label,
   value,
   pairs,
@@ -178,6 +189,7 @@ function ColorPairPaletteDropdown({
       value: gradientPreview,
       gradients: palette,
       disableCustomGradients: true,
+      className: `comet-color-controls comet-color-controls--${blockName}`,
       onChange: value => {
         handleChange(value);
         onToggle(); // close dropdown after selection

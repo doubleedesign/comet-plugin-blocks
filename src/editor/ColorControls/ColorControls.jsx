@@ -2,15 +2,24 @@
 import { PanelBody, Dropdown, Button, ColorIndicator, ColorPalette, GradientPicker } from '@wordpress/components';
 import { useEffect, useMemo, useRef, useState } from '@wordpress/element';
 
-export const ColorControls = ({ name, attributes, setAttributes }) => {
-	if(!Object.keys(attributes).some(attr => ['colorTheme', 'backgroundColor'].includes(attr))) {
+export const ColorControls = ({name, attributes, setAttributes}) => {
+	if (!Object.keys(attributes).some(attr => ['colorTheme', 'backgroundColor'].includes(attr))) {
 		return null;
 	}
 
-	const palette = Object.entries(comet?.palette)
-		?.filter(([key, value]) => !['black', 'white'].includes(key))
-		?.map(([key, value]) => ({ slug: key, name: key, color: value }))
+	let palette = Object.entries(comet?.palette)
+			?.filter(([key, value]) => !['black', 'white'].includes(key))
+			?.map(([key, value]) => ({slug: key, name: key, color: value}))
 		?? wp.data.select('core/block-editor').getSettings().colors;
+
+	// Most blocks shouldn't have access to the status/message type colours, only brand colours, whereas others are the opposite
+	if (['comet/callout'].includes(name)) {
+		palette = palette.filter(color => ['error', 'success', 'info', 'warning'].includes(color.slug));
+	} else if (['comet/separator', 'comet/copy', 'comet/copy-image'].includes(name)) {
+		palette = palette.filter(color => !['error', 'success', 'info', 'warning', 'light'].includes(color.slug));
+	} else {
+		palette = palette.filter(color => !['error', 'success', 'info', 'warning'].includes(color.slug));
+	}
 
 	if (!palette || palette.length === 0) {
 		// eslint-disable-next-line max-len
@@ -45,12 +54,12 @@ export const ColorControls = ({ name, attributes, setAttributes }) => {
 
 	const handleThemeChange = (name) => {
 		setForegroundColor(name);
-		setAttributes({ colorTheme: name ?? '' });
+		setAttributes({colorTheme: name ?? ''});
 	};
 
 	const handleBackgroundChange = (name) => {
 		setBackgroundColor(name);
-		setAttributes({ backgroundColor: name ?? '' });
+		setAttributes({backgroundColor: name ?? ''});
 	};
 
 	// If background colour is not supported, provide single colour theme option
@@ -76,6 +85,7 @@ export const ColorControls = ({ name, attributes, setAttributes }) => {
 					foreground: foregroundColor,
 					background: backgroundColor,
 				}}
+				blockName={name.split('/')[1]}
 				pairs={comet?.colourPairs ?? []}
 				onChange={(newValue) => {
 					handleThemeChange(newValue.foreground);
@@ -86,7 +96,7 @@ export const ColorControls = ({ name, attributes, setAttributes }) => {
 	);
 };
 
-function ColorPaletteDropdown({ label, hexValue, palette, onChange }) {
+function ColorPaletteDropdown({label, hexValue, palette, onChange}) {
 	const [hex, setHex] = useState(hexValue);
 	const triggerRef = useRef();
 
@@ -98,17 +108,17 @@ function ColorPaletteDropdown({ label, hexValue, palette, onChange }) {
 
 	return (
 		<Dropdown
-			renderToggle={({ onToggle, isOpen }) => (
+			renderToggle={({onToggle, isOpen}) => (
 				<Button onClick={onToggle}
-					aria-expanded={isOpen}
-					ref={triggerRef}
-					__next40pxDefaultSize
+				        aria-expanded={isOpen}
+				        ref={triggerRef}
+				        __next40pxDefaultSize
 				>
 					<ColorIndicator colorValue={hex}/>
 					{label}
 				</Button>
 			)}
-			renderContent={({ onToggle }) => (
+			renderContent={({onToggle}) => (
 				<ColorPalette
 					label={label}
 					value={hex}
@@ -124,7 +134,7 @@ function ColorPaletteDropdown({ label, hexValue, palette, onChange }) {
 	);
 }
 
-function ColorPairPaletteDropdown({ label, value, pairs, onChange }) {
+function ColorPairPaletteDropdown({blockName, label, value, pairs, onChange}) {
 	const [foreground, setForeground] = useState(value?.foreground ?? '');
 	const [background, setBackground] = useState(value?.background !== 'transparent' ? value?.background : (comet?.globalBackground ?? 'white'));
 	const triggerRef = useRef();
@@ -156,22 +166,23 @@ function ColorPairPaletteDropdown({ label, value, pairs, onChange }) {
 
 	return (
 		<Dropdown
-			renderToggle={({ onToggle, isOpen }) => (
+			renderToggle={({onToggle, isOpen}) => (
 				<Button onClick={onToggle}
-					aria-expanded={isOpen}
-					ref={triggerRef}
-					__next40pxDefaultSize
+				        aria-expanded={isOpen}
+				        ref={triggerRef}
+				        __next40pxDefaultSize
 				>
 					<ColorIndicator colorValue={gradientPreview}/>
 					{label}
 				</Button>
 			)}
-			renderContent={({ isOpen, onToggle }) => (
+			renderContent={({isOpen, onToggle}) => (
 				<GradientPicker
 					label={label}
 					value={gradientPreview}
 					gradients={palette}
 					disableCustomGradients={true}
+					className={`comet-color-controls comet-color-controls--${blockName}`}
 					onChange={(value) => {
 						handleChange(value);
 						onToggle(); // close dropdown after selection
