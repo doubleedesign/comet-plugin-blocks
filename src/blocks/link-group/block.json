@@ -6,7 +6,7 @@
 	"title": "Link group",
 	"icon": "admin-links",
 	"description": "List a collection of external or featured links",
-	"category": "media",
+	"category": "design",
 	"acf": {
 		"mode": "edit",
 		"renderTemplate": "render.php",
@@ -43,6 +43,8 @@
 		"mode": true,
 		"jsx": true,
 		"innerBlocks": false,
-		"colorTheme": true
+		"colorTheme": true,
+		"anchor": true,
+		"align": false
 	}
 }

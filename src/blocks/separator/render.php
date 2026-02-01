@@ -1,12 +1,15 @@
 <?php
 
-use Doubleedesign\Comet\Core\{Separator, Utils};
+use Doubleedesign\Comet\Core\{Config, Separator};
 
 /** @var $block array */
-$attributes = array_merge(
-    Utils::array_pick($block, ['size', 'colorTheme']),
-    ['style' => get_field('style')]
-);
+$attributes = [
+    'style'      => get_field('style'),
+    // TODO: More concise way of grabbing all defaults from Config and then overriding with attributes present - for all blocks
+    'size'       => $block['size'] ?? Config::getInstance()->get_component_defaults('separator')['size'] ?? 'contained',
+    'colorTheme' => $block['colorTheme'] ?? Config::getInstance()->get_component_defaults('separator')['colorTheme'] ?? 'primary',
+];
+
 $component = new Separator($attributes);
 
 // FIXME: wrapper is a workaround for something causing subsequent blocks to not render.
