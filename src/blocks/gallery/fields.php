@@ -17,6 +17,15 @@ acf_add_local_field_group(array(
             'mime_types'        => '',
             'repeatable'        => true,
         ),
+        array(
+            'key'           => 'field__gallery__caption',
+            'label'         => 'Caption',
+            'name'          => 'caption',
+            'type'          => 'text',
+            'instructions'  => 'Caption describing the gallery as a whole',
+            'default_value' => '',
+            'placeholder'   => '',
+        )
     ),
     'location' => array(
         array(
