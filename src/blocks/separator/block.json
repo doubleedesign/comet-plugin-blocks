@@ -6,10 +6,12 @@
 	"title": "Separator",
 	"icon": "editor-insertmore",
 	"description": "Add a stylised break between sections",
-	"category": "design",
+	"category": "text",
 	"acf": {
 		"renderTemplate": "render.php",
-		"hideFieldsInSidebar": false
+		"mode": "preview",
+		"hideFieldsInSidebar": false,
+		"blockVersion": 3
 	},
 	"editorStyle": [
 		"comet-separator"

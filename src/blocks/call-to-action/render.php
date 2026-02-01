@@ -20,9 +20,28 @@ $attributes = [
 $heading = get_field('heading');
 $description = get_field('description');
 $buttons = get_field('buttons') ?? [];
+$buttons = array_map(
+    function($button) use ($block) {
+        if (!isset($button['link']['url']) || !isset($button['link']['title'])) {
+            return null;
+        }
+
+        return new Button(
+            [
+                'href'        => $button['link']['url'],
+                'target'      => $button['link']['target'] ?? '',
+                'isOutline'   => $button['style'] === 'isOutline',
+                'colorTheme'  => 'inherit'
+            ],
+            $button['link']['title']
+        );
+    },
+    (is_array($buttons) ? $buttons : [])
+);
+
 $headingClasses = apply_filters('comet_blocks_cta_heading_classes', []);
 $buttonGroupAttrs = [
-    'colorTheme'  => $block['colorTheme'],
+    'colorTheme'  => $block['colorTheme'] ?? $block['attributes']['colorTheme']['default'] ?? Config::getInstance()->get_component_defaults('call-to-action')['colorTheme'] ?? 'primary',
     ...apply_filters('comet_blocks_cta_button_group_attributes', [])
 ];
 
@@ -33,20 +52,7 @@ $component = new CallToAction(
         ...(!empty($description) ? [new PreprocessedHTML([], $description)] : []),
         ...(!empty($buttons) ? [new ButtonGroup(
             $buttonGroupAttrs,
-            array_map(
-                function($button) use ($block) {
-                    return new Button(
-                        [
-                            'href'        => $button['link']['url'] ?? '#',
-                            'target'      => $button['link']['target'] ?? '',
-                            'isOutline'   => $button['style'] === 'isOutline',
-                            'colorTheme'  => null // let the CSS inherit from the button group
-                        ],
-                        $button['link']['title']
-                    );
-                },
-                (is_array($buttons) ? $buttons : [])
-            )
+            $buttons
         )] : []),
     ));
 

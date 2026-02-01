@@ -11,17 +11,22 @@ if ($render_placeholder) {
 }
 
 $attributes = Utils::array_pick($block, ['size', 'colorTheme', 'backgroundColor', 'backgroundType', 'backgroundOpacity', 'vAlign', 'hAlign', 'contentMaxWidth']);
+$imageAttrs = get_field('image');
 $imageProps = [
-    ...Utils::array_pick(get_field('image'), ['src', 'alt', 'aspect_ratio', 'focal_point']),
+    ...Utils::array_pick($imageAttrs, ['alt', 'aspect_ratio', 'focal_point']),
+    'src'      => wp_get_attachment_image_src($imageAttrs['image_id'], 'full')[0] ?? '',
     'parallax' => $block['isParallax'] ?? false
 ];
 $attributes['imageProps'] = Utils::camel_case_array_keys($imageProps);
 
 $innerComponents = [];
 
-$heading = get_field('heading');
+$heading = apply_filters('comet_canvas_page_header_title', get_field('heading') ?? '');
 if ($heading) {
-    array_push($innerComponents, new Heading(['classes' => apply_filters('comet_blocks_banner_heading_classes', [])], $heading));
+    array_push($innerComponents, new Heading([
+        'level'   => apply_filters('comet_blocks_banner_heading_level', 2),
+        'classes' => apply_filters('comet_blocks_banner_heading_classes', [])
+    ], $heading));
 }
 
 $bodyText = get_field('text');
@@ -30,8 +35,8 @@ if ($bodyText) {
 }
 
 $buttons = get_field('buttons');
-if ($buttons) {
-    $buttonGroupAttrs = apply_filters('comet_blocks_banner_button_group_attributes', []);
+if (is_array($buttons) && !empty($buttons)) {
+    $buttonGroupAttrs = apply_filters('comet_blocks_banner_button_group_attributes', ['colorTheme' => $block['backgroundColor']]);
     $buttons = array_map(
         function($button) use ($block) {
             return new Button(
@@ -41,10 +46,10 @@ if ($buttons) {
                     'isOutline'   => $button['style'] === 'isOutline',
                     'colorTheme'  => null // let the CSS inherit from the button group
                 ],
-                $button['link']['title']
+                $button['link']['title'] ?? 'Button'
             );
         },
-        (is_array($buttons) ? $buttons : [])
+        ($buttons)
     );
     array_push($innerComponents, new ButtonGroup($buttonGroupAttrs, $buttons));
 }

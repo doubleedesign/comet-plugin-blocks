@@ -35,6 +35,8 @@
 		"mode": true,
 		"jsx": true,
 		"innerBlocks": false,
-		"colorTheme": true
+		"colorTheme": true,
+		"anchor": true,
+		"align": false
 	}
 }
