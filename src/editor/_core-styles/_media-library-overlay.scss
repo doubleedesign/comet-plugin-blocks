@@ -1,0 +1,39 @@
+.media-frame-title {
+	h1 {
+		font-family: inherit;
+	}
+}
+
+.media-toolbar {
+	h2 {
+		margin-top: 0 !important;
+		font-family: inherit;
+	}
+
+	.media-button {
+		&:after {
+			content: none;
+		}
+	}
+}
+
+.media-sidebar {
+	h2 {
+		font-family: inherit;
+	}
+
+	.button {
+		&:after {
+			content: none;
+		}
+	}
+}
+
+.image-editor {
+
+	.button {
+		&:after {
+			content: none;
+		}
+	}
+}

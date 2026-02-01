@@ -89,12 +89,11 @@ class BlockRenderer {
         }
 
         $filtered_data = self::filter_fields_for_determining_if_block_has_content($block['data'] ?? []);
-        $probably_empty = self::block_data_array_is_effectively_empty($filtered_data);
 
-        return $probably_empty;
+        return self::block_data_array_is_effectively_empty($filtered_data);
     }
 
-    private static function filter_fields_for_determining_if_block_has_content(array $data) {
+    private static function filter_fields_for_determining_if_block_has_content(array $data): array {
         // The $data array of an ACF block contains the field names prefixed with an underscore with the field key as the value.
         // We don't want that for this, so filter them out first.
         $filtered_data = array_filter($data, function($key) {
@@ -105,7 +104,8 @@ class BlockRenderer {
         $filtered_data = array_filter($filtered_data, function($key) {
             return !str_ends_with($key, 'aspect_ratio')
                 && !str_ends_with($key, 'focal_point')
-                && !str_ends_with($key, 'image_offset');
+                && !str_ends_with($key, 'image_offset')
+                && !str_contains($key, 'button');
         }, ARRAY_FILTER_USE_KEY);
 
         return $filtered_data;

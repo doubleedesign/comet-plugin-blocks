@@ -1,9 +1,17 @@
 @use 'sass:color';
+@use 'editor/_core-styles/_block-editor-sidebar' as *;
+@use 'editor/_core-styles/_acf-block-edit' as *;
+@use 'editor/_core-styles/_media-library-overlay' as *;
+@use 'editor/_core-styles/_link-modal' as *;
 
 html :where(.wp-block) {
 	margin-top: 0;
 	margin-bottom: 0;
 	max-width: var(--width-contained);
+}
+
+.editor-document-bar__title h1 {
+	font-family: inherit;
 }
 
 .block-editor-iframe__container {
@@ -13,6 +21,13 @@ html :where(.wp-block) {
 
 .block-editor-inserter__panel-title {
 	font-size: 0.75rem !important;
+	font-family: inherit;
+}
+
+.block-editor-block-types-list__item-title {
+	span {
+		hyphens: none;
+	}
 }
 
 .components-menu-item__button[href*="site-editor.php"] {
@@ -34,215 +49,8 @@ html :where(.wp-block) {
 
 }
 
-.acf-block-component .acf-block-fields {
-	font-family: inherit;
-}
-
 .block-editor-block-list__block {
 	a {
 		pointer-events: none !important; // prevent links being clickable in the editor because they then navigate away in the iframe
-	}
-}
-
-/**
- * =========== Block editor sidebar ====================================================================================
- */
-// Custom vertical alignment used for the banner block (and possibly others added after this)
-.components-base-control:has([aria-label="Change vertical alignment"]) {
-	// Hack it into position next to the horizontal justification in the layout panel above
-	padding: 1rem;
-	width: max-content;
-	margin-left: auto;
-	margin-top: -96px;
-	margin-bottom: 0;
-
-	// Make the button match the horizontal justification one
-	.components-dropdown-menu__toggle {
-		border: 1px solid transparent;
-		margin-top: 1px;
-
-		&:hover, &:focus, &:active {
-			border-color: var(--wp-components-color-gray-700, #757575);
-		}
-	}
-}
-
-.edit-post-meta-boxes-area__container {
-	padding-inline: 0;
-}
-
-.components-panel__body {
-	// When the layout panel is closed, hide the custom vertical alignment and container size so they appear like they're in the layout panel
-	+ .comet-custom-layout-controls {
-		display: none;
-	}
-
-	&.is-opened {
-		+ .comet-custom-layout-controls {
-			display: block;
-		}
-	}
-}
-
-.components-base-control__label,
-.components-input-control__label {
-	display: flex !important;
-	align-items: center;
-	gap: 0.25rem;
-}
-
-.components-panel__row {
-	gap: 0.25rem;
-
-	.components-base-control {
-		margin-block: 0;
-
-		&__field {
-			margin-block: 0;
-		}
-	}
-}
-
-.components-toggle-group-control {
-	transition: border 0.2s ease-in-out;
-	border: 1px solid var(--wp-components-color-gray-300, #dee2e6) !important;
-	min-height: 32px !important; // default 36px is 2px too high for the buttons and I can't unsee it
-
-	&:hover, &:focus-within {
-		border-color: var(--wp-components-color-gray-700, #757575) !important;
-	}
-
-	&-option-base {
-		transition: background 0.2s ease-in-out;
-
-		&:not([aria-checked="true"]):not([aria-pressed="true"]) {
-			&:hover, &:focus {
-				background: #EEE;
-			}
-		}
-	}
-}
-
-.components-toggle-control__help {
-	code {
-		font-size: 0.7rem;
-	}
-}
-
-.components-resizable-box__container {
-	max-width: 100% !important;
-
-	img {
-		max-width: 100% !important;
-	}
-
-	.advanced-image-field {
-		img {
-			max-width: unset !important;
-		}
-	}
-}
-
-.comet-toggle-group {
-	button {
-		min-height: 2rem;
-
-		svg {
-			width: 1.5rem;
-			height: auto;
-		}
-	}
-}
-
-.comet-color-controls {
-	display: flex;
-	flex-direction: column;
-	gap: 0.5rem;
-
-	.components-base-control {
-		margin-block: 0;
-	}
-
-	&__item {
-		width: 100%;
-		display: flex;
-		margin-block-end: 0.5rem;
-
-		.components-dropdown {
-			flex-grow: 1;
-
-			button {
-				width: 100%;
-				border: 1px solid #e0e0e0;
-				display: flex;
-				gap: 0.5rem;
-				justify-content: flex-start;
-				align-items: center;
-
-				&[aria-expanded="true"] {
-					border-color: var(--wp-components-color-primary, #007cba);
-				}
-			}
-		}
-	}
-}
-
-
-/**
- * =========== ACF block edit fields (sidebar and overlay) =============================================================
- * Make ACF fields look more like the core WP block editor fields where they don't already
- */
-.acf-block-panel {
-	display: flex;
-	flex-direction: column;
-	gap: 8px;
-}
-
-.acf-block-panel,
-.editor-sidebar__panel {
-	.acf-fields {
-
-		.acf-label {
-			text-transform: uppercase;
-			font-size: 11px;
-			margin: 0;
-		}
-
-		.acf-input {
-			input[type="text"],
-			input[type="number"],
-			input[type="email"],
-			input[type="url"],
-			textarea,
-			select {
-				font-size: 13px;
-				min-height: 40px;
-				border-radius: 3px;
-				padding: 0 30px 0 12px;
-			}
-
-			select {
-				background-size: 13px;
-				background-position: right 10px top 55%;
-			}
-
-			.select2-selection {
-				min-height: 40px;
-				border-radius: 3px;
-				padding: 0 30px 0 12px;
-
-				&__rendered {
-					height: 100%;
-					display: flex !important;
-					align-items: center;
-				}
-
-				&__arrow {
-					height: 100% !important;
-					right: 0.5rem !important;
-				}
-			}
-
-		}
 	}
 }

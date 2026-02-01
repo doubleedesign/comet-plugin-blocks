@@ -1,3 +1,8 @@
+.block-editor-block-card {
+	&__title {
+		font-family: inherit;
+	}
+}
 
 .ui-sortable-handle {
 	font-family: inherit;
@@ -29,6 +34,10 @@
 }
 
 .components-panel__body {
+	&-title {
+		font-family: inherit;
+	}
+
 	// When the layout panel is closed, hide the custom vertical alignment and container size so they appear like they're in the layout panel
 	+ .comet-custom-layout-controls {
 		display: none;
@@ -154,5 +163,9 @@
 }
 
 .acf-block-component .acf-block-fields {
+	font-family: inherit;
+}
+
+.block-editor-inspector-popover-header__heading {
 	font-family: inherit;
 }

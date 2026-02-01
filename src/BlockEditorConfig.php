@@ -1,7 +1,7 @@
 <?php
 namespace Doubleedesign\Comet\WordPress;
 
-use Doubleedesign\Comet\Core\{Config, Utils};
+use Doubleedesign\Comet\Core\{AspectRatio, Config, Utils};
 use Exception;
 use FilesystemIterator;
 use RecursiveDirectoryIterator;
@@ -201,6 +201,7 @@ class BlockEditorConfig extends JavaScriptImplementation {
             'globalBackground' => Config::getInstance()->get_global_background(),
             'palette'          => Config::getInstance()->get_theme_colours(),
             'colourPairs'      => Config::getInstance()->get_theme_colour_pairs(),
+            'aspectRatios'     => array_map(fn($case) => ['name' => $case->name, 'value' => $case->value], AspectRatio::cases()),
         );
 
         // Make the defaults available to the plugin's block-editor-config files
