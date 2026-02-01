@@ -1,5 +1,6 @@
 <?php
 namespace Doubleedesign\Comet\WordPress;
+use Doubleedesign\Comet\Core\Config;
 use WP_Block_Type_Registry;
 
 class BlockRegistry extends JavaScriptImplementation {
@@ -18,6 +19,8 @@ class BlockRegistry extends JavaScriptImplementation {
         add_filter('block_editor_settings_all', [$this, 'filter_allowed_blocks_client_side'], 20, 2);
 
         add_filter('block_categories_all', [$this, 'add_block_categories'], 10, 2);
+        add_filter('block_categories_all', [$this, 'modify_block_categories'], 11, 2);
+        add_filter('block_categories_all', [$this, 'sort_block_categories'], 11, 2);
     }
 
     /**
@@ -51,6 +54,26 @@ class BlockRegistry extends JavaScriptImplementation {
         }
 
         $shortName = str_replace('comet/', '', $metadata['name']);
+
+        // Only load Shared Content wrapping and sizing options if enabled
+        if ($shortName === 'shared-content') {
+            $wrapSharedContent = apply_filters('comet_blocks_enable_shared_content_wrapping', false);
+            if (!$wrapSharedContent) {
+                unset($metadata['attributes']['size']);
+                unset($metadata['attributes']['innerSize']);
+            }
+        }
+
+        // Override block.json defaults if a component default is set at site level
+        $componentDefaults = Config::getInstance()->get_component_defaults($shortName);
+        if (!empty($componentDefaults)) {
+            array_walk($metadata['attributes'], function(&$value, $key) use ($componentDefaults) {
+                if (array_key_exists($key, $componentDefaults)) {
+                    $value['default'] = $componentDefaults[$key];
+                }
+            });
+        }
+
         // TODO: Dynamically get this from the field group registrations
         $hasWysiwgField = in_array($shortName, ['copy', 'copy-image', 'accordion', 'call-to-action']);
         if (!$hasWysiwgField) {
@@ -162,12 +185,38 @@ class BlockRegistry extends JavaScriptImplementation {
      *
      * @return array
      */
-    public function add_block_categories($categories): array {
-        array_push($categories, [
-            'slug'  => 'content',
-            'title' => __('Content', 'comet'),
-            'icon'  => null
-        ]);
+    public function add_block_categories(array $categories): array {
+        return array_merge(
+            $categories, array(
+                [
+                    'slug'  => 'content',
+                    'title' => __('Dynamic content', 'comet'),
+                    'icon'  => null
+                ],
+            ));
+    }
+
+    public function modify_block_categories(array $categories): array {
+        foreach ($categories as &$category) {
+            if ($category['slug'] === 'text') {
+                $category['title'] = __('Simple content', 'comet');
+            }
+            if ($category['slug'] === 'design') {
+                $category['title'] = __('Featured content', 'comet');
+            }
+        }
+
+        return $categories;
+    }
+
+    public function sort_block_categories(array $categories): array {
+        usort($categories, function($a, $b) {
+            $order = ['text', 'design', 'media', 'content', 'widgets'];
+            $posA = array_search($a['slug'], $order);
+            $posB = array_search($b['slug'], $order);
+
+            return $posA - $posB;
+        });
 
         return $categories;
     }
