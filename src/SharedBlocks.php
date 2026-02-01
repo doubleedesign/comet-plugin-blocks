@@ -80,18 +80,18 @@ class SharedBlocks {
 
     public function register_fields(): void {
         acf_add_local_field_group(array(
-            'key'    => 'group_shared_content_admin_fields',
-            'title'  => 'Admin',
-            'fields' => array(
+            'key'                   => 'group_shared_content_admin_fields',
+            'title'                 => 'Admin',
+            'fields'                => array(
                 array(
-                    'key'               => 'field_shared_content_admin_label',
-                    'label'             => 'Administrative label',
-                    'name'              => 'administrative_label',
-                    'type'              => 'text',
-                    'required'          => true,
+                    'key'      => 'field_shared_content_admin_label',
+                    'label'    => 'Administrative label',
+                    'name'     => 'administrative_label',
+                    'type'     => 'text',
+                    'required' => false, // this gets hidden away and can cause confusion with the validation errors, so empty values are handled in the save hook
                 ),
             ),
-            'location' => array(
+            'location'              => array(
                 array(
                     array(
                         'param'    => 'post_type',
@@ -126,22 +126,44 @@ class SharedBlocks {
             return;
         }
 
-        if (isset($_POST['acf']['field_shared_content_admin_label'])) {
-            $admin_label = sanitize_text_field($_POST['acf']['field_shared_content_admin_label']);
-            $post_id = get_the_ID();
+        $post_id = get_the_ID();
+        $admin_label = $this->determine_administrative_title();
 
-            if (get_the_title() !== $admin_label) {
-                // Set flag to prevent recursion
-                if (!defined('DOING_WP_UPDATE_POST')) {
-                    define('DOING_WP_UPDATE_POST', true);
-                }
+        if (get_the_title() !== $admin_label) {
+            // Set flag to prevent recursion
+            if (!defined('DOING_WP_UPDATE_POST')) {
+                define('DOING_WP_UPDATE_POST', true);
+            }
 
-                wp_update_post(array(
-                    'ID'         => $post_id,
-                    'post_title' => $admin_label,
-                ));
+            wp_update_post(array(
+                'ID'         => $post_id,
+                'post_title' => $admin_label,
+            ));
+        }
+
+        // FIXME This isn't working - maybe needs to be on a different hook because $admin_label *is* correct when the field is empty on save
+        update_post_meta($post_id, 'administrative_label', $admin_label);
+    }
+
+    private function determine_administrative_title(): string {
+        $admin_label = '';
+        if (!empty($_POST['acf']['field_shared_content_admin_label'])) {
+            $admin_label = trim(sanitize_text_field($_POST['acf']['field_shared_content_admin_label']));
+        }
+
+        if (empty($admin_label)) {
+            $blocks = parse_blocks(get_post_field('post_content', get_the_id()));
+            if (!empty($blocks)) {
+                $first_block = $blocks[0];
+                $admin_label = str_replace('comet/', '', $first_block['blockName']);
+                $admin_label = ucwords(str_replace('-', ' ', $admin_label));
+            }
+            else {
+                $admin_label = 'Shared Content Item ' . get_the_ID();
             }
         }
+
+        return $admin_label;
     }
 
     public function use_plugin_template($template) {
