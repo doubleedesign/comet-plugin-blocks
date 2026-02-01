@@ -15,7 +15,7 @@ $image = [];
 $image_field = get_field('image');
 if (isset($image_field['image_id'])) {
     $image = Utils::camel_case_array_keys(Utils::array_pick($image_field, ['aspect_ratio', 'focal_point', 'image_offset']));
-    $image['styleName'] = 'polaroid'; // TODO: Make this configurable with a theme filter and/or block option
+    $image['styleName'] = apply_filters('comet_blocks_copy-image_image-style-name', null);
     $image['alt'] = get_post_meta(get_post_thumbnail_id($image_field['image_id']), '_wp_attachment_image_alt', true) ?? '';
 
     $meta = wp_get_attachment_metadata($image_field['image_id']);
@@ -43,16 +43,17 @@ if (isset($image_field['image_id'])) {
 
 $component = new Columns(
     array(
-        'shortName'  => 'copy-image',
-        'size'       => $block['data']['size'] ?? $block['attributes']['size']['default'],
-        'vAlign'     => $block['data']['vAlign'] ?? $block['attributes']['vAlign']['default'],
+        'shortName'       => 'copy-image',
+        'size'            => $block['size'] ?? $block['attributes']['size']['default'],
+        'vAlign'          => $block['vAlign'] ?? $block['attributes']['vAlign']['default'],
+        'data-order'      => $block['order'] ?? 'row'
     ),
     array(
         (new Column(
             ['context' => 'copy-image'],
             [new Copy(
                 array(
-                    'colorTheme' => $block['data']['colorTheme'] ?? $block['attributes']['colorTheme']['default'],
+                    'colorTheme' => $block['colorTheme'] ?? $block['attributes']['colorTheme']['default'],
                     'isNested'   => true,
                 ),
                 array(
