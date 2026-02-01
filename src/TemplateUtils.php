@@ -9,11 +9,13 @@ class TemplateUtils {
      *
      * @param  array  $postIds
      * @param  array  $block  - The block attributes to extract data and attributes from
+     * @param  bool  $headingInSingleCard  - Whether to place the section heading inside the card when there is only one card
+     * @param  array  $link
      *
      * @return CardList
      */
-    public static function create_card_list(array $postIds, array $block): CardList {
-        $cards = array_map(function($post_id) use ($postIds, $block) {
+    public static function create_card_list(array $postIds, array $block, bool $headingInSingleCard = false, array $link = []): CardList {
+        $cards = array_map(function($post_id) use ($headingInSingleCard, $postIds, $block) {
             $heading = get_the_title($post_id);
             $bodyText = get_the_excerpt($post_id) ?? '';
             $imageUrl = get_the_post_thumbnail_url($post_id, 'large') ?: '';
@@ -21,7 +23,7 @@ class TemplateUtils {
             $link = ['href' => get_permalink($post_id), 'content' => 'Read more'];
 
             // If there is only one, put the section heading inside the card after making some adjustments to it
-            if (count($postIds) == 1) {
+            if (count($postIds) == 1 && $headingInSingleCard) {
                 $aboveContent = [new Heading(
                     ['classes' => ['is-style-small']],
                     self::singularise($block['data']['heading']) ?? 'Featured Post'
@@ -43,11 +45,11 @@ class TemplateUtils {
                 ],
                 'colorTheme'        => $block['colorTheme'] ?? 'primary',
                 'orientation'       => 'horizontal', // TODO: Make this configurable
-                'cardAsLink'        => apply_filters('comet_blocks_related_content_card_list_card_as_link', false),
+                'cardAsLink'        => apply_filters('comet_blocks_related_content_card_list_card_as_link', false, $block['name']),
             ], $aboveContent ?? []);
         }, $postIds);
 
-        $behaviour_when_fewer_than_max = apply_filters('comet_blocks_related_content_card_list_behaviour_when_fewer_than_max', 'default');
+        $behaviour_when_fewer_than_max = apply_filters('comet_blocks_related_content_card_list_behaviour_when_fewer_than_max', 'default', $block['name']);
         $default_max_per_row = Config::getInstance()->get_component_defaults('card-list')['maxPerRow'] ?? 3;
         $max_per_row = apply_filters('comet_blocks_related_content_max_per_row', $default_max_per_row);
         if ($behaviour_when_fewer_than_max === 'expand') {
@@ -61,9 +63,10 @@ class TemplateUtils {
             [
                 ...Config::getInstance()->get_component_defaults('card-list'),
                 ...Utils::array_pick($block, ['size', 'colorTheme', 'backgroundColor', 'hAlign', 'layout']),
-                'shortName' => str_replace('comet/', '', $block['name']),
-                'heading'   => (count($postIds) > 1 && !empty($block['data']['heading'])) ? $block['data']['heading'] : null,
-                'maxPerRow' => $max_per_row
+                'link'         => !empty($link) ? $link : null,
+                'shortName'    => str_replace('comet/', '', $block['name']),
+                'heading'      => (count($postIds) > 1 && !empty($block['data']['heading'])) ? $block['data']['heading'] : null,
+                'maxPerRow'    => $max_per_row
             ],
             $cards
         );
