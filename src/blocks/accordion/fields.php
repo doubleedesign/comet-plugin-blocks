@@ -5,7 +5,7 @@ acf_add_local_field_group(array(
     'fields' => array(
         array(
             'key'               => 'field__accordion__heading',
-            'label'             => 'Heading (optional)',
+            'label'             => 'Heading',
             'name'              => 'heading',
             'type'              => 'text',
             'repeatable'        => true,

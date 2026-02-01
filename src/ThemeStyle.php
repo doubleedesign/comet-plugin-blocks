@@ -22,6 +22,9 @@ class ThemeStyle {
         add_theme_support('title-tag');
         add_theme_support('post-thumbnails', array('post', 'page', 'event', 'person', 'cpt_index'));
         add_post_type_support('page', 'excerpt');
+
+        // Clear out theme.json style nodes, because whatever they are, I am not using them, and they serve only to fuck with my styling by loading unwanted default CSS
+        add_filter('wp_theme_json_get_style_nodes', fn($nodes) => []);
     }
 
     public function set_colours(): void {
