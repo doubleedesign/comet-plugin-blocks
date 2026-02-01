@@ -7,6 +7,7 @@ interface Config {
 	globalBackground?: ThemeColor;
 	palette?: Record<ThemeColor, string>;
 	colourPairs?: { foreground: string; background: string }[];
+	aspectRatios?: { name: string; value: string }[];
 	ajaxUrl?: string;
 	nonce?: string;
 	context?: {

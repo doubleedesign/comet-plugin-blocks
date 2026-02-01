@@ -10,6 +10,8 @@ import { MaxPerRow } from '../MaxPerRow/MaxPerRow';
 import { ItemCount } from '../ItemCount/ItemCount.jsx';
 import { NegativeMargins } from '../NegativeMargins/NegativeMargins.jsx';
 import { AspectRatio } from '../AspectRatio/AspectRatio.jsx';
+import { AspectRatio } from '../AspectRatio/AspectRatio.jsx';
+import { GalleryControls } from '../GalleryControls/GalleryControls.jsx';
 import { GalleryControls } from '../GalleryControls/GalleryControls.jsx';
 
 export const LayoutControls = (props) => {
