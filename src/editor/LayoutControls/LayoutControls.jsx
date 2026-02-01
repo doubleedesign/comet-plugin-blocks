@@ -1,5 +1,5 @@
 /* global wp */
-import { PanelBody, PanelRow } from '@wordpress/components';
+import { PanelBody } from '@wordpress/components';
 import { ContainerSize } from '../ContainerSize/ContainerSize.jsx';
 import { GroupLayout } from '../GroupLayout/GroupLayout.jsx';
 import { VerticalAlignment } from '../VerticalAlignment/VerticalAlignment.jsx';
@@ -12,7 +12,9 @@ import { NegativeMargins } from '../NegativeMargins/NegativeMargins.jsx';
 import { AspectRatio } from '../AspectRatio/AspectRatio.jsx';
 import { AspectRatio } from '../AspectRatio/AspectRatio.jsx';
 import { GalleryControls } from '../GalleryControls/GalleryControls.jsx';
+
 import { GalleryControls } from '../GalleryControls/GalleryControls.jsx';
+import { LayoutOrder } from '../LayoutOrder/LayoutOrder.jsx';
 
 export const LayoutControls = (props) => {
 	// If the block does not have any layout attributes, do not render the controls
@@ -44,6 +46,7 @@ export const LayoutControls = (props) => {
 			<ItemCount {...props} />
 			<MaxPerRow {...props} />
 			<LayoutOrientation {...props} />
+			<LayoutOrder {...props} />
 			<HorizontalAlignment {...props} />
 			<VerticalAlignment {...props} />
 			<GalleryControls {...props} />

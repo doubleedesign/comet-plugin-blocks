@@ -1,0 +1,15 @@
+.copy-image {
+	[data-order="row-reverse"] {
+		.copy-image__columns {
+			@container (min-width: 600px) {
+				// Flex layout
+				flex-direction: row-reverse;
+
+				// Grid layout
+				div:first-child {
+					order: 2;
+				}
+			}
+		}
+	}
+}

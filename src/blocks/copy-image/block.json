@@ -6,7 +6,7 @@
 	"title": "Copy + image",
 	"icon": "image-flip-horizontal",
 	"description": "Add a short section of text content with an image alongside it",
-	"category": "design",
+	"category": "text",
 	"acf": {
 		"mode": "preview",
 		"renderTemplate": "render.php",
@@ -19,6 +19,7 @@
 		"comet-column",
 		"comet-content-image-advanced"
 	],
+	"style": "file:./style.css",
 	"keywords": [
 		"text",
 		"paragraph",
@@ -40,6 +41,10 @@
 		"colorTheme": {
 			"type": "string",
 			"default": "primary"
+		},
+		"order": {
+			"type": "string",
+			"default": "row"
 		}
 	},
 	"supports": {

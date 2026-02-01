@@ -1,0 +1,10 @@
+@container (min-width: 600px) {
+  .copy-image [data-order=row-reverse] .copy-image__columns {
+    flex-direction: row-reverse;
+  }
+  .copy-image [data-order=row-reverse] .copy-image__columns div:first-child {
+    order: 2;
+  }
+}
+
+/*# sourceMappingURL=style.css.map */
