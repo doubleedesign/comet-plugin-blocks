@@ -61,6 +61,7 @@ class BlockRegistry extends JavaScriptImplementation {
             if (!$wrapSharedContent) {
                 unset($metadata['attributes']['size']);
                 unset($metadata['attributes']['innerSize']);
+                unset($metadata['attributes']['hAlign']);
             }
         }
 
