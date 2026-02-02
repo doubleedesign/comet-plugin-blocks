@@ -167,12 +167,12 @@
         },
         {
             "name": "doubleedesign/comet-components-core",
-            "version": "0.6.0",
-            "version_normalized": "0.6.0.0",
+            "version": "0.7.0",
+            "version_normalized": "0.7.0.0",
             "dist": {
                 "type": "path",
                 "url": "../core",
-                "reference": "621e4bacbfae5a6676b454b937c495979a1a0178"
+                "reference": "fcefb6cb6370391668e95ce0de7b1b008da90e8d"
             },
             "require": {
                 "ext-intl": "*",
@@ -2038,6 +2038,6 @@
             "install-path": "../voku/portable-ascii"
         }
     ],
-    "dev": false,
+    "dev": true,
     "dev-package-names": []
 }
