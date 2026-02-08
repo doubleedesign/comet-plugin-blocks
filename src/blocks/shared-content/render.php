@@ -40,6 +40,13 @@ else {
 }
 $parsed_content = ob_get_clean();
 
+$wrapSharedContent = apply_filters('comet_blocks_enable_shared_content_wrapping', false);
+if (!$wrapSharedContent) {
+    echo $parsed_content;
+
+    return;
+}
+
 $finalInnerSize = null;
 if (isset($block['innerSize']) && $block['innerSize'] !== 'auto' && $block['innerSize'] !== $block['size']) {
     $finalInnerSize = $block['innerSize'];
