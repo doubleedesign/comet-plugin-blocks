@@ -105,7 +105,7 @@ class ComponentAssets {
 
     /**
      * Admin CSS overrides for things outside the block editor.
-     * Note: THis causes a browser console warning "comet-admin-styles-css was added to the iframe incorrectly. Please use block.json or enqueue_block_assets to add styles to the iframe."
+     * Note: This causes a browser console warning "comet-admin-styles-css was added to the iframe incorrectly. Please use block.json or enqueue_block_assets to add styles to the iframe."
      * ...but I'm not trying to add it to the iframe. That's why it's on admin_enqueue_scripts. ¯\_(ツ)_/¯
      *
      * @return void
