@@ -26,41 +26,341 @@
   --theme-color: var(--color-primary);
   --theme-color-inverse: var(--readable-color-primary);
 }
+[data-color-theme=white][data-background=primary] .button {
+  --readable-color-primary: var(--color-primary);
+}
+[data-color-theme=white][data-background=secondary] .button {
+  --readable-color-primary: var(--color-secondary);
+}
+[data-color-theme=white][data-background=accent] .button {
+  --readable-color-primary: var(--color-accent);
+}
+[data-color-theme=white][data-background=info] .button {
+  --readable-color-primary: var(--color-info);
+}
+[data-color-theme=white][data-background=warning] .button {
+  --readable-color-primary: var(--color-warning);
+}
+[data-color-theme=white][data-background=success] .button {
+  --readable-color-primary: var(--color-success);
+}
+[data-color-theme=white][data-background=error] .button {
+  --readable-color-primary: var(--color-error);
+}
+[data-color-theme=white][data-background=light] .button {
+  --readable-color-primary: var(--color-light);
+}
+[data-color-theme=white][data-background=dark] .button {
+  --readable-color-primary: var(--color-dark);
+}
+[data-color-theme=white][data-background=white] .button {
+  --readable-color-primary: var(--color-white);
+}
 .button[data-color-theme=secondary], [data-color-theme=secondary] .button {
   --theme-color: var(--color-secondary);
   --theme-color-inverse: var(--readable-color-secondary);
+}
+[data-color-theme=white][data-background=primary] .button {
+  --readable-color-secondary: var(--color-primary);
+}
+[data-color-theme=white][data-background=secondary] .button {
+  --readable-color-secondary: var(--color-secondary);
+}
+[data-color-theme=white][data-background=accent] .button {
+  --readable-color-secondary: var(--color-accent);
+}
+[data-color-theme=white][data-background=info] .button {
+  --readable-color-secondary: var(--color-info);
+}
+[data-color-theme=white][data-background=warning] .button {
+  --readable-color-secondary: var(--color-warning);
+}
+[data-color-theme=white][data-background=success] .button {
+  --readable-color-secondary: var(--color-success);
+}
+[data-color-theme=white][data-background=error] .button {
+  --readable-color-secondary: var(--color-error);
+}
+[data-color-theme=white][data-background=light] .button {
+  --readable-color-secondary: var(--color-light);
+}
+[data-color-theme=white][data-background=dark] .button {
+  --readable-color-secondary: var(--color-dark);
+}
+[data-color-theme=white][data-background=white] .button {
+  --readable-color-secondary: var(--color-white);
 }
 .button[data-color-theme=accent], [data-color-theme=accent] .button {
   --theme-color: var(--color-accent);
   --theme-color-inverse: var(--readable-color-accent);
 }
+[data-color-theme=white][data-background=primary] .button {
+  --readable-color-accent: var(--color-primary);
+}
+[data-color-theme=white][data-background=secondary] .button {
+  --readable-color-accent: var(--color-secondary);
+}
+[data-color-theme=white][data-background=accent] .button {
+  --readable-color-accent: var(--color-accent);
+}
+[data-color-theme=white][data-background=info] .button {
+  --readable-color-accent: var(--color-info);
+}
+[data-color-theme=white][data-background=warning] .button {
+  --readable-color-accent: var(--color-warning);
+}
+[data-color-theme=white][data-background=success] .button {
+  --readable-color-accent: var(--color-success);
+}
+[data-color-theme=white][data-background=error] .button {
+  --readable-color-accent: var(--color-error);
+}
+[data-color-theme=white][data-background=light] .button {
+  --readable-color-accent: var(--color-light);
+}
+[data-color-theme=white][data-background=dark] .button {
+  --readable-color-accent: var(--color-dark);
+}
+[data-color-theme=white][data-background=white] .button {
+  --readable-color-accent: var(--color-white);
+}
 .button[data-color-theme=info], [data-color-theme=info] .button {
   --theme-color: var(--color-info);
   --theme-color-inverse: var(--readable-color-info);
+}
+[data-color-theme=white][data-background=primary] .button {
+  --readable-color-info: var(--color-primary);
+}
+[data-color-theme=white][data-background=secondary] .button {
+  --readable-color-info: var(--color-secondary);
+}
+[data-color-theme=white][data-background=accent] .button {
+  --readable-color-info: var(--color-accent);
+}
+[data-color-theme=white][data-background=info] .button {
+  --readable-color-info: var(--color-info);
+}
+[data-color-theme=white][data-background=warning] .button {
+  --readable-color-info: var(--color-warning);
+}
+[data-color-theme=white][data-background=success] .button {
+  --readable-color-info: var(--color-success);
+}
+[data-color-theme=white][data-background=error] .button {
+  --readable-color-info: var(--color-error);
+}
+[data-color-theme=white][data-background=light] .button {
+  --readable-color-info: var(--color-light);
+}
+[data-color-theme=white][data-background=dark] .button {
+  --readable-color-info: var(--color-dark);
+}
+[data-color-theme=white][data-background=white] .button {
+  --readable-color-info: var(--color-white);
 }
 .button[data-color-theme=warning], [data-color-theme=warning] .button {
   --theme-color: var(--color-warning);
   --theme-color-inverse: var(--readable-color-warning);
 }
+[data-color-theme=white][data-background=primary] .button {
+  --readable-color-warning: var(--color-primary);
+}
+[data-color-theme=white][data-background=secondary] .button {
+  --readable-color-warning: var(--color-secondary);
+}
+[data-color-theme=white][data-background=accent] .button {
+  --readable-color-warning: var(--color-accent);
+}
+[data-color-theme=white][data-background=info] .button {
+  --readable-color-warning: var(--color-info);
+}
+[data-color-theme=white][data-background=warning] .button {
+  --readable-color-warning: var(--color-warning);
+}
+[data-color-theme=white][data-background=success] .button {
+  --readable-color-warning: var(--color-success);
+}
+[data-color-theme=white][data-background=error] .button {
+  --readable-color-warning: var(--color-error);
+}
+[data-color-theme=white][data-background=light] .button {
+  --readable-color-warning: var(--color-light);
+}
+[data-color-theme=white][data-background=dark] .button {
+  --readable-color-warning: var(--color-dark);
+}
+[data-color-theme=white][data-background=white] .button {
+  --readable-color-warning: var(--color-white);
+}
 .button[data-color-theme=success], [data-color-theme=success] .button {
   --theme-color: var(--color-success);
   --theme-color-inverse: var(--readable-color-success);
+}
+[data-color-theme=white][data-background=primary] .button {
+  --readable-color-success: var(--color-primary);
+}
+[data-color-theme=white][data-background=secondary] .button {
+  --readable-color-success: var(--color-secondary);
+}
+[data-color-theme=white][data-background=accent] .button {
+  --readable-color-success: var(--color-accent);
+}
+[data-color-theme=white][data-background=info] .button {
+  --readable-color-success: var(--color-info);
+}
+[data-color-theme=white][data-background=warning] .button {
+  --readable-color-success: var(--color-warning);
+}
+[data-color-theme=white][data-background=success] .button {
+  --readable-color-success: var(--color-success);
+}
+[data-color-theme=white][data-background=error] .button {
+  --readable-color-success: var(--color-error);
+}
+[data-color-theme=white][data-background=light] .button {
+  --readable-color-success: var(--color-light);
+}
+[data-color-theme=white][data-background=dark] .button {
+  --readable-color-success: var(--color-dark);
+}
+[data-color-theme=white][data-background=white] .button {
+  --readable-color-success: var(--color-white);
 }
 .button[data-color-theme=error], [data-color-theme=error] .button {
   --theme-color: var(--color-error);
   --theme-color-inverse: var(--readable-color-error);
 }
+[data-color-theme=white][data-background=primary] .button {
+  --readable-color-error: var(--color-primary);
+}
+[data-color-theme=white][data-background=secondary] .button {
+  --readable-color-error: var(--color-secondary);
+}
+[data-color-theme=white][data-background=accent] .button {
+  --readable-color-error: var(--color-accent);
+}
+[data-color-theme=white][data-background=info] .button {
+  --readable-color-error: var(--color-info);
+}
+[data-color-theme=white][data-background=warning] .button {
+  --readable-color-error: var(--color-warning);
+}
+[data-color-theme=white][data-background=success] .button {
+  --readable-color-error: var(--color-success);
+}
+[data-color-theme=white][data-background=error] .button {
+  --readable-color-error: var(--color-error);
+}
+[data-color-theme=white][data-background=light] .button {
+  --readable-color-error: var(--color-light);
+}
+[data-color-theme=white][data-background=dark] .button {
+  --readable-color-error: var(--color-dark);
+}
+[data-color-theme=white][data-background=white] .button {
+  --readable-color-error: var(--color-white);
+}
 .button[data-color-theme=light], [data-color-theme=light] .button {
   --theme-color: var(--color-light);
   --theme-color-inverse: var(--readable-color-light);
+}
+[data-color-theme=white][data-background=primary] .button {
+  --readable-color-light: var(--color-primary);
+}
+[data-color-theme=white][data-background=secondary] .button {
+  --readable-color-light: var(--color-secondary);
+}
+[data-color-theme=white][data-background=accent] .button {
+  --readable-color-light: var(--color-accent);
+}
+[data-color-theme=white][data-background=info] .button {
+  --readable-color-light: var(--color-info);
+}
+[data-color-theme=white][data-background=warning] .button {
+  --readable-color-light: var(--color-warning);
+}
+[data-color-theme=white][data-background=success] .button {
+  --readable-color-light: var(--color-success);
+}
+[data-color-theme=white][data-background=error] .button {
+  --readable-color-light: var(--color-error);
+}
+[data-color-theme=white][data-background=light] .button {
+  --readable-color-light: var(--color-light);
+}
+[data-color-theme=white][data-background=dark] .button {
+  --readable-color-light: var(--color-dark);
+}
+[data-color-theme=white][data-background=white] .button {
+  --readable-color-light: var(--color-white);
 }
 .button[data-color-theme=dark], [data-color-theme=dark] .button {
   --theme-color: var(--color-dark);
   --theme-color-inverse: var(--readable-color-dark);
 }
+[data-color-theme=white][data-background=primary] .button {
+  --readable-color-dark: var(--color-primary);
+}
+[data-color-theme=white][data-background=secondary] .button {
+  --readable-color-dark: var(--color-secondary);
+}
+[data-color-theme=white][data-background=accent] .button {
+  --readable-color-dark: var(--color-accent);
+}
+[data-color-theme=white][data-background=info] .button {
+  --readable-color-dark: var(--color-info);
+}
+[data-color-theme=white][data-background=warning] .button {
+  --readable-color-dark: var(--color-warning);
+}
+[data-color-theme=white][data-background=success] .button {
+  --readable-color-dark: var(--color-success);
+}
+[data-color-theme=white][data-background=error] .button {
+  --readable-color-dark: var(--color-error);
+}
+[data-color-theme=white][data-background=light] .button {
+  --readable-color-dark: var(--color-light);
+}
+[data-color-theme=white][data-background=dark] .button {
+  --readable-color-dark: var(--color-dark);
+}
+[data-color-theme=white][data-background=white] .button {
+  --readable-color-dark: var(--color-white);
+}
 .button[data-color-theme=white], [data-color-theme=white] .button {
   --theme-color: var(--color-white);
   --theme-color-inverse: var(--readable-color-white);
+}
+[data-color-theme=white][data-background=primary] .button {
+  --readable-color-white: var(--color-primary);
+}
+[data-color-theme=white][data-background=secondary] .button {
+  --readable-color-white: var(--color-secondary);
+}
+[data-color-theme=white][data-background=accent] .button {
+  --readable-color-white: var(--color-accent);
+}
+[data-color-theme=white][data-background=info] .button {
+  --readable-color-white: var(--color-info);
+}
+[data-color-theme=white][data-background=warning] .button {
+  --readable-color-white: var(--color-warning);
+}
+[data-color-theme=white][data-background=success] .button {
+  --readable-color-white: var(--color-success);
+}
+[data-color-theme=white][data-background=error] .button {
+  --readable-color-white: var(--color-error);
+}
+[data-color-theme=white][data-background=light] .button {
+  --readable-color-white: var(--color-light);
+}
+[data-color-theme=white][data-background=dark] .button {
+  --readable-color-white: var(--color-dark);
+}
+[data-color-theme=white][data-background=white] .button {
+  --readable-color-white: var(--color-white);
 }
 .button:hover, .button:focus, .button:active {
   background-color: color-mix(in srgb, var(--color-var(--theme-color)) 90%, black);

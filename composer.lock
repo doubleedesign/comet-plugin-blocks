@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a6ccef5ec636125c464eaa6f7768a9cb",
+    "content-hash": "2b7c3c97df8606aaccfd03d7b69bdd6c",
     "packages": [
         {
             "name": "carbonphp/carbon-doctrine-types",
@@ -171,12 +171,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doubleedesign/comet-components-core.git",
-                "reference": "58f82fc6835b7c470b9bfccd3a8efe4c83b5b71c"
+                "reference": "369ab7b978b5f8e0d9b85b6e3ee23057bcea3e08"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doubleedesign/comet-components-core/zipball/58f82fc6835b7c470b9bfccd3a8efe4c83b5b71c",
-                "reference": "58f82fc6835b7c470b9bfccd3a8efe4c83b5b71c",
+                "url": "https://api.github.com/repos/doubleedesign/comet-components-core/zipball/369ab7b978b5f8e0d9b85b6e3ee23057bcea3e08",
+                "reference": "369ab7b978b5f8e0d9b85b6e3ee23057bcea3e08",
                 "shasum": ""
             },
             "require": {
@@ -189,6 +189,7 @@
                 "illuminate/support": "^10.0",
                 "illuminate/view": "^10.0",
                 "openpsa/ranger": "^0.5.8",
+                "php": ">=8.4",
                 "tomloprod/colority": "^1.4"
             },
             "default-branch": true,
@@ -224,7 +225,7 @@
             "support": {
                 "source": "https://github.com/doubleedesign/comet-components-core/tree/master"
             },
-            "time": "2026-01-03T12:38:06+00:00"
+            "time": "2026-03-11T07:29:08+00:00"
         },
         {
             "name": "ezyang/htmlpurifier",
@@ -1303,16 +1304,16 @@
         },
         {
             "name": "symfony/finder",
-            "version": "v6.4.31",
+            "version": "v6.4.34",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/finder.git",
-                "reference": "5547f2e1f0ca8e2e7abe490156b62da778cfbe2b"
+                "reference": "9590e86be1d1c57bfbb16d0dd040345378c20896"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/finder/zipball/5547f2e1f0ca8e2e7abe490156b62da778cfbe2b",
-                "reference": "5547f2e1f0ca8e2e7abe490156b62da778cfbe2b",
+                "url": "https://api.github.com/repos/symfony/finder/zipball/9590e86be1d1c57bfbb16d0dd040345378c20896",
+                "reference": "9590e86be1d1c57bfbb16d0dd040345378c20896",
                 "shasum": ""
             },
             "require": {
@@ -1347,7 +1348,7 @@
             "description": "Finds files and directories via an intuitive fluent interface",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/finder/tree/v6.4.31"
+                "source": "https://github.com/symfony/finder/tree/v6.4.34"
             },
             "funding": [
                 {
@@ -1367,20 +1368,20 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2025-12-11T14:52:17+00:00"
+            "time": "2026-01-28T15:16:37+00:00"
         },
         {
             "name": "symfony/intl",
-            "version": "v8.0.1",
+            "version": "v8.0.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/intl.git",
-                "reference": "f9eca217ae8f2be0b3ad80723d6a3b518b90cd66"
+                "reference": "604a1dbbd67471e885e93274379cadd80dc33535"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/intl/zipball/f9eca217ae8f2be0b3ad80723d6a3b518b90cd66",
-                "reference": "f9eca217ae8f2be0b3ad80723d6a3b518b90cd66",
+                "url": "https://api.github.com/repos/symfony/intl/zipball/604a1dbbd67471e885e93274379cadd80dc33535",
+                "reference": "604a1dbbd67471e885e93274379cadd80dc33535",
                 "shasum": ""
             },
             "require": {
@@ -1436,7 +1437,7 @@
                 "localization"
             ],
             "support": {
-                "source": "https://github.com/symfony/intl/tree/v8.0.1"
+                "source": "https://github.com/symfony/intl/tree/v8.0.8"
             },
             "funding": [
                 {
@@ -1456,7 +1457,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2025-12-01T09:13:36+00:00"
+            "time": "2026-03-30T15:14:47+00:00"
         },
         {
             "name": "symfony/polyfill-mbstring",
@@ -1629,16 +1630,16 @@
         },
         {
             "name": "symfony/translation",
-            "version": "v6.4.31",
+            "version": "v6.4.34",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/translation.git",
-                "reference": "81579408ecf7dc5aa2d8462a6d5c3a430a80e6f2"
+                "reference": "d07d117db41341511671b0a1a2be48f2772189ce"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/translation/zipball/81579408ecf7dc5aa2d8462a6d5c3a430a80e6f2",
-                "reference": "81579408ecf7dc5aa2d8462a6d5c3a430a80e6f2",
+                "url": "https://api.github.com/repos/symfony/translation/zipball/d07d117db41341511671b0a1a2be48f2772189ce",
+                "reference": "d07d117db41341511671b0a1a2be48f2772189ce",
                 "shasum": ""
             },
             "require": {
@@ -1704,7 +1705,7 @@
             "description": "Provides tools to internationalize your application",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/translation/tree/v6.4.31"
+                "source": "https://github.com/symfony/translation/tree/v6.4.34"
             },
             "funding": [
                 {
@@ -1724,7 +1725,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2025-12-18T11:37:55+00:00"
+            "time": "2026-02-16T20:44:03+00:00"
         },
         {
             "name": "symfony/translation-contracts",
@@ -1810,16 +1811,16 @@
         },
         {
             "name": "tomloprod/colority",
-            "version": "v1.5.0",
+            "version": "v1.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tomloprod/colority.git",
-                "reference": "fb82ecdacb28773701d8d6cfac9a92ccb36500a0"
+                "reference": "ba032cec150fcd139808431c5a47c8dec6e83782"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tomloprod/colority/zipball/fb82ecdacb28773701d8d6cfac9a92ccb36500a0",
-                "reference": "fb82ecdacb28773701d8d6cfac9a92ccb36500a0",
+                "url": "https://api.github.com/repos/tomloprod/colority/zipball/ba032cec150fcd139808431c5a47c8dec6e83782",
+                "reference": "ba032cec150fcd139808431c5a47c8dec6e83782",
                 "shasum": ""
             },
             "require": {
@@ -1860,7 +1861,7 @@
             ],
             "support": {
                 "issues": "https://github.com/tomloprod/colority/issues",
-                "source": "https://github.com/tomloprod/colority/tree/v1.5.0"
+                "source": "https://github.com/tomloprod/colority/tree/v1.7.0"
             },
             "funding": [
                 {
@@ -1868,7 +1869,7 @@
                     "type": "custom"
                 }
             ],
-            "time": "2025-12-23T11:16:52+00:00"
+            "time": "2026-01-11T09:27:19+00:00"
         },
         {
             "name": "voku/portable-ascii",
@@ -1953,7 +1954,9 @@
     },
     "prefer-stable": true,
     "prefer-lowest": false,
-    "platform": {},
+    "platform": {
+        "php": ">=8.4"
+    },
     "platform-dev": {},
-    "plugin-api-version": "2.6.0"
+    "plugin-api-version": "2.9.0"
 }
