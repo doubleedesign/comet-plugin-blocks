@@ -22,6 +22,7 @@ function wrapPostTitle() {
 
 			const container = document.createElement('div');
 			container.classList.add('page-header__container');
+			container.setAttribute('data-halign', comet.defaults?.['page-header']?.hAlign || 'start');
 
 			// Insert wrapper before the title element
 			titleElement.parentNode.insertBefore(wrapper, titleElement);
@@ -34,5 +35,5 @@ function wrapPostTitle() {
 		}
 	});
 
-	observer.observe(document.body, { childList: true, subtree: true });
+	observer.observe(document.body, {childList: true, subtree: true});
 }
