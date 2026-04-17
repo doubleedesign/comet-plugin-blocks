@@ -17,7 +17,7 @@ $wrapperAttributes = [
 
 $component = new Copy(
     [...$wrapperAttributes, 'colorTheme' => $block['colorTheme'] ?? $block['attributes']['colorTheme']['default']],
-    [new PreprocessedHTML([], get_field('copy'))]
+    [new PreprocessedHTML([], get_field('copy') ?? '')]
 );
 
 $component->render();
