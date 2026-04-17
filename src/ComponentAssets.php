@@ -12,6 +12,7 @@ class ComponentAssets {
         add_action('wp_enqueue_scripts', [$this, 'enqueue_comet_combined_component_css'], 10);
         add_action('wp_enqueue_scripts', [$this, 'enqueue_comet_combined_component_js'], 10);
         add_action('wp_enqueue_scripts', [$this, 'enqueue_font_awesome'], 10);
+        add_action('admin_enqueue_scripts', [$this, 'enqueue_font_awesome'], 10);
         add_filter('script_loader_tag', [$this, 'script_type_module'], 10, 3);
         add_filter('script_loader_tag', [$this, 'script_base_path'], 10, 5);
         add_action('admin_enqueue_scripts', [$this, 'enqueue_admin_css'], 10);
