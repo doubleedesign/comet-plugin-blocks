@@ -38,7 +38,7 @@ const ColorControls = ({
     palette = palette.filter(color => !['error', 'success', 'info', 'warning'].includes(color.slug));
   }
   if (!palette || palette.length === 0) {
-    // eslint-disable-next-line max-len
+
     console.error('No colour palette found in component library configuration. You can use theme.json or the comet_canvas_theme_colours filter to add colours. Developers: See set_colours() in ThemeStyle.php in the plugin source for more implementation details.');
     return null;
   }
