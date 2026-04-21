@@ -287,6 +287,10 @@ html :where(.wp-block) {
   display: none !important;
 }
 
+.components-circular-option-picker__option-group.comet-color-controls {
+	flex-direction: row;
+}
+
 .block-list-appender {
   margin: 0 auto;
 }
