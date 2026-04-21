@@ -44,9 +44,12 @@ class ThemeStyle {
             ['secondary', 'light'],
         ));
 
+		$pair_overrides = apply_filters('comet_blocks_colour_pair_overrides', []);
+
         if (class_exists('Doubleedesign\Comet\Core\Config')) {
             Config::getInstance()->set_theme_colours($colours);
             Config::getInstance()->maybe_add_theme_colour_pairs($maybe_pairs);
+			Config::getInstance()->set_colour_pair_overrides($pair_overrides);
         }
     }
 
@@ -99,7 +102,7 @@ class ThemeStyle {
     }
 
     public function add_css_variables_to_head(): void {
-        echo '<style>:root {' . $this->get_css_variables_from_theme_config() . '}</style>';
+        echo '<style>@layer theme-default { :root {' . $this->get_css_variables_from_theme_config() . '} }</style>';
     }
 
     public function add_css_variables_to_block_editor_iframe(): void {
