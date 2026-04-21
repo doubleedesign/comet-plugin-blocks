@@ -6,7 +6,8 @@ interface Config {
 	defaults?: Record<string, any>;
 	globalBackground?: ThemeColor;
 	palette?: Record<ThemeColor, string>;
-	colourPairs?: { foreground: string; background: string }[];
+	colourPairs?: ColourPair[];
+	colourPairOverrides?: Record<string, ColourPair[]>;
 	aspectRatios?: { name: string; value: string }[];
 	ajaxUrl?: string;
 	nonce?: string;
@@ -15,6 +16,11 @@ interface Config {
 		id: number;
 	}
 }
+
+type ColourPair = {
+	foreground: string;
+	background: string;
+};
 
 declare global {
 	const comet: Config;
