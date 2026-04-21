@@ -42,7 +42,7 @@ npm install
 You can compile the `CustomControlsWrapper` using:
 
 ```powershell
-npm run build
+pnpm run build
 ```
 
 ### Custom controls for the block editor
@@ -51,7 +51,7 @@ For UX consistency across blocks, custom controls have been created for use in b
 
 The custom controls are all rendered in one wrapping component, `CustomControlsWrapper`, which needs to be compiled (Rollup is configured for this) and enqueued in the block editor for the controls to be available.
 
-When making changes to the components, recompile the `CustomControlsWrapper` using `npm run build` or use an automatic watcher in PhpStorm to rebuild when any of the files change.
+When making changes to the components, recompile the `CustomControlsWrapper` using `pnpm run build` or use an automatic watcher in PhpStorm to rebuild when any of the files change.
 
 ### Why ACF Pro for content + Gutenberg-esque attribute controls?
 
