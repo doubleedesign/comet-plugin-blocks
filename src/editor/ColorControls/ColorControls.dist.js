@@ -30,8 +30,10 @@ const ColorControls = ({
   // Most blocks shouldn't have access to the status/message type colours, only brand colours, whereas others are the opposite
   if (['comet/callout'].includes(name)) {
     palette = palette.filter(color => ['error', 'success', 'info', 'warning'].includes(color.slug));
-  } else if (['comet/separator', 'comet/copy', 'comet/copy-image'].includes(name)) {
+  } else if (['comet/separator'].includes(name)) {
     palette = palette.filter(color => !['error', 'success', 'info', 'warning', 'light'].includes(color.slug));
+  } else if (['comet/copy', 'comet/copy-image'].includes(name)) {
+    palette = palette.filter(color => !['error', 'success', 'info', 'warning', 'light', 'accent'].includes(color.slug));
   } else {
     palette = palette.filter(color => !['error', 'success', 'info', 'warning'].includes(color.slug));
   }
