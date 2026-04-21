@@ -86,7 +86,7 @@ export const ColorControls = ({name, attributes, setAttributes}) => {
 					background: backgroundColor,
 				}}
 				blockName={name.split('/')[1]}
-				pairs={comet?.colourPairs ?? []}
+				pairs={comet?.colourPairOverrides[name] ?? comet?.colourPairs ?? []}
 				onChange={(newValue) => {
 					handleThemeChange(newValue.foreground);
 					handleBackgroundChange(newValue.background);

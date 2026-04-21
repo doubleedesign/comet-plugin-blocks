@@ -197,11 +197,12 @@ class BlockEditorConfig extends JavaScriptImplementation {
         }
 
         $data = array(
-            'defaults'         => Config::getInstance()->get('component_defaults'),
-            'globalBackground' => Config::getInstance()->get_global_background(),
-            'palette'          => Config::getInstance()->get_theme_colours(),
-            'colourPairs'      => Config::getInstance()->get_theme_colour_pairs(),
-            'aspectRatios'     => array_map(fn($case) => ['name' => $case->name, 'value' => $case->value], AspectRatio::cases()),
+            'defaults'            => Config::getInstance()->get('component_defaults'),
+            'globalBackground'    => Config::getInstance()->get_global_background(),
+            'palette'             => Config::getInstance()->get_theme_colours(),
+            'colourPairs'         => Config::getInstance()->get_theme_colour_pairs(),
+            'colourPairOverrides' => Config::getInstance()->get_theme_colour_pair_overrides(),
+            'aspectRatios'        => array_map(fn($case) => ['name' => $case->name, 'value' => $case->value], AspectRatio::cases()),
         );
 
         // Make the defaults available to the plugin's block-editor-config files
