@@ -25,6 +25,7 @@
 .button[data-color-theme=primary], [data-color-theme=primary] .button {
   --theme-color: var(--color-primary);
   --theme-color-inverse: var(--readable-color-primary);
+  color: var(--theme-color-inverse);
 }
 [data-color-theme=white][data-background=primary] .button {
   --readable-color-primary: var(--color-primary);
@@ -59,6 +60,7 @@
 .button[data-color-theme=secondary], [data-color-theme=secondary] .button {
   --theme-color: var(--color-secondary);
   --theme-color-inverse: var(--readable-color-secondary);
+  color: var(--theme-color-inverse);
 }
 [data-color-theme=white][data-background=primary] .button {
   --readable-color-secondary: var(--color-primary);
@@ -93,6 +95,7 @@
 .button[data-color-theme=accent], [data-color-theme=accent] .button {
   --theme-color: var(--color-accent);
   --theme-color-inverse: var(--readable-color-accent);
+  color: var(--theme-color-inverse);
 }
 [data-color-theme=white][data-background=primary] .button {
   --readable-color-accent: var(--color-primary);
@@ -127,6 +130,7 @@
 .button[data-color-theme=info], [data-color-theme=info] .button {
   --theme-color: var(--color-info);
   --theme-color-inverse: var(--readable-color-info);
+  color: var(--theme-color-inverse);
 }
 [data-color-theme=white][data-background=primary] .button {
   --readable-color-info: var(--color-primary);
@@ -161,6 +165,7 @@
 .button[data-color-theme=warning], [data-color-theme=warning] .button {
   --theme-color: var(--color-warning);
   --theme-color-inverse: var(--readable-color-warning);
+  color: var(--theme-color-inverse);
 }
 [data-color-theme=white][data-background=primary] .button {
   --readable-color-warning: var(--color-primary);
@@ -195,6 +200,7 @@
 .button[data-color-theme=success], [data-color-theme=success] .button {
   --theme-color: var(--color-success);
   --theme-color-inverse: var(--readable-color-success);
+  color: var(--theme-color-inverse);
 }
 [data-color-theme=white][data-background=primary] .button {
   --readable-color-success: var(--color-primary);
@@ -229,6 +235,7 @@
 .button[data-color-theme=error], [data-color-theme=error] .button {
   --theme-color: var(--color-error);
   --theme-color-inverse: var(--readable-color-error);
+  color: var(--theme-color-inverse);
 }
 [data-color-theme=white][data-background=primary] .button {
   --readable-color-error: var(--color-primary);
@@ -263,6 +270,7 @@
 .button[data-color-theme=light], [data-color-theme=light] .button {
   --theme-color: var(--color-light);
   --theme-color-inverse: var(--readable-color-light);
+  color: var(--theme-color-inverse);
 }
 [data-color-theme=white][data-background=primary] .button {
   --readable-color-light: var(--color-primary);
@@ -297,6 +305,7 @@
 .button[data-color-theme=dark], [data-color-theme=dark] .button {
   --theme-color: var(--color-dark);
   --theme-color-inverse: var(--readable-color-dark);
+  color: var(--theme-color-inverse);
 }
 [data-color-theme=white][data-background=primary] .button {
   --readable-color-dark: var(--color-primary);
@@ -331,6 +340,7 @@
 .button[data-color-theme=white], [data-color-theme=white] .button {
   --theme-color: var(--color-white);
   --theme-color-inverse: var(--readable-color-white);
+  color: var(--theme-color-inverse);
 }
 [data-color-theme=white][data-background=primary] .button {
   --readable-color-white: var(--color-primary);
@@ -363,8 +373,8 @@
   --readable-color-white: var(--color-white);
 }
 .button:hover, .button:focus, .button:active {
-  background-color: color-mix(in srgb, var(--color-var(--theme-color)) 90%, black);
-  border-color: color-mix(in srgb, var(--color-var(--theme-color)) 90%, black);
+  background-color: color-mix(in srgb, var(--theme-color) 90%, black);
+  border-color: color-mix(in srgb, var(--theme-color) 90%, black);
   color: var(--theme-color-inverse);
 }
 .button.is-style-outline, .button[data-style=outline] {
