@@ -1,7 +1,7 @@
 import { FieldTooltip } from '../FieldTooltip/FieldTooltip.dist.js';
 
 /* global wp */
-/* eslint-disable max-len */
+ 
 const {
   RangeControl
 } = wp.components;

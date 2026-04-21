@@ -1,6 +1,6 @@
 import { FieldTooltip } from '../FieldTooltip/FieldTooltip.dist.js';
 
-/* eslint-disable max-len */
+ 
 /* global comet, wp */
 const {
   __experimentalNumberControl

@@ -2,24 +2,27 @@
 import { PanelBody, Dropdown, Button, ColorIndicator, ColorPalette, GradientPicker } from '@wordpress/components';
 import { useEffect, useMemo, useRef, useState } from '@wordpress/element';
 
-export const ColorControls = ({name, attributes, setAttributes}) => {
+export const ColorControls = ({ name, attributes, setAttributes }) => {
 	if (!Object.keys(attributes).some(attr => ['colorTheme', 'backgroundColor'].includes(attr))) {
 		return null;
 	}
-n
+
 	let palette = Object.entries(comet?.palette)
-			?.filter(([key, value]) => !['black', 'white'].includes(key))
-			?.map(([key, value]) => ({slug: key, name: key, color: value}))
+		?.filter(([key, value]) => !['black', 'white'].includes(key))
+		?.map(([key, value]) => ({ slug: key, name: key, color: value }))
 		?? wp.data.select('core/block-editor').getSettings().colors;
 
 	// Most blocks shouldn't have access to the status/message type colours, only brand colours, whereas others are the opposite
 	if (['comet/callout'].includes(name)) {
 		palette = palette.filter(color => ['error', 'success', 'info', 'warning'].includes(color.slug));
-	} else if (['comet/separator'].includes(name)) {
+	}
+	else if (['comet/separator'].includes(name)) {
 		palette = palette.filter(color => !['error', 'success', 'info', 'warning', 'light'].includes(color.slug));
-	} else if (['comet/copy', 'comet/copy-image'].includes(name)) {
+	}
+	else if (['comet/copy', 'comet/copy-image'].includes(name)) {
 		palette = palette.filter(color => !['error', 'success', 'info', 'warning', 'light', 'accent'].includes(color.slug));
-	} else {
+	}
+	else {
 		palette = palette.filter(color => !['error', 'success', 'info', 'warning'].includes(color.slug));
 	}
 
@@ -56,12 +59,12 @@ n
 
 	const handleThemeChange = (name) => {
 		setForegroundColor(name);
-		setAttributes({colorTheme: name ?? ''});
+		setAttributes({ colorTheme: name ?? '' });
 	};
 
 	const handleBackgroundChange = (name) => {
 		setBackgroundColor(name);
-		setAttributes({backgroundColor: name ?? ''});
+		setAttributes({ backgroundColor: name ?? '' });
 	};
 
 	// If background colour is not supported, provide single colour theme option
@@ -98,7 +101,7 @@ n
 	);
 };
 
-function ColorPaletteDropdown({label, hexValue, palette, onChange}) {
+function ColorPaletteDropdown({ label, hexValue, palette, onChange }) {
 	const [hex, setHex] = useState(hexValue);
 	const triggerRef = useRef();
 
@@ -110,17 +113,17 @@ function ColorPaletteDropdown({label, hexValue, palette, onChange}) {
 
 	return (
 		<Dropdown
-			renderToggle={({onToggle, isOpen}) => (
+			renderToggle={({ onToggle, isOpen }) => (
 				<Button onClick={onToggle}
-				        aria-expanded={isOpen}
-				        ref={triggerRef}
-				        __next40pxDefaultSize
+					aria-expanded={isOpen}
+					ref={triggerRef}
+					__next40pxDefaultSize
 				>
 					<ColorIndicator colorValue={hex}/>
 					{label}
 				</Button>
 			)}
-			renderContent={({onToggle}) => (
+			renderContent={({ onToggle }) => (
 				<ColorPalette
 					label={label}
 					value={hex}
@@ -136,7 +139,7 @@ function ColorPaletteDropdown({label, hexValue, palette, onChange}) {
 	);
 }
 
-function ColorPairPaletteDropdown({blockName, label, value, pairs, onChange}) {
+function ColorPairPaletteDropdown({ blockName, label, value, pairs, onChange }) {
 	const [foreground, setForeground] = useState(value?.foreground ?? '');
 	const [background, setBackground] = useState(value?.background !== 'transparent' ? value?.background : (comet?.globalBackground ?? 'white'));
 	const triggerRef = useRef();
@@ -168,17 +171,17 @@ function ColorPairPaletteDropdown({blockName, label, value, pairs, onChange}) {
 
 	return (
 		<Dropdown
-			renderToggle={({onToggle, isOpen}) => (
+			renderToggle={({ onToggle, isOpen }) => (
 				<Button onClick={onToggle}
-				        aria-expanded={isOpen}
-				        ref={triggerRef}
-				        __next40pxDefaultSize
+					aria-expanded={isOpen}
+					ref={triggerRef}
+					__next40pxDefaultSize
 				>
 					<ColorIndicator colorValue={gradientPreview}/>
 					{label}
 				</Button>
 			)}
-			renderContent={({isOpen, onToggle}) => (
+			renderContent={({ isOpen, onToggle }) => (
 				<GradientPicker
 					label={label}
 					value={gradientPreview}
