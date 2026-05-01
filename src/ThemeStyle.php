@@ -1,6 +1,6 @@
 <?php
 namespace Doubleedesign\Comet\WordPress;
-use Doubleedesign\Comet\Core\{ColorUtils, Config, ThemeColor, Utils};
+use Doubleedesign\Comet\Core\{ColorUtils, Config, ThemeColor, ThemeGradient, Utils};
 use Exception;
 
 class ThemeStyle {
@@ -28,7 +28,7 @@ class ThemeStyle {
     }
 
     public function set_colours(): void {
-        $theme_json = \WP_Theme_JSON_Resolver::get_theme_data(); 	// TODO: Implement gradient handling
+        $theme_json = \WP_Theme_JSON_Resolver::get_theme_data();
         $defaults = array_reduce($theme_json->get_data()['settings']['color']['palette'], function($acc, $item) {
             $acc[$item['slug']] = $item['color'];
 
@@ -43,13 +43,20 @@ class ThemeStyle {
             ['secondary', 'dark'],
             ['secondary', 'light'],
         ));
+        $pair_overrides = apply_filters('comet_blocks_colour_pair_overrides', []);
 
-		$pair_overrides = apply_filters('comet_blocks_colour_pair_overrides', []);
+        $default_gradients = array_reduce($theme_json->get_data()['settings']['color']['gradients'], function($acc, $item) {
+            $acc[$item['slug']] = ThemeGradient::tryFrom($item['slug'])->value;
+
+            return $acc;
+        }, []);
+        $gradients = apply_filters('comet_canvas_theme_gradients', $default_gradients);
 
         if (class_exists('Doubleedesign\Comet\Core\Config')) {
             Config::getInstance()->set_theme_colours($colours);
             Config::getInstance()->maybe_add_theme_colour_pairs($maybe_pairs);
-			Config::getInstance()->set_colour_pair_overrides($pair_overrides);
+            Config::getInstance()->set_colour_pair_overrides($pair_overrides);
+            Config::getInstance()->set_theme_gradients($gradients);
         }
     }
 

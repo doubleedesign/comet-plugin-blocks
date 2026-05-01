@@ -39,6 +39,10 @@
 		"backgroundColor": {
 			"type": "string",
 			"default": "primary"
+		},
+		"sectionBackground": {
+			"type": "string",
+			"default": "transparent"
 		}
 	},
 	"supports": {

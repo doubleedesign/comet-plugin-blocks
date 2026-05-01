@@ -13,7 +13,7 @@ class BlockFieldHandler {
 
         wp_enqueue_script(
             'comet-blocks-custom-controls',
-            "$pluginDir/src/editor/CustomControlsWrapper/CustomControlsWrapper.dist.js",
+            "$pluginDir/src/editor/CustomControls.dist.js",
             ['wp-blocks', 'wp-element', 'wp-editor', 'comet-block-registry'],
             COMET_VERSION,
             true
