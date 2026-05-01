@@ -8,6 +8,8 @@ interface Config {
 	palette?: Record<ThemeColor, string>;
 	colourPairs?: ColourPair[];
 	colourPairOverrides?: Record<string, ColourPair[]>;
+	gradients?: ThemeGradient[];
+	sectionBackgrounds?: Record<string, ThemeColor|ThemeGradient>;
 	aspectRatios?: { name: string; value: string }[];
 	ajaxUrl?: string;
 	nonce?: string;
@@ -16,11 +18,6 @@ interface Config {
 		id: number;
 	}
 }
-
-type ColourPair = {
-	foreground: string;
-	background: string;
-};
 
 declare global {
 	const comet: Config;
@@ -41,3 +38,13 @@ type ThemeColor =
 	'light' |
 	'dark' |
 	'white';
+
+type ColourPair = {
+	foreground: ThemeColor;
+	background: ThemeColor;
+};
+
+// Note: If you're looking for where colours and gradients are set, it's theme.json.
+// Another note: Only the slugs are passed through to the PHP render functions,
+// the values in theme.json are used for the editor but not for rendering
+type ThemeGradient = string;
