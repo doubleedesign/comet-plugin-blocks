@@ -1,7 +1,7 @@
 <?php
 namespace Doubleedesign\Comet\WordPress;
 
-use Doubleedesign\Comet\Core\{Config};
+use Doubleedesign\Comet\Core\Config;
 
 class TinyMceConfig {
 
@@ -9,8 +9,7 @@ class TinyMceConfig {
         add_action('admin_enqueue_scripts', [$this, 'editor_css']);
         add_filter('tiny_mce_before_init', [$this, 'editor_css_acf']);
         add_filter('doublee_tinymce_theme_colours', [$this, 'add_theme_colours_to_tinymce_tools']);
-		add_filter('doublee_tinymce_miniblock_defaults', [$this, 'add_component_defaults_to_tinymce_tools']);
-        add_filter('tiny_mce_before_init', [$this, 'add_theme_colours_to_tinymce_content']);
+        add_filter('doublee_tinymce_miniblock_defaults', [$this, 'add_component_defaults_to_tinymce_tools']);
     }
 
     /**
@@ -27,6 +26,10 @@ class TinyMceConfig {
             [
                 'path' => COMET_COMPOSER_VENDOR_PATH . '/doubleedesign/comet-components-core/src/components/common.css',
                 'url'  => COMET_COMPOSER_VENDOR_URL . '/doubleedesign/comet-components-core/src/components/common.css',
+            ],
+            [
+                'path' => get_template_directory() . '/tokens.css',
+                'url'  => get_template_directory_uri() . '/tokens.css',
             ],
             [
                 'path' => get_template_directory() . '/tinymce.css',
@@ -103,53 +106,22 @@ class TinyMceConfig {
         return array_unique(array_merge($colours, $filtered));
     }
 
-	/**
-	 * Add some component defaults to TinyMCE miniblock defaults
-	 * @param $defaults
-	 * @return array
-	 */
-	public function add_component_defaults_to_tinymce_tools($defaults): array {
-		if (!class_exists('Doubleedesign\Comet\Core\Config')) {
-			return $defaults;
-		}
-
-		return array_merge($defaults, [
-			'button-group' => Config::getInstance()->get_component_defaults('button-group'),
-			'pullquote' => Config::getInstance()->get_component_defaults('pullquote'),
-			'callout' => Config::getInstance()->get_component_defaults('callout'),
-		]);
-	}
-
     /**
-     * Add colours from theme.json as CSS variables to TinyMCE content
+     * Add some component defaults to TinyMCE miniblock defaults
      *
-     * @param  $settings
+     * @param  $defaults
      *
      * @return array
      */
-    public function add_theme_colours_to_tinymce_content($settings): array {
+    public function add_component_defaults_to_tinymce_tools($defaults): array {
         if (!class_exists('Doubleedesign\Comet\Core\Config')) {
-            return $settings;
+            return $defaults;
         }
 
-        $colours = Config::getInstance()->get_theme_colours();
-        $embedded_css = ':root {';
-
-        if (!empty($colours)) {
-            foreach ($colours as $label => $value) {
-                $embedded_css .= '--color-' . strtolower($label) . ':' . $value . ';';
-            }
-        }
-
-        $embedded_css .= '}';
-
-        if (isset($settings['content_style'])) {
-            $settings['content_style'] .= ' ' . $embedded_css;
-        }
-        else {
-            $settings['content_style'] = $embedded_css;
-        }
-
-        return $settings;
+        return array_merge($defaults, [
+            'button-group' => Config::getInstance()->get_component_defaults('button-group'),
+            'pullquote'    => Config::getInstance()->get_component_defaults('pullquote'),
+            'callout'      => Config::getInstance()->get_component_defaults('callout'),
+        ]);
     }
 }

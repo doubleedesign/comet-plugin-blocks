@@ -13,10 +13,7 @@ class ThemeStyle {
         add_action('init', [$this, 'set_component_defaults'], 5);
 
         // Load styles into the various required places
-        add_action('wp_head', [$this, 'add_css_variables_to_head'], 25);
-        add_action('admin_head', [$this, 'add_css_variables_to_head'], 25);
         add_action('wp_enqueue_scripts', [$this, 'enqueue_theme_stylesheets'], 20);
-        add_action('enqueue_block_assets', [$this, 'add_css_variables_to_block_editor_iframe'], 20);
 
         // Miscellaneous
         add_theme_support('title-tag');
@@ -28,9 +25,9 @@ class ThemeStyle {
     }
 
     public function set_colours(): void {
-        $theme_json = \WP_Theme_JSON_Resolver::get_theme_data();
-        $defaults = array_reduce($theme_json->get_data()['settings']['color']['palette'], function($acc, $item) {
-            $acc[$item['slug']] = $item['color'];
+        $colorNames = array_column(ThemeColor::cases(), 'value');
+        $defaults = array_reduce($colorNames, function($acc, $item) {
+            $acc[$item] = "var(--color-{$item})";
 
             return $acc;
         }, []);
@@ -45,12 +42,10 @@ class ThemeStyle {
         ));
         $pair_overrides = apply_filters('comet_blocks_colour_pair_overrides', []);
 
-        $default_gradients = array_reduce($theme_json->get_data()['settings']['color']['gradients'], function($acc, $item) {
-            $acc[$item['slug']] = ThemeGradient::tryFrom($item['slug'])->value;
-
-            return $acc;
-        }, []);
-        $gradients = apply_filters('comet_canvas_theme_gradients', $default_gradients);
+        $gradients = apply_filters('comet_canvas_theme_gradients', array(
+            new ThemeGradient(ThemeColor::WHITE, ThemeColor::DARK),
+            new ThemeGradient(ThemeColor::DARK, ThemeColor::WHITE),
+        ));
 
         if (class_exists('Doubleedesign\Comet\Core\Config')) {
             Config::getInstance()->set_theme_colours($colours);
@@ -108,18 +103,6 @@ class ThemeStyle {
         }
     }
 
-    public function add_css_variables_to_head(): void {
-        echo '<style>@layer theme-default { :root {' . $this->get_css_variables_from_theme_config() . '} }</style>';
-    }
-
-    public function add_css_variables_to_block_editor_iframe(): void {
-        if (!is_admin()) {
-            return;
-        }
-
-        wp_add_inline_style('comet-components-common-styles', ':root {' . $this->get_css_variables_from_theme_config() . '}');
-    }
-
     public function enqueue_theme_stylesheets(): void {
         $parent = get_template_directory() . '/style.css';
         $child = get_stylesheet_directory() . '/style.css';
@@ -142,30 +125,5 @@ class ThemeStyle {
                 wp_enqueue_style($slug, $child, $deps, $theme->get('Version'));
             }
         }
-    }
-
-    private function get_css_variables_from_theme_config(): string {
-        $colours = Config::getInstance()->get_theme_colours();
-        $css = "";
-
-        foreach ($colours as $key => $hex) {
-            $css .= '--color-' . $key . ': ' . $hex . ";\n";
-
-            try {
-                $readable_name = ColorUtils::get_readable_colour(ThemeColor::tryFrom($key))->value;
-                $readable_hex = ColorUtils::get_theme_value_for_colour_name($readable_name);
-                $css .= '--readable-color-' . $key . ': ' . $readable_hex . ";\n";
-            }
-            catch (Exception $e) {
-                if (function_exists('dump')) {
-                    dump($e->getMessage());
-                }
-                else {
-                    error_log($e->getMessage());
-                }
-            }
-        }
-
-        return $css;
     }
 }
