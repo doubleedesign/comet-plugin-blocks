@@ -17,7 +17,6 @@ class BlockEditorConfig extends JavaScriptImplementation {
         add_filter('should_load_separate_core_block_assets', '__return_true', 5);
         add_filter('should_load_block_assets_on_demand', '__return_true', 5);
 
-        add_action('init', [$this, 'load_merged_theme_json'], 5, 1);
         add_action('init', [$this, 'register_page_template'], 15, 2);
 
         add_filter('block_editor_settings_all', [$this, 'block_inspector_single_panel'], 10, 2);
@@ -140,6 +139,11 @@ class BlockEditorConfig extends JavaScriptImplementation {
                 'url'    => COMET_COMPOSER_VENDOR_URL . '/doubleedesign/comet-components-core/src/components/common.css',
             ],
             [
+                'handle' => 'theme-tokens',
+                'path'   => get_stylesheet_directory() . '/tokens.css',
+                'url'    => get_stylesheet_directory_uri() . '/tokens.css',
+            ],
+            [
                 'handle' => 'theme-foundation-styles',
                 'path'   => get_template_directory() . '/common.css',
                 'url'    => get_template_directory_uri() . '/common.css',
@@ -171,26 +175,6 @@ class BlockEditorConfig extends JavaScriptImplementation {
         }
     }
 
-    /**
-     * Load theme.json file from this plugin to set defaults of what's supported in the editor
-     * and combine it with the theme's theme.json for actual theme stuff like colours
-     *
-     * @return void
-     */
-    public function load_merged_theme_json(): void {
-        delete_option('wp_theme_json_data'); // clear cache
-
-        add_filter('wp_theme_json_data_theme', function($theme_json) {
-            $plugin_theme_json_path = plugin_dir_path(__FILE__) . 'theme.json';
-            $plugin_theme_json_data = json_decode(file_get_contents($plugin_theme_json_path), true);
-            if (is_array($plugin_theme_json_data)) {
-                return new WP_Theme_JSON_Data(Utils::array_merge_deep($plugin_theme_json_data, $theme_json->get_data()));
-            }
-
-            return $theme_json;
-        });
-    }
-
     public function make_component_defaults_available_to_block_editor_js(): void {
         if (!class_exists('Doubleedesign\Comet\Core\Config')) {
             return;
@@ -203,7 +187,7 @@ class BlockEditorConfig extends JavaScriptImplementation {
             'colourPairs'           => Config::getInstance()->get_theme_colour_pairs(),
             'colourPairOverrides'   => Config::getInstance()->get_theme_colour_pair_overrides(),
             'gradients'             => Config::getInstance()->get_theme_gradients(),
-			// TODO: Test this with fully custom names so a theme can have something outside the ThemeColor and ThemeGradient bounds if explicitly set up
+            // TODO: Test this with fully custom names so a theme can have something outside the ThemeColor and ThemeGradient bounds if explicitly set up
             'sectionBackgrounds'    => apply_filters('comet_canvas_section_backgrounds', array_merge(
                 Config::getInstance()->get_theme_colours(),
                 Config::getInstance()->get_theme_gradients(),
