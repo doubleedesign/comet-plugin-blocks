@@ -42,7 +42,7 @@
 		},
 		"sectionBackground": {
 			"type": "string",
-			"default": "transparent"
+			"default": "white"
 		}
 	},
 	"supports": {

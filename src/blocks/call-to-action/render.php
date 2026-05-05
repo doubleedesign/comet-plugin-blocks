@@ -2,7 +2,7 @@
 /** @var $block array */
 
 use Doubleedesign\Comet\Core\{Button, ButtonGroup, CallToAction, Config, Heading, PreprocessedHTML, Utils};
-use Doubleedesign\Comet\WordPress\{BlockRenderer};
+use Doubleedesign\Comet\WordPress\BlockRenderer;
 
 $is_editor = isset($is_preview) && $is_preview;
 $render_placeholder = BlockRenderer::maybe_render_editor_placeholder($block, $is_editor);
@@ -14,7 +14,9 @@ $defaults = Config::getInstance()->get_component_defaults('call-to-action');
 $attributes = [
     ...$defaults,
     ...Utils::array_pick($block, ['size', 'colorTheme']),
-    'innerBackground' => $block['backgroundColor'] ?? null,
+    'backgroundColors' => !empty($block['sectionBackground'])
+        ? array($block['sectionBackground'], $block['backgroundColor'])
+        : $block['backgroundColor']
 ];
 
 $heading = get_field('heading');
