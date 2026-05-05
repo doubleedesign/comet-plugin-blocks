@@ -40,7 +40,7 @@ class ThemeStyle {
             ['secondary', 'dark'],
             ['secondary', 'light'],
         ));
-        $pair_overrides = apply_filters('comet_blocks_colour_pair_overrides', []);
+        $pair_overrides = apply_filters('comet_canvas_colour_pair_overrides', []);
 
         $gradients = apply_filters('comet_canvas_theme_gradients', array(
             new ThemeGradient(ThemeColor::WHITE, ThemeColor::DARK),
