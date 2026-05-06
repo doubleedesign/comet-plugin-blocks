@@ -1,7 +1,6 @@
 <?php
 namespace Doubleedesign\Comet\WordPress;
-use Doubleedesign\Comet\Core\{ColorUtils, Config, ThemeColor, ThemeGradient, Utils};
-use Exception;
+use Doubleedesign\Comet\Core\{Config, ThemeColor, ThemeGradient, Utils};
 
 class ThemeStyle {
 
@@ -40,7 +39,7 @@ class ThemeStyle {
             ['secondary', 'dark'],
             ['secondary', 'light'],
         ));
-        $pair_overrides = apply_filters('comet_blocks_colour_pair_overrides', []);
+        $pair_overrides = apply_filters('comet_canvas_colour_pair_overrides', []);
 
         $gradients = apply_filters('comet_canvas_theme_gradients', array(
             new ThemeGradient(ThemeColor::WHITE, ThemeColor::DARK),
@@ -92,13 +91,11 @@ class ThemeStyle {
             ));
 
             // Grab any site-specific defaults set via the 'comet_canvas_component_defaults' filter
-            $defaults = apply_filters('comet_canvas_component_defaults', []);
+            $defaults = apply_filters('comet_canvas_component_defaults', Config::getInstance()->get_all_component_defaults());
             // Merge them with existing defaults
             foreach ($defaults as $componentName => $settings) {
                 $key = Utils::kebab_case($componentName);
-                $existing = Config::getInstance()->get_component_defaults($key);
-
-                Config::getInstance()->set_component_defaults($key, array_merge($existing, $settings));
+                Config::getInstance()->set_component_defaults($key, $settings);
             }
         }
     }
