@@ -1,6 +1,5 @@
 <?php
 /** @var $block array */
-// \Symfony\Component\VarDumper\VarDumper::dump($block);
 use Doubleedesign\Comet\Core\{Container, ContentImageAdvanced, Utils};
 use Doubleedesign\Comet\WordPress\BlockRenderer;
 
