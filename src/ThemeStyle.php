@@ -31,14 +31,23 @@ class ThemeStyle {
             return $acc;
         }, []);
         $colours = apply_filters('comet_canvas_theme_colours', $defaults);
-        $maybe_pairs = apply_filters('comet_canvas_theme_colour_pairs_maybe', array(
-            ['accent', 'primary'],
-            ['accent', 'secondary'],
-            ['primary', 'dark'],
-            ['primary', 'light'],
-            ['secondary', 'dark'],
-            ['secondary', 'light'],
-        ));
+
+        $set1 = ['primary', 'secondary', 'accent'];
+        $set2 = ['white', 'dark', 'light'];
+        // All possible pairs of set1 and set2 items
+        $maybe_colours_on_neutrals = Utils::array_flat(array_map(function($colour) use ($set2) {
+            return array_map(function($colour2) use ($colour) {
+                return [$colour, $colour2];
+            }, $set2);
+        }, $set1));
+        // Also white on the set1 colours
+        $maybe_white_on_colours = array_map(function($colour) use ($set1) {
+            return ['white', $colour];
+        }, $set1);
+        // Combination of all those pairs to try to register by default
+        $default_pairs_to_try = array_merge($maybe_colours_on_neutrals, $maybe_white_on_colours);
+
+        $maybe_pairs = apply_filters('comet_canvas_theme_colour_pairs_maybe', $default_pairs_to_try);
         $pair_overrides = apply_filters('comet_canvas_colour_pair_overrides', []);
 
         $gradients = apply_filters('comet_canvas_theme_gradients', array(
@@ -51,6 +60,17 @@ class ThemeStyle {
             Config::getInstance()->maybe_add_theme_colour_pairs($maybe_pairs);
             Config::getInstance()->set_colour_pair_overrides($pair_overrides);
             Config::getInstance()->set_theme_gradients($gradients);
+            try {
+                Config::getInstance()->set_path_to_colours_css(get_stylesheet_directory() . '/colours.css');
+            }
+            catch (\Exception $e) {
+                if (function_exists('dump')) {
+                    dump($e);
+                }
+                else {
+                    error_log($e);
+                }
+            }
         }
     }
 
