@@ -26,7 +26,7 @@ class TemplateUtils {
             if (count($postIds) == 1 && $headingInSingleCard) {
                 $aboveContent = [new Heading(
                     ['classes' => ['is-style-small']],
-                    self::singularise($block['data']['heading']) ?? 'Featured Post'
+                    self::singularise(@$block['data']['heading']) ?? 'Featured Post'
                 )];
             }
 
