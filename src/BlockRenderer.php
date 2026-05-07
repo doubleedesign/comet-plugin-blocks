@@ -101,4 +101,18 @@ class BlockRenderer {
 
         return count($non_empty_values) === 0;
     }
+
+    public static function transform_block_data_to_acf_style_result(?array $field_data, string $prefix) {
+        if ($field_data === null || !is_array($field_data) || count($field_data) === 0) {
+            return $field_data;
+        }
+
+        // Remove the $prefix from the field keys
+        return array_reduce(array_keys($field_data), function($result, $key) use ($field_data, $prefix) {
+            $short_key = str_replace($prefix, '', $key);
+            $result[$short_key] = $field_data[$key];
+
+            return $result;
+        }, []);
+    }
 }

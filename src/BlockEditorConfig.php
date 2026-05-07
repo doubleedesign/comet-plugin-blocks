@@ -6,7 +6,6 @@ use Exception;
 use FilesystemIterator;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
-use WP_Theme_JSON_Data;
 
 class BlockEditorConfig extends JavaScriptImplementation {
     public function __construct() {
