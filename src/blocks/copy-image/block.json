@@ -42,6 +42,10 @@
 			"type": "string",
 			"default": "primary"
 		},
+		"backgroundColor": {
+			"type": "string",
+			"default": "white"
+		},
 		"order": {
 			"type": "string",
 			"default": "row"

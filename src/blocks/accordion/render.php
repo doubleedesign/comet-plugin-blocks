@@ -10,8 +10,8 @@ if ($render_placeholder) {
     return;
 }
 
-$heading = get_field('heading');
-$intro_text = get_field('intro_copy');
+$heading = $block['data']['heading'] ?? $block['data']['field__accordion__heading'] ?? '';
+$intro_text = $block['data']['intro_copy'] ?? $block['data']['field_accordion__intro'] ?? '';
 $colorTheme = $block['colorTheme'];
 
 $beforeComponents = [];
@@ -22,14 +22,14 @@ if ($intro_text) {
     array_push($beforeComponents, new PreprocessedHTML([], $intro_text));
 }
 
-$panelItems = get_field('panels');
+$panelItems = function_exists('get_field') ? get_field('panels') : [];
 if ($panelItems) {
     $panels = array_map(function($item) {
         return new AccordionPanel(
             ['title' => $item['heading']],
             [new PreprocessedHTML([], $item['panel_content'])]
         );
-    }, $panelItems ?? []);
+    }, $panelItems);
 }
 
 $component = new Accordion(
