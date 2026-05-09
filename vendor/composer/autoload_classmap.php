@@ -181,7 +181,6 @@ return array(
     'Doubleedesign\\Comet\\Core\\EventList' => $vendorDir . '/doubleedesign/comet-components-core/src/components/EventList/EventList.php',
     'Doubleedesign\\Comet\\Core\\File' => $vendorDir . '/doubleedesign/comet-components-core/src/components/FileGroup/File/File.php',
     'Doubleedesign\\Comet\\Core\\FileGroup' => $vendorDir . '/doubleedesign/comet-components-core/src/components/FileGroup/FileGroup.php',
-    'Doubleedesign\\Comet\\Core\\FocalPointPicker' => $vendorDir . '/doubleedesign/comet-components-core/src/plugins/FocalPointPicker/FocalPointPicker.php',
     'Doubleedesign\\Comet\\Core\\Gallery' => $vendorDir . '/doubleedesign/comet-components-core/src/components/Gallery/Gallery.php',
     'Doubleedesign\\Comet\\Core\\Group' => $vendorDir . '/doubleedesign/comet-components-core/src/components/Group/Group.php',
     'Doubleedesign\\Comet\\Core\\GroupLayout' => $vendorDir . '/doubleedesign/comet-components-core/src/base/types/GroupLayout.php',

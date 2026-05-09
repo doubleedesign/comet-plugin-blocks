@@ -369,7 +369,6 @@ class ComposerStaticInit12ca57715cc7eef89094395652d6bfc9
         'Doubleedesign\\Comet\\Core\\EventList' => __DIR__ . '/..' . '/doubleedesign/comet-components-core/src/components/EventList/EventList.php',
         'Doubleedesign\\Comet\\Core\\File' => __DIR__ . '/..' . '/doubleedesign/comet-components-core/src/components/FileGroup/File/File.php',
         'Doubleedesign\\Comet\\Core\\FileGroup' => __DIR__ . '/..' . '/doubleedesign/comet-components-core/src/components/FileGroup/FileGroup.php',
-        'Doubleedesign\\Comet\\Core\\FocalPointPicker' => __DIR__ . '/..' . '/doubleedesign/comet-components-core/src/plugins/FocalPointPicker/FocalPointPicker.php',
         'Doubleedesign\\Comet\\Core\\Gallery' => __DIR__ . '/..' . '/doubleedesign/comet-components-core/src/components/Gallery/Gallery.php',
         'Doubleedesign\\Comet\\Core\\Group' => __DIR__ . '/..' . '/doubleedesign/comet-components-core/src/components/Group/Group.php',
         'Doubleedesign\\Comet\\Core\\GroupLayout' => __DIR__ . '/..' . '/doubleedesign/comet-components-core/src/base/types/GroupLayout.php',
