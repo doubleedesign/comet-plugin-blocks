@@ -661,7 +661,7 @@ const LayoutOrder = ({
 const {
   PanelBody: PanelBody$4
 } = wp.components;
-const LayoutControls$1 = props => {
+const LayoutControls = props => {
   // If the block does not have any layout attributes, do not render the controls
   const componentDefault = Object.keys(comet?.defaults?.[props?.name?.replace('comet/', '')] ?? {}) ?? [];
   const currentAttributes = Object.keys(props.attributes) ?? [];
@@ -1003,7 +1003,7 @@ const {
 const {
   PanelBody: PanelBody$3
 } = wp.components;
-const ColorControls$1 = props => {
+const ColorControls = props => {
   if (!Object.keys(props?.attributes).some(attr => ['colorTheme', 'backgroundColor', 'sectionBackground'].includes(attr))) {
     return null;
   }
@@ -1271,9 +1271,9 @@ function CometBlockControls({
 }) {
   return wp.element.createElement(wp.element.Fragment, null, wp.element.createElement("div", {
     className: "comet-plugin-blocks-custom-controls"
-  }, wp.element.createElement(InspectorControls$1, null, wp.element.createElement(LayoutControls$1, {
+  }, wp.element.createElement(InspectorControls$1, null, wp.element.createElement(LayoutControls, {
     ...props
-  }), wp.element.createElement(ColorControls$1, {
+  }), wp.element.createElement(ColorControls, {
     ...props
   }), wp.element.createElement(BannerControls, {
     ...props
@@ -1330,6 +1330,7 @@ wp.domReady(() => {
  * @param {Object} props The block edit props
  *
  * FIXME: This currently gets stuck on the loading spinner when rendering the form.
+ * FIXME: This needs colour and size (container width) controls.
  */
 function NinjaFormsControls(props) {
   const {
@@ -1349,7 +1350,7 @@ function NinjaFormsControls(props) {
   }));
   return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
     className: "comet-plugin-blocks-custom-controls"
-  }, /*#__PURE__*/React.createElement(InspectorControls, null, /*#__PURE__*/React.createElement(LayoutControls, props), /*#__PURE__*/React.createElement(ColorControls, props), /*#__PURE__*/React.createElement(PanelBody, {
+  }, /*#__PURE__*/React.createElement(InspectorControls, null, /*#__PURE__*/React.createElement(PanelBody, {
     title: "Content",
     initialOpen: true
   }, /*#__PURE__*/React.createElement(SelectControl, {
