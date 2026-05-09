@@ -230,6 +230,10 @@ const VerticalAlignment = ({
   if (!attributes?.vAlign) {
     return null;
   }
+  // We generally do not expect a component to support both "group layout" (grid or list) and vertical alignment
+  if (attributes?.layout) {
+    return null;
+  }
   const ToggleGroupControl = __experimentalToggleGroupControl$3;
   const ToggleGroupControlOption = __experimentalToggleGroupControlOption$3;
   return wp.element.createElement(ToggleGroupControl, {
@@ -364,8 +368,11 @@ const LayoutOrientation = ({
   attributes,
   setAttributes
 }) => {
-  // TODO: Use component defaults from comet JS object (which are set using the PHP global Config object). They should take precedence over block.json
   if (!attributes?.orientation) {
+    return null;
+  }
+  // We generally do not expect a component to support both "group layout" (grid or list) and orientation
+  if (attributes?.layout) {
     return null;
   }
   const ToggleGroupControl = __experimentalToggleGroupControl$1;
@@ -454,10 +461,13 @@ const MaxPerRow = ({
   if (!attributes?.maxPerRow) {
     return null;
   }
+  if (!attributes?.layout || attributes.layout !== 'grid') {
+    return null;
+  }
   const NumberControl = __experimentalNumberControl$1;
   return wp.element.createElement(NumberControl, {
     __next40pxDefaultSize: true,
-    label: wp.element.createElement(wp.element.Fragment, null, "Max items per row", wp.element.createElement(FieldTooltip, {
+    label: wp.element.createElement(wp.element.Fragment, null, "Max per row", wp.element.createElement(FieldTooltip, {
       tooltip: 'The preferred number of items per row in containers wide enough to accommodate them; items may be stacked to a smaller number on smaller viewports'
     })),
     value: attributes.maxPerRow,
@@ -484,6 +494,9 @@ const ItemCount = ({
   setAttributes
 }) => {
   if (!attributes?.itemCount) {
+    return null;
+  }
+  if (!attributes?.layout) {
     return null;
   }
   const NumberControl = __experimentalNumberControl;
@@ -595,6 +608,15 @@ const LayoutOrder = ({
   if (!attributes?.order) {
     return null;
   }
+  // We generally do not expect a component to support both "group layout" (grid or list) and order.
+  // Order is for pretty specific use cases like "Copy + image"
+  if (attributes?.layout) {
+    return null;
+  }
+  // Similarly it doesn't make sense to offer L-R and R-L options of the layout is not horizontal
+  if (attributes?.orientation && attributes.orientation !== 'horizontal') {
+    return null;
+  }
   const ToggleGroupControl = __experimentalToggleGroupControl;
   const ToggleGroupControlOption = __experimentalToggleGroupControlOption;
   return wp.element.createElement(ToggleGroupControl, {
@@ -664,11 +686,13 @@ const LayoutControls$1 = props => {
     ...props
   }), wp.element.createElement(GroupLayout, {
     ...props
-  }), wp.element.createElement(ItemCount, {
+  }), wp.element.createElement("div", {
+    className: "comet-control-pair"
+  }, wp.element.createElement(ItemCount, {
     ...props
   }), wp.element.createElement(MaxPerRow, {
     ...props
-  }), wp.element.createElement(LayoutOrientation, {
+  })), wp.element.createElement(LayoutOrientation, {
     ...props
   }), wp.element.createElement(LayoutOrder, {
     ...props
@@ -841,7 +865,7 @@ const {
 } = wp.components;
 function ColorPairPaletteDropdown({
   blockName,
-  label = 'Content theme',
+  label = 'Content colours',
   value,
   onChange
 }) {
@@ -1027,18 +1051,34 @@ function ColorControlsInner({
   }, [setAttributes]);
   // TODO: This component needs a bunch more work in terms of handling valid combinations of background/section background,
   //  including changing the available values when the selection changes,
-  // and certain blocks being allowed certain backgrounds and others not
+  //  and certain blocks being allowed certain backgrounds and others not
   // If background colour is not supported, provide single colour theme option only
   // Note: sectionBackground should not be available without backgroundColor being available as well, but that isn't enforced/validated anywhere
   if (!hasBackgroundColorSupport.current) {
     return wp.element.createElement("div", {
       className: "comet-color-controls__item"
     }, wp.element.createElement(ColorPaletteDropdown, {
-      label: "Theme",
+      label: "Colour theme",
       value: values.colorTheme,
       palette: palette,
       onChange: handleChange
     }));
+  }
+  // If background colour is supported but colorTheme is not, provide single background colour option only
+  // TODO: Are there any cases where there would be backgroundColor and sectionBackground but not colorTheme?
+  if (!hasColorThemeSupport.current && hasBackgroundColorSupport.current) {
+    return wp.element.createElement(wp.element.Fragment, null, wp.element.createElement(ColorComboPreview, {
+      backgroundColor: attributes?.backgroundColor
+    }), wp.element.createElement("div", {
+      className: "comet-color-controls__item"
+    }, wp.element.createElement(ColorPaletteDropdown, {
+      label: "Background colour",
+      value: values.backgroundColor,
+      palette: palette,
+      onChange: newValue => handleChange({
+        backgroundColor: newValue
+      })
+    })));
   }
   return wp.element.createElement(wp.element.Fragment, null, wp.element.createElement(ColorComboPreview, {
     colorTheme: attributes?.colorTheme,
