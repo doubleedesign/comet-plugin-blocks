@@ -46,6 +46,10 @@
 			"type": "string",
 			"default": "square"
 		},
+		"backgroundColor": {
+			"type": "string",
+			"default": "white"
+		},
 		"tagName": {
 			"type": "string",
 			"default": "section"
