@@ -25,11 +25,7 @@ $links = array_map(function($data) {
     ];
 }, $links);
 
-$attributes = [
-    ...Utils::array_pick($block, ['colorTheme', 'size', 'layout']),
-    'hAlign'        => $block['hAlign'] ?? null,
-    'maxPerRow'     => count($links) % 3 === 0 ? 3 : 4, // TODO: Make this configurable
-];
+$attributes = Utils::array_pick($block, ['colorTheme', 'size', 'layout', 'maxPerRow', 'hAlign']);
 if ($heading) {
     $attributes['heading'] = $heading;
 }
