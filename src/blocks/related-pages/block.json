@@ -39,6 +39,14 @@
 		"hAlign": {
 			"type": "string",
 			"default": "center"
+		},
+		"layout": {
+			"type": "string",
+			"default": "grid"
+		},
+		"maxPerRow": {
+			"type": "number",
+			"default": 3
 		}
 	},
 	"supports": {

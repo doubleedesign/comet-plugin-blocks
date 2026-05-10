@@ -36,6 +36,14 @@
 		"colorTheme": {
 			"type": "string",
 			"default": "primary"
+		},
+		"backgroundColor": {
+			"type": "string",
+			"default": "white"
+		},
+		"sectionBackground": {
+			"type": "string",
+			"default": "white"
 		}
 	},
 	"supports": {
