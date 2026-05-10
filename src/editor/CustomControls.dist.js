@@ -461,7 +461,7 @@ const MaxPerRow = ({
   if (!attributes?.maxPerRow) {
     return null;
   }
-  if (!attributes?.layout || attributes.layout !== 'grid') {
+  if (name !== 'comet/gallery' && attributes?.layout !== 'grid') {
     return null;
   }
   const NumberControl = __experimentalNumberControl$1;
@@ -668,7 +668,7 @@ const LayoutControls = props => {
   if (componentDefault.length === 0 && currentAttributes.length === 0) {
     return null;
   }
-  const layoutAttributes = ['size', 'groupLayout', 'orientation', 'hAlign', 'vAlign', 'backgroundType'];
+  const layoutAttributes = ['size', 'layout', 'orientation', 'hAlign', 'vAlign', 'backgroundType', 'maxPerRow'];
   const hasLayoutAttributes = [...componentDefault, ...currentAttributes].some(attr => layoutAttributes.includes(attr));
   if (!hasLayoutAttributes) {
     return null;

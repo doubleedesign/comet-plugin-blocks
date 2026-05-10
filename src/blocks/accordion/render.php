@@ -1,6 +1,6 @@
 <?php
 
-use Doubleedesign\Comet\Core\{Accordion, AccordionPanel, Heading, PreprocessedHTML};
+use Doubleedesign\Comet\Core\{Accordion, AccordionPanel, Heading, PreprocessedHTML, Config, Utils};
 use Doubleedesign\Comet\WordPress\{BlockRenderer};
 
 /** @var $block array */
@@ -12,7 +12,15 @@ if ($render_placeholder) {
 
 $heading = $block['data']['heading'] ?? $block['data']['field__accordion__heading'] ?? '';
 $intro_text = $block['data']['intro_copy'] ?? $block['data']['field_accordion__intro'] ?? '';
-$colorTheme = $block['colorTheme'];
+$defaults = Config::getInstance()->get_component_defaults('call-to-action');
+$attributes = [
+    ...$defaults,
+    ...Utils::array_pick($block, ['size', 'colorTheme']),
+    'backgroundColors' => !empty($block['sectionBackground'])
+        ? array($block['sectionBackground'], $block['backgroundColor'])
+        : $block['backgroundColor'],
+    'shortName' => 'test'
+];
 
 $beforeComponents = [];
 if ($heading) {
@@ -33,7 +41,7 @@ if ($panelItems) {
 }
 
 $component = new Accordion(
-    ['colorTheme' => $colorTheme, 'size' => $block['size'] ?? 'contained'],
+    $attributes,
     $panels ?? [],
     $beforeComponents
 );
