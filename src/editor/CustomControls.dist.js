@@ -1061,7 +1061,9 @@ function ColorControlsInner({
       label: "Colour theme",
       value: values.colorTheme,
       palette: palette,
-      onChange: handleChange
+      onChange: newValue => handleChange({
+        colorTheme: newValue
+      })
     }));
   }
   // If background colour is supported but colorTheme is not, provide single background colour option only
