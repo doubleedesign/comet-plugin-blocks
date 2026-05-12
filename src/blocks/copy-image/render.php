@@ -42,31 +42,27 @@ if (isset($image_id)) {
     $imageComponent = new ContentImageAdvanced($image);
 }
 
-$component = new Columns(
-    array(
-        'shortName'       => 'copy-image',
-        'size'            => $block['size'] ?? $block['attributes']['size']['default'],
-        'vAlign'          => $block['vAlign'] ?? $block['attributes']['vAlign']['default'],
-        'data-order'      => $block['order'] ?? 'row'
-    ),
-    array(
-        (new Column(
-            [],
-            [new Copy(
-                array(
-                    'colorTheme' => $block['colorTheme'] ?? $block['attributes']['colorTheme']['default'],
-                    'isNested'   => true,
-                ),
-                array(
-                    new PreprocessedHTML(
-                        [],
-                        function_exists('get_field') ? get_field('copy') : $block['data']['field__copy-image__content'] ?? ''
-                    )
-                )
-            )]
-        ))->set_bem_modifier('copy'),
-        (new Column([], [$imageComponent ?? []]))->set_bem_modifier('image')
-    )
-);
+$outerAttrs = [
+    ...Utils::array_pick($block, ['size', 'vAlign']),
+    'shortName'  => 'copy-image',
+    'data-order' => $block['order'] ?? 'row',
+];
+$contentAttrs = [
+    ...Utils::array_pick($block, ['colorTheme']),
+    'isNested' => true
+];
+
+$component = new Columns($outerAttrs, array(
+    (new Column(
+        [],
+        [new Copy($contentAttrs, array(
+            new PreprocessedHTML(
+                [],
+                function_exists('get_field') ? get_field('copy') : $block['data']['field__copy-image__content'] ?? ''
+            ))
+        )]
+    ))->set_bem_modifier('copy'),
+    (new Column([], [$imageComponent ?? []]))->set_bem_modifier('image')
+));
 
 $component->render();
