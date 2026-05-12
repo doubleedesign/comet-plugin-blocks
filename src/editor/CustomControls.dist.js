@@ -1050,7 +1050,7 @@ function ColorControlsInner({
   // Use refs to keep track of the presence of attribute support without the fields disappearing when the colour field is cleared
   const hasColorThemeSupport = useRef(!!values.colorTheme);
   const hasBackgroundColorSupport = useRef(!!values.backgroundColor);
-  const hasSectionBackgroundSupport = useRef(!!values?.sectionBackground && sectionBackgrounds.length > 0);
+  const hasSectionBackgroundSupport = useRef(sectionBackgrounds.length > 0);
   if (!hasColorThemeSupport.current && !hasBackgroundColorSupport.current && !hasSectionBackgroundSupport.current) {
     return null;
   }
