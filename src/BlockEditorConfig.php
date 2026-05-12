@@ -178,6 +178,8 @@ class BlockEditorConfig extends JavaScriptImplementation {
             'defaults'              => Config::getInstance()->get('component_defaults'),
             'globalBackground'      => Config::getInstance()->get_global_background(),
             'palette'               => Config::getInstance()->get_theme_colours(),
+            // Colours that have sufficient contrast when on the global background
+            'filteredPalette'       => Config::getInstance()->get_colours_filtered_against_background_contrast(),
             'colourPairs'           => Config::getInstance()->get_theme_colour_pairs(),
             'colourPairOverrides'   => Config::getInstance()->get_theme_colour_pair_overrides(),
             'gradients'             => Config::getInstance()->get_theme_gradients(),
