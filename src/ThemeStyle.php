@@ -18,6 +18,7 @@ class ThemeStyle {
         add_theme_support('title-tag');
         add_theme_support('post-thumbnails', array('post', 'page', 'event', 'person', 'cpt_index'));
         add_post_type_support('page', 'excerpt');
+        add_filter('gettext', [$this, 'change_excerpt_explanation'], 10, 3);
 
         // Clear out theme.json style nodes, because whatever they are, I am not using them, and they serve only to fuck with my styling by loading unwanted default CSS
         add_filter('wp_theme_json_get_style_nodes', fn($nodes) => []);
@@ -142,5 +143,13 @@ class ThemeStyle {
                 wp_enqueue_style($slug, $child, $deps, $theme->get('Version'));
             }
         }
+    }
+
+    public function change_excerpt_explanation($translated_text, $text, $domain) {
+        if (str_contains($text, 'Excerpts are optional hand-crafted summaries of your content that can be used in your theme')) {
+            return 'Excerpts are hand-crafted summaries used in content lists such as the blog page and category indexes, and blocks such as Related Content, Latest Posts, and Child Pages.';
+        }
+
+        return $translated_text;
     }
 }
