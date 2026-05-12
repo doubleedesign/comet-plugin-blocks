@@ -951,30 +951,33 @@ function ColorPairPaletteDropdown({
 }
 
 function useValidatedPalette({
-  blockName
+  blockName,
+  palette
 }) {
-  if (!comet.palette) return [];
-  let palette = Object.entries(comet?.palette)?.filter(([key, value]) => !['black', 'white'].includes(key))?.map(([key, value]) => ({
+  const paletteToUse = palette || comet?.palette;
+  if (!paletteToUse) {
+    console.error(`No palette provided or available for useValidatedPalette for block ${blockName}`);
+    return null;
+  }
+  let result = Object.entries(paletteToUse || {})?.filter(([key, value]) => !['black', 'white'].includes(key))?.map(([key, value]) => ({
     slug: key,
     name: key,
     color: value
-  })) ?? wp.data.select('core/block-editor').getSettings().colors;
+  }));
   // Most blocks shouldn't have access to the status/message type colours, only brand colours, whereas others are the opposite
   if (['comet/callout'].includes(blockName)) {
-    palette = palette.filter(color => ['error', 'success', 'info', 'warning'].includes(color.slug));
+    result = result.filter(color => ['error', 'success', 'info', 'warning'].includes(color.slug));
   } else if (['comet/separator'].includes(blockName)) {
-    palette = palette.filter(color => !['error', 'success', 'info', 'warning', 'light'].includes(color.slug));
+    result = result.filter(color => !['error', 'success', 'info', 'warning', 'light'].includes(color.slug));
   } else if (['comet/copy', 'comet/copy-image'].includes(blockName)) {
-    palette = palette.filter(color => !['error', 'success', 'info', 'warning', 'light', 'accent'].includes(color.slug));
+    result = result.filter(color => !['error', 'success', 'info', 'warning', 'light', 'accent'].includes(color.slug));
   } else {
-    palette = palette.filter(color => !['error', 'success', 'info', 'warning'].includes(color.slug));
+    result = result.filter(color => !['error', 'success', 'info', 'warning'].includes(color.slug));
   }
-  if (!palette || palette.length === 0) {
-     
-    console.error('No colour palette found in component library configuration. You can use the comet_canvas_theme_colours PHP filter to add colours. Developers: See set_colours() in ThemeStyle.php in the plugin source for more implementation details.');
+  if (!result || result.length === 0) {
     return null;
   }
-  return palette;
+  return result;
 }
 
 function ColorComboPreview({
@@ -1020,11 +1023,16 @@ function ColorControlsInner({
   attributes,
   setAttributes
 }) {
-  const palette = useValidatedPalette({
-    blockName: name
+  const singleColourPalette = useValidatedPalette({
+    blockName: name,
+    palette: comet?.filteredPalette ?? comet?.palette
   });
-  if (!palette) {
-    return null;
+  const singleBackgroundPalette = useValidatedPalette({
+    blockName: name,
+    palette: comet?.palette
+  });
+  if (!singleColourPalette && !singleBackgroundPalette) {
+    return;
   }
   const sectionBackgrounds = comet?.sectionBackgrounds ? Object.entries(comet.sectionBackgrounds).map(([key, value]) => {
     return {
@@ -1049,18 +1057,15 @@ function ColorControlsInner({
   const handleChange = useCallback(newValues => {
     setAttributes(newValues);
   }, [setAttributes]);
-  // TODO: This component needs a bunch more work in terms of handling valid combinations of background/section background,
-  //  including changing the available values when the selection changes,
-  //  and certain blocks being allowed certain backgrounds and others not
   // If background colour is not supported, provide single colour theme option only
   // Note: sectionBackground should not be available without backgroundColor being available as well, but that isn't enforced/validated anywhere
-  if (!hasBackgroundColorSupport.current) {
+  if (!hasBackgroundColorSupport.current && singleColourPalette) {
     return wp.element.createElement("div", {
       className: "comet-color-controls__item"
     }, wp.element.createElement(ColorPaletteDropdown, {
       label: "Colour theme",
       value: values.colorTheme,
-      palette: palette,
+      palette: singleColourPalette,
       onChange: newValue => handleChange({
         colorTheme: newValue
       })
@@ -1068,7 +1073,7 @@ function ColorControlsInner({
   }
   // If background colour is supported but colorTheme is not, provide single background colour option only
   // TODO: Are there any cases where there would be backgroundColor and sectionBackground but not colorTheme?
-  if (!hasColorThemeSupport.current && hasBackgroundColorSupport.current) {
+  if (!hasColorThemeSupport.current && hasBackgroundColorSupport.current && singleBackgroundPalette) {
     return wp.element.createElement(wp.element.Fragment, null, wp.element.createElement(ColorComboPreview, {
       backgroundColor: attributes?.backgroundColor
     }), wp.element.createElement("div", {
@@ -1076,7 +1081,7 @@ function ColorControlsInner({
     }, wp.element.createElement(ColorPaletteDropdown, {
       label: "Background colour",
       value: values.backgroundColor,
-      palette: palette,
+      palette: singleBackgroundPalette,
       onChange: newValue => handleChange({
         backgroundColor: newValue
       })
