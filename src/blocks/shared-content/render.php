@@ -1,7 +1,5 @@
 <?php
 
-use Doubleedesign\Comet\Core\{ContainerWithNesting, PreprocessedHTML, Utils};
-
 if (!isset($block)) {
     return;
 }
@@ -22,7 +20,7 @@ if (!$post) {
 $is_editor = isset($is_preview) && $is_preview;
 // $post->post_content is not parsed in block editor context, so we need to parse and render the blocks
 ob_start();
-if ($is_editor) {
+if ($is_editor && function_exists('acf_render_block')) {
     $blocks = parse_blocks($post->post_content);
     foreach ($blocks as $block_data) {
         acf_render_block(
@@ -39,25 +37,4 @@ else {
     echo apply_filters('the_content', $post->post_content);
 }
 $parsed_content = ob_get_clean();
-
-$wrapSharedContent = apply_filters('comet_blocks_enable_shared_content_wrapping', false);
-if (!$wrapSharedContent) {
-    echo $parsed_content;
-
-    return;
-}
-
-$finalInnerSize = null;
-if (isset($block['innerSize']) && $block['innerSize'] !== 'auto' && $block['innerSize'] !== $block['size']) {
-    $finalInnerSize = $block['innerSize'];
-}
-
-$component = new ContainerWithNesting(
-    [
-        ...Utils::array_pick($block, ['size', 'innerSize', 'hAlign']),
-        'tagName'         => 'div',
-        'shortName'       => 'shared-content'
-    ],
-    [new PreprocessedHTML([], $parsed_content)]
-);
-$component->render();
+echo $parsed_content;
