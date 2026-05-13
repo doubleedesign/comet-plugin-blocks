@@ -6,6 +6,9 @@ class AdminUI {
         add_action('admin_menu', [$this, 'remove_patterns_site_editor_etc_from_admin_menu']);
         add_action('admin_init', [$this, 'redirect_away_from_site_editor_urls']);
         add_action('add_meta_boxes', [$this, 'remove_metaboxes'], 99);
+        add_filter('gettext', [$this, 'change_excerpt_explanation'], 10, 3);
+        add_filter('taxonomy_labels_category', [$this, 'change_category_description_explanation'], 10, 1);
+
         add_action('wp_head', function() {
             if (is_user_logged_in()) {
                 echo '<style>
@@ -64,5 +67,20 @@ class AdminUI {
      */
     public function remove_metaboxes(): void {
         remove_meta_box('nf_admin_metaboxes_appendaform', array('page', 'post'), 'side');
+    }
+
+    public function change_excerpt_explanation($translated_text, $text, $domain) {
+        if (str_contains($text, 'Excerpts are optional hand-crafted summaries of your content that can be used in your theme')) {
+            return 'Excerpts are hand-crafted summaries used in content lists such as the blog page and category indexes, and blocks such as Related Content, Latest Posts, and Child Pages.';
+        }
+
+        return $translated_text;
+    }
+
+    public function change_category_description_explanation($labels) {
+        // Remove "The description is not prominent by default; however, some themes may show it." from the category edit screen
+        $labels->desc_field_description = '';
+
+        return $labels;
     }
 }
