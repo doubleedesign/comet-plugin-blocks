@@ -15,11 +15,11 @@ $wrapperAttributes = [
     'tagName'    => $block['tagName'] ?? 'section'
 ];
 
-$attributes = Utils::array_pick($block, ['size', 'colorTheme', 'backgroundColor', 'tagName']);
+$attributes = Utils::array_pick($block, ['size', 'colorTheme', 'backgroundColor', 'tagName', 'sectionBackground']);
 
-$component = new Copy(
+$component = BlockRenderer::maybe_wrap_component($attributes, new Copy(
     $attributes,
     [new PreprocessedHTML([], function_exists('get_field') ? get_field('copy') ?? '' : '')]
-);
+));
 
 $component->render();

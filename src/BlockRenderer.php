@@ -1,6 +1,8 @@
 <?php
 namespace Doubleedesign\Comet\WordPress;
 
+use Doubleedesign\Comet\Core\{PageSection, Utils};
+
 class BlockRenderer {
 
     public function __construct() {
@@ -40,6 +42,17 @@ class BlockRenderer {
         }
 
         return $block_content;
+    }
+
+    public static function maybe_wrap_component($attributes, $component) {
+        if (isset($attributes['sectionBackground'])) {
+            return new PageSection([
+                'backgroundColor' => $attributes['sectionBackground'],
+                ...Utils::array_pick($attributes, ['size'])
+            ], [$component]);
+        }
+
+        return $component;
     }
 
     /**
