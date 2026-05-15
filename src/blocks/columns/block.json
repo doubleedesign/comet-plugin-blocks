@@ -1,0 +1,53 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"textdomain": "comet",
+	"name": "comet/columns",
+	"title": "Columns",
+	"icon": "columns",
+	"description": "Add a section with multiple blocks, displayed side-by-side when there is enough space",
+	"category": "design",
+	"acf": {
+		"mode": "edit",
+		"renderTemplate": "render.php",
+		"blockVersion": 3,
+		"hideFieldsInSidebar": true
+	},
+	"allowedBlocks": [
+		"comet/copy",
+		"comet/image"
+	],
+	"editorStyle": [
+		"comet-columns",
+		"comet-copy",
+		"comet-image"
+	],
+	"keywords": [
+		"content",
+		"columns",
+		"layout"
+	],
+	"providesContext": {
+		"isNested": "isNested"
+	},
+	"attributes": {
+		"size": {
+			"type": "string",
+			"default": "contained"
+		},
+		"sectionBackground": {
+			"type": "string"
+		},
+		"isNested": {
+			"type": "boolean",
+			"default": true
+		}
+	},
+	"supports": {
+		"mode": true,
+		"jsx": true,
+		"innerBlocks": true,
+		"anchor": true,
+		"align": false
+	}
+}
