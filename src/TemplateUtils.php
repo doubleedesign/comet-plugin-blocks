@@ -16,7 +16,8 @@ class TemplateUtils {
      */
     public static function create_card_list(array $postIds, array $block, bool $headingInSingleCard = false, array $link = []): CardList {
         $cards = array_map(function($post_id) use ($headingInSingleCard, $postIds, $block) {
-            $heading = get_post_meta($post_id, 'breadcrumb_title_override', true) ?? get_the_title($post_id);
+			$maybe_heading = trim(get_post_meta($post_id, 'breadcrumb_title_override', true));
+            $heading = !empty($maybe_heading) ? $maybe_heading : get_the_title($post_id);
             $bodyText = get_the_excerpt($post_id) ?? '';
             $imageUrl = get_the_post_thumbnail_url($post_id, 'large') ?: '';
             $imageAlt = get_post_meta(get_post_thumbnail_id($post_id), '_wp_attachment_image_alt', true);
