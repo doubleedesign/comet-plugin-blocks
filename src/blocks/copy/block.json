@@ -31,6 +31,13 @@
 			"type": "string",
 			"default": "primary"
 		},
+		"backgroundColor": {
+			"type": "string",
+			"default": "white"
+		},
+		"sectionBackground": {
+			"type": "string"
+		},
 		"tagName": {
 			"type": "string",
 			"default": "section"

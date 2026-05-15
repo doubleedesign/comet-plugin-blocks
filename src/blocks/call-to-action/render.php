@@ -13,10 +13,7 @@ if ($render_placeholder) {
 $defaults = Config::getInstance()->get_component_defaults('call-to-action');
 $attributes = [
     ...$defaults,
-    ...Utils::array_pick($block, ['size', 'colorTheme']),
-    'backgroundColors' => !empty($block['sectionBackground'])
-        ? array($block['sectionBackground'], $block['backgroundColor'])
-        : $block['backgroundColor']
+    ...Utils::array_pick($block, ['size', 'colorTheme', 'backgroundColor', 'sectionBackground']),
 ];
 
 $heading = get_field('heading');
@@ -47,7 +44,7 @@ $buttonGroupAttrs = [
     ...apply_filters('comet_blocks_cta_button_group_attributes', [])
 ];
 
-$component = new CallToAction(
+$component = BlockRenderer::maybe_wrap_component($attributes, (new CallToAction(
     $attributes,
     array(
         ...(!empty($heading) ? [new Heading(['classes' => $headingClasses], $heading)] : []),
@@ -56,6 +53,7 @@ $component = new CallToAction(
             $buttonGroupAttrs,
             $buttons
         )] : []),
-    ));
+    )
+)));
 
 $component->render();
