@@ -57,7 +57,7 @@ const {
 } = wp.element;
 const {
   SelectControl: SelectControl$4
-} = wp.components; // TODO: Handle supporting innerSize where appropriate (it's not really built into the Core components unless we nest a container)
+} = wp.components;
 const ContainerSize = ({
   attributes,
   setAttributes
@@ -162,8 +162,8 @@ const ContainerAndInner = ({
 
 /* global wp */
 const {
-  __experimentalToggleGroupControl: __experimentalToggleGroupControl$4,
-  __experimentalToggleGroupControlOption: __experimentalToggleGroupControlOption$4
+  __experimentalToggleGroupControl: __experimentalToggleGroupControl$5,
+  __experimentalToggleGroupControlOption: __experimentalToggleGroupControlOption$5
 } = wp.components;
 const GroupLayout = ({
   attributes,
@@ -173,8 +173,8 @@ const GroupLayout = ({
   if (!attributes?.layout) {
     return null;
   }
-  const ToggleGroupControl = __experimentalToggleGroupControl$4;
-  const ToggleGroupControlOption = __experimentalToggleGroupControlOption$4;
+  const ToggleGroupControl = __experimentalToggleGroupControl$5;
+  const ToggleGroupControlOption = __experimentalToggleGroupControlOption$5;
    
   return wp.element.createElement(ToggleGroupControl, {
     className: "comet-toggle-group",
@@ -219,8 +219,8 @@ const GroupLayout = ({
 
 /* global wp */
 const {
-  __experimentalToggleGroupControl: __experimentalToggleGroupControl$3,
-  __experimentalToggleGroupControlOption: __experimentalToggleGroupControlOption$3
+  __experimentalToggleGroupControl: __experimentalToggleGroupControl$4,
+  __experimentalToggleGroupControlOption: __experimentalToggleGroupControlOption$4
 } = wp.components;
 const VerticalAlignment = ({
   attributes,
@@ -234,8 +234,8 @@ const VerticalAlignment = ({
   if (attributes?.layout) {
     return null;
   }
-  const ToggleGroupControl = __experimentalToggleGroupControl$3;
-  const ToggleGroupControlOption = __experimentalToggleGroupControlOption$3;
+  const ToggleGroupControl = __experimentalToggleGroupControl$4;
+  const ToggleGroupControlOption = __experimentalToggleGroupControlOption$4;
   return wp.element.createElement(ToggleGroupControl, {
     className: "comet-toggle-group",
     __next40pxDefaultSize: true,
@@ -289,8 +289,8 @@ const VerticalAlignment = ({
 
 /* global wp */
 const {
-  __experimentalToggleGroupControl: __experimentalToggleGroupControl$2,
-  __experimentalToggleGroupControlOption: __experimentalToggleGroupControlOption$2
+  __experimentalToggleGroupControl: __experimentalToggleGroupControl$3,
+  __experimentalToggleGroupControlOption: __experimentalToggleGroupControlOption$3
 } = wp.components;
 const HorizontalAlignment = ({
   attributes,
@@ -303,8 +303,8 @@ const HorizontalAlignment = ({
   if (attributes.layout && attributes.layout === 'list') {
     return null;
   }
-  const ToggleGroupControl = __experimentalToggleGroupControl$2;
-  const ToggleGroupControlOption = __experimentalToggleGroupControlOption$2;
+  const ToggleGroupControl = __experimentalToggleGroupControl$3;
+  const ToggleGroupControlOption = __experimentalToggleGroupControlOption$3;
   return wp.element.createElement(ToggleGroupControl, {
     className: "comet-toggle-group",
     __next40pxDefaultSize: true,
@@ -361,8 +361,8 @@ const HorizontalAlignment = ({
 
 /* global wp */
 const {
-  __experimentalToggleGroupControl: __experimentalToggleGroupControl$1,
-  __experimentalToggleGroupControlOption: __experimentalToggleGroupControlOption$1
+  __experimentalToggleGroupControl: __experimentalToggleGroupControl$2,
+  __experimentalToggleGroupControlOption: __experimentalToggleGroupControlOption$2
 } = wp.components;
 const LayoutOrientation = ({
   attributes,
@@ -375,8 +375,8 @@ const LayoutOrientation = ({
   if (attributes?.layout) {
     return null;
   }
-  const ToggleGroupControl = __experimentalToggleGroupControl$1;
-  const ToggleGroupControlOption = __experimentalToggleGroupControlOption$1;
+  const ToggleGroupControl = __experimentalToggleGroupControl$2;
+  const ToggleGroupControlOption = __experimentalToggleGroupControlOption$2;
   return wp.element.createElement(ToggleGroupControl, {
     className: "comet-toggle-group",
     __next40pxDefaultSize: true,
@@ -598,8 +598,8 @@ function sentence_case(text) {
 
 /* global wp */
 const {
-  __experimentalToggleGroupControl,
-  __experimentalToggleGroupControlOption
+  __experimentalToggleGroupControl: __experimentalToggleGroupControl$1,
+  __experimentalToggleGroupControlOption: __experimentalToggleGroupControlOption$1
 } = wp.components;
 const LayoutOrder = ({
   attributes,
@@ -617,8 +617,8 @@ const LayoutOrder = ({
   if (attributes?.orientation && attributes.orientation !== 'horizontal') {
     return null;
   }
-  const ToggleGroupControl = __experimentalToggleGroupControl;
-  const ToggleGroupControlOption = __experimentalToggleGroupControlOption;
+  const ToggleGroupControl = __experimentalToggleGroupControl$1;
+  const ToggleGroupControlOption = __experimentalToggleGroupControlOption$1;
   return wp.element.createElement(ToggleGroupControl, {
     className: "comet-toggle-group",
     __next40pxDefaultSize: true,
@@ -659,9 +659,11 @@ const LayoutOrder = ({
 
 /* global wp */
 const {
-  PanelBody: PanelBody$4
+  PanelBody: PanelBody$5
 } = wp.components;
 const LayoutControls = props => {
+  // Columns has its own layout control group
+  if (props.name === 'comet/columns') return null;
   // If the block does not have any layout attributes, do not render the controls
   const componentDefault = Object.keys(comet?.defaults?.[props?.name?.replace('comet/', '')] ?? {}) ?? [];
   const currentAttributes = Object.keys(props.attributes) ?? [];
@@ -669,14 +671,22 @@ const LayoutControls = props => {
     return null;
   }
   const layoutAttributes = ['size', 'layout', 'orientation', 'hAlign', 'vAlign', 'backgroundType', 'maxPerRow'];
-  const hasLayoutAttributes = [...componentDefault, ...currentAttributes].some(attr => layoutAttributes.includes(attr));
+  const isNested = props?.context?.isNested;
+  const hasLayoutAttributes = [...componentDefault, ...currentAttributes].filter(attr => {
+    if (isNested) {
+      return !['size'].includes(attr);
+    }
+    return true;
+  }).some(attr => {
+    return layoutAttributes.includes(attr);
+  });
   if (!hasLayoutAttributes) {
     return null;
   }
-  return wp.element.createElement(PanelBody$4, {
+  return wp.element.createElement(PanelBody$5, {
     title: "Layout",
     initialOpen: true
-  }, wp.element.createElement(ContainerSize, {
+  }, !isNested && wp.element.createElement(ContainerSize, {
     ...props
   }), wp.element.createElement(AspectRatio, {
     ...props
@@ -756,7 +766,7 @@ const {
 } = wp.components;
 const {
   useRef: useRef$2,
-  useCallback: useCallback$1,
+  useCallback: useCallback$2,
   useEffect: useEffect$1,
   useMemo: useMemo$3
 } = wp.element;
@@ -768,7 +778,7 @@ function ColorPaletteDropdown({
   clearable = false
 }) {
   const triggerRef = useRef$2();
-  const handleChange = useCallback$1(newValue => {
+  const handleChange = useCallback$2(newValue => {
     // Handle clearable selector
     if (!newValue) {
       onChange('');
@@ -809,6 +819,7 @@ function ColorPaletteDropdown({
       onClick: onToggle,
       "aria-expanded": isOpen,
       ref: triggerRef,
+      "aria-label": label,
       __next40pxDefaultSize: true
     }, label, value && value.includes('-') ? wp.element.createElement(ColorIndicator$1, {
       colorValue: `var(--gradient-${value})`,
@@ -851,6 +862,11 @@ function ColorPaletteDropdown({
   }));
 }
 
+const COLOUR_THEME_LABEL = 'Colour theme';
+const BACKGROUND_COLOUR_LABEL = 'Background colour';
+const COLOUR_PAIR_LABEL = 'Colour pair';
+const SECTION_BACKGROUND_LABEL = 'Section background';
+
 const {
   useMemo: useMemo$2,
   useRef: useRef$1,
@@ -865,7 +881,7 @@ const {
 } = wp.components;
 function ColorPairPaletteDropdown({
   blockName,
-  label = 'Content colours',
+  label = COLOUR_PAIR_LABEL,
   value,
   onChange
 }) {
@@ -921,7 +937,8 @@ function ColorPairPaletteDropdown({
       onClick: onToggle,
       "aria-expanded": isOpen,
       ref: triggerRef,
-      __next40pxDefaultSize: true
+      __next40pxDefaultSize: true,
+      "aria-label": label
     }, label, wp.element.createElement(ColorIndicator, {
       colorValue: gradientPreview,
       "data-testid": "comet-color-pair-indicator",
@@ -1001,16 +1018,16 @@ function ColorComboPreview({
 const {
   useRef,
   useMemo: useMemo$1,
-  useCallback
+  useCallback: useCallback$1
 } = wp.element;
 const {
-  PanelBody: PanelBody$3
+  PanelBody: PanelBody$4
 } = wp.components;
 const ColorControls = props => {
   if (!Object.keys(props?.attributes).some(attr => ['colorTheme', 'backgroundColor', 'sectionBackground'].includes(attr))) {
     return null;
   }
-  return wp.element.createElement(PanelBody$3, {
+  return wp.element.createElement(PanelBody$4, {
     title: "Colours",
     initialOpen: true,
     className: `comet-color-controls comet-color-controls--${props?.name?.split('/')[1]}`
@@ -1020,6 +1037,7 @@ const ColorControls = props => {
 };
 function ColorControlsInner({
   name,
+  context,
   attributes,
   setAttributes
 }) {
@@ -1050,43 +1068,50 @@ function ColorControlsInner({
   // Use refs to keep track of the presence of attribute support without the fields disappearing when the colour field is cleared
   const hasColorThemeSupport = useRef(!!values.colorTheme);
   const hasBackgroundColorSupport = useRef(!!values.backgroundColor);
-  const hasSectionBackgroundSupport = useRef(sectionBackgrounds.length > 0);
+  const hasSectionBackgroundSupport = useRef(sectionBackgrounds.length > 0 && Object.keys(attributes).includes('sectionBackground'));
   if (!hasColorThemeSupport.current && !hasBackgroundColorSupport.current && !hasSectionBackgroundSupport.current) {
     return null;
   }
-  const handleChange = useCallback(newValues => {
+  const handleChange = useCallback$1(newValues => {
     setAttributes(newValues);
   }, [setAttributes]);
-  // If background colour is not supported, provide single colour theme option only
-  // Note: sectionBackground should not be available without backgroundColor being available as well, but that isn't enforced/validated anywhere
-  if (!hasBackgroundColorSupport.current && singleColourPalette) {
+  // Handle only section background being supported (should only occur when the block can have inner blocks and is not nested)
+  if (hasSectionBackgroundSupport.current && !hasColorThemeSupport.current && !hasBackgroundColorSupport.current && !context?.isNested) {
     return wp.element.createElement("div", {
       className: "comet-color-controls__item"
-    }, wp.element.createElement(ColorPaletteDropdown, {
-      label: "Colour theme",
-      value: values.colorTheme,
-      palette: singleColourPalette,
-      onChange: newValue => handleChange({
-        colorTheme: newValue
-      })
+    }, wp.element.createElement(SectionBackgroundSelector, {
+      values: values,
+      palette: sectionBackgrounds,
+      handleChange: newValue => {
+        handleChange({
+          sectionBackground: newValue
+        });
+      }
+    }));
+  }
+  // Otherwise, if background colour is not supported, provide single colour theme option only
+  if (!hasBackgroundColorSupport.current) {
+    return wp.element.createElement("div", {
+      className: "comet-color-controls__item"
+    }, wp.element.createElement(ColourThemeSelector, {
+      values: values,
+      palette: singleBackgroundPalette,
+      handleChange: handleChange
     }));
   }
   // If background colour is supported but colorTheme is not, provide single background colour option only
-  // TODO: Are there any cases where there would be backgroundColor and sectionBackground but not colorTheme?
-  if (!hasColorThemeSupport.current && hasBackgroundColorSupport.current && singleBackgroundPalette) {
-    return wp.element.createElement(wp.element.Fragment, null, wp.element.createElement(ColorComboPreview, {
-      backgroundColor: attributes?.backgroundColor
-    }), wp.element.createElement("div", {
-      className: "comet-color-controls__item"
-    }, wp.element.createElement(ColorPaletteDropdown, {
-      label: "Background colour",
-      value: values.backgroundColor,
+  if (!hasColorThemeSupport.current && hasBackgroundColorSupport.current) {
+    return wp.element.createElement(BackgroundColourSelector, {
+      attributes: attributes,
+      values: values,
       palette: singleBackgroundPalette,
-      onChange: newValue => handleChange({
+      handleChange: newValue => handleChange({
         backgroundColor: newValue
       })
-    })));
+    });
   }
+  // If both colour theme and background colour are supported, provide the combined selector and preview,
+  // along with section background if that is also supported
   return wp.element.createElement(wp.element.Fragment, null, wp.element.createElement(ColorComboPreview, {
     colorTheme: attributes?.colorTheme,
     backgroundColor: attributes?.backgroundColor,
@@ -1105,19 +1130,59 @@ function ColorControlsInner({
         backgroundColor: newValue.background
       });
     }
-  })), hasSectionBackgroundSupport.current && wp.element.createElement("div", {
+  })), hasSectionBackgroundSupport.current && !context?.isNested && wp.element.createElement("div", {
     className: "comet-color-controls__item"
-  }, wp.element.createElement(ColorPaletteDropdown, {
-    label: "Section background",
-    value: values.sectionBackground,
+  }, wp.element.createElement(SectionBackgroundSelector, {
+    values: values,
     palette: sectionBackgrounds,
-    clearable: true,
-    onChange: newValue => {
+    handleChange: newValue => {
       handleChange({
         sectionBackground: newValue
       });
     }
   })));
+}
+function ColourThemeSelector({
+  values,
+  palette,
+  handleChange
+}) {
+  return wp.element.createElement(ColorPaletteDropdown, {
+    label: COLOUR_THEME_LABEL,
+    value: values.colorTheme,
+    palette: palette,
+    onChange: handleChange
+  });
+}
+function BackgroundColourSelector({
+  attributes,
+  values,
+  palette,
+  handleChange
+}) {
+  return wp.element.createElement(wp.element.Fragment, null, wp.element.createElement(ColorComboPreview, {
+    backgroundColor: attributes?.backgroundColor
+  }), wp.element.createElement("div", {
+    className: "comet-color-controls__item"
+  }, wp.element.createElement(ColorPaletteDropdown, {
+    label: BACKGROUND_COLOUR_LABEL,
+    value: values.backgroundColor,
+    palette: palette,
+    onChange: handleChange
+  })));
+}
+function SectionBackgroundSelector({
+  values,
+  palette,
+  handleChange
+}) {
+  return wp.element.createElement(ColorPaletteDropdown, {
+    label: SECTION_BACKGROUND_LABEL,
+    value: values.sectionBackground,
+    palette: palette,
+    clearable: true,
+    onChange: handleChange
+  });
 }
 
 const {
@@ -1163,7 +1228,7 @@ const HtmlTag = ({
 };
 
 const {
-  PanelBody: PanelBody$2,
+  PanelBody: PanelBody$3,
   ToggleControl
 } = wp.components;
 const GalleryControls = ({
@@ -1174,7 +1239,7 @@ const GalleryControls = ({
   if (name !== 'comet/gallery') {
     return null;
   }
-  return wp.element.createElement(PanelBody$2, {
+  return wp.element.createElement(PanelBody$3, {
     title: "Gallery options",
     initialOpen: true
   }, wp.element.createElement(ToggleControl, {
@@ -1250,18 +1315,144 @@ const BackgroundType = ({
 };
 
 const {
-  PanelBody: PanelBody$1
+  PanelBody: PanelBody$2
 } = wp.components;
 function BannerControls(props) {
   if (props.name !== 'comet/banner') {
     return null;
   }
-  return wp.element.createElement(PanelBody$1, {
+  return wp.element.createElement(PanelBody$2, {
     title: "Banner Options",
     initialOpen: true
   }, wp.element.createElement(BackgroundOpacity, {
     ...props
   }), wp.element.createElement(BackgroundType, {
+    ...props
+  }));
+}
+
+const {
+  PanelBody: PanelBody$1
+} = wp.components;
+const {
+  __experimentalToggleGroupControl,
+  __experimentalToggleGroupControlOption
+} = wp.components;
+const {
+  useCallback
+} = wp.element;
+function ColumnLayoutControls(props) {
+  if (props.name !== 'comet/columns') {
+    return null;
+  }
+  const ToggleGroupControl = __experimentalToggleGroupControl;
+  const ToggleGroupControlOption = __experimentalToggleGroupControlOption;
+  const {
+    attributes,
+    setAttributes
+  } = props;
+  const handleQtyChange = useCallback(newQty => {
+    setAttributes({
+      qty: newQty
+    });
+    if (attributes?.qty && attributes.qty < 3) {
+      setAttributes({
+        columnLayout: 'even'
+      });
+    }
+  }, [setAttributes]);
+  const handleLayoutChange = useCallback(newLayout => {
+    setAttributes({
+      columnLayout: newLayout
+    });
+  }, [setAttributes]);
+   
+  return wp.element.createElement(PanelBody$1, {
+    title: "Layout",
+    initialOpen: true
+  }, wp.element.createElement(ContainerSize, {
+    ...props
+  }), wp.element.createElement("div", {
+    className: "comet-column-layout-controls"
+  }, wp.element.createElement("div", {
+    className: "comet-column-layout-controls__qty",
+    "data-selected-value": attributes.qty ?? 2
+  }, wp.element.createElement(ToggleGroupControl, {
+    className: "comet-toggle-group",
+    __next40pxDefaultSize: true,
+    isBlock: true,
+    label: "Number of columns",
+    onChange: handleQtyChange,
+    value: attributes.qty ?? 2
+  }, wp.element.createElement(ToggleGroupControlOption, {
+    label: "1",
+    value: 1,
+    disabled: true
+  }), wp.element.createElement(ToggleGroupControlOption, {
+    label: "2",
+    value: 2
+  }), wp.element.createElement(ToggleGroupControlOption, {
+    label: "3",
+    value: 3
+  }), wp.element.createElement(ToggleGroupControlOption, {
+    label: "4",
+    value: 4
+  }))), attributes?.qty && attributes.qty > 2 && wp.element.createElement("div", {
+    className: "comet-column-layout-controls__layout"
+  }, wp.element.createElement(ToggleGroupControl, {
+    className: "comet-toggle-group",
+    __next40pxDefaultSize: true,
+    isBlock: true,
+    label: "Layout",
+    onChange: handleLayoutChange,
+    value: attributes.columnLayout ?? 'even'
+  }, wp.element.createElement(ToggleGroupControlOption, {
+    value: "expand-last",
+    showTooltip: true,
+    "aria-label": "Expand last column",
+    // @ts-expect-error TS2322: Type Element is not assignable to type string
+    label: wp.element.createElement("svg", {
+      xmlns: "http://www.w3.org/2000/svg",
+      width: "16",
+      height: "16",
+      fill: "currentColor",
+      className: "bi bi-layout-sidebar",
+      viewBox: "0 0 16 16"
+    }, wp.element.createElement("path", {
+      d: "M0 3a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm5-1v12h9a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1zM4 2H2a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h2z"
+    }))
+  }), wp.element.createElement(ToggleGroupControlOption, {
+    value: "even",
+    showTooltip: true,
+    "aria-label": "Even columns",
+    //@ts-expect-error TS2322: Type Element is not assignable to type string
+    label: wp.element.createElement("svg", {
+      xmlns: "http://www.w3.org/2000/svg",
+      width: "16",
+      height: "16",
+      fill: "currentColor",
+      viewBox: "0 0 16 16"
+    }, wp.element.createElement("path", {
+      d: "M0 1.5A1.5 1.5 0 0 1 1.5 0h13A1.5 1.5 0 0 1 16 1.5v13a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 0 14.5zM1.5 1a.5.5 0 0 0-.5.5v13a.5.5 0 0 0 .5.5H5V1zM10 15V1H6v14zm1 0h3.5a.5.5 0 0 0 .5-.5v-13a.5.5 0 0 0-.5-.5H11z"
+    }))
+  }), wp.element.createElement(ToggleGroupControlOption, {
+    value: "expand-first",
+    showTooltip: true,
+    "aria-label": "Expand first column",
+    //@ts-expect-error TS2322: Type Element is not assignable to type string
+    label: wp.element.createElement("svg", {
+      xmlns: "http://www.w3.org/2000/svg",
+      width: "16",
+      height: "16",
+      fill: "currentColor",
+      className: "bi bi-layout-sidebar-reverse",
+      viewBox: "0 0 16 16"
+    }, wp.element.createElement("path", {
+      d: "M16 3a2 2 0 0 0-2-2H2a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2zm-5-1v12H2a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1zm1 0h2a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1h-2z"
+    }))
+  })))), wp.element.createElement(HorizontalAlignment, {
+    ...props
+  }), wp.element.createElement(VerticalAlignment, {
     ...props
   }));
 }
@@ -1279,6 +1470,8 @@ function CometBlockControls({
   return wp.element.createElement(wp.element.Fragment, null, wp.element.createElement("div", {
     className: "comet-plugin-blocks-custom-controls"
   }, wp.element.createElement(InspectorControls$1, null, wp.element.createElement(LayoutControls, {
+    ...props
+  }), wp.element.createElement(ColumnLayoutControls, {
     ...props
   }), wp.element.createElement(ColorControls, {
     ...props

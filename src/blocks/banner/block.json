@@ -14,7 +14,6 @@
 		"hideFieldsInSidebar": true
 	},
 	"editorStyle": [
-		"comet-container",
 		"comet-banner",
 		"comet-cover-image"
 	],

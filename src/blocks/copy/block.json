@@ -14,13 +14,15 @@
 		"hideFieldsInSidebar": true
 	},
 	"editorStyle": [
-		"comet-container",
 		"comet-copy"
 	],
 	"keywords": [
 		"text",
 		"paragraph",
 		"content"
+	],
+	"usesContext": [
+		"isNested"
 	],
 	"attributes": {
 		"size": {

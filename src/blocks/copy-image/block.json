@@ -4,9 +4,9 @@
 	"textdomain": "comet",
 	"name": "comet/copy-image",
 	"title": "Copy + image",
-	"icon": "image-flip-horizontal",
+	"icon": "align-pull-left",
 	"description": "Add a short section of text content with an image alongside it",
-	"category": "text",
+	"category": "design",
 	"acf": {
 		"mode": "preview",
 		"renderTemplate": "render.php",
@@ -14,10 +14,10 @@
 		"hideFieldsInSidebar": true
 	},
 	"editorStyle": [
-		"comet-container",
 		"comet-columns",
 		"comet-column",
-		"comet-content-image-advanced"
+		"comet-content-image-advanced",
+		"comet-copy"
 	],
 	"style": "file:./style.css",
 	"keywords": [
