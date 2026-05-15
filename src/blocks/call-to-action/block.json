@@ -14,7 +14,6 @@
 		"hideFieldsInSidebar": true
 	},
 	"editorStyle": [
-		"comet-container",
 		"comet-call-to-action",
 		"comet-button-group",
 		"comet-button"

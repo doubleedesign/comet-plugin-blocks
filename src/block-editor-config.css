@@ -474,4 +474,17 @@ html :where(.wp-block) {
   pointer-events: none !important;
 }
 
+.comet-block-edit-wrapper .block-editor-inserter {
+  display: flex;
+  justify-content: flex-end;
+}
+.comet-block-edit-wrapper .block-editor-inserter .block-list-appender__toggle {
+  width: 3rem;
+  height: 3rem;
+}
+
+.block-editor-inserter__quick-inserter:not(.has-search) .block-editor-inserter__quick-inserter-expand {
+  display: none;
+}
+
 /*# sourceMappingURL=block-editor-config.css.map */

@@ -13,7 +13,6 @@
 		"hideFieldsInSidebar": true
 	},
 	"editorStyle": [
-		"comet-container",
 		"comet-file-group"
 	],
 	"keywords": [
