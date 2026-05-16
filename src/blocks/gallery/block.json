@@ -48,10 +48,6 @@
 		"backgroundColor": {
 			"type": "string",
 			"default": "white"
-		},
-		"tagName": {
-			"type": "string",
-			"default": "section"
 		}
 	},
 	"supports": {
@@ -59,8 +55,6 @@
 		"jsx": true,
 		"innerBlocks": false,
 		"anchor": true,
-		"backgroundColor": true,
-		"size": true,
 		"align": false
 	}
 }

@@ -1,7 +1,6 @@
 <?php
 namespace Doubleedesign\Comet\WordPress;
-
-use Doubleedesign\Comet\Core\{PageSection, Utils};
+use Doubleedesign\Comet\Core\{Callout, PageSection, PreprocessedHTML, Renderable, Utils};
 
 class BlockRenderer {
 
@@ -44,7 +43,15 @@ class BlockRenderer {
         return $block_content;
     }
 
-    public static function maybe_wrap_component($attributes, $component) {
+    /**
+     * Wrap the given component in a PageSection if the sectionBackground attribute is set.
+     *
+     * @param  $attributes
+     * @param  $component
+     *
+     * @return PageSection|Renderable
+     */
+    public static function maybe_wrap_component($attributes, $component): mixed {
         if (isset($attributes['sectionBackground'])) {
             return new PageSection([
                 'backgroundColor' => $attributes['sectionBackground'],

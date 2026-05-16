@@ -49,7 +49,6 @@
 		"jsx": true,
 		"innerBlocks": false,
 		"anchor": true,
-		"size": true,
 		"align": false
 	}
 }

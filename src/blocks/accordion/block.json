@@ -51,9 +51,6 @@
 		"jsx": true,
 		"innerBlocks": false,
 		"anchor": true,
-		"colorTheme": true,
-		"backgroundColor": true,
-		"size": true,
 		"align": false
 	}
 }

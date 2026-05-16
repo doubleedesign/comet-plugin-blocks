@@ -1,4 +1,8 @@
 <?php
+if(!function_exists('acf_add_local_field_group')) {
+	return;
+}
+
 acf_add_local_field_group(array(
     'key'                   => 'layout__file-group',
     'title'                 => 'File Group Block',

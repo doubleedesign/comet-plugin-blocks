@@ -12,7 +12,7 @@ if ($render_placeholder) {
 
 $images = get_field('images');
 $caption = get_field('caption');
-$attributes = Utils::array_pick($block, ['tagName', 'size', 'maxPerRow', 'lightbox', 'backgroundColor']);
+$attributes = Utils::array_pick($block, ['size', 'maxPerRow', 'lightbox', 'backgroundColor']);
 
 $images = array_map(function($image) use ($block) {
     $attrs = $block['captions'] ? Utils::array_pick($image, ['alt', 'caption']) : Utils::array_pick($image, ['alt']);

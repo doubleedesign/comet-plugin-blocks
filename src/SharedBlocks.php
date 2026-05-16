@@ -79,7 +79,11 @@ class SharedBlocks {
     }
 
     public function register_fields(): void {
-        acf_add_local_field_group(array(
+	    if(!function_exists('acf_add_local_field_group')) {
+		    return;
+	    }
+
+	    acf_add_local_field_group(array(
             'key'                   => 'group_shared_content_admin_fields',
             'title'                 => 'Admin',
             'fields'                => array(

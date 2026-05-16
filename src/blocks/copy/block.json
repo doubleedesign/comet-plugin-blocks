@@ -39,10 +39,6 @@
 		},
 		"sectionBackground": {
 			"type": "string"
-		},
-		"tagName": {
-			"type": "string",
-			"default": "section"
 		}
 	},
 	"supports": {
@@ -50,8 +46,6 @@
 		"jsx": true,
 		"innerBlocks": false,
 		"anchor": true,
-		"colorTheme": true,
-		"size": true,
 		"align": false
 	}
 }

@@ -88,8 +88,7 @@ class BlockRegistry extends JavaScriptImplementation {
             'comet-button-group',
             'comet-button',
             'comet-pullquote',
-            'comet-callout',
-            'comet-table'
+            'comet-callout'
         ];
 
         return $metadata;
@@ -194,6 +193,11 @@ class BlockRegistry extends JavaScriptImplementation {
                     'title' => __('Dynamic content', 'comet'),
                     'icon'  => null
                 ],
+                [
+                    'slug'  => 'page-layout',
+                    'title' => __('Page Layout', 'comet'),
+                    'icon'  => null
+                ]
             ));
     }
 
@@ -212,7 +216,7 @@ class BlockRegistry extends JavaScriptImplementation {
 
     public function sort_block_categories(array $categories): array {
         usort($categories, function($a, $b) {
-            $order = ['text', 'design', 'media', 'content', 'widgets'];
+            $order = ['text', 'design', 'page-layout', 'media', 'content', 'widgets'];
             $posA = array_search($a['slug'], $order);
             $posB = array_search($b['slug'], $order);
 
