@@ -22,6 +22,9 @@
 		"break",
 		"divider"
 	],
+	"usesContext": [
+		"isNested"
+	],
 	"attributes": {
 		"size": {
 			"type": "string",

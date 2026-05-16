@@ -20,6 +20,9 @@
 		"downloads"
 	],
 	"textdomain": "comet",
+	"usesContext": [
+		"isNested"
+	],
 	"attributes": {
 		"size": {
 			"type": "string",

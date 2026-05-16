@@ -28,6 +28,9 @@
 		"collapsible",
 		"accordion"
 	],
+	"usesContext": [
+		"isNested"
+	],
 	"attributes": {
 		"size": {
 			"type": "string",

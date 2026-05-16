@@ -20,6 +20,9 @@
 		"link",
 		"links"
 	],
+	"usesContext": [
+		"isNested"
+	],
 	"attributes": {
 		"size": {
 			"type": "string",

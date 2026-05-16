@@ -8,10 +8,13 @@ use Doubleedesign\Comet\WordPress\BlockRenderer;
 $is_editor = isset($is_preview) && $is_preview;
 $render_placeholder = BlockRenderer::maybe_render_editor_placeholder($block, $is_editor);
 if ($render_placeholder) {
-	return;
+    return;
 }
 
-$attributes = Utils::array_pick($block, ['colorTheme', 'backgroundColor']);
+$attributes = [
+    ...Utils::array_pick($block, ['colorTheme', 'backgroundColor']),
+    'isNested' => $context['isNested'] ?? null,
+];
 $component = new Copy(
     $attributes,
     [new PreprocessedHTML([], function_exists('get_field') ? get_field('copy') ?? '' : '')]

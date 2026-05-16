@@ -1,6 +1,6 @@
 <?php
 namespace Doubleedesign\Comet\WordPress;
-use Doubleedesign\Comet\Core\{Callout, PageSection, PreprocessedHTML, Renderable, Utils};
+use Doubleedesign\Comet\Core\{PageSection, Renderable};
 
 class BlockRenderer {
 
@@ -52,14 +52,62 @@ class BlockRenderer {
      * @return PageSection|Renderable
      */
     public static function maybe_wrap_component($attributes, $component): mixed {
-        if (isset($attributes['sectionBackground'])) {
+        if (isset($attributes['sectionBackground']) && $attributes['sectionBackground'] !== 'none') {
             return new PageSection([
                 'backgroundColor' => $attributes['sectionBackground'],
-                ...Utils::array_pick($attributes, ['size'])
+                'size'            => $attributes['size'] ?? 'contained'
             ], [$component]);
         }
 
         return $component;
+    }
+
+    /**
+     * Render the editor (or placeholder) for blocks that have inner blocks.
+     *
+     * @param  array  $block
+     * @param  bool  $is_editor
+     *
+     * @return bool
+     */
+    public static function maybe_render_innerblocks_editor(array $block, bool $is_editor): bool {
+        if (!$is_editor) {
+            return false;
+        }
+        if (!$block['supports']['innerBlocks'] || empty($block['allowed_blocks'])) {
+            return false;
+        }
+
+        $allowedBlocks = json_encode($block['allowed_blocks'], JSON_UNESCAPED_SLASHES);
+        $prioritisedBlocks = json_encode(['comet/copy'], JSON_UNESCAPED_SLASHES);
+        $placeholder = "Click here to start adding content to the {$block['title']}";
+
+        echo "<InnerBlocks allowedBlocks={$allowedBlocks} prioritizedInserterBlocks={$prioritisedBlocks} placeholder=\"{$placeholder}\" />";
+
+        return true;
+    }
+
+    /**
+     * Determine if we can render a block with its innerblocks on the front-end.
+     *
+     * @param  $wp_block
+     *
+     * @return bool
+     */
+    public static function ready_to_render_innerblocks_frontend($wp_block): bool {
+        if (!isset($wp_block)) {
+            return false;
+        }
+        if (!function_exists('acf_render_block')) {
+            return false;
+        }
+
+        $innerBlocks = $wp_block->inner_blocks;
+        if ($innerBlocks->count() === 0) {
+            return false;
+        }
+
+        return true;
     }
 
     /**

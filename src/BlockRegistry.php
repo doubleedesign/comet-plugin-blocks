@@ -10,6 +10,7 @@ class BlockRegistry extends JavaScriptImplementation {
         parent::__construct();
         $this->wpInstance = WP_Block_Type_Registry::get_instance();
 
+        add_action('init', [$this, 'do_not_register_core_blocks'], 1);
         add_action('init', [$this, 'register_blocks'], 10);
         add_filter('block_type_metadata', [$this, 'modify_block_json_dynamically'], 10, 1);
         add_filter('register_block_type_args', [$this, 'modify_third_party_block_json'], 100, 2);
@@ -21,6 +22,32 @@ class BlockRegistry extends JavaScriptImplementation {
         add_filter('block_categories_all', [$this, 'add_block_categories'], 10, 2);
         add_filter('block_categories_all', [$this, 'modify_block_categories'], 11, 2);
         add_filter('block_categories_all', [$this, 'sort_block_categories'], 11, 2);
+    }
+
+    /**
+     * Prevent core blocks from being registered in the first place, rather than unregistering them.
+     *
+     * @return void
+     */
+    public function do_not_register_core_blocks(): void {
+        global $wp_filter;
+        remove_action('init', 'register_core_block_types_from_metadata', 10);
+        remove_action('init', 'wp_register_core_block_metadata_collection', 10);
+        remove_action('init', 'register_core_block_style_handles', 9);
+        remove_action('init', 'register_legacy_post_comments_block', 21);
+
+        if (isset($wp_filter['init'])) {
+            foreach ($wp_filter['init']->callbacks as $priority => $callbacks) {
+                foreach ($callbacks as $key => $callback) {
+                    $function = $callback['function'];
+
+                    // Handle plain function name strings
+                    if (is_string($function) && str_starts_with($function, 'register_block_core')) {
+                        remove_action('init', $function, $priority);
+                    }
+                }
+            }
+        }
     }
 
     /**

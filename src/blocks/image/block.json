@@ -3,9 +3,9 @@
 	"apiVersion": 3,
 	"textdomain": "comet",
 	"name": "comet/image",
-	"title": "Image",
+	"title": "Image row",
 	"icon": "format-image",
-	"description": "Display a standalone image",
+	"description": "Display a standalone image in its own row",
 	"category": "media",
 	"acf": {
 		"mode": "edit",

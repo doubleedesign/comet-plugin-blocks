@@ -38,7 +38,8 @@
 			"default": "white"
 		},
 		"sectionBackground": {
-			"type": "string"
+			"type": "string",
+			"default": "none"
 		}
 	},
 	"supports": {

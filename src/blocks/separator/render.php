@@ -1,14 +1,16 @@
 <?php
+/** @var $context array */
 
-use Doubleedesign\Comet\Core\{Config, Separator};
+use Doubleedesign\Comet\Core\{Separator, Utils};
 
 /** @var $block array */
 $attributes = [
     'style'      => get_field('style'),
-    // TODO: More concise way of grabbing all defaults from Config and then overriding with attributes present - for all blocks
-    'size'       => $block['size'] ?? Config::getInstance()->get_component_defaults('separator')['size'] ?? 'contained',
-    'colorTheme' => $block['colorTheme'] ?? Config::getInstance()->get_component_defaults('separator')['colorTheme'] ?? 'primary',
+    ...Utils::array_pick($block, ['size', 'colorTheme'])
 ];
+if (isset($context['isNested'])) {
+    unset($attributes['size']);
+}
 
 $component = new Separator($attributes);
 

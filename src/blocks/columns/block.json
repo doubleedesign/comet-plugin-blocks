@@ -15,12 +15,11 @@
 	},
 	"allowedBlocks": [
 		"comet/copy",
-		"comet/image"
+		"comet/group"
 	],
 	"editorStyle": [
 		"comet-columns",
-		"comet-copy",
-		"comet-image"
+		"comet-copy"
 	],
 	"keywords": [
 		"content",
@@ -28,23 +27,44 @@
 		"layout"
 	],
 	"providesContext": {
-		"isNested": "isNested"
+		"isNested": "isParent"
 	},
 	"attributes": {
 		"size": {
 			"type": "string",
 			"default": "contained"
 		},
-		"sectionBackground": {
-			"type": "string"
+		"backgroundColor": {
+			"type": "string",
+			"default": "none"
 		},
-		"isNested": {
+		"sectionBackground": {
+			"type": "string",
+			"default": "none"
+		},
+		"isParent": {
 			"type": "boolean",
 			"default": true
+		},
+		"qty": {
+			"type": "number",
+			"default": 2
+		},
+		"columnLayout": {
+			"type": "string",
+			"default": "even"
+		},
+		"hAlign": {
+			"type": "string",
+			"default": "center"
+		},
+		"vAlign": {
+			"type": "string",
+			"default": "start"
 		}
 	},
 	"supports": {
-		"mode": true,
+		"mode": false,
 		"jsx": true,
 		"innerBlocks": true,
 		"anchor": true,
