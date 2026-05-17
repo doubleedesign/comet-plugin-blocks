@@ -11,6 +11,8 @@ class BlockRegistry extends JavaScriptImplementation {
         $this->wpInstance = WP_Block_Type_Registry::get_instance();
 
         add_action('init', [$this, 'do_not_register_core_blocks'], 1);
+        add_action('init', [$this, 'do_not_load_wp_core_block_css'], 1);
+
         add_action('init', [$this, 'register_blocks'], 10);
         add_filter('block_type_metadata', [$this, 'modify_block_json_dynamically'], 10, 1);
         add_filter('register_block_type_args', [$this, 'modify_third_party_block_json'], 100, 2);
@@ -48,6 +50,21 @@ class BlockRegistry extends JavaScriptImplementation {
                 }
             }
         }
+    }
+
+    public function do_not_load_wp_core_block_css(): void {
+        add_action('wp_enqueue_scripts', function() {
+            wp_dequeue_style('global-styles');
+            wp_dequeue_style('wp-block-library');
+            wp_dequeue_style('wp-block-library-theme');
+            wp_dequeue_style('classic-theme-styles');
+            wp_dequeue_style('wp-img-auto-sizes-contain');
+            wp_dequeue_style('wp-emoji-styles');
+        });
+
+        remove_action('wp_enqueue_scripts', 'wp_enqueue_global_styles');
+	    remove_action('wp_footer', 'wp_enqueue_global_styles', 1);
+        remove_action('enqueue_block_editor_assets', 'wp_enqueue_global_styles_css_custom_properties');
     }
 
     /**
