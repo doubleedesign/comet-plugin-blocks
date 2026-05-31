@@ -7,7 +7,7 @@
   padding-block-end: 0;
 }
 
-.button, [class$=__button], [class*=button--] {
+.button:is(a), [class$=__button]:is(a), [class*=button--]:is(a), .button:is(button), [class$=__button]:is(button), [class*=button--]:is(button) {
   display: inline-block;
   font-family: var(--font-family-body);
   padding: var(--spacing-sm) var(--spacing-lg);
@@ -22,30 +22,30 @@
   background-color: var(--theme-color);
   border: 1px solid var(--theme-color);
 }
-.button:hover, [class$=__button]:hover, [class*=button--]:hover, .button:focus, [class$=__button]:focus, [class*=button--]:focus, .button:active, [class$=__button]:active, [class*=button--]:active {
+.button:is(a):hover, [class$=__button]:is(a):hover, [class*=button--]:is(a):hover, .button:is(a):focus, [class$=__button]:is(a):focus, [class*=button--]:is(a):focus, .button:is(a):active, [class$=__button]:is(a):active, [class*=button--]:is(a):active, .button:is(button):hover, [class$=__button]:is(button):hover, [class*=button--]:is(button):hover, .button:is(button):focus, [class$=__button]:is(button):focus, [class*=button--]:is(button):focus, .button:is(button):active, [class$=__button]:is(button):active, [class*=button--]:is(button):active {
   background-color: color-mix(in srgb, var(--theme-color) 90%, black);
   border-color: color-mix(in srgb, var(--theme-color) 90%, black);
   color: var(--theme-color-inverse, contrast-color(var(--theme-color)));
 }
-.button[data-style=outline], [data-style=outline][class$=__button], [data-style=outline][class*=button--] {
+.button:is(a)[data-style=outline], [class$=__button]:is(a)[data-style=outline], [class*=button--]:is(a)[data-style=outline], .button:is(button)[data-style=outline], [class$=__button]:is(button)[data-style=outline], [class*=button--]:is(button)[data-style=outline] {
   color: var(--theme-color);
   background-color: transparent;
 }
-.button > span, [class$=__button] > span, [class*=button--] > span {
+.button:is(a) > span, [class$=__button]:is(a) > span, [class*=button--]:is(a) > span, .button:is(button) > span, [class$=__button]:is(button) > span, [class*=button--]:is(button) > span {
   text-decoration: underline;
   text-decoration-color: transparent;
   transition: text-decoration-color 0.3s, color 0.3s;
 }
-.button:hover > span, [class$=__button]:hover > span, [class*=button--]:hover > span, .button:focus > span, [class$=__button]:focus > span, [class*=button--]:focus > span, .button:active > span, [class$=__button]:active > span, [class*=button--]:active > span {
+.button:is(a):hover > span, [class$=__button]:is(a):hover > span, [class*=button--]:is(a):hover > span, .button:is(a):focus > span, [class$=__button]:is(a):focus > span, [class*=button--]:is(a):focus > span, .button:is(a):active > span, [class$=__button]:is(a):active > span, [class*=button--]:is(a):active > span, .button:is(button):hover > span, [class$=__button]:is(button):hover > span, [class*=button--]:is(button):hover > span, .button:is(button):focus > span, [class$=__button]:is(button):focus > span, [class*=button--]:is(button):focus > span, .button:is(button):active > span, [class$=__button]:is(button):active > span, [class*=button--]:is(button):active > span {
   text-decoration-color: currentColor;
 }
-.button:has(i, svg), [class$=__button]:has(i, svg), [class*=button--]:has(i, svg) {
+.button:is(a):has(i, svg), [class$=__button]:is(a):has(i, svg), [class*=button--]:is(a):has(i, svg), .button:is(button):has(i, svg), [class$=__button]:is(button):has(i, svg), [class*=button--]:is(button):has(i, svg) {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: var(--spacing-xs);
 }
-.button:disabled, [class$=__button]:disabled, [class*=button--]:disabled, .button[aria-disabled=true], [aria-disabled=true][class$=__button], [aria-disabled=true][class*=button--] {
+.button:is(a):disabled, [class$=__button]:is(a):disabled, [class*=button--]:is(a):disabled, .button:is(a)[aria-disabled=true], [class$=__button]:is(a)[aria-disabled=true], [class*=button--]:is(a)[aria-disabled=true], .button:is(button):disabled, [class$=__button]:is(button):disabled, [class*=button--]:is(button):disabled, .button:is(button)[aria-disabled=true], [class$=__button]:is(button)[aria-disabled=true], [class*=button--]:is(button)[aria-disabled=true] {
   opacity: 0.4;
   cursor: not-allowed;
   pointer-events: none;
