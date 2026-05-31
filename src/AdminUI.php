@@ -56,7 +56,7 @@ class AdminUI {
     public function redirect_away_from_site_editor_urls(): void {
         if (!is_admin()) return;
 
-        if (str_contains($_SERVER['DOCUMENT_URI'], 'site-editor.php')) {
+        if (isset($_SERVER['DOCUMENT_URI']) && str_contains($_SERVER['DOCUMENT_URI'], 'site-editor.php')) {
             wp_redirect(admin_url());
             exit;
         }
@@ -83,4 +83,5 @@ class AdminUI {
 
         return $labels;
     }
+
 }

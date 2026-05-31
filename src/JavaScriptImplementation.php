@@ -10,24 +10,24 @@ namespace Doubleedesign\Comet\WordPress;
  * NOTE: The JavaScript file must be in the same directory as the PHP file, and must be named with a kebab-case version of the PHP class name.
  */
 abstract class JavaScriptImplementation {
+	private string $script_handle;
 
     public function __construct() {
+	    $class_name = array_reverse(explode('\\', get_class($this)))[0];
+	    $this->script_handle = $this->kebab_case($class_name);
+
         add_action('enqueue_block_editor_assets', [$this, 'enqueue_companion_javascript'], 200);
         add_action('enqueue_block_assets', [$this, 'enqueue_companion_javascript_in_iframe'], 200);
         add_filter('script_loader_tag', [$this, 'script_type_module'], 10, 3);
     }
 
     public function enqueue_companion_javascript(): void {
-        $currentDir = plugin_dir_url(__FILE__);
-        $pluginDir = dirname($currentDir, 1);
-        // Get the last bit of the class name (to remove the namespace)
-        $class_name = array_reverse(explode('\\', get_class($this)))[0];
-        // Kebab case it
-        $handle = $this->kebab_case($class_name);
+	    $currentDir = plugin_dir_url(__FILE__);
+	    $pluginDir = dirname($currentDir, 1);
 
         // Enqueue the matching JS file
         // TODO: We probably don't need so many dependencies
-        wp_enqueue_script("comet-$handle", "$pluginDir/src/$handle.js", array('wp-dom', 'wp-dom-ready', 'wp-blocks', 'wp-edit-post', 'wp-editor', 'wp-element', 'wp-plugins', 'wp-edit-post', 'wp-components', 'wp-data', 'wp-compose', 'wp-i18n', 'wp-hooks', 'wp-block-editor', 'wp-block-library'), COMET_VERSION, false);
+        wp_enqueue_script("comet-$this->script_handle", "$pluginDir/src/$this->script_handle.js", array('wp-dom', 'wp-dom-ready', 'wp-blocks', 'wp-edit-post', 'wp-editor', 'wp-element', 'wp-plugins', 'wp-edit-post', 'wp-components', 'wp-data', 'wp-compose', 'wp-i18n', 'wp-hooks', 'wp-block-editor', 'wp-block-library'), COMET_VERSION, false);
     }
 
     /**
@@ -40,13 +40,10 @@ abstract class JavaScriptImplementation {
 
         $currentDir = plugin_dir_url(__FILE__);
         $pluginDir = dirname($currentDir, 1);
-        // Get the last bit of the class name (to remove the namespace)
-        $class_name = array_reverse(explode('\\', get_class($this)))[0];
-        // Kebab case it
-        $handle = $this->kebab_case($class_name) . '-iframe';
+        $handle = $this->script_handle . '-iframe';
 
         // Enqueue the matching JS file
-        if (file_exists(__DIR__ . "/{$this->kebab_case($class_name)}-iframe.js")) {
+        if (file_exists(__DIR__ . "/$handle.js")) {
             wp_enqueue_script("comet-$handle", "$pluginDir/src/$handle.js", array('wp-dom', 'wp-dom-ready', 'wp-blocks', 'wp-block-editor'), COMET_VERSION, false);
         }
     }

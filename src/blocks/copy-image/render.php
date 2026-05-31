@@ -1,7 +1,7 @@
 <?php
 /** @var $block array */
 
-use Doubleedesign\Comet\Core\{Column, Columns, ContentImageAdvanced, Copy, PreprocessedHTML, Utils};
+use Doubleedesign\Comet\Core\{Column, Columns, Config, ContentImageAdvanced, Copy, PreprocessedHTML, Utils};
 use Doubleedesign\Comet\WordPress\BlockRenderer;
 
 $is_editor = isset($is_preview) && $is_preview;
@@ -42,8 +42,11 @@ if (isset($image_id)) {
     $imageComponent = new ContentImageAdvanced($image);
 }
 
+$globalBg = Config::getInstance()->get_global_background();;
+$includeBg = isset($context['isNested']) && $context['isNested'] || $block['backgroundColor'] !== $globalBg;
+
 $outerAttrs = [
-    ...Utils::array_pick($block, ['size', 'vAlign', 'backgroundColor']),
+    ...($includeBg ? Utils::array_pick($block, ['size', 'vAlign', 'backgroundColor']) : Utils::array_pick($block, ['size', 'vAlign'])),
     'shortName'  => 'copy-image',
     'data-order' => $block['order'] ?? 'row',
 ];
@@ -53,7 +56,7 @@ $contentAttrs = [
 ];
 
 $component = new Columns($outerAttrs, array(
-    (new Column(
+    new Column(
         [],
         [new Copy($contentAttrs, array(
             new PreprocessedHTML(
@@ -61,8 +64,8 @@ $component = new Columns($outerAttrs, array(
                 function_exists('get_field') ? get_field('copy') : $block['data']['field__copy-image__content'] ?? ''
             ))
         )]
-    ))->set_bem_modifier('copy'),
-    (new Column([], [$imageComponent ?? []]))->set_bem_modifier('image')
+    )->set_bem_modifier('copy'),
+    new Column([], [$imageComponent ?? []])->set_bem_modifier('image')
 ));
 
 if (isset($context['isNested']) && $context['isNested']) {

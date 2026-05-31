@@ -40,7 +40,7 @@ const FieldTooltip = ({
 
 const CONTAINER_SIZES = [{
   label: 'Full-width',
-  value: 'fullwidth'
+  value: 'full'
 }, {
   label: 'Wide',
   value: 'wide'
@@ -62,7 +62,7 @@ const ContainerSize = ({
   attributes,
   setAttributes
 }) => {
-  if (!attributes?.size) {
+  if (!attributes?.size && !attributes?.innerSize) {
     return null;
   }
   if (!attributes?.innerSize) {
@@ -765,7 +765,7 @@ const {
   GradientPicker: GradientPicker$1
 } = wp.components;
 const {
-  useRef: useRef$1,
+  useRef: useRef$2,
   useCallback: useCallback$2,
   useEffect: useEffect$2,
   useMemo: useMemo$4
@@ -777,7 +777,7 @@ function ColorPaletteDropdown({
   onChange,
   clearable = false
 }) {
-  const triggerRef = useRef$1();
+  const triggerRef = useRef$2();
   const handleChange = useCallback$2(newValue => {
     // Handle clearable selector
     if (!newValue) {
@@ -869,7 +869,7 @@ const SECTION_BACKGROUND_LABEL = 'Section background';
 
 const {
   useMemo: useMemo$3,
-  useRef,
+  useRef: useRef$1,
   useState,
   useEffect: useEffect$1
 } = wp.element;
@@ -887,7 +887,7 @@ function ColorPairPaletteDropdown({
 }) {
   const [foreground, setForeground] = useState(value?.foreground ?? '');
   const [background, setBackground] = useState(value?.background !== 'transparent' ? value?.background : comet?.globalBackground ?? 'white');
-  const triggerRef = useRef();
+  const triggerRef = useRef$1();
   const pairs = comet?.colourPairOverrides?.[blockName] ?? comet?.colourPairs ?? [];
   const palette = pairs.map(pair => ({
     name: `${pair.foreground} on ${pair.background}`,
@@ -986,21 +986,7 @@ function useValidatedPalette({
     slug: key,
     name: key,
     color: value
-  }))?.sort((a, b) => {
-    const order = ['white', 'dark', 'light', 'primary', 'secondary', 'accent'];
-    const aIndex = order.indexOf(a.slug);
-    const bIndex = order.indexOf(b.slug);
-    if (aIndex === -1 && bIndex === -1) {
-      return 0;
-    }
-    if (aIndex === -1) {
-      return 1;
-    }
-    if (bIndex === -1) {
-      return -1;
-    }
-    return aIndex - bIndex;
-  });
+  }));
   // Most blocks shouldn't have access to the status/message type colours, only brand colours, whereas others are the opposite
   if (['comet/callout'].includes(blockName)) {
     result = result.filter(color => ['error', 'success', 'info', 'warning'].includes(color.slug));
@@ -1031,15 +1017,12 @@ function ColorComboPreview({
     className: "comet-color-combo-preview__content",
     "data-background": sectionBackground ? backgroundColor : undefined,
     "data-color-theme": colorTheme
-  }, wp.element.createElement("p", {
-    style: {
-      color: `var(--color-${colorTheme})`
-    }
-  }, "The quick brown fox jumps over the lazy dog")));
+  }, wp.element.createElement("p", null, "The quick brown fox jumps over the lazy dog")));
 }
 
 /* global wp */
 const {
+  useRef,
   useMemo: useMemo$2,
   useCallback: useCallback$1
 } = wp.element;
@@ -1070,55 +1053,78 @@ function ColorControlsInner({
   });
   const singleBackgroundPalette = useValidatedPalette({
     blockName: name,
-    isNested: context?.isNested || attributes.sectionBackground !== undefined || attributes.sectionBackground !== 'none',
+    isNested: context?.isNested,
     palette: comet?.palette
   });
-  const sectionBackgrounds = comet?.sectionBackgrounds ? Object.entries(comet?.sectionBackgrounds).map(([key, value]) => ({
-    slug: key,
-    name: key,
-    color: value
-  })) : [];
-  if (!singleColourPalette && !singleBackgroundPalette && !sectionBackgrounds) {
+  if (!singleColourPalette && !singleBackgroundPalette) {
     return;
   }
-  const hasColorThemeSupport = Object.keys(attributes).includes('colorTheme');
-  const hasBackgroundColorSupport = Object.keys(attributes).includes('backgroundColor');
-  const hasSectionBackgroundSupport = sectionBackgrounds.length > 0 && Object.keys(attributes).includes('sectionBackground');
-  if (!hasColorThemeSupport && !hasBackgroundColorSupport && !hasSectionBackgroundSupport) {
-    return null;
-  }
+  const sectionBackgrounds = comet?.sectionBackgrounds ? Object.entries(comet.sectionBackgrounds).map(([key, value]) => {
+    return {
+      slug: key,
+      name: key,
+      color: value
+    };
+  }) : [];
   const componentDefault = comet?.defaults?.[name.replace('comet/', '')] ?? {};
   const values = useMemo$2(() => ({
     colorTheme: attributes?.colorTheme ?? componentDefault?.colorTheme ?? null,
     backgroundColor: attributes?.backgroundColor ?? componentDefault?.backgroundColor ?? null,
     sectionBackground: attributes?.sectionBackground ?? componentDefault?.sectionBackground ?? null
   }), [attributes, componentDefault]);
-  const showColourPairControl = hasBackgroundColorSupport && hasColorThemeSupport;
-  const showSingleColourThemeControl = !showColourPairControl && !hasBackgroundColorSupport && hasColorThemeSupport;
-  const showSingleBackgroundColourControl = !showColourPairControl && hasBackgroundColorSupport && !hasColorThemeSupport;
-  const showSectionBackgroundControl = useMemo$2(() => hasSectionBackgroundSupport && !context?.isNested, [context?.isNested]);
+  // Use refs to keep track of the presence of attribute support without the fields disappearing when the colour field is cleared
+  const hasColorThemeSupport = useRef(!!values.colorTheme);
+  const hasBackgroundColorSupport = useRef(Object.keys(attributes).includes('backgroundColor'));
+  const hasSectionBackgroundSupport = useRef(sectionBackgrounds.length > 0 && Object.keys(attributes).includes('sectionBackground'));
+  if (!hasColorThemeSupport.current && !hasBackgroundColorSupport.current && !hasSectionBackgroundSupport.current) {
+    return null;
+  }
   const handleChange = useCallback$1(newValues => {
     setAttributes(newValues);
   }, [setAttributes]);
-  return wp.element.createElement(wp.element.Fragment, null, showColourPairControl && wp.element.createElement(ColorComboPreview, {
+  // Handle only section background being supported (should only occur when the block can have inner blocks and is not nested)
+  if (hasSectionBackgroundSupport.current && !hasColorThemeSupport.current && !hasBackgroundColorSupport.current && !context?.isNested) {
+    return wp.element.createElement("div", {
+      className: "comet-color-controls__item"
+    }, wp.element.createElement(SectionBackgroundSelector, {
+      values: values,
+      palette: sectionBackgrounds,
+      handleChange: newValue => {
+        handleChange({
+          sectionBackground: newValue
+        });
+      }
+    }));
+  }
+  // Otherwise, if background colour is not supported, provide single colour theme option only
+  if (!hasBackgroundColorSupport.current) {
+    return wp.element.createElement("div", {
+      className: "comet-color-controls__item"
+    }, wp.element.createElement(ColourThemeSelector, {
+      values: values,
+      palette: singleBackgroundPalette,
+      handleChange: handleChange
+    }));
+  }
+  // If background colour is supported but colorTheme is not, provide single background colour option only
+  if (!hasColorThemeSupport.current && hasBackgroundColorSupport.current) {
+    return wp.element.createElement(BackgroundColourSelector, {
+      attributes: attributes,
+      values: values,
+      palette: singleBackgroundPalette,
+      handleChange: newValue => handleChange({
+        backgroundColor: newValue
+      }),
+      clearable: ['comet/group'].includes(name)
+    });
+  }
+  // If both colour theme and background colour are supported, provide the combined selector and preview,
+  // along with section background if that is also supported
+  return wp.element.createElement(wp.element.Fragment, null, wp.element.createElement(ColorComboPreview, {
     colorTheme: attributes?.colorTheme,
     backgroundColor: attributes?.backgroundColor,
-    sectionBackground: attributes?.sectionBackground !== 'none' ? attributes?.sectionBackground : undefined
-  }), showSingleColourThemeControl && wp.element.createElement("div", {
-    className: "comet-color-controls__item"
-  }, wp.element.createElement(ColourThemeSelector, {
-    values: values,
-    palette: singleBackgroundPalette,
-    handleChange: handleChange
-  })), showSingleBackgroundColourControl && wp.element.createElement(BackgroundColourSelector, {
-    attributes: attributes,
-    values: values,
-    palette: singleBackgroundPalette,
-    handleChange: newValue => handleChange({
-      backgroundColor: newValue
-    }),
-    clearable: ['comet/group'].includes(name)
-  }), showColourPairControl && wp.element.createElement("div", {
+    sectionBackground: attributes?.sectionBackground
+  }), wp.element.createElement("div", {
     className: "comet-color-controls__item"
   }, wp.element.createElement(ColorPairPaletteDropdown, {
     value: {
@@ -1132,7 +1138,7 @@ function ColorControlsInner({
         backgroundColor: newValue.background
       });
     }
-  })), showSectionBackgroundControl && wp.element.createElement("div", {
+  })), hasSectionBackgroundSupport.current && !context?.isNested && wp.element.createElement("div", {
     className: "comet-color-controls__item"
   }, wp.element.createElement(SectionBackgroundSelector, {
     values: values,

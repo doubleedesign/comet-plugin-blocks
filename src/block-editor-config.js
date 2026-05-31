@@ -54,12 +54,8 @@ wp.domReady(() => {
 				// Make sure the active editor matches the current field
 				if (editor?.acf?.cid === field?.cid) {
 					// Set TinyMCE body attributes based on the block attributes
-					if (attributes?.colorTheme) {
-						editor.getBody().setAttribute('data-color-theme', attributes.colorTheme);
-					}
-					if (attributes?.backgroundColor) {
-						editor.getBody().setAttribute('data-background', attributes.backgroundColor);
-					}
+					editor.getBody()?.setAttribute('data-color-theme', attributes?.colorTheme);
+					editor.getBody()?.setAttribute('data-background', attributes?.backgroundColor);
 				}
 			}
 		}
