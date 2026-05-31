@@ -10,6 +10,7 @@ class SharedBlocks {
         add_action('save_post_shared_content', [$this, 'save_administrative_title']);
         add_filter('template_include', [$this, 'use_plugin_template'], 20);
         add_filter('breadcrumbs_filter_post_types', [$this, 'disable_breadcrumbs']);
+		add_filter('wp_link_query', [$this, 'do_not_show_shared_content_in_link_dialog'], 10, 2);
     }
 
     /**
@@ -186,4 +187,15 @@ class SharedBlocks {
 
         return $post_types;
     }
+
+	public function do_not_show_shared_content_in_link_dialog($results, $query) {
+		foreach ($results as $index => $result) {
+			$post_type = get_post_type($result['ID']);
+			if ($post_type === 'shared_content') {
+				unset($results[$index]);
+			}
+		}
+
+		return $results;
+	}
 }
