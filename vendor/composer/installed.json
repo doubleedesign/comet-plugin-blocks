@@ -172,7 +172,7 @@
             "dist": {
                 "type": "path",
                 "url": "../core",
-                "reference": "ed92e03dbb965f66ae4a852995acce1218af6815"
+                "reference": "573c86459fdbc49f932c27e172e8e4be5a589583"
             },
             "require": {
                 "ext-intl": "*",
@@ -213,10 +213,8 @@
                     "cache/",
                     "node_modules",
                     "package.json",
-                    "package-lock.json",
                     "rollup.config.js",
                     "rollup.index.js",
-                    ".bladeformatterrc.json",
                     "**/*.spec.ts",
                     "src/components/**/*.json",
                     "src/components/**/__tests__",

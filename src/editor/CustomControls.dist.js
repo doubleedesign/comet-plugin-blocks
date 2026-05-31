@@ -40,7 +40,7 @@ const FieldTooltip = ({
 
 const CONTAINER_SIZES = [{
   label: 'Full-width',
-  value: 'full'
+  value: 'fullwidth'
 }, {
   label: 'Wide',
   value: 'wide'
@@ -62,7 +62,7 @@ const ContainerSize = ({
   attributes,
   setAttributes
 }) => {
-  if (!attributes?.size && !attributes?.innerSize) {
+  if (!attributes?.size) {
     return null;
   }
   if (!attributes?.innerSize) {

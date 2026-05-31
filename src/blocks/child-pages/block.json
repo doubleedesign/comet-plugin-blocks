@@ -8,7 +8,7 @@
 	"description": "Add an automatically-generated list of links to pages below this one in the site hierarchy",
 	"category": "content",
 	"acf": {
-		"mode": "preview",
+		"mode": "edit",
 		"renderTemplate": "render.php",
 		"blockVersion": 3,
 		"hideFieldsInSidebar": true
@@ -35,6 +35,10 @@
 			"type": "string",
 			"default": "white"
 		},
+		"sectionBackground": {
+			"type": "string",
+			"default": "none"
+		},
 		"hAlign": {
 			"type": "string",
 			"default": "center"
@@ -45,7 +49,7 @@
 		}
 	},
 	"supports": {
-		"mode": true,
+		"mode": false,
 		"jsx": true,
 		"innerBlocks": false,
 		"anchor": true,

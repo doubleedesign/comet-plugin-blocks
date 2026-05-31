@@ -46,6 +46,10 @@
 			"type": "string",
 			"default": "white"
 		},
+		"sectionBackground": {
+			"type": "string",
+			"default": "none"
+		},
 		"order": {
 			"type": "string",
 			"default": "row"

@@ -1,7 +1,8 @@
 <?php
 /** @var $block array */
 
-use Doubleedesign\Comet\WordPress\TemplateUtils;
+use Doubleedesign\Comet\Core\Utils;
+use Doubleedesign\Comet\WordPress\{BlockRenderer, TemplateUtils};
 
 $page_ids = wp_list_pluck((new WP_Query([
     'post_type'      => 'page',
@@ -16,4 +17,11 @@ if (!$page_ids) {
 }
 
 $component = TemplateUtils::create_card_list($page_ids, $block);
-$component->render();
+if (isset($context['isNested']) && $context['isNested']) {
+    $component->render();
+}
+else {
+    $wrapperAttributes = Utils::array_pick($block, ['size', 'sectionBackground']);
+    $wrapper = BlockRenderer::maybe_wrap_component($wrapperAttributes, $component);
+    $wrapper->render();
+}

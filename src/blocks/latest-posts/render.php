@@ -1,7 +1,8 @@
 <?php
 /** @var $block array */
 
-use Doubleedesign\Comet\WordPress\TemplateUtils;
+use Doubleedesign\Comet\Core\Utils;
+use Doubleedesign\Comet\WordPress\{BlockRenderer, TemplateUtils};
 
 $query = new WP_Query([
     'post_type'      => 'post',
@@ -35,4 +36,11 @@ $component = TemplateUtils::create_card_list(
     true,
     !empty($link) ? $link : null
 );
-$component->render();
+if (isset($context['isNested']) && $context['isNested']) {
+    $component->render();
+}
+else {
+    $wrapperAttributes = Utils::array_pick($block, ['size', 'sectionBackground']);
+    $wrapper = BlockRenderer::maybe_wrap_component($wrapperAttributes, $component);
+    $wrapper->render();
+}

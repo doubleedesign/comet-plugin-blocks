@@ -43,7 +43,7 @@ if (isset($image_id)) {
 }
 
 $outerAttrs = [
-    ...Utils::array_pick($block, ['size', 'vAlign']),
+    ...Utils::array_pick($block, ['size', 'vAlign', 'backgroundColor']),
     'shortName'  => 'copy-image',
     'data-order' => $block['order'] ?? 'row',
 ];
@@ -65,4 +65,11 @@ $component = new Columns($outerAttrs, array(
     (new Column([], [$imageComponent ?? []]))->set_bem_modifier('image')
 ));
 
-$component->render();
+if (isset($context['isNested']) && $context['isNested']) {
+    $component->render();
+}
+else {
+    $wrapperAttributes = Utils::array_pick($block, ['size', 'sectionBackground']);
+    $wrapper = BlockRenderer::maybe_wrap_component($wrapperAttributes, $component);
+    $wrapper->render();
+}

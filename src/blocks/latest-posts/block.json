@@ -37,6 +37,10 @@
 			"type": "string",
 			"default": "white"
 		},
+		"sectionBackground": {
+			"type": "string",
+			"default": "none"
+		},
 		"hAlign": {
 			"type": "string",
 			"default": "center"

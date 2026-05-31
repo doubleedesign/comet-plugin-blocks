@@ -16,7 +16,7 @@ class TemplateUtils {
      */
     public static function create_card_list(array $postIds, array $block, bool $headingInSingleCard = false, array $link = []): CardList {
         $cards = array_map(function($post_id) use ($headingInSingleCard, $postIds, $block) {
-			$maybe_heading = trim(get_post_meta($post_id, 'breadcrumb_title_override', true));
+            $maybe_heading = trim(get_post_meta($post_id, 'breadcrumb_title_override', true));
             $heading = !empty($maybe_heading) ? $maybe_heading : get_the_title($post_id);
             $bodyText = get_the_excerpt($post_id) ?? '';
             $imageUrl = get_the_post_thumbnail_url($post_id, 'large') ?: '';
@@ -45,6 +45,7 @@ class TemplateUtils {
                     'isOutline' => true
                 ],
                 'colorTheme'        => $block['colorTheme'] ?? 'primary',
+                'backgroundColor'   => $block['backgroundColor'] ?? null,
                 'orientation'       => 'horizontal', // TODO: Make this configurable
                 'cardAsLink'        => apply_filters('comet_blocks_related_content_card_list_card_as_link', false, $block['name']),
             ], $aboveContent ?? []);
@@ -60,13 +61,16 @@ class TemplateUtils {
             }
         }
 
+        $blockName = str_replace('comet/', '', $block['name']);
+        $data = BlockRenderer::transform_block_data_to_acf_style_result($block['data'] ?? null, "field__{$blockName}__");
+
         return new CardList(
             [
                 ...Config::getInstance()->get_component_defaults('card-list'),
-                ...Utils::array_pick($block, ['size', 'colorTheme', 'backgroundColor', 'hAlign', 'layout']),
+                ...Utils::array_pick($block, ['size', 'colorTheme', 'hAlign', 'layout']),
                 'link'         => !empty($link) ? $link : null,
                 'shortName'    => str_replace('comet/', '', $block['name']),
-                'heading'      => (count($postIds) > 1 && !empty($block['data']['heading'])) ? $block['data']['heading'] : null,
+                'heading'      => (count($postIds) > 1 && !empty($data['heading'])) ? $data['heading'] : null,
                 'maxPerRow'    => $max_per_row
             ],
             $cards

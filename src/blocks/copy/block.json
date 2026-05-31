@@ -43,7 +43,7 @@
 		}
 	},
 	"supports": {
-		"mode": true,
+		"mode": false,
 		"jsx": true,
 		"innerBlocks": false,
 		"anchor": true,
