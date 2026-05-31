@@ -24,9 +24,6 @@
 		"comet/accordion",
 		"comet/separator"
 	],
-	"editorStyle": [
-		"comet-group"
-	],
 	"keywords": [
 		"layout",
 		"group"

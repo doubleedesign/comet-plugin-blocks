@@ -13,11 +13,6 @@
 		"blockVersion": 3,
 		"hideFieldsInSidebar": true
 	},
-	"editorStyle": [
-		"comet-call-to-action",
-		"comet-button-group",
-		"comet-button"
-	],
 	"keywords": [
 		"text",
 		"paragraph",

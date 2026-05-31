@@ -17,10 +17,6 @@
 		"comet/copy",
 		"comet/group"
 	],
-	"editorStyle": [
-		"comet-columns",
-		"comet-copy"
-	],
 	"keywords": [
 		"content",
 		"columns",

@@ -13,9 +13,6 @@
 		"blockVersion": 3,
 		"hideFieldsInSidebar": true
 	},
-	"editorStyle": [
-		"comet-copy"
-	],
 	"keywords": [
 		"text",
 		"paragraph",

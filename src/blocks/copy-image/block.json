@@ -13,12 +13,6 @@
 		"blockVersion": 3,
 		"hideFieldsInSidebar": true
 	},
-	"editorStyle": [
-		"comet-columns",
-		"comet-column",
-		"comet-content-image-advanced",
-		"comet-copy"
-	],
 	"style": "file:./style.css",
 	"keywords": [
 		"text",

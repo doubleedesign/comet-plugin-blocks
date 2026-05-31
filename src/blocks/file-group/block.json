@@ -12,9 +12,6 @@
 		"blockVersion": 3,
 		"hideFieldsInSidebar": true
 	},
-	"editorStyle": [
-		"comet-file-group"
-	],
 	"keywords": [
 		"files",
 		"downloads"

@@ -13,10 +13,6 @@
 		"blockVersion": 3,
 		"hideFieldsInSidebar": true
 	},
-	"editorStyle": [
-		"comet-banner",
-		"comet-cover-image"
-	],
 	"keywords": [
 		"image",
 		"banner",

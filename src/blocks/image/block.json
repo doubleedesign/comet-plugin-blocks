@@ -13,10 +13,6 @@
 		"blockVersion": 3,
 		"hideFieldsInSidebar": true
 	},
-	"editorStyle": [
-		"comet-image",
-		"comet-content-image-advanced"
-	],
 	"style": [
 		"file:./style.css"
 	],

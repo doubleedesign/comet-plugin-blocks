@@ -30,7 +30,6 @@ class BlockEditorConfig extends JavaScriptImplementation {
         if (is_admin()) {
             add_action('enqueue_block_assets', [$this, 'block_editor_ui_css_hacks']);
             add_filter('admin_body_class', [$this, 'block_editor_body_class'], 10, 1);
-            add_action('init', [$this, 'register_comet_component_assets_for_use_in_block_json'], 5);
             // using enqueue_block_assets to ensure this runs in the new iframed experience (as opposed to enqueue_block_editor_assets)
             // but note that enqueue_block_assets  also runs on the front-end, hence the is_admin() check to ensure we don't double up on the front-end.
             add_action('enqueue_block_assets', [$this, 'enqueue_common_css_into_block_editor'], 10);
@@ -42,100 +41,19 @@ class BlockEditorConfig extends JavaScriptImplementation {
     }
 
     /**
-     * Register Comet Components' individual CSS and JS files so they can be loaded as-needed for blocks
-     * by using the "editorStyle" or "style" field in block.json.
+     * Load bundled Comet Components CSS + common CSS from the theme (if a common.css file is present) for all blocks in the editor.
      *
-     * Almost all component stylesheets should be registered here, except for global.css and common.css,
-     * and components like SiteHeader and SiteFooter that are not intended to be used in blocks.
-     *
-     * Note: If loading all of Comet's CSS on the front-end using the bundled/dist file, use editorStyle here to avoid duplication on the front-end.
-     *
-     * @return void
-     */
-    public function register_comet_component_assets_for_use_in_block_json(): void {
-        $excludedDirectories = ['SiteHeader', 'SiteFooter', 'Menu', 'PostNav'];
-        $componentsDir = COMET_COMPOSER_VENDOR_PATH . '/doubleedesign/comet-components-core/src/components';
-        $componentsUrlbase = COMET_COMPOSER_VENDOR_URL . '/doubleedesign/comet-components-core/src/components';
-        $registered_css = []; // for debugging
-        $registered_js = []; // for debugging
-
-        try {
-            $iterator = new RecursiveIteratorIterator(
-                new RecursiveDirectoryIterator($componentsDir, FilesystemIterator::SKIP_DOTS),
-                RecursiveIteratorIterator::SELF_FIRST
-            );
-            $iterator->setMaxDepth(3);
-
-            foreach ($iterator as $file) {
-                if (!$file->isDir()) {
-                    continue;
-                }
-
-                if (in_array($file->getFilename(), $excludedDirectories)) {
-                    continue;
-                }
-
-                $componentName = $file->getBasename();
-                $shortName = Utils::kebab_case($componentName);
-
-                $cssFile = $file->getPathname() . "/$shortName.css";
-                if (file_exists($cssFile)) {
-                    $handle = 'comet-' . $shortName;
-                    $relativePath = str_replace($componentsDir, '', $file->getPathname());
-                    $relativePath = str_replace('\\', '/', $relativePath) . '/';
-                    wp_register_style(
-                        $handle,
-                        $componentsUrlbase . $relativePath . $shortName . '.css',
-                        [],
-                        COMET_VERSION
-                    );
-                    $registered_css[] = $handle;
-                }
-
-                $jsFile = $file->getPathname() . "/$shortName.js";
-                if (file_exists($jsFile)) {
-                    $handle = 'comet-' . $shortName . '-js';
-                    $relativePath = str_replace($componentsDir, '', $file->getPathname());
-                    $relativePath = str_replace('\\', '/', $relativePath) . '/';
-                    wp_register_script(
-                        $handle,
-                        $componentsUrlbase . $relativePath . $shortName . '.js',
-                        ['wp-blocks', 'wp-element', 'wp-editor'],
-                        COMET_VERSION,
-                        false
-                    );
-                    $registered_js[] = $handle;
-                }
-            }
-        }
-        catch (Exception $e) {
-            if (function_exists('dump')) {
-                dump('Error registering Comet component stylesheet: ' . $e->getMessage());
-            }
-            else {
-                error_log('Error registering Comet component stylesheet: ' . $e->getMessage());
-            }
-        }
-    }
-
-    /**
-     * Load global and common CSS from both Comet Components and the theme (if a common.css file is present) for all blocks in the editor.
-     * Global CSS is intended to be things like CSS variables and the application of data-* attributes like color theme and background.
-     * Common CSS should contain site-wide typography styles and the like.
+     * Registering per-block styles for the block editor doesn't conditionally load them,
+     * so it's simpler to just load the same single bundled stylesheet that the front-end uses.
      *
      * @return void
      */
     public function enqueue_common_css_into_block_editor(): void {
         $css = array(
             [
-                'handle' => 'comet-components-global-styles',
-                'path'   => COMET_COMPOSER_VENDOR_PATH . '/doubleedesign/comet-components-core/src/components/global.css',
-                'url'    => COMET_COMPOSER_VENDOR_URL . '/doubleedesign/comet-components-core/src/components/global.css',
-            ],
-            [
-                'handle' => 'comet-components-common-styles',
-                'path'   => COMET_COMPOSER_VENDOR_PATH . '/doubleedesign/comet-components-core/src/components/common.css',
-                'url'    => COMET_COMPOSER_VENDOR_URL . '/doubleedesign/comet-components-core/src/components/common.css',
+                'handle' => 'comet-components-bundled-styles',
+                'path'   => COMET_COMPOSER_VENDOR_PATH . '/doubleedesign/comet-components-core/dist/dist.css',
+                'url'    => COMET_COMPOSER_VENDOR_URL . '/doubleedesign/comet-components-core/dist/dist.css',
             ],
             [
                 'handle' => 'theme-foundation-styles',

@@ -9,8 +9,12 @@ class ComponentAssets {
             return;
         }
 
-        add_action('wp_enqueue_scripts', [$this, 'enqueue_comet_combined_component_css'], 10);
-        add_action('wp_enqueue_scripts', [$this, 'enqueue_comet_combined_component_js'], 10);
+        // BlockEditorConfig handles loading assets in the block editor context, so let's not double up here
+        if (!is_admin()) {
+            add_action('wp_enqueue_scripts', [$this, 'enqueue_comet_combined_component_css'], 10);
+            add_action('wp_enqueue_scripts', [$this, 'enqueue_comet_combined_component_js'], 10);
+        }
+
         add_action('wp_enqueue_scripts', [$this, 'enqueue_font_awesome'], 10);
         add_action('admin_enqueue_scripts', [$this, 'enqueue_font_awesome'], 10);
         add_filter('script_loader_tag', [$this, 'script_type_module'], 10, 3);
@@ -19,13 +23,14 @@ class ComponentAssets {
     }
 
     /**
-     * Combined stylesheet for all components, to be used both for the front-end and the back-end editor
+     * Combined stylesheet for all components, for the front-end
      *
      * @return void
      */
     public function enqueue_comet_combined_component_css(): void {
         $libraryDir = COMET_COMPOSER_VENDOR_URL . '/doubleedesign/comet-components-core';
         wp_enqueue_style('comet-components', "$libraryDir/dist/dist.css", array(), COMET_VERSION, 'all');
+
     }
 
     /**
@@ -112,6 +117,10 @@ class ComponentAssets {
      * @return void
      */
     public function enqueue_admin_css(): void {
+        if (!is_admin() || (defined('DOING_AJAX') && DOING_AJAX)) {
+            return;
+        }
+
         // Load in the theme's common typography and whatnot so that it gets used by the TinyMCE styleselect,
         // general admin styles, etc. like it does when loaded into pages with the block editor using enqueue_block_editor_assets
         // but for pages that don't trigger that book.
