@@ -1,8 +1,6 @@
 <?php
 namespace Doubleedesign\Comet\WordPress;
 
-use Doubleedesign\Comet\Core\{AspectRatio, Config};
-
 class BlockEditorConfig extends JavaScriptImplementation {
     public function __construct() {
         parent::__construct();
@@ -29,6 +27,7 @@ class BlockEditorConfig extends JavaScriptImplementation {
 
             // For some reason, the bundled JS works in the editor when loaded on enqueue_block_editor_assets or admin_enqueue_scripts, but not on enqueue_block_assets
             add_action('enqueue_block_editor_assets', [$this, 'enqueue_js_into_block_editor']);
+            add_action('enqueue_block_assets', [$this, 'enqueue_font_awesome_into_block_editor']);
 
             // using enqueue_block_assets to ensure this runs in the new iframed experience (as opposed to enqueue_block_editor_assets)
             // but note that enqueue_block_assets also runs on the front-end, hence the is_admin() check to ensure we don't double up on the front-end.
@@ -53,14 +52,9 @@ class BlockEditorConfig extends JavaScriptImplementation {
                 'url'    => COMET_COMPOSER_VENDOR_URL . '/doubleedesign/comet-components-core/dist/dist.css',
             ],
             [
-                'handle' => 'theme-foundation-styles',
-                'path'   => get_template_directory() . '/common.css',
-                'url'    => get_template_directory_uri() . '/common.css',
-            ],
-            [
-                'handle' => 'theme-common-styles',
-                'path'   => get_stylesheet_directory() . '/common.css',
-                'url'    => get_stylesheet_directory_uri() . '/common.css',
+                'handle' => 'theme-styles',
+                'path'   => get_stylesheet_directory() . '/style.css',
+                'url'    => get_stylesheet_directory_uri() . '/style.css',
             ],
         );
 
@@ -88,27 +82,15 @@ class BlockEditorConfig extends JavaScriptImplementation {
         wp_enqueue_script('comet-blocks', COMET_COMPOSER_VENDOR_URL . '/doubleedesign/comet-components-core/dist/dist.js', array(), COMET_VERSION, true);
     }
 
-    public function make_component_defaults_available_to_block_editor_js(): void {
-        if (!class_exists('Doubleedesign\Comet\Core\Config')) {
-            return;
-        }
+	public function enqueue_font_awesome_into_block_editor(): void {
+		$kit_id = get_option('options_font_awesome_kit');
+		if ($kit_id) {
+			wp_enqueue_script('font-awesome', "https://kit.fontawesome.com/$kit_id.js", [], '7', false);
+		}
+	}
 
-        $data = array(
-            'defaults'              => Config::getInstance()->get('component_defaults'),
-            'globalBackground'      => Config::getInstance()->get_global_background(),
-            'palette'               => Config::getInstance()->get_theme_colours(),
-            // Colours that have sufficient contrast when on the global background
-            'filteredPalette'       => Config::getInstance()->get_colours_filtered_against_background_contrast(),
-            'colourPairs'           => Config::getInstance()->get_theme_colour_pairs(),
-            'colourPairOverrides'   => Config::getInstance()->get_theme_colour_pair_overrides(),
-            'gradients'             => Config::getInstance()->get_theme_gradients(),
-            // TODO: Test this with fully custom names so a theme can have something outside the ThemeColor and ThemeGradient bounds if explicitly set up
-            'sectionBackgrounds'    => apply_filters('comet_canvas_section_backgrounds', array_merge(
-                Config::getInstance()->get_theme_colours(),
-                Config::getInstance()->get_theme_gradients(),
-            )),
-            'aspectRatios'          => array_map(fn($case) => ['name' => $case->name, 'value' => $case->value], AspectRatio::cases()),
-        );
+    public function make_component_defaults_available_to_block_editor_js(): void {
+        $data = CometConfigHandler::get_component_defaults();
 
         // Make the defaults available to the plugin's block-editor-config files
         wp_localize_script('comet-block-editor-config', 'comet', $data);

@@ -8,8 +8,8 @@ document.addEventListener('DOMContentLoaded', async function () {
 async function applyDefaultColourThemeToTinyMce() {
 	const editors = await getEditors();
 	editors.forEach((editor) => {
-		editor.getBody().setAttribute('data-color-theme', 'primary');
-		editor.getBody().setAttribute('data-background', 'white');
+		editor.getBody()?.setAttribute('data-color-theme', 'primary');
+		editor.getBody()?.setAttribute('data-background', comet.globalBackground ?? 'white');
 	});
 }
 
