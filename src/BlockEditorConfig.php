@@ -1,11 +1,7 @@
 <?php
 namespace Doubleedesign\Comet\WordPress;
 
-use Doubleedesign\Comet\Core\{AspectRatio, Config, Utils};
-use Exception;
-use FilesystemIterator;
-use RecursiveDirectoryIterator;
-use RecursiveIteratorIterator;
+use Doubleedesign\Comet\Core\{AspectRatio, Config};
 
 class BlockEditorConfig extends JavaScriptImplementation {
     public function __construct() {
@@ -30,13 +26,14 @@ class BlockEditorConfig extends JavaScriptImplementation {
         if (is_admin()) {
             add_action('enqueue_block_assets', [$this, 'block_editor_ui_css_hacks']);
             add_filter('admin_body_class', [$this, 'block_editor_body_class'], 10, 1);
-            // using enqueue_block_assets to ensure this runs in the new iframed experience (as opposed to enqueue_block_editor_assets)
-            // but note that enqueue_block_assets  also runs on the front-end, hence the is_admin() check to ensure we don't double up on the front-end.
-            add_action('enqueue_block_assets', [$this, 'enqueue_common_css_into_block_editor'], 10);
-            add_action('enqueue_block_assets', [$this, 'make_component_defaults_available_to_block_editor_js'], 250);
 
-            // NOTE: The bundled JS (core/dist/dist.js) is deliberately not loaded into the editor because of path resolution issues for the Vue components.
-            // Vue-powered blocks should load the scripts individually for their editor previews in block.json using the "editorScript" field.
+            // For some reason, the bundled JS works in the editor when loaded on enqueue_block_editor_assets or admin_enqueue_scripts, but not on enqueue_block_assets
+            add_action('enqueue_block_editor_assets', [$this, 'enqueue_js_into_block_editor']);
+
+            // using enqueue_block_assets to ensure this runs in the new iframed experience (as opposed to enqueue_block_editor_assets)
+            // but note that enqueue_block_assets also runs on the front-end, hence the is_admin() check to ensure we don't double up on the front-end.
+            add_action('enqueue_block_assets', [$this, 'enqueue_css_into_block_editor'], 10);
+            add_action('enqueue_block_assets', [$this, 'make_component_defaults_available_to_block_editor_js'], 250);
         }
     }
 
@@ -48,7 +45,7 @@ class BlockEditorConfig extends JavaScriptImplementation {
      *
      * @return void
      */
-    public function enqueue_common_css_into_block_editor(): void {
+    public function enqueue_css_into_block_editor(): void {
         $css = array(
             [
                 'handle' => 'comet-components-bundled-styles',
@@ -85,6 +82,10 @@ class BlockEditorConfig extends JavaScriptImplementation {
                 }
             }
         }
+    }
+
+    public function enqueue_js_into_block_editor(): void {
+        wp_enqueue_script('comet-blocks', COMET_COMPOSER_VENDOR_URL . '/doubleedesign/comet-components-core/dist/dist.js', array(), COMET_VERSION, true);
     }
 
     public function make_component_defaults_available_to_block_editor_js(): void {
