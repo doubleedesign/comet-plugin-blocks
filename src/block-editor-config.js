@@ -8,7 +8,7 @@
  */
 
 wp.domReady(() => {
-	const { select, dispatch } = wp.data;
+	const {select, dispatch} = wp.data;
 
 	// Disable full-screen mode by default
 	const isFullscreenMode = wp.data.select('core/edit-post').isFeatureActive('fullscreenMode');
@@ -30,13 +30,13 @@ wp.domReady(() => {
 	// Note: element[0]?.ownerDocument gives us the iframe's document when blocks are rendered in an iframe in the editor.
 	acf.addAction('render_block_preview', function (element, block) {
 		if (block.name === 'comet/accordion') {
-			window.dispatchEvent(new CustomEvent('ReloadVueAccordions', { detail: { targetDocument: element[0]?.ownerDocument ?? document } }));
+			window.dispatchEvent(new CustomEvent('ReloadVueAccordions', {detail: {targetDocument: element[0]?.ownerDocument ?? document}}));
 		}
 		if (block.name === 'comet/tabs') {
-			window.dispatchEvent(new CustomEvent('ReloadVueTabs', { detail: { targetDocument: element[0]?.ownerDocument ?? document } }));
+			window.dispatchEvent(new CustomEvent('ReloadVueTabs', {detail: {targetDocument: element[0]?.ownerDocument ?? document}}));
 		}
 		if (block.name === 'comet/responsive-panels') {
-			window.dispatchEvent(new CustomEvent('ReloadVueResponsivePanels', { detail: { targetDocument: element[0]?.ownerDocument ?? document } }));
+			window.dispatchEvent(new CustomEvent('ReloadVueResponsivePanels', {detail: {targetDocument: element[0]?.ownerDocument ?? document}}));
 		}
 	});
 
@@ -54,12 +54,8 @@ wp.domReady(() => {
 				// Make sure the active editor matches the current field
 				if (editor?.acf?.cid === field?.cid) {
 					// Set TinyMCE body attributes based on the block attributes
-					if (attributes?.colorTheme) {
-						editor.getBody().setAttribute('data-color-theme', attributes.colorTheme);
-					}
-					if (attributes?.backgroundColor) {
-						editor.getBody().setAttribute('data-background', attributes.backgroundColor);
-					}
+					editor.getBody()?.setAttribute('data-color-theme', attributes?.colorTheme);
+					editor.getBody()?.setAttribute('data-background', attributes?.backgroundColor);
 				}
 			}
 		}
@@ -85,7 +81,7 @@ function collapseMetaboxesByDefault(metaboxIds) {
 	const container = document.querySelector('.metabox-location-normal, .metabox-location-side, .metabox-location-advanced');
 
 	if (container) {
-		observer.observe(container, { childList: true, subtree: true });
+		observer.observe(container, {childList: true, subtree: true});
 
 		// Stop observing after a few seconds
 		setTimeout(function () {
@@ -103,7 +99,7 @@ function hackPreferencesModal() {
 		}
 	});
 
-	modalObserver.observe(document.body, { childList: true, subtree: true });
+	modalObserver.observe(document.body, {childList: true, subtree: true});
 
 	function watchPreferencesModalContent(modal) {
 		const contentObserver = new MutationObserver(function (mutations, obs) {
@@ -115,7 +111,7 @@ function hackPreferencesModal() {
 			}
 		});
 
-		contentObserver.observe(modal, { childList: true, subtree: true });
+		contentObserver.observe(modal, {childList: true, subtree: true});
 	}
 }
 

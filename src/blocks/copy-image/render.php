@@ -43,7 +43,7 @@ if (isset($image_id)) {
 }
 
 $outerAttrs = [
-    ...Utils::array_pick($block, ['size', 'vAlign']),
+    ...Utils::array_pick($block, ['size', 'vAlign', 'backgroundColor']),
     'shortName'  => 'copy-image',
     'data-order' => $block['order'] ?? 'row',
 ];
@@ -53,7 +53,7 @@ $contentAttrs = [
 ];
 
 $component = new Columns($outerAttrs, array(
-    (new Column(
+    new Column(
         [],
         [new Copy($contentAttrs, array(
             new PreprocessedHTML(
@@ -61,8 +61,8 @@ $component = new Columns($outerAttrs, array(
                 function_exists('get_field') ? get_field('copy') : $block['data']['field__copy-image__content'] ?? ''
             ))
         )]
-    ))->set_bem_modifier('copy'),
-    (new Column([], [$imageComponent ?? []]))->set_bem_modifier('image')
+    )->set_bem_modifier('copy'),
+    new Column([], [$imageComponent ?? []])->set_bem_modifier('image')
 ));
 
 $component->render();
