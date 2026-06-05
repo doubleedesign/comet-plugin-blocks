@@ -51,6 +51,11 @@ class BlockEditorConfig extends JavaScriptImplementation {
                 'path'   => COMET_COMPOSER_VENDOR_PATH . '/doubleedesign/comet-components-core/dist/dist.css',
                 'url'    => COMET_COMPOSER_VENDOR_URL . '/doubleedesign/comet-components-core/dist/dist.css',
             ],
+	        [
+		        'handle' => 'comet-canvas-base-styles',
+		        'path'   => get_template_directory() . '/style.css',
+		        'url'    => get_template_directory_uri() . '/style.css',
+	        ],
             [
                 'handle' => 'theme-styles',
                 'path'   => get_stylesheet_directory() . '/style.css',

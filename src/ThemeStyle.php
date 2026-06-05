@@ -127,7 +127,7 @@ class ThemeStyle {
 
         if (file_exists($parent)) {
             $parent = get_template_directory_uri() . '/style.css';
-            wp_enqueue_style('comet-canvas-blocks', $parent, $deps, COMET_VERSION);
+            wp_enqueue_style('comet-canvas-base-styles', $parent, $deps, COMET_VERSION);
         }
 
         if (file_exists($child)) {
