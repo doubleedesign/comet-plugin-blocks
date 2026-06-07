@@ -126,10 +126,18 @@ class ComponentAssets {
         // but for pages that don't trigger that book.
         // Note: If using external fonts (e.g., Typekit) you may need to enqueue those separately within the theme, using the admin_enqueue_scripts hook.
         $theme_common_css = array(
+	        [
+		        'path' => get_template_directory() . '/colours.css',
+		        'url'  => get_template_directory_uri() . '/colours.css',
+	        ],
             [
                 'path' => get_template_directory() . '/admin.css',
                 'url'  => get_template_directory_uri() . '/admin.css',
             ],
+	        [
+		        'path' => get_stylesheet_directory() . '/colours.css',
+		        'url'  => get_stylesheet_directory_uri() . '/colours.css',
+	        ],
             [
                 'path' => get_stylesheet_directory() . '/admin.css',
                 'url'  => get_stylesheet_directory_uri() . '/admin.css',
