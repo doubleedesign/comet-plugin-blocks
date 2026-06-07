@@ -9,7 +9,7 @@ function _extends() {
 }
 
 const {
-  Button: Button$2,
+  Button: Button$1,
   Tooltip
 } = wp.components;
 const FieldTooltip = ({
@@ -18,14 +18,16 @@ const FieldTooltip = ({
   if (!tooltip) {
     return null;
   }
-  return wp.element.createElement(Tooltip, {
+  return wp.element.createElement("span", {
+    className: "comet-field-tooltip"
+  }, wp.element.createElement(Tooltip, {
     text: wp.element.createElement("span", {
       style: {
         display: 'block',
         maxWidth: '200px'
       }
     }, tooltip)
-  }, wp.element.createElement(Button$2, {
+  }, wp.element.createElement(Button$1, {
     size: "small",
     icon: wp.element.createElement("svg", {
       viewBox: "0 0 24 24",
@@ -35,12 +37,12 @@ const FieldTooltip = ({
       clipRule: "evenodd",
       d: "M5.5 12a6.5 6.5 0 1 0 13 0 6.5 6.5 0 0 0-13 0ZM12 4a8 8 0 1 0 0 16 8 8 0 0 0 0-16Zm.75 4v1.5h-1.5V8h1.5Zm0 8v-5h-1.5v5h1.5Z"
     }))
-  }));
+  })));
 };
 
 const CONTAINER_SIZES = [{
   label: 'Full-width',
-  value: 'full'
+  value: 'fullwidth'
 }, {
   label: 'Wide',
   value: 'wide'
@@ -53,7 +55,7 @@ const CONTAINER_SIZES = [{
 }];
 
 const {
-  useMemo: useMemo$5
+  useMemo: useMemo$7
 } = wp.element;
 const {
   SelectControl: SelectControl$4
@@ -137,7 +139,7 @@ const ContainerAndInner = ({
     }
   };
   // Filter inner options to only those smaller than or equal to the container size
-  const filteredInnerOptions = useMemo$5(() => {
+  const filteredInnerOptions = useMemo$7(() => {
     const containerSizeIndex = options.findIndex(option => option.value === attributes.size);
     return innerOptions.slice(containerSizeIndex);
   }, [attributes.size]);
@@ -175,7 +177,7 @@ const GroupLayout = ({
   }
   const ToggleGroupControl = __experimentalToggleGroupControl$5;
   const ToggleGroupControlOption = __experimentalToggleGroupControlOption$5;
-   
+  /* eslint-disable max-len */
   return wp.element.createElement(ToggleGroupControl, {
     className: "comet-toggle-group",
     __next40pxDefaultSize: true,
@@ -416,7 +418,7 @@ const LayoutOrientation = ({
 };
 
 /* global wp */
- 
+/* eslint-disable max-len */
 const {
   RangeControl: RangeControl$1
 } = wp.components;
@@ -448,7 +450,7 @@ const ContentMaxWidth = ({
   });
 };
 
- 
+/* eslint-disable max-len */
 /* global comet, wp */
 const {
   __experimentalNumberControl: __experimentalNumberControl$1
@@ -697,7 +699,7 @@ const LayoutControls = props => {
   }), wp.element.createElement(GroupLayout, {
     ...props
   }), wp.element.createElement("div", {
-    className: "comet-control-pair"
+    className: "components-base-control comet-control-pair"
   }, wp.element.createElement(ItemCount, {
     ...props
   }), wp.element.createElement(MaxPerRow, {
@@ -717,86 +719,479 @@ function ColorSwatch({
   colorTheme,
   backgroundColor
 }) {
+  const defaultBackground = comet?.globalBackground ?? 'white';
   if (!colorTheme && !backgroundColor) {
-    return null;
+    return wp.element.createElement(ColorSwatchInner, {
+      caption: "No colour selected",
+      backgroundColor: undefined
+    });
   }
-  if (!backgroundColor) {
-    return wp.element.createElement("figure", {
-      className: "comet-color-swatch",
-      "data-testid": "comet-color-swatch",
-      "aria-label": `Colour preview: ${colorTheme}`
-    }, wp.element.createElement("div", {
-      className: "comet-color-swatch__preview",
-      "data-background": colorTheme
-    }), wp.element.createElement("figcaption", {
-      className: "comet-color-swatch__caption"
-    }, colorTheme));
+  if (!backgroundColor && colorTheme) {
+    return wp.element.createElement(ColorSwatchInner, {
+      colorTheme: colorTheme,
+      caption: colorTheme,
+      backgroundColor: defaultBackground
+    });
   }
-  if (!colorTheme) {
-    return wp.element.createElement("figure", {
-      className: "comet-color-swatch",
-      "data-testid": "comet-color-swatch",
-      "aria-label": `Colour preview: ${backgroundColor}`
-    }, wp.element.createElement("div", {
-      className: "comet-color-swatch__preview",
-      "data-background": backgroundColor
-    }), wp.element.createElement("figcaption", {
-      className: "comet-color-swatch__caption"
-    }, backgroundColor));
+  if (!colorTheme && backgroundColor) {
+    return wp.element.createElement(ColorSwatchInner, {
+      backgroundColor: backgroundColor,
+      caption: backgroundColor
+    });
   }
+  return wp.element.createElement(ColorSwatchInner, {
+    caption: `${colorTheme} on ${backgroundColor}`,
+    colorTheme: colorTheme,
+    backgroundColor: backgroundColor
+  });
+}
+function ColorSwatchInner({
+  colorTheme,
+  backgroundColor,
+  caption
+}) {
+  const backgroundIsGradientOrUndefined = backgroundColor?.includes('-') || backgroundColor === undefined;
   return wp.element.createElement("figure", {
     className: "comet-color-swatch",
     "data-testid": "comet-color-swatch",
-    "aria-label": `Colour preview: ${colorTheme} on ${backgroundColor}`
+    "aria-label": `Colour preview: ${caption}`
   }, wp.element.createElement("div", {
     className: "comet-color-swatch__preview",
     "data-background": backgroundColor,
     "data-color-theme": colorTheme
-  }, "The quick brown fox jumps over the lazy dog"), wp.element.createElement("figcaption", {
+  }, !backgroundIsGradientOrUndefined ? 'The quick brown fox jumps over the lazy dog' : null), wp.element.createElement("figcaption", {
     className: "comet-color-swatch__caption"
-  }, colorTheme, " on ", backgroundColor));
+  }, caption));
+}
+
+function transformColorValueToKey(value) {
+  if (!value || typeof value !== 'string') {
+    return undefined;
+  }
+  if (value.startsWith('var(--color-')) {
+    return value.replace('var(--color-', '').replace(')', '');
+  }
+  if (value.startsWith('var(--gradient-')) {
+    return value.replace('var(--gradient-', '').replace(')', '');
+  }
+  return value;
+}
+function transformColorKeyToValue(key) {
+  if (!key || typeof key !== 'string') {
+    return undefined;
+  }
+  if (key.includes('-')) {
+    return `var(--gradient-${key})`;
+  }
+  return `var(--color-${key})`;
+}
+function transformValueKeyToPair(key) {
+  if (!key || typeof key !== 'string' || !key.includes('')) {
+    return undefined;
+  }
+  if (key.includes(' on ')) {
+    const [foreground, background] = key.split(' on ');
+    return {
+      foreground: foreground.trim(),
+      background: background.trim()
+    };
+  }
+  return {
+    foreground: key.split('-')[0],
+    background: key.split('-')[1]
+  };
+}
+function transformColorPairsToPalette(pairs) {
+  return pairs.map(pair => ({
+    name: `${pair.foreground} on ${pair.background}`,
+    slug: `${pair.foreground}-${pair.background}`,
+    // eslint-disable-next-line max-len
+    gradient: `linear-gradient(135deg, var(--color-${pair.foreground}) 0%, var(--color-${pair.foreground}) 50%, var(--color-${pair.background}) 50%, var(--color-${pair.background}) 100%)`
+  }));
+}
+function difference(array1, array2) {
+  return array1.filter(item => !array2.some(otherItem => otherItem.slug === item.slug));
 }
 
 const {
-  Dropdown: Dropdown$1,
-  Button: Button$1,
-  ColorIndicator: ColorIndicator$1,
-  ColorPalette,
-  GradientPicker: GradientPicker$1
+  useMemo: useMemo$6
+} = wp.element;
+const useHoverAndFocus = ({
+  element,
+  onEnterButton,
+  onLeaveButton
+}) => {
+  const buttons = useMemo$6(() => {
+    if (!element) {
+      return [];
+    }
+    return Array.from(element.querySelectorAll('button, [role="button"]'));
+  }, [element]);
+  const handleOn = event => {
+    onEnterButton((event.target.ariaLabel || event.target.innerText).toLowerCase());
+  };
+  const handleOff = () => {
+    onLeaveButton();
+  };
+  buttons.forEach(button => {
+    button.addEventListener('mouseenter', handleOn);
+    button.addEventListener('mouseleave', handleOff);
+    button.addEventListener('focus', handleOn);
+    button.addEventListener('blur', handleOff);
+    return () => {
+      button.removeEventListener('mouseenter', handleOn);
+      button.removeEventListener('mouseleave', handleOff);
+      button.removeEventListener('focus', handleOn);
+      button.removeEventListener('blur', handleOff);
+    };
+  });
+};
+
+const {
+  useState: useState$1,
+  useMemo: useMemo$5,
+  useCallback: useCallback$3,
+  useRef: useRef$1,
+  useEffect: useEffect$3
+} = wp.element;
+const {
+  ColorPalette
+} = wp.components;
+function ColorPalettePicker({
+  previewType,
+  value,
+  onChange,
+  ...props
+}) {
+  const elementRef = useRef$1(null);
+  const [activeValue, setActiveValue] = useState$1(value);
+  const [mounted, setMounted] = useState$1(false);
+  // Trigger a re-render when the ref has mounted so the useHoverAndFocus hook gets the resolved element, not null
+  useEffect$3(() => {
+    if (elementRef?.current) {
+      setMounted(true);
+    }
+  }, [elementRef]);
+  // Because the individual colour palette swatches are buried deep in the imported components,
+  // which don't have callback props for the events we want to use,
+  // this is a somewhat hacky way of finding them to temporarily swap our preview swatch on hover/focus.
+  useHoverAndFocus({
+    element: elementRef?.current,
+    onEnterButton: slug => setActiveValue(slug),
+    onLeaveButton: () => setActiveValue(value)
+  });
+  // Handle an actual selection change (click/Enter)
+  const handleChange = useCallback$3(newValue => {
+    const valueKey = transformColorValueToKey(newValue);
+    setActiveValue(valueKey);
+    onChange(valueKey);
+  }, []);
+  const gradientAsColorPair = transformValueKeyToPair(activeValue);
+  const swatchValues = useMemo$5(() => {
+    if (previewType === 'content') {
+      return gradientAsColorPair ? {
+        colorTheme: gradientAsColorPair.foreground,
+        backgroundColor: gradientAsColorPair.background
+      } : {
+        colorTheme: activeValue,
+        backgroundColor: undefined
+      };
+    }
+    return {
+      colorTheme: undefined,
+      backgroundColor: activeValue
+    };
+  }, [activeValue, previewType, gradientAsColorPair]);
+  return wp.element.createElement("div", {
+    ref: elementRef,
+    className: "comet-color-palette"
+  }, wp.element.createElement(ColorSwatch, {
+    ...swatchValues
+  }), wp.element.createElement(ColorPalettePickerInner, {
+    ...props,
+    value: value,
+    onChange: handleChange
+  }));
+}
+function ColorPalettePickerInner({
+  colors = [],
+  gradients = [],
+  value,
+  onChange,
+  ...props
+}) {
+  const statusColors = useMemo$5(() => colors.filter(color => ['success', 'info', 'warning', 'error'].includes(color.slug)), [colors]);
+  const brandColors = useMemo$5(() => difference(colors, statusColors), [colors, statusColors]);
+  // Because we are working with a limited palette and CSS variables instead of raw colour values,
+  // with some CSS adjustments we don't actually need to use the gradient-specific palette component
+  // - we can treat them all as colours
+  const combinedBrandPalette = useMemo$5(() => {
+    return [...brandColors, ...gradients].reduce((acc, item) => {
+      if ('color' in item) {
+        acc.push(item);
+        return acc;
+      }
+      if (['success', 'info', 'warning', 'error'].some(status => item.slug.includes(status))) {
+        return acc;
+      }
+      acc.push({
+        name: item.name,
+        slug: item.slug,
+        color: item.gradient
+      });
+      return acc;
+    }, []);
+  }, [colors, gradients]);
+  const combinedStatusPalette = useMemo$5(() => {
+    return [...statusColors, ...gradients].reduce((acc, item) => {
+      if ('color' in item) {
+        acc.push(item);
+        return acc;
+      }
+      if (!['success', 'info', 'warning', 'error'].some(status => item.slug.includes(status))) {
+        return acc;
+      }
+      acc.push({
+        name: item.name,
+        slug: item.slug,
+        color: item.gradient
+      });
+      return acc;
+    }, []);
+  }, [colors, gradients]);
+  const multiPalette = useMemo$5(() => {
+    return [{
+      name: 'Brand colours',
+      slug: 'brand',
+      colors: combinedBrandPalette
+    }, {
+      name: 'Status colours',
+      slug: 'status',
+      colors: combinedStatusPalette
+    }];
+  }, [brandColors, statusColors]);
+  return wp.element.createElement(ColorPalette, {
+    ...props,
+    className: "comet-color-palette__picker",
+    asButtons: true,
+    headingLevel: "3",
+    colors: statusColors.length > 0 ? multiPalette : combinedBrandPalette,
+    disableCustomColors: true,
+    value: transformColorKeyToValue(value),
+    onChange: (newValue, index, slug) => {
+      if (slug) {
+        onChange(slug);
+      } else {
+        onChange(transformColorValueToKey(newValue));
+      }
+    }
+  });
+}
+
+const {
+  createContext: createContext$1,
+  useContext: useContext$1,
+  useCallback: useCallback$2
+} = wp.element;
+const ColourContext = createContext$1({
+  values: {},
+  onChange: () => {}
+});
+const ColourContextProvider = ({
+  values,
+  onChange,
+  children
+}) => {
+  const handleChange = useCallback$2(newValue => {
+    const transformedNewValue = Object.keys(newValue).reduce((acc, key, index) => {
+      const value = newValue[key];
+      acc[key] = value ? transformColorValueToKey(value) : undefined;
+      return acc;
+    }, {});
+    onChange(transformedNewValue);
+  }, []);
+  return wp.element.createElement(ColourContext.Provider, {
+    value: {
+      values,
+      onChange: handleChange
+    }
+  }, children);
+};
+const useColourContext = () => {
+  const context = useContext$1(ColourContext);
+  if (!context) {
+    throw new Error('useColourContext must be called from within the ColourContextProvider');
+  }
+  return context;
+};
+const useSingleColourContext = key => {
+  const context = useContext$1(ColourContext);
+  if (!context) {
+    throw new Error('useSingleColourContext must be called from within the ColourContextProvider');
+  }
+  const {
+    values,
+    onChange
+  } = context;
+  const handleSingleValueChange = useCallback$2(value => {
+    onChange({
+      [key]: value
+    });
+  }, [onChange]);
+  return {
+    value: values[key],
+    onChange: value => {
+      handleSingleValueChange(value);
+    }
+  };
+};
+
+const {
+  Dropdown,
+  Button
 } = wp.components;
 const {
-  useRef: useRef$2,
-  useCallback: useCallback$2,
+  createContext,
+  useContext,
+  useRef
+} = wp.element;
+function PopupMenu({
+  testId,
+  className,
+  children,
+  onToggle,
+  onClose
+}) {
+  const triggerRef = useRef(null);
+  const popoverAnchorRef = useRef(null);
+  if (!Array.isArray(children) || children.length !== 2) {
+    console.error('PopupMenu must contain PopupMenu.Trigger and PopupMenu.Content as children');
+    return null;
+  }
+  const trigger = children.find(child => child.type === PopupMenu.Trigger);
+  const content = children.find(child => child.type === PopupMenu.Content);
+  if (!trigger || !content) {
+    console.error('PopupMenu must contain PopupMenu.Trigger and PopupMenu.Content as children');
+    return null;
+  }
+  return wp.element.createElement("div", {
+    ref: popoverAnchorRef,
+    className: `${className} comet-popup`,
+    "data-testid": testId
+  }, wp.element.createElement(Dropdown, {
+    renderToggle: renderProps => wp.element.createElement(RenderPropProvider, {
+      ref: triggerRef,
+      ...renderProps,
+      onToggle: () => {
+        renderProps.onToggle();
+        onToggle?.({
+          isOpen: !renderProps.isOpen
+        });
+      },
+      onClose: () => {
+        renderProps.onClose();
+        onClose?.();
+      }
+    }, trigger),
+    renderContent: renderProps => wp.element.createElement(RenderPropProvider, {
+      ref: popoverAnchorRef,
+      ...renderProps,
+      onToggle: () => {
+        renderProps.onToggle();
+        onToggle?.({
+          isOpen: !renderProps.isOpen
+        });
+      },
+      onClose: () => {
+        renderProps.onClose();
+        onClose?.();
+      }
+    }, content),
+    popoverProps: {
+      inline: true,
+      anchorRef: popoverAnchorRef,
+      className: 'comet-popup__content'
+    }
+  }));
+}
+const RenderPropContext = createContext(null);
+// Wrapping the children inside PopupMenu with RenderPropContext.Provider directly doesn't wrap them properly,
+// but doing it this way does ¯\_(ツ)_/¯
+function RenderPropProvider({
+  children,
+  ...renderProps
+}) {
+  return wp.element.createElement(RenderPropContext.Provider, {
+    value: renderProps
+  }, children);
+}
+PopupMenu.Trigger = function Trigger({
+  ariaLabel,
+  children
+}) {
+  const renderProps = useContext(RenderPropContext);
+  if (!renderProps) throw new Error('PopupMenu.Trigger must be used inside PopupMenu');
+  return wp.element.createElement(Button, {
+    className: "comet-popup__trigger",
+    onClick: () => {
+      renderProps?.onToggle();
+      renderProps?.isOpen && renderProps?.onClose();
+    },
+    "aria-expanded": renderProps.isOpen,
+    ref: renderProps.ref,
+    "aria-label": ariaLabel,
+    __next40pxDefaultSize: true
+  }, children);
+};
+PopupMenu.Content = function Content({
+  children
+}) {
+  const renderProps = useContext(RenderPropContext);
+  if (!renderProps) throw new Error('PopupMenu.Content must be used inside PopupMenu');
+  return wp.element.createElement("div", {
+    ref: renderProps.ref
+  }, typeof children === 'function' ? children(renderProps) : null);
+};
+
+const {
+  ColorIndicator: ColorIndicator$1
+} = wp.components;
+const {
   useEffect: useEffect$2,
   useMemo: useMemo$4
 } = wp.element;
+function ContextualColorPaletteDropdown({
+  colorContextKey,
+  ...props
+}) {
+  const {
+    value,
+    onChange
+  } = useSingleColourContext(colorContextKey ?? 'colorTheme');
+  return wp.element.createElement(ColorPaletteDropdown, {
+    ...props,
+    value: value,
+    onChange: onChange,
+    previewType: colorContextKey === 'colorTheme' ? 'content' : 'background'
+  });
+}
 function ColorPaletteDropdown({
-  label = 'Colour',
   value,
+  label,
   palette,
   onChange,
-  clearable = false
+  clearable = false,
+  previewType = 'background'
 }) {
-  const triggerRef = useRef$2();
-  const handleChange = useCallback$2(newValue => {
-    // Handle clearable selector
-    if (!newValue) {
-      onChange('');
-      return;
-    }
-    const name = newValue.replace('var(--color-', '').replace(')', '').replace('var(--gradient-', '');
-    onChange(name);
-  }, [onChange]);
   useEffect$2(() => {
     if (!palette) return;
     if (!value) return; // allows clearing the value
     function validateValue(value) {
       return palette.find(color => color.slug === value) !== undefined;
     }
-    if (!validateValue(value)) {
-      // If the current value is not valid, default to the first palette option
-      const defaultColor = palette[0]?.slug ?? '';
-      onChange(defaultColor);
+    // If the current value is not valid, default to the first palette option
+    if (!validateValue(value) && palette?.[0]?.slug) {
+      onChange(palette[0].slug);
     }
   }, [value, palette]);
   const singleColours = useMemo$4(() => {
@@ -809,162 +1204,141 @@ function ColorPaletteDropdown({
       gradient: `var(--gradient-${item.slug})`
     }));
   }, [palette]);
-  return wp.element.createElement("div", {
+  return wp.element.createElement(PopupMenu, {
+    className: "comet-color-controls__item",
     "data-testid": "comet-single-color-selector"
-  }, wp.element.createElement(Dropdown$1, {
-    renderToggle: ({
-      onToggle,
-      isOpen
-    }) => wp.element.createElement(Button$1, {
-      onClick: onToggle,
-      "aria-expanded": isOpen,
-      ref: triggerRef,
-      "aria-label": label,
-      __next40pxDefaultSize: true
-    }, label, value && value.includes('-') ? wp.element.createElement(ColorIndicator$1, {
-      colorValue: `var(--gradient-${value})`,
-      "data-testid": "comet-color-indicator",
-      "aria-label": `Selected colours: ${value.replace('-', ' and ')}`
-    }) : wp.element.createElement(ColorIndicator$1, {
-      colorValue: value ? `var(--color-${value})` : undefined,
-      "data-testid": "comet-color-indicator",
-      "aria-label": value ? `Selected colour: ${value}` : 'No colour selected'
-    })),
-    renderContent: ({
-      onToggle,
-      ...props
-    }) => wp.element.createElement("div", {
-      className: "comet-color-selector-content"
-    }, value !== undefined && wp.element.createElement(ColorSwatch, {
-      backgroundColor: value
-    }), wp.element.createElement("div", {
-      className: "comet-color-selector-content__pickers"
-    }, gradients.length > 0 && wp.element.createElement(GradientPicker$1, {
-      clearable: clearable,
-      value: value ? `var(--gradient-${value})` : undefined,
-      gradients: gradients,
-      disableCustomGradients: true,
-      onChange: value => {
-        handleChange(value);
-        onToggle(); // close dropdown after selection
-      }
-    }), wp.element.createElement(ColorPalette, {
-      clearable: clearable,
-      value: `var(--color-${value})`,
-      // @ts-ignore
-      colors: singleColours,
-      disableCustomColors: true,
-      onChange: newValue => {
-        handleChange(newValue);
-        onToggle(); // close dropdown after selection
-      }
-    })))
-  }));
+  }, wp.element.createElement(PopupMenu.Trigger, {
+    ariaLabel: label
+  }, label, value && value.includes('-') ? wp.element.createElement(ColorIndicator$1, {
+    colorValue: `var(--gradient-${value})`,
+    "data-testid": "comet-color-indicator",
+    "aria-label": `Selected colours: ${value.replace('-', ' and ')}`
+  }) : wp.element.createElement(ColorIndicator$1, {
+    colorValue: value ? `var(--color-${value})` : undefined,
+    "data-testid": "comet-color-indicator",
+    "aria-label": value ? `Selected colour: ${value}` : 'No colour selected'
+  })), wp.element.createElement(PopupMenu.Content, null, ({
+    onToggle
+  }) => wp.element.createElement(ColorPalettePicker, {
+    clearable: clearable,
+    value: value,
+    colors: singleColours,
+    gradients: gradients,
+    previewType: previewType,
+    onChange: newValue => {
+      onChange(newValue);
+      onToggle(); // close dropdown after selection
+    }
+  })));
 }
 
-const COLOUR_THEME_LABEL = 'Colour theme';
-const BACKGROUND_COLOUR_LABEL = 'Background colour';
-const COLOUR_PAIR_LABEL = 'Colour pair';
-const SECTION_BACKGROUND_LABEL = 'Section background';
+var ColourTypeLabel;
+(function (ColourTypeLabel) {
+  ColourTypeLabel["COLOUR_THEME"] = "Colour theme";
+  ColourTypeLabel["BACKGROUND"] = "Background colour";
+  ColourTypeLabel["SECTION_BACKGROUND"] = "Section background";
+  ColourTypeLabel["PAIR"] = "Colour pair";
+})(ColourTypeLabel || (ColourTypeLabel = {}));
 
 const {
   useMemo: useMemo$3,
-  useRef: useRef$1,
   useState,
-  useEffect: useEffect$1
+  useEffect: useEffect$1,
+  useCallback: useCallback$1
 } = wp.element;
 const {
-  Dropdown,
-  Button,
-  ColorIndicator,
-  GradientPicker
+  ColorIndicator
 } = wp.components;
-function ColorPairPaletteDropdown({
+function ContextualColorPairDropdown({
   blockName,
-  label = COLOUR_PAIR_LABEL,
+  ...props
+}) {
+  const {
+    values,
+    onChange
+  } = useColourContext();
+  const pairs = comet?.colourPairOverrides?.[blockName] ?? comet?.colourPairs ?? [];
+  const palette = transformColorPairsToPalette(pairs);
+  // Neither the foreground/colorTheme nor backgroundColor should be undefined,
+  // unlike other ColorState controls, hence sticking with the ColorPair type here.
+  const mappedValues = useMemo$3(() => ({
+    foreground: values.colorTheme,
+    background: values?.backgroundColor
+  }), [values.colorTheme, values.backgroundColor]);
+  const handleChange = useCallback$1(newValues => {
+    onChange({
+      colorTheme: newValues.foreground,
+      backgroundColor: newValues.background
+    });
+  }, []);
+  return wp.element.createElement(ColorPairPaletteDropdown, {
+    ...props,
+    value: mappedValues,
+    palette: palette,
+    onChange: handleChange
+  });
+}
+function ColorPairPaletteDropdown({
+  label = ColourTypeLabel.PAIR,
   value,
+  palette,
   onChange
 }) {
   const [foreground, setForeground] = useState(value?.foreground ?? '');
-  const [background, setBackground] = useState(value?.background !== 'transparent' ? value?.background : comet?.globalBackground ?? 'white');
-  const triggerRef = useRef$1();
-  const pairs = comet?.colourPairOverrides?.[blockName] ?? comet?.colourPairs ?? [];
-  const palette = pairs.map(pair => ({
-    name: `${pair.foreground} on ${pair.background}`,
-    slug: `${pair.foreground}-${pair.background}`,
-     
-    gradient: `linear-gradient(135deg, var(--color-${pair.foreground}) 0%, var(--color-${pair.foreground}) 50%, var(--color-${pair.background}) 50%, var(--color-${pair.background}) 100%)`
-  }));
+  const [background, setBackground] = useState(value?.background ?? comet?.globalBackground ?? 'white');
+  const doChange = useCallback$1((newForeground, newBackground) => {
+    setForeground(newForeground);
+    setBackground(newBackground);
+    onChange({
+      foreground: newForeground,
+      background: newBackground
+    });
+  }, [onChange]);
   useEffect$1(() => {
     if (!palette) return;
+    if (Object.values(value).every(val => val === undefined)) return;
     function validatePair(value) {
-      return palette.find(pair => pair.slug === `${value.foreground}-${value.background}`) !== undefined;
+      return palette.find(pair => pair.slug === `${value.foreground}-${value.background}`);
     }
-    if (!validatePair(value)) {
+    if (!validatePair(value) && palette.length > 0) {
       // If the current value is not valid, default to the first palette option
-      setForeground(palette[0]?.slug.split('-')[0] ?? '');
-      setBackground(palette[0]?.slug.split('-')[1] ?? '');
-      onChange({
-        foreground: palette[0]?.slug.split('-')[0] ?? '',
-        background: palette[0]?.slug.split('-')[1] ?? ''
-      });
+      const defaultForeground = palette[0].slug.split('-')[0];
+      const defaultBackground = palette[0].slug.split('-')[1];
+      doChange(defaultForeground, defaultBackground);
     }
   }, [value, palette]);
-  const gradientPreview = useMemo$3(() => {
-     
-    return `linear-gradient(135deg, var(--color-${foreground}) 0%, var(--color-${foreground}) 50%, var(--color-${background}) 50%, var(--color-${background}) 100%)`;
-  }, [foreground, background]);
   const handleChange = newValue => {
     // New value is the gradient string; find the matching palette object
-    const matchedPair = palette.find(pair => pair.gradient === newValue);
+    const matchedPair = palette.find(pair => pair.slug === newValue);
     if (matchedPair) {
       const [newForeground, newBackground] = matchedPair.slug.split('-');
-      setForeground(newForeground);
-      setBackground(newBackground);
-      onChange({
-        foreground: newForeground,
-        background: newBackground
-      });
+      doChange(newForeground, newBackground);
     }
   };
-  return wp.element.createElement("div", {
+  const previewIndicator = useMemo$3(() => {
+    // eslint-disable-next-line max-len
+    return `linear-gradient(135deg, var(--color-${foreground}) 0%, var(--color-${foreground}) 50%, var(--color-${background}) 50%, var(--color-${background}) 100%)`;
+  }, [foreground, background]);
+  return wp.element.createElement(PopupMenu, {
+    className: "comet-color-controls__item",
     "data-testid": "comet-color-pair-selector"
-  }, wp.element.createElement(Dropdown, {
-    renderToggle: ({
-      onToggle,
-      isOpen
-    }) => wp.element.createElement(Button, {
-      onClick: onToggle,
-      "aria-expanded": isOpen,
-      ref: triggerRef,
-      __next40pxDefaultSize: true,
-      "aria-label": label
-    }, label, wp.element.createElement(ColorIndicator, {
-      colorValue: gradientPreview,
-      "data-testid": "comet-color-pair-indicator",
-      "aria-label": `Selected colours: ${foreground} on ${background}`
-    })),
-    renderContent: ({
-      isOpen,
-      onToggle
-    }) => wp.element.createElement("div", {
-      className: "comet-color-selector-content"
-    }, wp.element.createElement(ColorSwatch, {
-      colorTheme: foreground,
-      backgroundColor: background
-    }), wp.element.createElement("div", {
-      className: "comet-color-selector-content__pickers"
-    }, wp.element.createElement(GradientPicker, {
-      value: gradientPreview,
-      gradients: palette,
-      disableCustomGradients: true,
-      className: `comet-color-controls comet-color-controls--${blockName}`,
-      onChange: value => {
-        handleChange(value);
-        onToggle(); // close dropdown after selection
-      }
-    })))
-  }));
+  }, wp.element.createElement(PopupMenu.Trigger, {
+    ariaLabel: label
+  }, label, wp.element.createElement(ColorIndicator, {
+    colorValue: previewIndicator,
+    "data-testid": "comet-color-pair-indicator",
+    "aria-label": `Selected colours: ${foreground} on ${background}`
+  })), wp.element.createElement(PopupMenu.Content, null, ({
+    onToggle
+  }) => wp.element.createElement(ColorPalettePicker, {
+    value: `${foreground}-${background}`,
+    gradients: palette,
+    previewType: "content",
+    onChange: newValue => {
+      handleChange(newValue);
+      onToggle(); // close dropdown after selection
+    }
+  })));
 }
 
 function useValidatedPalette({
@@ -986,15 +1360,29 @@ function useValidatedPalette({
     slug: key,
     name: key,
     color: value
-  }));
+  }))?.sort((a, b) => {
+    const order = ['white', 'dark', 'light', 'primary', 'secondary', 'accent'];
+    const aIndex = order.indexOf(a.slug);
+    const bIndex = order.indexOf(b.slug);
+    if (aIndex === -1 && bIndex === -1) {
+      return 0;
+    }
+    if (aIndex === -1) {
+      return 1;
+    }
+    if (bIndex === -1) {
+      return -1;
+    }
+    return aIndex - bIndex;
+  });
   // Most blocks shouldn't have access to the status/message type colours, only brand colours, whereas others are the opposite
   if (['comet/callout'].includes(blockName)) {
     result = result.filter(color => ['error', 'success', 'info', 'warning'].includes(color.slug));
   } else if (['comet/separator'].includes(blockName)) {
     result = result.filter(color => !['error', 'success', 'info', 'warning', 'light'].includes(color.slug));
-  } else if (['comet/copy', 'comet/copy-image'].includes(blockName)) {
+  } else if (['comet/copy-image'].includes(blockName)) {
     result = result.filter(color => !['error', 'success', 'info', 'warning', 'light', 'accent'].includes(color.slug));
-  } else {
+  } else if (!['comet/copy'].includes(blockName)) {
     result = result.filter(color => !['error', 'success', 'info', 'warning'].includes(color.slug));
   }
   if (!result || result.length === 0) {
@@ -1017,14 +1405,16 @@ function ColorComboPreview({
     className: "comet-color-combo-preview__content",
     "data-background": sectionBackground ? backgroundColor : undefined,
     "data-color-theme": colorTheme
-  }, wp.element.createElement("p", null, "The quick brown fox jumps over the lazy dog")));
+  }, wp.element.createElement("p", {
+    style: {
+      color: `var(--color-${colorTheme})`
+    }
+  }, "The quick brown fox jumps over the lazy dog")));
 }
 
 /* global wp */
 const {
-  useRef,
-  useMemo: useMemo$2,
-  useCallback: useCallback$1
+  useMemo: useMemo$2
 } = wp.element;
 const {
   PanelBody: PanelBody$4
@@ -1053,146 +1443,57 @@ function ColorControlsInner({
   });
   const singleBackgroundPalette = useValidatedPalette({
     blockName: name,
-    isNested: context?.isNested,
+    isNested: context?.isNested || attributes.sectionBackground !== undefined || attributes.sectionBackground !== 'none',
     palette: comet?.palette
   });
-  if (!singleColourPalette && !singleBackgroundPalette) {
+  const sectionBackgrounds = comet?.sectionBackgrounds ? Object.entries(comet?.sectionBackgrounds).map(([key, value]) => ({
+    slug: key,
+    name: key,
+    color: value
+  })) : [];
+  if (!singleColourPalette && !singleBackgroundPalette && !sectionBackgrounds) {
     return;
   }
-  const sectionBackgrounds = comet?.sectionBackgrounds ? Object.entries(comet.sectionBackgrounds).map(([key, value]) => {
-    return {
-      slug: key,
-      name: key,
-      color: value
-    };
-  }) : [];
+  const hasColorThemeSupport = Object.keys(attributes).includes('colorTheme');
+  const hasBackgroundColorSupport = Object.keys(attributes).includes('backgroundColor');
+  const hasSectionBackgroundSupport = sectionBackgrounds.length > 0 && Object.keys(attributes).includes('sectionBackground');
+  if (!hasColorThemeSupport && !hasBackgroundColorSupport && !hasSectionBackgroundSupport) {
+    return null;
+  }
   const componentDefault = comet?.defaults?.[name.replace('comet/', '')] ?? {};
   const values = useMemo$2(() => ({
     colorTheme: attributes?.colorTheme ?? componentDefault?.colorTheme ?? null,
     backgroundColor: attributes?.backgroundColor ?? componentDefault?.backgroundColor ?? null,
     sectionBackground: attributes?.sectionBackground ?? componentDefault?.sectionBackground ?? null
   }), [attributes, componentDefault]);
-  // Use refs to keep track of the presence of attribute support without the fields disappearing when the colour field is cleared
-  const hasColorThemeSupport = useRef(!!values.colorTheme);
-  const hasBackgroundColorSupport = useRef(Object.keys(attributes).includes('backgroundColor'));
-  const hasSectionBackgroundSupport = useRef(sectionBackgrounds.length > 0 && Object.keys(attributes).includes('sectionBackground'));
-  if (!hasColorThemeSupport.current && !hasBackgroundColorSupport.current && !hasSectionBackgroundSupport.current) {
-    return null;
-  }
-  const handleChange = useCallback$1(newValues => {
-    setAttributes(newValues);
-  }, [setAttributes]);
-  // Handle only section background being supported (should only occur when the block can have inner blocks and is not nested)
-  if (hasSectionBackgroundSupport.current && !hasColorThemeSupport.current && !hasBackgroundColorSupport.current && !context?.isNested) {
-    return wp.element.createElement("div", {
-      className: "comet-color-controls__item"
-    }, wp.element.createElement(SectionBackgroundSelector, {
-      values: values,
-      palette: sectionBackgrounds,
-      handleChange: newValue => {
-        handleChange({
-          sectionBackground: newValue
-        });
-      }
-    }));
-  }
-  // Otherwise, if background colour is not supported, provide single colour theme option only
-  if (!hasBackgroundColorSupport.current) {
-    return wp.element.createElement("div", {
-      className: "comet-color-controls__item"
-    }, wp.element.createElement(ColourThemeSelector, {
-      values: values,
-      palette: singleBackgroundPalette,
-      handleChange: handleChange
-    }));
-  }
-  // If background colour is supported but colorTheme is not, provide single background colour option only
-  if (!hasColorThemeSupport.current && hasBackgroundColorSupport.current) {
-    return wp.element.createElement(BackgroundColourSelector, {
-      attributes: attributes,
-      values: values,
-      palette: singleBackgroundPalette,
-      handleChange: newValue => handleChange({
-        backgroundColor: newValue
-      }),
-      clearable: ['comet/group'].includes(name)
-    });
-  }
-  // If both colour theme and background colour are supported, provide the combined selector and preview,
-  // along with section background if that is also supported
-  return wp.element.createElement(wp.element.Fragment, null, wp.element.createElement(ColorComboPreview, {
+  const showColourPairControl = hasBackgroundColorSupport && hasColorThemeSupport;
+  const showSingleColourThemeControl = !showColourPairControl && !hasBackgroundColorSupport && hasColorThemeSupport;
+  const showSingleBackgroundColourControl = !showColourPairControl && hasBackgroundColorSupport && !hasColorThemeSupport;
+  const showSectionBackgroundControl = useMemo$2(() => hasSectionBackgroundSupport && !context?.isNested, [context?.isNested]);
+  return wp.element.createElement(ColourContextProvider, {
+    values: values,
+    onChange: setAttributes
+  }, showSingleColourThemeControl && singleColourPalette && wp.element.createElement(ContextualColorPaletteDropdown, {
+    colorContextKey: "colorTheme",
+    label: ColourTypeLabel.COLOUR_THEME,
+    palette: singleColourPalette
+  }), showSingleBackgroundColourControl && singleBackgroundPalette && wp.element.createElement(ContextualColorPaletteDropdown, {
+    colorContextKey: "backgroundColor",
+    label: ColourTypeLabel.BACKGROUND,
+    palette: singleBackgroundPalette,
+    clearable: true
+  }), showColourPairControl && wp.element.createElement(wp.element.Fragment, null, wp.element.createElement(ColorComboPreview, {
     colorTheme: attributes?.colorTheme,
     backgroundColor: attributes?.backgroundColor,
-    sectionBackground: attributes?.sectionBackground
-  }), wp.element.createElement("div", {
-    className: "comet-color-controls__item"
-  }, wp.element.createElement(ColorPairPaletteDropdown, {
-    value: {
-      foreground: values.colorTheme,
-      background: values.backgroundColor
-    },
-    blockName: name.split('/')[1],
-    onChange: newValue => {
-      handleChange({
-        colorTheme: newValue.foreground,
-        backgroundColor: newValue.background
-      });
-    }
-  })), hasSectionBackgroundSupport.current && !context?.isNested && wp.element.createElement("div", {
-    className: "comet-color-controls__item"
-  }, wp.element.createElement(SectionBackgroundSelector, {
-    values: values,
+    sectionBackground: attributes?.sectionBackground !== 'none' ? attributes?.sectionBackground : undefined
+  }), wp.element.createElement(ContextualColorPairDropdown, {
+    blockName: name.split('/')[1]
+  })), showSectionBackgroundControl && wp.element.createElement(ContextualColorPaletteDropdown, {
+    colorContextKey: "sectionBackground",
+    label: ColourTypeLabel.SECTION_BACKGROUND,
     palette: sectionBackgrounds,
-    handleChange: newValue => {
-      handleChange({
-        sectionBackground: newValue
-      });
-    }
-  })));
-}
-function ColourThemeSelector({
-  values,
-  palette,
-  handleChange
-}) {
-  return wp.element.createElement(ColorPaletteDropdown, {
-    label: COLOUR_THEME_LABEL,
-    value: values.colorTheme,
-    palette: palette,
-    onChange: handleChange
-  });
-}
-function BackgroundColourSelector({
-  attributes,
-  values,
-  palette,
-  handleChange,
-  clearable = false
-}) {
-  return wp.element.createElement(wp.element.Fragment, null, wp.element.createElement(ColorComboPreview, {
-    backgroundColor: attributes?.backgroundColor
-  }), wp.element.createElement("div", {
-    className: "comet-color-controls__item"
-  }, wp.element.createElement(ColorPaletteDropdown, {
-    label: BACKGROUND_COLOUR_LABEL,
-    value: values.backgroundColor !== 'none' ? values.backgroundColor : undefined,
-    palette: palette,
-    onChange: handleChange,
-    clearable: clearable
-  })));
-}
-function SectionBackgroundSelector({
-  values,
-  palette,
-  handleChange
-}) {
-  return wp.element.createElement(ColorPaletteDropdown, {
-    label: SECTION_BACKGROUND_LABEL,
-    value: values.sectionBackground !== 'none' ? values.sectionBackground : undefined,
-    palette: palette,
-    clearable: true,
-    onChange: handleChange
-  });
+    clearable: true
+  }));
 }
 
 const {
@@ -1393,7 +1694,7 @@ function ColumnLayoutControls(props) {
       });
     }
   }, [columnCount, attributes.qty, setAttributes]);
-   
+  /* eslint-disable max-len */
   return wp.element.createElement(PanelBody$1, {
     title: "Layout",
     initialOpen: true
