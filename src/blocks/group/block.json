@@ -16,6 +16,9 @@
 		"blockVersion": 3,
 		"hideFieldsInSidebar": true
 	},
+	"usesContext": [
+		"parent"
+	],
 	"allowedBlocks": [
 		"comet/copy",
 		"comet/file-group",

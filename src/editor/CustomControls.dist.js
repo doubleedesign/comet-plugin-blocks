@@ -1888,14 +1888,41 @@ wp.domReady(() => {
       }
       return CometBlockControls;
     }, [props?.name]);
+    const className = getInnerblockClassname(props);
     return /*#__PURE__*/React.createElement("div", {
-      className: "comet-block-edit-wrapper",
+      className: `comet-block-edit-wrapper ${className}`,
       "data-block": props.name
     }, /*#__PURE__*/React.createElement(BlockEditComponent, _extends({
       BlockEdit: BlockEdit
     }, props)));
   });
 });
+
+/**
+ * If this is an inner block, its parent *should* have its class name and block attributes added around its <InnerBlocks> in BlockRenderer.php.
+ * This allows us to add the assumed class name for the children here to mimic the HTML structure of the front-end as closely as possible.
+ * There's still some extra wrappers related to editor functionality, so a small amount of CSS is sometimes needed, but this approach keeps that to a minimum.
+ *
+ * Note: This is only relevant to block -> innerblock structures, because the outer block does not use render.php on the back-end.
+ * All other blocks use the same PHP to render the block in the editor preview and on the front-end, so there's no extra steps required.
+ *
+ * Another note: The parent block needs providesContext:name and inner block needs usesContext:parent
+ * in their respective block.jsons for this to work.
+ *
+ * @param props
+ * @returns {string}
+ */
+function getInnerblockClassname(props) {
+  if (!props?.context?.parent) {
+    return '';
+  }
+  if (props.context.parent === 'comet/columns') {
+    return 'columns__column';
+  }
+  const parentShortName = props.context.parent.replace('comet/', '');
+  const thisBlockShortName = props.name.replace('comet/', '');
+  return `${parentShortName}__${thisBlockShortName}`;
+}
 
 /**
  * Recreate the Ninja Form selector dropdown control so that it is wrapped in the same components as our custom controls,

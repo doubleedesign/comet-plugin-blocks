@@ -19,7 +19,7 @@ $renderedColumns = [];
 $wrapperAttrs = Utils::array_pick($block, ['size', 'sectionBackground']);
 $isColumnsNested = isset($block['sectionBackground']) && $block['sectionBackground'] !== 'none';
 $columnsAttrs = [
-    ...Utils::array_pick($block, ['size', 'backgroundColor', 'qty', 'hAlign', 'columnLayout']),
+    ...Utils::array_pick($block, ['size', 'backgroundColor', 'qty', 'hAlign', 'columnLayout', 'className']),
     'isNested' => $isColumnsNested
 ];
 

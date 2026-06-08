@@ -1844,6 +1844,10 @@
   content: none;
 }
 
+.acf-innerblocks-container {
+  display: contents;
+}
+
 .media-frame-title h1 {
   font-family: inherit;
 }

@@ -23,7 +23,8 @@
 		"layout"
 	],
 	"providesContext": {
-		"isNested": "isParent"
+		"isNested": "isParent",
+		"parent": "name"
 	},
 	"attributes": {
 		"size": {

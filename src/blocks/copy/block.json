@@ -19,7 +19,8 @@
 		"content"
 	],
 	"usesContext": [
-		"isNested"
+		"isNested",
+		"parent"
 	],
 	"attributes": {
 		"size": {

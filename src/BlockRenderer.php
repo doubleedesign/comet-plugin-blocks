@@ -1,6 +1,6 @@
 <?php
 namespace Doubleedesign\Comet\WordPress;
-use Doubleedesign\Comet\Core\{PageSection, Renderable};
+use Doubleedesign\Comet\Core\{PageSection, Renderable, Utils};
 
 class BlockRenderer {
 
@@ -82,9 +82,65 @@ class BlockRenderer {
         $prioritisedBlocks = json_encode(['comet/copy'], JSON_UNESCAPED_SLASHES);
         $placeholder = "Click here to start adding content to the {$block['title']}";
 
-        echo "<InnerBlocks allowedBlocks={$allowedBlocks} prioritizedInserterBlocks={$prioritisedBlocks} placeholder=\"{$placeholder}\" />";
+        // Prepare class name for the InnerBlocks container to match what the block will have on the front-end
+        $name = str_replace('comet/', '', $block['name']);
+        $class = "{$name}";
+
+        // Handle block attributes
+        $attributeKeys = array_filter(array_keys($block['attributes'] ?? []), fn($key) => !in_array($key, ['align', 'isParent', 'mode', 'name', 'data', 'size', 'sectionBackground']));
+        $attributes = Utils::array_pick($block, $attributeKeys);
+        $transformedAttrs = array_reduce(array_keys($attributes), function($result, $key) use ($attributes) {
+            if (in_array($key, ['hAlign', 'vAlign'])) {
+                $result["data-{$key}"] = $attributes[$key];
+
+                return $result;
+            }
+
+            if ($key === 'backgroundColor') {
+                $result["data-background"] = $attributes[$key];
+
+                return $result;
+            }
+
+            if ($key === 'qty') {
+                $result["data-count"] = $attributes[$key];
+
+                return $result;
+            }
+
+            $htmlKey = "data-" . Utils::kebab_case($key);
+            $result[$htmlKey] = $attributes[$key];
+
+            return $result;
+        }, []);
+        $transformedAttrs = self::associative_array_to_string_for_html_attributes($transformedAttrs);
+        $wrapperAttrs = self::associative_array_to_string_for_html_attributes([
+            'data-size'       => $block['size'] ?? null,
+            'data-background' => $block['sectionBackground'] ?? null
+        ]);
+
+        $innerBlocks = "<InnerBlocks allowedBlocks={$allowedBlocks} prioritizedInserterBlocks={$prioritisedBlocks} placeholder=\"{$placeholder}\" />";
+
+		// We can add a class name to <InnerBlocks> but unfortunately not attributes, thus the extra wrapper
+		echo <<<HTML
+			<div class='$name-wrapper' $wrapperAttrs>
+				<div class='$class' $transformedAttrs>
+					$innerBlocks
+				</div>
+			</div>
+		HTML;
 
         return true;
+    }
+
+    private static function associative_array_to_string_for_html_attributes(array $attributes): string {
+        return implode(' ', array_map(function($key) use ($attributes) {
+            if (is_bool($attributes[$key])) {
+                return $attributes[$key] ? $key : '';
+            }
+
+            return "{$key}=\"{$attributes[$key]}\"";
+        }, array_keys($attributes)));
     }
 
     /**
@@ -103,7 +159,7 @@ class BlockRenderer {
         }
 
         $innerBlocks = $wp_block->inner_blocks;
-        if ($innerBlocks->count() === 0) {
+        if (isset($innerBlocks) && $innerBlocks->count() === 0) {
             return false;
         }
 
