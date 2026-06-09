@@ -13,14 +13,33 @@
   padding: var(--spacing-sm) var(--spacing-lg);
   appearance: none;
   cursor: pointer;
-  transition: all 0.3s;
-  text-decoration: underline;
-  text-decoration-color: transparent;
+  transition: all 0.3s ease-in-out;
   border-radius: var(--button-border-radius);
   text-align: center;
   color: contrast-color(var(--theme-color));
   background-color: var(--theme-color);
   border: 1px solid var(--theme-color);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-decoration-color: currentColor;
+  text-decoration-color: transparent;
+  transition: all 0.3s ease-in-out;
+}
+.button:is(a):hover, [class$=__button]:is(a):hover, [class*=button--]:is(a):hover, .button:is(a):focus, [class$=__button]:is(a):focus, [class*=button--]:is(a):focus, .button:is(a):active, [class$=__button]:is(a):active, [class*=button--]:is(a):active, .button:is(button):hover, [class$=__button]:is(button):hover, [class*=button--]:is(button):hover, .button:is(button):focus, [class$=__button]:is(button):focus, [class*=button--]:is(button):focus, .button:is(button):active, [class$=__button]:is(button):active, [class*=button--]:is(button):active {
+  text-decoration-color: currentColor;
+}
+.button:is(a):has(> span), [class$=__button]:is(a):has(> span), [class*=button--]:is(a):has(> span), .button:is(button):has(> span), [class$=__button]:is(button):has(> span), [class*=button--]:is(button):has(> span) {
+  text-decoration: none;
+}
+.button:is(a):has(> span) > span:not(:has(svg)):not(:has(i)), [class$=__button]:is(a):has(> span) > span:not(:has(svg)):not(:has(i)), [class*=button--]:is(a):has(> span) > span:not(:has(svg)):not(:has(i)), .button:is(button):has(> span) > span:not(:has(svg)):not(:has(i)), [class$=__button]:is(button):has(> span) > span:not(:has(svg)):not(:has(i)), [class*=button--]:is(button):has(> span) > span:not(:has(svg)):not(:has(i)) {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-decoration-color: currentColor;
+  transition: all 0.3s ease;
+  text-decoration-color: transparent;
+}
+.button:is(a):has(> span):hover > span:not(:has(svg)):not(:has(i)), [class$=__button]:is(a):has(> span):hover > span:not(:has(svg)):not(:has(i)), [class*=button--]:is(a):has(> span):hover > span:not(:has(svg)):not(:has(i)), .button:is(a):has(> span):focus > span:not(:has(svg)):not(:has(i)), [class$=__button]:is(a):has(> span):focus > span:not(:has(svg)):not(:has(i)), [class*=button--]:is(a):has(> span):focus > span:not(:has(svg)):not(:has(i)), .button:is(a):has(> span):active > span:not(:has(svg)):not(:has(i)), [class$=__button]:is(a):has(> span):active > span:not(:has(svg)):not(:has(i)), [class*=button--]:is(a):has(> span):active > span:not(:has(svg)):not(:has(i)), .button:is(button):has(> span):hover > span:not(:has(svg)):not(:has(i)), [class$=__button]:is(button):has(> span):hover > span:not(:has(svg)):not(:has(i)), [class*=button--]:is(button):has(> span):hover > span:not(:has(svg)):not(:has(i)), .button:is(button):has(> span):focus > span:not(:has(svg)):not(:has(i)), [class$=__button]:is(button):has(> span):focus > span:not(:has(svg)):not(:has(i)), [class*=button--]:is(button):has(> span):focus > span:not(:has(svg)):not(:has(i)), .button:is(button):has(> span):active > span:not(:has(svg)):not(:has(i)), [class$=__button]:is(button):has(> span):active > span:not(:has(svg)):not(:has(i)), [class*=button--]:is(button):has(> span):active > span:not(:has(svg)):not(:has(i)) {
+  text-decoration-color: currentColor;
 }
 .button:is(a):hover, [class$=__button]:is(a):hover, [class*=button--]:is(a):hover, .button:is(a):focus, [class$=__button]:is(a):focus, [class*=button--]:is(a):focus, .button:is(a):active, [class$=__button]:is(a):active, [class*=button--]:is(a):active, .button:is(button):hover, [class$=__button]:is(button):hover, [class*=button--]:is(button):hover, .button:is(button):focus, [class$=__button]:is(button):focus, [class*=button--]:is(button):focus, .button:is(button):active, [class$=__button]:is(button):active, [class*=button--]:is(button):active {
   background-color: color-mix(in srgb, var(--theme-color) 90%, black);
@@ -30,14 +49,6 @@
 .button:is(a)[data-style=outline], [class$=__button]:is(a)[data-style=outline], [class*=button--]:is(a)[data-style=outline], .button:is(button)[data-style=outline], [class$=__button]:is(button)[data-style=outline], [class*=button--]:is(button)[data-style=outline] {
   color: var(--theme-color);
   background-color: transparent;
-}
-.button:is(a) > span, [class$=__button]:is(a) > span, [class*=button--]:is(a) > span, .button:is(button) > span, [class$=__button]:is(button) > span, [class*=button--]:is(button) > span {
-  text-decoration: underline;
-  text-decoration-color: transparent;
-  transition: text-decoration-color 0.3s, color 0.3s;
-}
-.button:is(a):hover > span, [class$=__button]:is(a):hover > span, [class*=button--]:is(a):hover > span, .button:is(a):focus > span, [class$=__button]:is(a):focus > span, [class*=button--]:is(a):focus > span, .button:is(a):active > span, [class$=__button]:is(a):active > span, [class*=button--]:is(a):active > span, .button:is(button):hover > span, [class$=__button]:is(button):hover > span, [class*=button--]:is(button):hover > span, .button:is(button):focus > span, [class$=__button]:is(button):focus > span, [class*=button--]:is(button):focus > span, .button:is(button):active > span, [class$=__button]:is(button):active > span, [class*=button--]:is(button):active > span {
-  text-decoration-color: currentColor;
 }
 .button:is(a):has(i, svg), [class$=__button]:is(a):has(i, svg), [class*=button--]:is(a):has(i, svg), .button:is(button):has(i, svg), [class$=__button]:is(button):has(i, svg), [class*=button--]:is(button):has(i, svg) {
   display: inline-flex;
