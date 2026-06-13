@@ -10,6 +10,7 @@ class ThemeStyle {
         add_action('init', [$this, 'set_global_background'], 10);
         add_action('init', [$this, 'set_icon_prefix'], 10);
         add_action('init', [$this, 'set_component_defaults'], 5);
+		add_action('init', [$this, 'set_blade_component_paths'], 5);
 
         // Load styles into the various required places
         add_action('wp_enqueue_scripts', [$this, 'enqueue_theme_stylesheets'], 20);
@@ -118,6 +119,8 @@ class ThemeStyle {
                 Config::getInstance()->set_component_defaults($key, $settings);
             }
         }
+	public function set_blade_component_paths(): void {
+		Config::getInstance()->set_blade_component_paths([get_stylesheet_directory()]);
     }
 
     public function enqueue_theme_stylesheets(): void {
