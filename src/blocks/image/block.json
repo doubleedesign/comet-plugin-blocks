@@ -56,6 +56,10 @@
 		"negativeBottomMargin": {
 			"type": "string",
 			"default": ""
+		},
+		"sectionBackground": {
+			"type": "string",
+			"default": "none"
 		}
 	},
 	"supports": {

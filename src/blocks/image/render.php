@@ -12,6 +12,7 @@ if ($render_placeholder) {
 $wrapperAttrs = [
     'shortName' => 'image-row',
     ...Utils::array_pick($block, ['size', 'hAlign']),
+	'data-background' => $block['sectionBackground'] ?? null,
     'style' => array_filter([
         'margin-block-start' => $block['negativeTopMargin'] ?? null,
         'margin-block-end'   => $block['negativeBottomMargin'] ?? null
@@ -27,4 +28,5 @@ $imageAttrs = [
 $component = new Container($wrapperAttrs, array(
     new ContentImageAdvanced($imageAttrs)
 ));
+
 $component->render();
