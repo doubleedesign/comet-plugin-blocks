@@ -8,12 +8,11 @@ class BlockFieldHandler {
     }
 
     public function enqueue_custom_block_controls(): void {
-        $currentDir = plugin_dir_url(__FILE__);
-        $pluginDir = dirname($currentDir, 1);
+        $pluginDir = COMET_PLUGIN_URL;
 
         wp_enqueue_script(
             'comet-blocks-custom-controls',
-            "$pluginDir/src/editor/CustomControls.dist.js",
+            "$pluginDir/editor/CustomControls.dist.js",
             ['wp-blocks', 'wp-element', 'wp-editor', 'comet-block-registry'],
             COMET_VERSION,
             true

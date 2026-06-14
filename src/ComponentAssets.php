@@ -158,9 +158,8 @@ class ComponentAssets {
         }
 
         // Load admin-specific CSS after the theme common stuff, so it can override it if needed
-        $currentDir = plugin_dir_url(__FILE__);
-        $pluginDir = dirname($currentDir, 1);
-        $admin_css_path = $pluginDir . '/src/admin.css';
+        $pluginDir = COMET_PLUGIN_URL;
+        $admin_css_path = $pluginDir . '/admin.css';
         wp_enqueue_style('comet-admin-styles', $admin_css_path, array(), COMET_VERSION);
     }
 }

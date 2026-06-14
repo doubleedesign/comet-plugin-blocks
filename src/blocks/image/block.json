@@ -13,9 +13,6 @@
 		"blockVersion": 3,
 		"hideFieldsInSidebar": true
 	},
-	"style": [
-		"file:./style.css"
-	],
 	"keywords": [
 		"image",
 		"photo",

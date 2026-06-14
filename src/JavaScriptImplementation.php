@@ -22,12 +22,11 @@ abstract class JavaScriptImplementation {
     }
 
     public function enqueue_companion_javascript(): void {
-	    $currentDir = plugin_dir_url(__FILE__);
-	    $pluginDir = dirname($currentDir, 1);
+	    $pluginDir = COMET_PLUGIN_URL;
 
         // Enqueue the matching JS file
         // TODO: We probably don't need so many dependencies
-        wp_enqueue_script("comet-$this->script_handle", "$pluginDir/src/$this->script_handle.js", array('wp-dom', 'wp-dom-ready', 'wp-blocks', 'wp-edit-post', 'wp-editor', 'wp-element', 'wp-plugins', 'wp-edit-post', 'wp-components', 'wp-data', 'wp-compose', 'wp-i18n', 'wp-hooks', 'wp-block-editor', 'wp-block-library'), COMET_VERSION, false);
+        wp_enqueue_script("comet-$this->script_handle", "$pluginDir/$this->script_handle.js", array('wp-dom', 'wp-dom-ready', 'wp-blocks', 'wp-edit-post', 'wp-editor', 'wp-element', 'wp-plugins', 'wp-edit-post', 'wp-components', 'wp-data', 'wp-compose', 'wp-i18n', 'wp-hooks', 'wp-block-editor', 'wp-block-library'), COMET_VERSION, false);
     }
 
     /**
@@ -37,14 +36,12 @@ abstract class JavaScriptImplementation {
      */
     public function enqueue_companion_javascript_in_iframe(): void {
         if (!is_admin()) return; // the enqueue_block_assets hook runs on both the front and back-end, but we only want this on the back-end
-
-        $currentDir = plugin_dir_url(__FILE__);
-        $pluginDir = dirname($currentDir, 1);
+        $pluginDir = COMET_PLUGIN_URL;
         $handle = $this->script_handle . '-iframe';
 
         // Enqueue the matching JS file
         if (file_exists(__DIR__ . "/$handle.js")) {
-            wp_enqueue_script("comet-$handle", "$pluginDir/src/$handle.js", array('wp-dom', 'wp-dom-ready', 'wp-blocks', 'wp-block-editor'), COMET_VERSION, false);
+            wp_enqueue_script("comet-$handle", "$pluginDir/$handle.js", array('wp-dom', 'wp-dom-ready', 'wp-blocks', 'wp-block-editor'), COMET_VERSION, false);
         }
     }
 

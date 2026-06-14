@@ -46,7 +46,7 @@ class TinyMceConfig {
             ],
             [
                 'path' => __DIR__ . DIRECTORY_SEPARATOR . 'tinymce' . DIRECTORY_SEPARATOR . 'components.css',
-                'url'  => plugin_dir_url(__FILE__) . 'tinymce/components.css',
+                'url'  => COMET_PLUGIN_URL . '/tinymce/components.css',
             ],
         );
     }
@@ -113,7 +113,7 @@ class TinyMceConfig {
     public function enqueue_custom_tinymce_js(): void {
         wp_enqueue_script(
             'comet-tinymce',
-            plugin_dir_url(__FILE__) . 'tiny-mce-config.js',
+	        COMET_PLUGIN_URL . '/tiny-mce-config.js',
             [],
             COMET_VERSION,
             true

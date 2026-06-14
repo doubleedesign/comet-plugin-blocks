@@ -82,6 +82,15 @@ class BlockRegistry extends JavaScriptImplementation {
             if (!file_exists("$folder/block.json")) continue;
 
             register_block_type($folder);
+
+			if(file_exists("$folder/style.css")) {
+				wp_register_style(
+					"comet-block-$block_name",
+					COMET_PLUGIN_URL .
+					"/src/blocks/$block_name/style.css", [],
+					COMET_VERSION
+				);
+			}
         }
     }
 

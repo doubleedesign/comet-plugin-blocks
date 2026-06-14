@@ -233,10 +233,9 @@ class BlockEditorConfig extends JavaScriptImplementation {
      * @return void
      */
     public function block_editor_ui_css_hacks(): void {
-        $currentDir = plugin_dir_url(__FILE__);
-        $pluginDir = dirname($currentDir, 1);
+        $pluginDir = COMET_PLUGIN_URL;
 
-        wp_enqueue_style('comet-block-editor-hacks', "$pluginDir/src/block-editor-config.css", array(), COMET_VERSION);
+        wp_enqueue_style('comet-block-editor-hacks', "$pluginDir/block-editor-config.css", array(), COMET_VERSION);
     }
 
     /**
