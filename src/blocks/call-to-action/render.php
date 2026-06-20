@@ -17,6 +17,7 @@ $attributes = [
 ];
 
 $heading = get_field('heading');
+$heading = apply_filters('comet_blocks_cta_heading', $heading, 'call-to-action');
 $description = get_field('description');
 $buttons = get_field('buttons') ?? [];
 $buttons = array_map(
@@ -39,10 +40,12 @@ $buttons = array_map(
 );
 
 $headingClasses = apply_filters('comet_blocks_cta_heading_classes', []);
-$buttonGroupAttrs = [
-    'colorTheme'  => $block['colorTheme'] ?? $block['attributes']['colorTheme']['default'] ?? Config::getInstance()->get_component_defaults('call-to-action')['colorTheme'] ?? 'primary',
-    ...apply_filters('comet_blocks_cta_button_group_attributes', [])
-];
+$buttonGroupAttrs = apply_filters('comet_blocks_cta_button_group_attributes', [
+    ...Config::getInstance()->get_component_defaults('button-group'),
+    'colorTheme'  => $block['colorTheme'],
+]);
+
+\Symfony\Component\VarDumper\VarDumper::dump($buttonGroupAttrs);
 
 $component = BlockRenderer::maybe_wrap_component($attributes, (new CallToAction(
     $attributes,
