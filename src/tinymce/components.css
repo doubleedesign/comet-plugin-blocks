@@ -1,10 +1,13 @@
-.button-group {
+.button-group, [class$=__button-group], [class*=button-group--] {
   display: flex;
   gap: var(--spacing-sm);
   padding-block: var(--spacing-sm);
 }
-.button-group:last-child {
+.button-group:last-child, [class$=__button-group]:last-child, [class*=button-group--]:last-child {
   padding-block-end: 0;
+}
+.button-group[data-halign], [data-halign][class$=__button-group], [data-halign][class*=button-group--] {
+  width: 100%;
 }
 
 .button:is(a), [class$=__button]:is(a), [class*=button--]:is(a), .button:is(button), [class$=__button]:is(button), [class*=button--]:is(button) {
