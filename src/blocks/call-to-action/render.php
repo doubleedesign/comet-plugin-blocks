@@ -45,8 +45,6 @@ $buttonGroupAttrs = apply_filters('comet_blocks_cta_button_group_attributes', [
     'colorTheme'  => $block['colorTheme'],
 ]);
 
-\Symfony\Component\VarDumper\VarDumper::dump($buttonGroupAttrs);
-
 $component = BlockRenderer::maybe_wrap_component($attributes, (new CallToAction(
     $attributes,
     array(
