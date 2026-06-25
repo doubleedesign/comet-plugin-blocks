@@ -11,16 +11,22 @@ if ($render_placeholder) {
     return;
 }
 
+$nested = isset($context['isNested']) && $context['isNested'];
+
 $attributes = [
     ...Utils::array_pick($block, ['colorTheme', 'backgroundColor']),
-    'isNested' => $context['isNested'] ?? null,
+    'isNested' => $nested,
 ];
+if (!$nested) {
+    $attributes['size'] = $block['size'] ?? 'contained';
+}
+
 $component = new Copy(
     $attributes,
     [new PreprocessedHTML([], function_exists('get_field') ? get_field('copy') ?? '' : '')]
 );
 
-if (isset($context['isNested']) && $context['isNested']) {
+if ($nested) {
     $component->render();
 }
 else {
