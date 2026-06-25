@@ -47,7 +47,6 @@
 		"jsx": true,
 		"innerBlocks": false,
 		"colorTheme": true,
-		"anchor": true,
-		"align": false
+		"anchor": true
 	}
 }

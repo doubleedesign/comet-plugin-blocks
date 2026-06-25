@@ -17,6 +17,7 @@
 		"hideFieldsInSidebar": true
 	},
 	"usesContext": [
+		"isNested",
 		"parent"
 	],
 	"allowedBlocks": [
@@ -48,7 +49,6 @@
 		"mode": true,
 		"jsx": true,
 		"innerBlocks": true,
-		"anchor": true,
-		"align": false
+		"anchor": true
 	}
 }

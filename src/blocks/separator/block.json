@@ -36,7 +36,6 @@
 		"mode": false,
 		"jsx": true,
 		"innerBlocks": false,
-		"anchor": true,
-		"align": false
+		"anchor": true
 	}
 }
