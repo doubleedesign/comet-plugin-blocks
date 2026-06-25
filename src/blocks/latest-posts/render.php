@@ -34,7 +34,7 @@ $component = TemplateUtils::create_card_list(
     $post_ids,
     $block,
     true,
-    !empty($link) ? $link : null
+    !empty($link) ? $link : []
 );
 if (isset($context['isNested']) && $context['isNested']) {
     $component->render();

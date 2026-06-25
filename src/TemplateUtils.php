@@ -68,7 +68,7 @@ class TemplateUtils {
             [
                 ...Config::getInstance()->get_component_defaults('card-list'),
                 ...Utils::array_pick($block, ['size', 'colorTheme', 'hAlign', 'layout']),
-                'link'         => !empty($link) ? $link : null,
+                'link'         => !empty($link) ? $link : [],
                 'shortName'    => str_replace('comet/', '', $block['name']),
                 'heading'      => (count($postIds) > 1 && !empty($data['heading'])) ? $data['heading'] : null,
                 'maxPerRow'    => $max_per_row
