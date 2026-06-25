@@ -45,7 +45,7 @@ class TemplateUtils {
                     'isOutline' => true
                 ],
                 'colorTheme'        => $block['colorTheme'] ?? 'primary',
-                'backgroundColor'   => $block['backgroundColor'] ?? null,
+                'backgroundColor'   => apply_filters('comet_blocks_related_content_card_background', $block['backgroundColor']) ?? null,
                 'orientation'       => 'horizontal', // TODO: Make this configurable
                 'cardAsLink'        => apply_filters('comet_blocks_related_content_card_list_card_as_link', false, $block['name']),
             ], $aboveContent ?? []);
