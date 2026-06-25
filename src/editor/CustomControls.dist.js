@@ -552,13 +552,11 @@ const NegativeMargins = ({
     max: 0,
     value: attributes.negativeBottomMargin,
     onChange: value => {
-      console.log(value);
       return setAttributes({
         negativeBottomMargin: value
       });
     },
     onUnitChange: unit => {
-      console.log(unit);
       return setAttributes({
         negativeBottomMargin: `${parseFloat(attributes.negativeBottomMargin)}${unit}`
       });
@@ -774,6 +772,15 @@ function transformColorValueToKey(value) {
   if (value.startsWith('var(--gradient-')) {
     return value.replace('var(--gradient-', '').replace(')', '');
   }
+  if (value.startsWith('linear-gradient')) {
+    const regex = /var\(--color-([a-zA-Z0-9]+)\)/g;
+    const matches = [...value.matchAll(regex)]?.map(match => match[1]);
+    const uniqueMatches = [...new Set(matches)];
+    if (uniqueMatches.length == 2) {
+      return `${uniqueMatches[0]}-${uniqueMatches[1]}`;
+    }
+  }
+  console.log('unmatched value', value);
   return value;
 }
 function transformColorKeyToValue(key) {
@@ -982,6 +989,8 @@ function ColorPalettePickerInner({
       if (slug) {
         onChange(slug);
       } else {
+        // Sometimes the underlying component doesn't pass the slug back up even when we've definitely provided it,
+        // so we need a fallback to handle that scenario
         onChange(transformColorValueToKey(newValue));
       }
     }
