@@ -1,5 +1,6 @@
 <?php
 /** @var $block array */
+/** @var $context array */
 
 use Doubleedesign\Comet\Core\{File, FileGroup};
 use Doubleedesign\Comet\WordPress\BlockRenderer;
@@ -12,7 +13,7 @@ if ($render_placeholder) {
 
 $heading = get_field('heading');
 $fileItems = get_field('files');
-if (!$fileItems) {
+if (!$fileItems || !is_array($fileItems) || count($fileItems) === 0) {
     return;
 }
 $files = array_map(function($file) {
@@ -35,7 +36,8 @@ $files = array_map(function($file) {
 
 $attributes = [
     'colorTheme' => $block['colorTheme'] ?? 'primary',
-    'size'       => $block['size'] ?? 'contained'
+    'size'       => $block['size'] ?? 'contained',
+    'isNested'   => $context['isNested'] ?? false,
 ];
 if ($heading) {
     $attributes['heading'] = $heading;

@@ -7,7 +7,7 @@ use Doubleedesign\Comet\Core\{Group, PreprocessedHTML, Utils};
 use Doubleedesign\Comet\WordPress\BlockRenderer;
 
 $is_editor = isset($is_preview) && $is_preview;
-$rendered = BlockRenderer::maybe_render_innerblocks_editor($block, $is_editor);
+$rendered = BlockRenderer::maybe_render_innerblocks_editor($block, $wp_block->inner_blocks, $is_editor);
 if ($rendered || $is_editor) {
     return;
 }
@@ -31,5 +31,5 @@ for ($index = 0; $index < $innerBlocks->count(); $index++) {
     array_push($innerComponents, new PreprocessedHTML([], $content));
 }
 
-$component = new Group(Utils::array_pick($block, ['backgroundColor']), $innerComponents);
+$component = new Group([...Utils::array_pick($block, ['backgroundColor']), ...Utils::array_pick($context, ['isNested'])], $innerComponents);
 $component->render();
