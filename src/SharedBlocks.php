@@ -68,7 +68,7 @@ class SharedBlocks {
             'menu_position'       => 10,
             'menu_icon'           => 'dashicons-share',
             'show_in_admin_bar'   => true,
-            'show_in_nav_menus'   => true,
+            'show_in_nav_menus'   => false,
             'can_export'          => true,
             'has_archive'         => false,
             'exclude_from_search' => true,
