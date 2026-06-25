@@ -62,15 +62,16 @@ class BlockRenderer {
         return $component;
     }
 
-    /**
-     * Render the editor (or placeholder) for blocks that have inner blocks.
-     *
-     * @param  array  $block
-     * @param  bool  $is_editor
-     *
-     * @return bool
-     */
-    public static function maybe_render_innerblocks_editor(array $block, bool $is_editor): bool {
+	/**
+	 * Render the editor (or placeholder) for blocks that have inner blocks.
+	 *
+	 * @param array $block
+	 * @param \WP_Block_List|null $innerblocks
+	 * @param bool $is_editor
+	 *
+	 * @return bool
+	 */
+    public static function maybe_render_innerblocks_editor(array $block, ?\WP_Block_List $innerblocks, bool $is_editor): bool {
         if (!$is_editor) {
             return false;
         }
@@ -89,7 +90,7 @@ class BlockRenderer {
         // Handle block attributes
         $attributeKeys = array_filter(array_keys($block['attributes'] ?? []), fn($key) => !in_array($key, ['align', 'isParent', 'mode', 'name', 'data', 'size', 'sectionBackground']));
         $attributes = Utils::array_pick($block, $attributeKeys);
-        $transformedAttrs = array_reduce(array_keys($attributes), function($result, $key) use ($attributes) {
+        $transformedAttrs = array_reduce(array_keys($attributes), function($result, $key) use ($attributes, $innerblocks) {
             if (in_array($key, ['hAlign', 'vAlign'])) {
                 $result["data-{$key}"] = $attributes[$key];
 
@@ -103,7 +104,8 @@ class BlockRenderer {
             }
 
             if ($key === 'qty') {
-                $result["data-count"] = $attributes[$key];
+                $result["data-cols"] = $attributes[$key];
+                $result["data-count"] = isset($innerblocks) ? $innerblocks->count() : 1;
 
                 return $result;
             }
@@ -119,13 +121,12 @@ class BlockRenderer {
             'data-background' => $block['sectionBackground'] ?? null
         ]);
 
-        $innerBlocks = "<InnerBlocks allowedBlocks={$allowedBlocks} prioritizedInserterBlocks={$prioritisedBlocks} placeholder=\"{$placeholder}\" />";
-
-		// We can add a class name to <InnerBlocks> but unfortunately not attributes, thus the extra wrapper
-		echo <<<HTML
+        $innerBlocksEditor = "<InnerBlocks allowedBlocks={$allowedBlocks} prioritizedInserterBlocks={$prioritisedBlocks} placeholder=\"{$placeholder}\" />";
+        // We can add a class name to <InnerBlocks> but unfortunately not attributes, thus the extra wrapper
+        echo <<<HTML
 			<div class='$name-wrapper' $wrapperAttrs>
 				<div class='$class' $transformedAttrs>
-					$innerBlocks
+					$innerBlocksEditor
 				</div>
 			</div>
 		HTML;

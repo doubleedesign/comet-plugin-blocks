@@ -6,7 +6,7 @@ use Doubleedesign\Comet\Core\{Column, Columns, PreprocessedHTML, Utils};
 use Doubleedesign\Comet\WordPress\BlockRenderer;
 
 $is_editor = isset($is_preview) && $is_preview;
-$rendered = BlockRenderer::maybe_render_innerblocks_editor($block, $is_editor);
+$rendered = BlockRenderer::maybe_render_innerblocks_editor($block, $wp_block->inner_blocks, $is_editor);
 if ($rendered || $is_editor) {
     return;
 }
