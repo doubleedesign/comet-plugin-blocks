@@ -15,7 +15,8 @@
 	},
 	"allowedBlocks": [
 		"comet/copy",
-		"comet/group"
+		"comet/group",
+		"comet/file-group"
 	],
 	"keywords": [
 		"content",
