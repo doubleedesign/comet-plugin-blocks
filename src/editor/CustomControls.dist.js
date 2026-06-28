@@ -177,7 +177,7 @@ const GroupLayout = ({
   }
   const ToggleGroupControl = __experimentalToggleGroupControl$5;
   const ToggleGroupControlOption = __experimentalToggleGroupControlOption$5;
-  /* eslint-disable max-len */
+   
   return wp.element.createElement(ToggleGroupControl, {
     className: "comet-toggle-group",
     __next40pxDefaultSize: true,
@@ -418,7 +418,7 @@ const LayoutOrientation = ({
 };
 
 /* global wp */
-/* eslint-disable max-len */
+ 
 const {
   RangeControl: RangeControl$1
 } = wp.components;
@@ -450,7 +450,7 @@ const ContentMaxWidth = ({
   });
 };
 
-/* eslint-disable max-len */
+ 
 /* global comet, wp */
 const {
   __experimentalNumberControl: __experimentalNumberControl$1
@@ -812,7 +812,7 @@ function transformColorPairsToPalette(pairs) {
   return pairs.map(pair => ({
     name: `${pair.foreground} on ${pair.background}`,
     slug: `${pair.foreground}-${pair.background}`,
-    // eslint-disable-next-line max-len
+     
     gradient: `linear-gradient(135deg, var(--color-${pair.foreground}) 0%, var(--color-${pair.foreground}) 50%, var(--color-${pair.background}) 50%, var(--color-${pair.background}) 100%)`
   }));
 }
@@ -1325,7 +1325,7 @@ function ColorPairPaletteDropdown({
     }
   };
   const previewIndicator = useMemo$3(() => {
-    // eslint-disable-next-line max-len
+     
     return `linear-gradient(135deg, var(--color-${foreground}) 0%, var(--color-${foreground}) 50%, var(--color-${background}) 50%, var(--color-${background}) 100%)`;
   }, [foreground, background]);
   return wp.element.createElement(PopupMenu, {
@@ -1703,7 +1703,7 @@ function ColumnLayoutControls(props) {
       });
     }
   }, [columnCount, attributes.qty, setAttributes]);
-  /* eslint-disable max-len */
+   
   return wp.element.createElement(PanelBody$1, {
     title: "Layout",
     initialOpen: true
