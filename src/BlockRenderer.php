@@ -1,6 +1,6 @@
 <?php
 namespace Doubleedesign\Comet\WordPress;
-use Doubleedesign\Comet\Core\{PageSection, Renderable, Utils};
+use Doubleedesign\Comet\Core\{Config, Container, ContainerSize, PageSection, Renderable, Utils};
 
 class BlockRenderer {
 
@@ -44,33 +44,55 @@ class BlockRenderer {
     }
 
     /**
-     * Wrap the given component in a PageSection if the sectionBackground attribute is set.
+     * Wrap the given component in a PageSection if it is not nested, has a section background, or has a size set.
      *
-     * @param  $attributes
-     * @param  $component
+     * @param  array  $attributes  - The block attributes
+     * @param  Renderable  $component
      *
      * @return PageSection|Renderable
      */
-    public static function maybe_wrap_component($attributes, $component): mixed {
-        if (isset($attributes['sectionBackground']) && $attributes['sectionBackground'] !== 'none') {
+    public static function maybe_wrap_component(array $attributes, Renderable $component): PageSection|Renderable {
+        if (method_exists($component, 'get_is_nested')) {
+            if ($component->get_is_nested()) {
+                return $component;
+            }
+        }
+
+        // Some default attributes don't come through when acf_render_block is called to render a block within a block
+        // (e.g., shared content blocks in the editor), so we need to put them back in to ensure correct rendering
+        $defaults = Config::getInstance()->get_component_defaults($component->get_name());
+        $section_bg = $attributes['sectionBackground'] ?? $defaults['sectionBackground'] ?? null;
+        $size = $attributes['size']; // Some cases like 'image-row' where the *block* supports size, but the Comet Component in it doesn't directly, thus wrapping it
+        $supports_container_size = method_exists($component, 'get_size');
+        if ($supports_container_size) {
+            $size = $attributes['size'] ?? $defaults['size'] ?? ContainerSize::DEFAULT;
+        }
+
+        // But also, we don't want redundant section backgrounds
+        $section_bg_to_use = $section_bg;
+        if ($section_bg_to_use === Config::getInstance()->get_global_background()) {
+            $section_bg_to_use = null;
+        }
+
+        if (isset($section_bg) || isset($size)) {
             return new PageSection([
-                'backgroundColor' => $attributes['sectionBackground'],
-                'size'            => $attributes['size'] ?? 'contained'
+                'backgroundColor' => $section_bg_to_use,
+                'size'            => $size,
             ], [$component]);
         }
 
         return $component;
     }
 
-	/**
-	 * Render the editor (or placeholder) for blocks that have inner blocks.
-	 *
-	 * @param array $block
-	 * @param \WP_Block_List|null $innerblocks
-	 * @param bool $is_editor
-	 *
-	 * @return bool
-	 */
+    /**
+     * Render the editor (or placeholder) for blocks that have inner blocks.
+     *
+     * @param  array  $block
+     * @param  \WP_Block_List|null  $innerblocks
+     * @param  bool  $is_editor
+     *
+     * @return bool
+     */
     public static function maybe_render_innerblocks_editor(array $block, ?\WP_Block_List $innerblocks, bool $is_editor): bool {
         if (!$is_editor) {
             return false;

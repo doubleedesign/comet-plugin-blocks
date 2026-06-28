@@ -1,5 +1,6 @@
 <?php
 /** @var $block array */
+/** @var $context array */
 
 use Doubleedesign\Comet\Core\{Button, ButtonGroup, CallToAction, Config, Heading, PreprocessedHTML, Utils};
 use Doubleedesign\Comet\WordPress\BlockRenderer;
@@ -42,7 +43,7 @@ $buttons = array_map(
 $headingClasses = apply_filters('comet_blocks_cta_heading_classes', []);
 $buttonGroupAttrs = apply_filters('comet_blocks_cta_button_group_attributes', [
     ...Config::getInstance()->get_component_defaults('button-group'),
-    'colorTheme'  => $block['colorTheme'],
+    'colorTheme'  => isset($block['colorTheme']) ? $block['colorTheme'] : 'inherit',
 ]);
 
 $component = BlockRenderer::maybe_wrap_component($attributes, (new CallToAction(

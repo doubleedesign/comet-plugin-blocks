@@ -1,6 +1,6 @@
 <?php
 /** @var $block array */
-use Doubleedesign\Comet\Core\{Container, ContentImageAdvanced, Utils};
+use Doubleedesign\Comet\Core\{ContentImageAdvanced, Utils};
 use Doubleedesign\Comet\WordPress\BlockRenderer;
 
 $is_editor = isset($is_preview) && $is_preview;
@@ -10,10 +10,11 @@ if ($render_placeholder) {
 }
 
 $wrapperAttrs = [
+    'tagName'   => 'div',
     'shortName' => 'image-row',
     ...Utils::array_pick($block, ['size', 'hAlign']),
-	'data-background' => $block['sectionBackground'] ?? null,
-    'style' => array_filter([
+    'data-background' => $block['sectionBackground'] ?? null,
+    'style'           => array_filter([
         'margin-block-start' => $block['negativeTopMargin'] ?? null,
         'margin-block-end'   => $block['negativeBottomMargin'] ?? null
     ])
@@ -25,8 +26,6 @@ $imageAttrs = [
     'style'     => array_filter(['max-width' => "{$block['contentMaxWidth']}%" ?? null]),
 ];
 
-$component = new Container($wrapperAttrs, array(
-    new ContentImageAdvanced($imageAttrs)
-));
 
+$component = BlockRenderer::maybe_wrap_component($wrapperAttrs, new ContentImageAdvanced($imageAttrs));
 $component->render();

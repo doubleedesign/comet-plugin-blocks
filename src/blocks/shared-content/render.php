@@ -1,5 +1,7 @@
 <?php
-
+/** @var $block array */
+/** @var $context array */
+/** @var $wp_block object|null */
 if (!isset($block)) {
     return;
 }
@@ -29,7 +31,10 @@ if ($is_editor && function_exists('acf_render_block')) {
                 ...$block_data['attrs']
             ],
             $post->post_content,
-            true
+            true,
+            $shared_content_id,
+            $wp_block,
+            array_merge($context, ['shared_content_id' => $shared_content_id])
         );
     }
 }
