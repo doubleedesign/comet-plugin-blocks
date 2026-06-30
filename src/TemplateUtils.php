@@ -48,7 +48,7 @@ class TemplateUtils {
                 'backgroundColor'   => apply_filters('comet_blocks_related_content_card_background', $block['backgroundColor']) ?? null,
                 'orientation'       => 'horizontal', // TODO: Make this configurable
                 'cardAsLink'        => apply_filters('comet_blocks_related_content_card_list_card_as_link', false, $block['name']),
-            ], $aboveContent ?? []);
+            ], [], $aboveContent ?? []);
         }, $postIds);
 
         $behaviour_when_fewer_than_max = apply_filters('comet_blocks_related_content_card_list_behaviour_when_fewer_than_max', 'default', $block['name']);
