@@ -12,6 +12,7 @@ if ($render_placeholder) {
 }
 
 $heading = get_field('heading');
+$heading = apply_filters('comet_blocks_file_group_heading', $heading, 'file-group');
 $fileItems = get_field('files');
 if (!$fileItems || !is_array($fileItems) || count($fileItems) === 0) {
     return;

@@ -30,8 +30,8 @@
   }
 }
 .copy-image[data-size=wide] [class$=__column--image] {
-  width: calc(100% + var(--spacing-md) * 2);
-  margin-inline: calc(var(--spacing-md) * -1);
+  width: calc(100% + var(--spacing-xl) * 2);
+  margin-inline: calc(var(--spacing-xl) * -1);
 }
 @container layout-section (min-width: ) {
   .page-section .copy-image {
@@ -40,15 +40,19 @@
   }
   .page-section .copy-image [class$=__column--copy] {
     padding-inline: var(--spacing-md);
+    box-sizing: content-box;
+    transform: translateX(calc(var(--spacing-md) * -1));
   }
   @media (min-width: 768px) {
     .page-section .copy-image [class$=__column--copy] {
       padding-inline: var(--spacing-lg);
+      transform: translateX(calc(var(--spacing-lg) * -1));
     }
   }
   @media (min-width: 1440px) {
     .page-section .copy-image [class$=__column--copy] {
       padding-inline: var(--spacing-xl);
+      transform: translateX(calc(var(--spacing-xl) * -1));
     }
   }
 }
@@ -59,15 +63,19 @@
   }
   .page-section .copy-image [class$=__column--copy] {
     padding-inline: var(--spacing-md);
+    box-sizing: content-box;
+    transform: translateX(calc(var(--spacing-md) * -1));
   }
   @media (min-width: 768px) {
     .page-section .copy-image [class$=__column--copy] {
       padding-inline: var(--spacing-lg);
+      transform: translateX(calc(var(--spacing-lg) * -1));
     }
   }
   @media (min-width: 1440px) {
     .page-section .copy-image [class$=__column--copy] {
       padding-inline: var(--spacing-xl);
+      transform: translateX(calc(var(--spacing-xl) * -1));
     }
   }
 }
