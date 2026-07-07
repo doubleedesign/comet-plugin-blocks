@@ -13,17 +13,21 @@ async function applyDefaultColourThemeToTinyMce() {
 	});
 }
 
-async function getEditors() {
-	const MAX_ATTEMPTS = 10;
+function getEditors() {
+	return new Promise((resolve) => {
+		let timer;
 
-	for (let attempts = 0; attempts < MAX_ATTEMPTS; attempts++) {
 		if (tinymce.editors.length > 0) {
-			return tinymce.editors;
+			// Delay to allow additional editors to finish being added before resolving
+			timer = setTimeout(() => resolve([...tinymce.editors]), 500);
+			return;
 		}
-		await delay(100);
-	}
 
-	return [];
+		tinymce.on('AddEditor', () => {
+			clearTimeout(timer);
+			timer = setTimeout(() => resolve([...tinymce.editors]), 500);
+		});
+	});
 }
 
 function delay(ms) {
