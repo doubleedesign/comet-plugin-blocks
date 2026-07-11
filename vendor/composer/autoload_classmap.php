@@ -246,6 +246,7 @@ return array(
     'Doubleedesign\\Comet\\WordPress\\ComponentAssets' => $baseDir . '/src/ComponentAssets.php',
     'Doubleedesign\\Comet\\WordPress\\GlobalSettings' => $baseDir . '/src/GlobalSettings.php',
     'Doubleedesign\\Comet\\WordPress\\JavaScriptImplementation' => $baseDir . '/src/JavaScriptImplementation.php',
+    'Doubleedesign\\Comet\\WordPress\\MediaHandler' => $baseDir . '/src/MediaHandler.php',
     'Doubleedesign\\Comet\\WordPress\\SharedBlocks' => $baseDir . '/src/SharedBlocks.php',
     'Doubleedesign\\Comet\\WordPress\\TemplateUtils' => $baseDir . '/src/TemplateUtils.php',
     'Doubleedesign\\Comet\\WordPress\\ThemeStyle' => $baseDir . '/src/ThemeStyle.php',

@@ -17,24 +17,23 @@
  *
  * @package Comet
  */
-
 $is_mu_plugin = false;
-if(function_exists('wp_get_mu_plugins')) {
-	$is_mu_plugin = array_find(wp_get_mu_plugins(), function($plugin) {
-		return str_contains($plugin, 'comet-plugin-blocks');
-	});
+if (function_exists('wp_get_mu_plugins')) {
+    $is_mu_plugin = array_find(wp_get_mu_plugins(), function($plugin) {
+        return str_contains($plugin, 'comet-plugin-blocks');
+    });
 }
 
 if (!defined('COMET_COMPOSER_VENDOR_URL')) {
-	$pluginsPath = $is_mu_plugin ? 'mu-plugins' : 'plugins';
+    $pluginsPath = $is_mu_plugin ? 'mu-plugins' : 'plugins';
     define('COMET_COMPOSER_VENDOR_URL', get_site_url() . "/wp-content/$pluginsPath/comet-plugin-blocks/vendor");
 }
 if (!defined('COMET_COMPOSER_VENDOR_PATH')) {
     define('COMET_COMPOSER_VENDOR_PATH', __DIR__ . '/vendor');
 }
 if (!defined('COMET_PLUGIN_URL')) {
-	$pluginsPath = $is_mu_plugin ? 'mu-plugins' : 'plugins';
-	define('COMET_PLUGIN_URL', get_site_url() . "/wp-content/$pluginsPath/comet-plugin-blocks/src");
+    $pluginsPath = $is_mu_plugin ? 'mu-plugins' : 'plugins';
+    define('COMET_PLUGIN_URL', get_site_url() . "/wp-content/$pluginsPath/comet-plugin-blocks/src");
 }
 
 require_once __DIR__ . '/vendor/autoload.php';
@@ -48,16 +47,18 @@ add_action('plugins_loaded', function() {
 });
 
 use Doubleedesign\Comet\WordPress\{AdminUI,
-	BlockEditorConfig,
-	BlockFieldHandler,
-	BlockPatternHandler,
-	BlockRegistry,
-	BlockRenderer,
-	ComponentAssets,
-	GlobalSettings,
-	SharedBlocks,
-	ThemeStyle,
-	TinyMceConfig};
+    BlockEditorConfig,
+    BlockFieldHandler,
+    BlockPatternHandler,
+    BlockRegistry,
+    BlockRenderer,
+    ComponentAssets,
+    GlobalSettings,
+    SharedBlocks,
+    ThemeStyle,
+    TinyMceConfig,
+    MediaHandler
+};
 
 new AdminUI();
 new GlobalSettings();
@@ -70,6 +71,7 @@ new BlockPatternHandler();
 new BlockFieldHandler();
 new TinyMceConfig();
 new SharedBlocks();
+new MediaHandler();
 
 /**
  * Disable the default WP dashboard welcome panel because it may promote unsupported features

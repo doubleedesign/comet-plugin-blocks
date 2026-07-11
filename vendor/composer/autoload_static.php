@@ -434,6 +434,7 @@ class ComposerStaticInit12ca57715cc7eef89094395652d6bfc9
         'Doubleedesign\\Comet\\WordPress\\ComponentAssets' => __DIR__ . '/../..' . '/src/ComponentAssets.php',
         'Doubleedesign\\Comet\\WordPress\\GlobalSettings' => __DIR__ . '/../..' . '/src/GlobalSettings.php',
         'Doubleedesign\\Comet\\WordPress\\JavaScriptImplementation' => __DIR__ . '/../..' . '/src/JavaScriptImplementation.php',
+        'Doubleedesign\\Comet\\WordPress\\MediaHandler' => __DIR__ . '/../..' . '/src/MediaHandler.php',
         'Doubleedesign\\Comet\\WordPress\\SharedBlocks' => __DIR__ . '/../..' . '/src/SharedBlocks.php',
         'Doubleedesign\\Comet\\WordPress\\TemplateUtils' => __DIR__ . '/../..' . '/src/TemplateUtils.php',
         'Doubleedesign\\Comet\\WordPress\\ThemeStyle' => __DIR__ . '/../..' . '/src/ThemeStyle.php',
