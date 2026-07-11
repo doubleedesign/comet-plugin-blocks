@@ -29,7 +29,7 @@ class ComponentAssets {
      */
     public function enqueue_comet_combined_component_css(): void {
         $libraryDir = COMET_COMPOSER_VENDOR_URL . '/doubleedesign/comet-components-core';
-        wp_enqueue_style('comet-components', "$libraryDir/dist/dist.css", array(), COMET_VERSION, 'all');
+        wp_enqueue_style('comet-components', "$libraryDir/dist/dist.css", array(), time(), 'all');
 
     }
 
@@ -40,7 +40,7 @@ class ComponentAssets {
      */
     public function enqueue_comet_combined_component_js(): void {
         $libraryDir = COMET_COMPOSER_VENDOR_URL . '/doubleedesign/comet-components-core';
-        wp_enqueue_script('comet-components-js', "$libraryDir/dist/dist.js", array(), COMET_VERSION, true);
+        wp_enqueue_script('comet-components-js', "$libraryDir/dist/dist.js", array(), time(), true);
     }
 
     /**

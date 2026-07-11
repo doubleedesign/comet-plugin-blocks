@@ -1300,23 +1300,23 @@
         },
         {
             "name": "symfony/deprecation-contracts",
-            "version": "v3.7.0",
-            "version_normalized": "3.7.0.0",
+            "version": "v3.7.1",
+            "version_normalized": "3.7.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/deprecation-contracts.git",
-                "reference": "50f59d1f3ca46d41ac911f97a78626b6756af35b"
+                "reference": "f3202fa1b5097b0af062dc978b32ecf63404e31d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/deprecation-contracts/zipball/50f59d1f3ca46d41ac911f97a78626b6756af35b",
-                "reference": "50f59d1f3ca46d41ac911f97a78626b6756af35b",
+                "url": "https://api.github.com/repos/symfony/deprecation-contracts/zipball/f3202fa1b5097b0af062dc978b32ecf63404e31d",
+                "reference": "f3202fa1b5097b0af062dc978b32ecf63404e31d",
                 "shasum": ""
             },
             "require": {
                 "php": ">=8.1"
             },
-            "time": "2026-04-13T15:52:40+00:00",
+            "time": "2026-06-05T06:23:12+00:00",
             "type": "library",
             "extra": {
                 "thanks": {
@@ -1350,7 +1350,7 @@
             "description": "A generic function and convention to trigger deprecation notices",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/deprecation-contracts/tree/v3.7.0"
+                "source": "https://github.com/symfony/deprecation-contracts/tree/v3.7.1"
             },
             "funding": [
                 {
@@ -1374,17 +1374,17 @@
         },
         {
             "name": "symfony/finder",
-            "version": "v6.4.34",
-            "version_normalized": "6.4.34.0",
+            "version": "v6.4.42",
+            "version_normalized": "6.4.42.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/finder.git",
-                "reference": "9590e86be1d1c57bfbb16d0dd040345378c20896"
+                "reference": "0b73dac42493acbadbba644207a715b254e9b029"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/finder/zipball/9590e86be1d1c57bfbb16d0dd040345378c20896",
-                "reference": "9590e86be1d1c57bfbb16d0dd040345378c20896",
+                "url": "https://api.github.com/repos/symfony/finder/zipball/0b73dac42493acbadbba644207a715b254e9b029",
+                "reference": "0b73dac42493acbadbba644207a715b254e9b029",
                 "shasum": ""
             },
             "require": {
@@ -1393,7 +1393,7 @@
             "require-dev": {
                 "symfony/filesystem": "^6.0|^7.0"
             },
-            "time": "2026-01-28T15:16:37+00:00",
+            "time": "2026-06-26T15:18:24+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -1421,7 +1421,7 @@
             "description": "Finds files and directories via an intuitive fluent interface",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/finder/tree/v6.4.34"
+                "source": "https://github.com/symfony/finder/tree/v6.4.42"
             },
             "funding": [
                 {
@@ -1445,21 +1445,21 @@
         },
         {
             "name": "symfony/intl",
-            "version": "v8.0.8",
-            "version_normalized": "8.0.8.0",
+            "version": "v8.1.1",
+            "version_normalized": "8.1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/intl.git",
-                "reference": "604a1dbbd67471e885e93274379cadd80dc33535"
+                "reference": "e2883a541b3cf5a2daff70170a420155d97e65e4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/intl/zipball/604a1dbbd67471e885e93274379cadd80dc33535",
-                "reference": "604a1dbbd67471e885e93274379cadd80dc33535",
+                "url": "https://api.github.com/repos/symfony/intl/zipball/e2883a541b3cf5a2daff70170a420155d97e65e4",
+                "reference": "e2883a541b3cf5a2daff70170a420155d97e65e4",
                 "shasum": ""
             },
             "require": {
-                "php": ">=8.4"
+                "php": ">=8.4.1"
             },
             "conflict": {
                 "symfony/string": "<7.4"
@@ -1468,7 +1468,7 @@
                 "symfony/filesystem": "^7.4|^8.0",
                 "symfony/var-exporter": "^7.4|^8.0"
             },
-            "time": "2026-03-30T15:14:47+00:00",
+            "time": "2026-06-05T06:23:12+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -1513,7 +1513,7 @@
                 "localization"
             ],
             "support": {
-                "source": "https://github.com/symfony/intl/tree/v8.0.8"
+                "source": "https://github.com/symfony/intl/tree/v8.1.1"
             },
             "funding": [
                 {
@@ -1537,17 +1537,17 @@
         },
         {
             "name": "symfony/polyfill-mbstring",
-            "version": "v1.37.0",
-            "version_normalized": "1.37.0.0",
+            "version": "v1.38.2",
+            "version_normalized": "1.38.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-mbstring.git",
-                "reference": "6a21eb99c6973357967f6ce3708cd55a6bec6315"
+                "reference": "d3d318bad5e7a1bfbd026009c8bfb8d8f99ae6b6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/6a21eb99c6973357967f6ce3708cd55a6bec6315",
-                "reference": "6a21eb99c6973357967f6ce3708cd55a6bec6315",
+                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/d3d318bad5e7a1bfbd026009c8bfb8d8f99ae6b6",
+                "reference": "d3d318bad5e7a1bfbd026009c8bfb8d8f99ae6b6",
                 "shasum": ""
             },
             "require": {
@@ -1560,7 +1560,7 @@
             "suggest": {
                 "ext-mbstring": "For best performance"
             },
-            "time": "2026-04-10T17:25:58+00:00",
+            "time": "2026-05-27T06:59:30+00:00",
             "type": "library",
             "extra": {
                 "thanks": {
@@ -1601,7 +1601,7 @@
                 "shim"
             ],
             "support": {
-                "source": "https://github.com/symfony/polyfill-mbstring/tree/v1.37.0"
+                "source": "https://github.com/symfony/polyfill-mbstring/tree/v1.38.2"
             },
             "funding": [
                 {
@@ -1712,17 +1712,17 @@
         },
         {
             "name": "symfony/translation",
-            "version": "v6.4.38",
-            "version_normalized": "6.4.38.0",
+            "version": "v6.4.42",
+            "version_normalized": "6.4.42.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/translation.git",
-                "reference": "afaa31b0c12d9a659eed1ea97f268a614cc1299c"
+                "reference": "fef99cef37890b350976f5f492854faefadd4e15"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/translation/zipball/afaa31b0c12d9a659eed1ea97f268a614cc1299c",
-                "reference": "afaa31b0c12d9a659eed1ea97f268a614cc1299c",
+                "url": "https://api.github.com/repos/symfony/translation/zipball/fef99cef37890b350976f5f492854faefadd4e15",
+                "reference": "fef99cef37890b350976f5f492854faefadd4e15",
                 "shasum": ""
             },
             "require": {
@@ -1759,7 +1759,7 @@
                 "symfony/service-contracts": "^2.5|^3",
                 "symfony/yaml": "^5.4|^6.0|^7.0"
             },
-            "time": "2026-05-06T08:55:54+00:00",
+            "time": "2026-06-05T16:46:18+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -1790,7 +1790,7 @@
             "description": "Provides tools to internationalize your application",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/translation/tree/v6.4.38"
+                "source": "https://github.com/symfony/translation/tree/v6.4.42"
             },
             "funding": [
                 {
@@ -1814,23 +1814,23 @@
         },
         {
             "name": "symfony/translation-contracts",
-            "version": "v3.7.0",
-            "version_normalized": "3.7.0.0",
+            "version": "v3.7.1",
+            "version_normalized": "3.7.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/translation-contracts.git",
-                "reference": "0ab302977a952b42fd51475c4ebac81f8da0a95d"
+                "reference": "ccb206b98faccc511ebae8e5fad50f2dc0b30621"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/translation-contracts/zipball/0ab302977a952b42fd51475c4ebac81f8da0a95d",
-                "reference": "0ab302977a952b42fd51475c4ebac81f8da0a95d",
+                "url": "https://api.github.com/repos/symfony/translation-contracts/zipball/ccb206b98faccc511ebae8e5fad50f2dc0b30621",
+                "reference": "ccb206b98faccc511ebae8e5fad50f2dc0b30621",
                 "shasum": ""
             },
             "require": {
                 "php": ">=8.1"
             },
-            "time": "2026-01-05T13:30:16+00:00",
+            "time": "2026-06-05T06:23:12+00:00",
             "type": "library",
             "extra": {
                 "thanks": {
@@ -1875,7 +1875,7 @@
                 "standards"
             ],
             "support": {
-                "source": "https://github.com/symfony/translation-contracts/tree/v3.7.0"
+                "source": "https://github.com/symfony/translation-contracts/tree/v3.7.1"
             },
             "funding": [
                 {

@@ -1714,20 +1714,21 @@
     border-color: var(--wp-components-color-gray-700, #757575);
   }
   .components-toggle-group-control-option-base {
-    transition: background 0.2s ease-in-out;
+    transition: all 0.2s linear !important;
+    background: white;
   }
   .components-toggle-group-control-option-base svg {
     width: 1.5rem;
     height: auto;
   }
   .components-toggle-group-control-option-base[aria-checked=true] {
-    color: white;
+    color: white !important;
   }
   .components-toggle-group-control-option-base[aria-checked=true] svg {
     fill: white;
   }
   .components-toggle-group-control-option-base:not([aria-checked=true]):hover, .components-toggle-group-control-option-base:not([aria-checked=true]):focus {
-    background: var(--wp-components-color-gray-300, #ddd);
+    background: var(--wp-components-color-gray-200, #e0e0e0) !important;
   }
   .components-input-base {
     gap: 0 !important;
@@ -1759,6 +1760,27 @@
 
 .acf-block-component .acf-block-fields {
   font-family: inherit;
+}
+
+.acf-modal-block-form-container[data-block-name="comet/gallery"] .acf-block-fields {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+.acf-modal-block-form-container[data-block-name="comet/gallery"] .acf-block-fields .acf-field-gallery {
+  width: 100%;
+  flex-basis: 100%;
+}
+.acf-modal-block-form-container[data-block-name="comet/gallery"] .acf-block-fields .acf-field--gallery--caption {
+  flex-grow: 1;
+}
+.acf-modal-block-form-container[data-block-name="comet/gallery"] .acf-block-fields .acf-field--gallery--caption-as-heading {
+  width: fit-content;
+  padding-left: 0;
+}
+.acf-modal-block-form-container[data-block-name="comet/gallery"] .acf-block-fields .acf-field--gallery--caption-as-heading .acf-switch {
+  height: 40px;
+  align-items: center;
 }
 
 /**

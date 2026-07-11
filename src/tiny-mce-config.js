@@ -20,6 +20,7 @@ function getEditors() {
 		if (tinymce.editors.length > 0) {
 			// Delay to allow additional editors to finish being added before resolving
 			timer = setTimeout(() => resolve([...tinymce.editors]), 500);
+
 			return;
 		}
 

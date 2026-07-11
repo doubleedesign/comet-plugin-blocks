@@ -32,6 +32,10 @@
 			"type": "boolean",
 			"default": false
 		},
+		"externalLinks": {
+			"type": "boolean",
+			"default": false
+		},
 		"captions": {
 			"type": "boolean",
 			"default": true
@@ -44,9 +48,17 @@
 			"type": "string",
 			"default": "square"
 		},
+		"imageCrop": {
+			"type": "boolean",
+			"default": true
+		},
 		"backgroundColor": {
 			"type": "string",
 			"default": "white"
+		},
+		"colorTheme": {
+			"type": "string",
+			"default": "dark"
 		}
 	},
 	"supports": {

@@ -1,6 +1,6 @@
 <?php
-if(!function_exists('acf_add_local_field_group')) {
-	return;
+if (!function_exists('acf_add_local_field_group')) {
+    return;
 }
 
 acf_add_local_field_group(array(
@@ -29,6 +29,13 @@ acf_add_local_field_group(array(
             'instructions'  => 'Caption describing the gallery as a whole',
             'default_value' => '',
             'placeholder'   => '',
+        ),
+        array(
+            'key'           => 'field__gallery__caption_as_heading',
+            'label'         => 'Caption as heading',
+            'name'          => 'caption_as_heading',
+            'type'          => 'true_false',
+            'ui'            => true,
         )
     ),
     'location' => array(

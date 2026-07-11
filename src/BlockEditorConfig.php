@@ -65,11 +65,14 @@ class BlockEditorConfig extends JavaScriptImplementation {
 
         foreach ($css as $file_info) {
             if (file_exists($file_info['path'])) {
+				//$version = filemtime($file_info['path']);
+	            $version = time();
+
                 wp_enqueue_style(
                     $file_info['handle'],
                     $file_info['url'],
                     [],
-                    filemtime($file_info['path']),
+                    $version
                 );
             }
             else {

@@ -1,7 +1,7 @@
 <?php
 /** @var $block array */
 
-use Doubleedesign\Comet\Core\{AspectRatio, ContentImageBasic, Gallery, Utils};
+use Doubleedesign\Comet\Core\{Config, ContentImageBasic, Gallery, Utils};
 use Doubleedesign\Comet\WordPress\BlockRenderer;
 
 $is_editor = isset($is_preview) && $is_preview;
@@ -12,19 +12,46 @@ if ($render_placeholder) {
 
 $images = get_field('images');
 $caption = get_field('caption');
-$attributes = Utils::array_pick($block, ['size', 'maxPerRow', 'lightbox', 'backgroundColor']);
+$defaults = Config::getInstance()->get_component_defaults('gallery');
+$attributes = array_merge(
+    $defaults,
+    Utils::array_pick($block, ['size', 'maxPerRow', 'lightbox', 'backgroundColor', 'imageCrop', 'aspectRatio']),
+    ['captionAsHeading' => get_field('caption_as_heading')]
+);
 
-$images = array_map(function($image) use ($block) {
-    $attrs = $block['captions'] ? Utils::array_pick($image, ['alt', 'caption']) : Utils::array_pick($image, ['alt']);
-    $attrs['src'] = $image['sizes']['large']; // The image to display as the thumbnail in the gallery
-    $attrs['aspectRatio'] = $block['aspectRatio'] ?? AspectRatio::SQUARE->value;
+$items = [];
+if ($images) {
+    $items = array_map(function($image) use ($block) {
+        $attrs = Utils::array_pick($image, ['alt']);
+        $attrs['src'] = $image['sizes']['large']; // The image to display as the thumbnail in the gallery
+        if ($block['captions']) {
+            if (!empty($image['description'])) {
+                $caption = '<strong>' . $image['caption'] . '</strong>';
+                $caption .= '<span>' . $image['description'] . '</span>';
+            }
+            else {
+                $caption = $image['caption'];
+            }
 
-    if (isset($block['lightbox']) && $block['lightbox']) {
-        $attrs['href'] = $image['url'];
-    }
+            $attrs['caption'] = apply_filters('comet_blocks_gallery_image_caption', $caption, $image);
+        }
 
-    return new ContentImageBasic($attrs);
-}, $images ?? []);
+        if (isset($block['lightbox']) && $block['lightbox']) {
+            $attrs['href'] = $image['url'];
+        }
 
-$component = new Gallery([...$attributes, 'imageCrop' => true, 'caption' => $caption], $images);
+        if (isset($block['externalLinks']) && $block['externalLinks']) {
+            $image_id = $image['id'];
+            $external_link = get_post_meta($image_id, 'external_url', true);
+            if ($external_link) {
+                $attrs['href'] = $external_link;
+                $attrs['target'] = '_blank';
+            }
+        }
+
+        return new ContentImageBasic($attrs);
+    }, $images ?? []);
+}
+
+$component = new Gallery([...$attributes, 'caption' => $caption], $items);
 $component->render();

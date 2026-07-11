@@ -4,7 +4,7 @@
 
 /**
  * Customisations for the block editor interface broadly
- * (not individual blocks)
+ * (not individual block rendering or attributes)
  */
 
 wp.domReady(() => {
@@ -57,6 +57,16 @@ wp.domReady(() => {
 					editor.getBody()?.setAttribute('data-color-theme', attributes?.colorTheme);
 					editor.getBody()?.setAttribute('data-background', attributes?.backgroundColor);
 				}
+			}
+		}
+	});
+
+	acf.addAction('remount', function (field) {
+		const fieldContainer = document.querySelector('.acf-modal-block-form-container');
+		if(fieldContainer) {
+			const activeBlock = select('core/block-editor').getSelectedBlock();
+			if(activeBlock) {
+				fieldContainer.setAttribute('data-block-name', activeBlock.name);
 			}
 		}
 	});

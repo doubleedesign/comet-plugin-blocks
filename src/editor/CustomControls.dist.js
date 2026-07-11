@@ -164,8 +164,8 @@ const ContainerAndInner = ({
 
 /* global wp */
 const {
-  __experimentalToggleGroupControl: __experimentalToggleGroupControl$5,
-  __experimentalToggleGroupControlOption: __experimentalToggleGroupControlOption$5
+  __experimentalToggleGroupControl: __experimentalToggleGroupControl$6,
+  __experimentalToggleGroupControlOption: __experimentalToggleGroupControlOption$6
 } = wp.components;
 const GroupLayout = ({
   attributes,
@@ -175,8 +175,8 @@ const GroupLayout = ({
   if (!attributes?.layout) {
     return null;
   }
-  const ToggleGroupControl = __experimentalToggleGroupControl$5;
-  const ToggleGroupControlOption = __experimentalToggleGroupControlOption$5;
+  const ToggleGroupControl = __experimentalToggleGroupControl$6;
+  const ToggleGroupControlOption = __experimentalToggleGroupControlOption$6;
    
   return wp.element.createElement(ToggleGroupControl, {
     className: "comet-toggle-group",
@@ -221,8 +221,8 @@ const GroupLayout = ({
 
 /* global wp */
 const {
-  __experimentalToggleGroupControl: __experimentalToggleGroupControl$4,
-  __experimentalToggleGroupControlOption: __experimentalToggleGroupControlOption$4
+  __experimentalToggleGroupControl: __experimentalToggleGroupControl$5,
+  __experimentalToggleGroupControlOption: __experimentalToggleGroupControlOption$5
 } = wp.components;
 const VerticalAlignment = ({
   attributes,
@@ -236,8 +236,8 @@ const VerticalAlignment = ({
   if (attributes?.layout) {
     return null;
   }
-  const ToggleGroupControl = __experimentalToggleGroupControl$4;
-  const ToggleGroupControlOption = __experimentalToggleGroupControlOption$4;
+  const ToggleGroupControl = __experimentalToggleGroupControl$5;
+  const ToggleGroupControlOption = __experimentalToggleGroupControlOption$5;
   return wp.element.createElement(ToggleGroupControl, {
     className: "comet-toggle-group",
     __next40pxDefaultSize: true,
@@ -291,8 +291,8 @@ const VerticalAlignment = ({
 
 /* global wp */
 const {
-  __experimentalToggleGroupControl: __experimentalToggleGroupControl$3,
-  __experimentalToggleGroupControlOption: __experimentalToggleGroupControlOption$3
+  __experimentalToggleGroupControl: __experimentalToggleGroupControl$4,
+  __experimentalToggleGroupControlOption: __experimentalToggleGroupControlOption$4
 } = wp.components;
 const HorizontalAlignment = ({
   attributes,
@@ -304,8 +304,8 @@ const HorizontalAlignment = ({
   if (attributes.layout && attributes.layout === 'list') {
     return null;
   }
-  const ToggleGroupControl = __experimentalToggleGroupControl$3;
-  const ToggleGroupControlOption = __experimentalToggleGroupControlOption$3;
+  const ToggleGroupControl = __experimentalToggleGroupControl$4;
+  const ToggleGroupControlOption = __experimentalToggleGroupControlOption$4;
   return wp.element.createElement(ToggleGroupControl, {
     className: "comet-toggle-group",
     __next40pxDefaultSize: true,
@@ -363,8 +363,8 @@ const HorizontalAlignment = ({
 
 /* global wp */
 const {
-  __experimentalToggleGroupControl: __experimentalToggleGroupControl$2,
-  __experimentalToggleGroupControlOption: __experimentalToggleGroupControlOption$2
+  __experimentalToggleGroupControl: __experimentalToggleGroupControl$3,
+  __experimentalToggleGroupControlOption: __experimentalToggleGroupControlOption$3
 } = wp.components;
 const LayoutOrientation = ({
   attributes,
@@ -377,8 +377,8 @@ const LayoutOrientation = ({
   if (attributes?.layout) {
     return null;
   }
-  const ToggleGroupControl = __experimentalToggleGroupControl$2;
-  const ToggleGroupControlOption = __experimentalToggleGroupControlOption$2;
+  const ToggleGroupControl = __experimentalToggleGroupControl$3;
+  const ToggleGroupControlOption = __experimentalToggleGroupControlOption$3;
   return wp.element.createElement(ToggleGroupControl, {
     className: "comet-toggle-group",
     __next40pxDefaultSize: true,
@@ -598,8 +598,8 @@ function sentence_case(text) {
 
 /* global wp */
 const {
-  __experimentalToggleGroupControl: __experimentalToggleGroupControl$1,
-  __experimentalToggleGroupControlOption: __experimentalToggleGroupControlOption$1
+  __experimentalToggleGroupControl: __experimentalToggleGroupControl$2,
+  __experimentalToggleGroupControlOption: __experimentalToggleGroupControlOption$2
 } = wp.components;
 const LayoutOrder = ({
   attributes,
@@ -617,8 +617,8 @@ const LayoutOrder = ({
   if (attributes?.orientation && attributes.orientation !== 'horizontal') {
     return null;
   }
-  const ToggleGroupControl = __experimentalToggleGroupControl$1;
-  const ToggleGroupControlOption = __experimentalToggleGroupControlOption$1;
+  const ToggleGroupControl = __experimentalToggleGroupControl$2;
+  const ToggleGroupControlOption = __experimentalToggleGroupControlOption$2;
   return wp.element.createElement(ToggleGroupControl, {
     className: "comet-toggle-group",
     __next40pxDefaultSize: true,
@@ -855,7 +855,7 @@ const useHoverAndFocus = ({
 };
 
 const {
-  useState: useState$1,
+  useState: useState$2,
   useMemo: useMemo$5,
   useCallback: useCallback$3,
   useRef: useRef$1,
@@ -871,8 +871,8 @@ function ColorPalettePicker({
   ...props
 }) {
   const elementRef = useRef$1(null);
-  const [activeValue, setActiveValue] = useState$1(value);
-  const [mounted, setMounted] = useState$1(false);
+  const [activeValue, setActiveValue] = useState$2(value);
+  const [mounted, setMounted] = useState$2(false);
   // Trigger a re-render when the ref has mounted so the useHoverAndFocus hook gets the resolved element, not null
   useEffect$3(() => {
     if (elementRef?.current) {
@@ -1251,7 +1251,7 @@ var ColourTypeLabel;
 
 const {
   useMemo: useMemo$3,
-  useState,
+  useState: useState$1,
   useEffect: useEffect$1,
   useCallback: useCallback$1
 } = wp.element;
@@ -1293,8 +1293,8 @@ function ColorPairPaletteDropdown({
   palette,
   onChange
 }) {
-  const [foreground, setForeground] = useState(value?.foreground ?? '');
-  const [background, setBackground] = useState(value?.background ?? comet?.globalBackground ?? 'white');
+  const [foreground, setForeground] = useState$1(value?.foreground ?? '');
+  const [background, setBackground] = useState$1(value?.background ?? comet?.globalBackground ?? 'white');
   const doChange = useCallback$1((newForeground, newBackground) => {
     setForeground(newForeground);
     setBackground(newBackground);
@@ -1548,9 +1548,14 @@ const HtmlTag = ({
 };
 
 const {
+  __experimentalToggleGroupControl: __experimentalToggleGroupControl$1,
+  __experimentalToggleGroupControlOption: __experimentalToggleGroupControlOption$1,
   PanelBody: PanelBody$3,
   ToggleControl
 } = wp.components;
+const {
+  useState
+} = wp.element;
 const GalleryControls = ({
   name,
   attributes,
@@ -1559,22 +1564,66 @@ const GalleryControls = ({
   if (name !== 'comet/gallery') {
     return null;
   }
+  const [clickBehaviour, setClickBehaviour] = useState('none');
+  const ToggleGroupControl = __experimentalToggleGroupControl$1;
+  const ToggleGroupControlOption = __experimentalToggleGroupControlOption$1;
   return wp.element.createElement(PanelBody$3, {
     title: "Gallery options",
     initialOpen: true
-  }, wp.element.createElement(ToggleControl, {
-    checked: attributes.lightbox,
-    label: wp.element.createElement(wp.element.Fragment, null, wp.element.createElement("span", null, "Enable lightbox"), wp.element.createElement(FieldTooltip, {
-      tooltip: 'When a visitor clicks on an image, open a larger version in an overlay'
-    })),
-    onChange: value => setAttributes({
-      lightbox: value
-    })
-  }), wp.element.createElement(ToggleControl, {
+  }, wp.element.createElement(ToggleGroupControl, {
+    className: "comet-toggle-group",
+    __next40pxDefaultSize: true,
+    isBlock: true,
+    label: "Click behaviour",
+    onChange: value => {
+      setClickBehaviour(value ?? 'none');
+      switch (value) {
+        case 'lightbox':
+          setAttributes({
+            lightbox: true,
+            externalLinks: false
+          });
+          break;
+        case 'links':
+          setAttributes({
+            lightbox: false,
+            externalLinks: true
+          });
+          break;
+        default:
+          setAttributes({
+            lightbox: false,
+            externalLinks: false
+          });
+      }
+    },
+    value: clickBehaviour
+  }, wp.element.createElement(ToggleGroupControlOption, {
+    label: "None",
+    value: "none"
+  }), wp.element.createElement(ToggleGroupControlOption, {
+    label: "Lightbox",
+    value: "lightbox",
+    showTooltip: true,
+    "aria-label": 'When a visitor clicks on an image, open a larger version in an overlay'
+  }), wp.element.createElement(ToggleGroupControlOption, {
+    label: "Links",
+    value: "links",
+    showTooltip: true,
+    "aria-label": 'When a visitor clicks on an image that has an external URL set, open that URL in a new tab'
+  })), wp.element.createElement(ToggleControl, {
     checked: attributes.captions,
     label: "Show image captions if available",
     onChange: value => setAttributes({
       captions: value
+    })
+  }), wp.element.createElement(ToggleControl, {
+    checked: attributes.imageCrop,
+    label: wp.element.createElement(wp.element.Fragment, null, wp.element.createElement("span", null, "Crop images"), wp.element.createElement(FieldTooltip, {
+      tooltip: 'If enabled, images will scale and be centered in the available space; if disabled they will be cropped to fill the space. This setting does not affect the image when open in the lightbox.'
+    })),
+    onChange: value => setAttributes({
+      imageCrop: value
     })
   }));
 };
