@@ -29,7 +29,8 @@ wp.domReady(() => {
 
 	// Use new API version for third-party blocks so that all blocks can use the new iframe-based editor experience
 	wp.hooks.addFilter('blocks.registerBlockType', 'comet/use-new-block-api', (settings, name) => {
-		if (name.startsWith('ninja-forms')) {
+		supportedBlocks = [];
+		if (supportedBlocks.includes(name)) {
 			return {
 				...settings,
 				apiVersion: 3,
